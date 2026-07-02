@@ -9,7 +9,8 @@ import json
 try:
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 except Exception:
-    pass
+    pass  # stdout.reconfigure not available on all platforms, benign
+import numpy as np
 from pathlib import Path
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
@@ -195,20 +196,111 @@ class ProceduralMemory:
         
         return level
     
+    def set_embedder(self, model):
+        """
+        设置语义嵌入模型（复用 P2 VectorMemoryDB 的 SentenceTransformer）。
+        启用后，check_context 优先使用语义匹配。
+        """
+        self._embedder = model
+        self._rule_embeddings = None  # Invalidate cache
+        print(f"[ProceduralMemory] Embedder set: semantic matching enabled")
+
+    def build_rule_embeddings(self) -> int:
+        """预计算所有规则模式的嵌入向量。"""
+        if not hasattr(self, '_embedder') or self._embedder is None:
+            return 0
+        rules = self.data.get("rules", {})
+        if not rules:
+            return 0
+
+        patterns = []
+        for rule in rules.values():
+            patterns.append(" ".join(rule.get("context_patterns", [])))
+
+        if not patterns:
+            return 0
+
+        try:
+            embs = self._embedder.encode(patterns, show_progress_bar=False)
+            self._rule_embeddings = np.array(embs)
+            self._rule_ids = list(rules.keys())
+            print(f"[ProceduralMemory] Rule embeddings built: {len(embs)} vectors")
+            return len(embs)
+        except Exception as e:
+            print(f"[ProceduralMemory] Embedding build failed: {e}")
+            return 0
+
+    def semantic_check_context(self, context: str,
+                                min_similarity: float = 0.3) -> List[Dict]:
+        """
+        语义匹配：使用嵌入向量余弦相似度匹配规则。
+
+        Args:
+            context: 上下文字符串
+            min_similarity: 最低相似度阈值
+
+        Returns:
+            匹配的规则列表
+        """
+        if not hasattr(self, '_embedder') or self._embedder is None:
+            return []
+        if self._rule_embeddings is None:
+            self.build_rule_embeddings()
+        if self._rule_embeddings is None or len(self._rule_embeddings) == 0:
+            return []
+
+        try:
+            q_vec = self._embedder.encode([context], show_progress_bar=False)[0]
+            q_norm = q_vec / (np.linalg.norm(q_vec) + 1e-8)
+            idx_norm = self._rule_embeddings / (
+                np.linalg.norm(self._rule_embeddings, axis=1, keepdims=True) + 1e-8)
+            scores = np.dot(idx_norm, q_norm)
+
+            rules = self.data["rules"]
+            matches = []
+            for i, score in enumerate(scores):
+                if float(score) >= min_similarity and i < len(self._rule_ids):
+                    rule_id = self._rule_ids[i]
+                    rule = rules.get(rule_id)
+                    if rule:
+                        matches.append({
+                            "rule_id": rule_id,
+                            "rule_name": rule["rule_name"],
+                            "level": rule["level"],
+                            "level_description": self.data["automation_levels"].get(
+                                str(rule["level"]), ""),
+                            "success_rate": rule["success_rate"],
+                            "total_attempts": rule["total_attempts"],
+                            "last_used": rule["last_used_at"],
+                            "semantic_score": round(float(score), 4),
+                            "_match_method": "semantic",
+                        })
+            matches.sort(key=lambda x: (x["level"], x.get("semantic_score", 0)), reverse=True)
+            return matches
+        except Exception as e:
+            print(f"[ProceduralMemory] Semantic match failed: {e}")
+            return []
+
     def check_context(self, context: str) -> List[Dict]:
         """
-        检查上下文，返回相关的程序性记忆规则
-        
+        检查上下文，返回相关的程序性记忆规则。
+        优先语义匹配，回退子串匹配。
+
         Args:
             context: 当前上下文字符串
-        
+
         Returns:
             匹配的规则列表（按自动化等级排序）
         """
+        # Try semantic matching first
+        if hasattr(self, '_embedder') and self._embedder is not None:
+            semantic = self.semantic_check_context(context)
+            if semantic:
+                return semantic
+
+        # Fallback: substring matching
         matches = []
-        
         for rule_id, rule in self.data["rules"].items():
-            # Check if any pattern matches
             for pattern in rule["context_patterns"]:
                 if pattern.lower() in context.lower():
                     matches.append({
@@ -218,11 +310,11 @@ class ProceduralMemory:
                         "level_description": self.data["automation_levels"][str(rule["level"])],
                         "success_rate": rule["success_rate"],
                         "total_attempts": rule["total_attempts"],
-                        "last_used": rule["last_used_at"]
+                        "last_used": rule["last_used_at"],
+                        "_match_method": "substring",
                     })
                     break
-        
-        # Sort by level (higher first)
+
         matches.sort(key=lambda x: x["level"], reverse=True)
         return matches
     

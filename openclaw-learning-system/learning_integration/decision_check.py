@@ -24,8 +24,8 @@ os.environ['HF_HOME'] = str(_hf_cache)
 from memory_integration.decision_check import DecisionCheckPoint as MemoryDecisionCheckPoint
 
 # Import RL modules from learning system
-from learning_core.q_learning_agent import QLearningAgent
-from learning_core.rl_decision_helper import RLDecisionHelper
+from memory_core.q_learning_agent import QLearningAgent
+from memory_core.rl_decision_helper import RLDecisionHelper
 
 
 class LearningDecisionCheckPoint(MemoryDecisionCheckPoint):

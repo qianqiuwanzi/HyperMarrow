@@ -5,7 +5,11 @@ Example: Basic Q-Learning usage
 
 import sys
 import os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Add project root so both learning_core and memory_core are discoverable
+_project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # openclaw-learning-system/
+_workspace = os.path.dirname(_project_root)                                   # HyperMarrow/
+sys.path.insert(0, _workspace)
 
 from learning_core.q_learning_agent import QLearningAgent
 

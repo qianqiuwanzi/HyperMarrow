@@ -54,6 +54,18 @@ def get_hf_cache_dir() -> Path:
     return get_cache_dir() / "huggingface"
 
 
+def get_data_dir() -> Path:
+    """
+    Get the canonical data directory for runtime persistence.
+
+    Returns:
+        Path to data directory (workspace/HyperMarrow/openclaw-memory-system/data)
+    """
+    data_dir = get_workspace() / "HyperMarrow" / "openclaw-memory-system" / "data"
+    data_dir.mkdir(parents=True, exist_ok=True)
+    return data_dir
+
+
 def setup_hf_mirror():
     """
     Setup HuggingFace mirror for China users.
