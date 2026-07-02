@@ -1,0 +1,926 @@
+[
+  {
+    "timestamp": "2026-07-01T12:50:49.903449",
+    "context": {
+      "task_type": "daily-video-factory",
+      "current_phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 11,
+    "note": "使用技能自带脚本成功",
+    "source": "historical"
+  },
+  {
+    "timestamp": "2026-07-01T12:51:02.924123",
+    "context": {
+      "task_type": "daily-video-factory",
+      "current_phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "switch_skill",
+    "outcome": "failure",
+    "reward": -1.0,
+    "state": 58,
+    "note": "",
+    "source": "historical"
+  },
+  {
+    "timestamp": "2026-07-01T12:51:02.947917",
+    "context": {
+      "task_type": "daily-video-factory",
+      "current_phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 59,
+    "note": "",
+    "source": "historical"
+  },
+  {
+    "timestamp": "2026-07-01T12:51:03.033431",
+    "context": {
+      "task_type": "daily-video-factory",
+      "current_phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 95,
+    "note": "",
+    "source": "historical"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.000000",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 62,
+    "next_state": 69,
+    "note": "使用技能自带脚本成功 #1",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.000010",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 62,
+    "next_state": 69,
+    "note": "使用技能自带脚本成功 #2",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.000020",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 62,
+    "next_state": 69,
+    "note": "使用技能自带脚本成功 #3",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.000030",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 62,
+    "next_state": 69,
+    "note": "使用技能自带脚本成功 #4",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.000040",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 62,
+    "next_state": 69,
+    "note": "使用技能自带脚本成功 #5",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.000050",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 62,
+    "next_state": 69,
+    "note": "使用技能自带脚本成功 #6",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.000060",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 62,
+    "next_state": 69,
+    "note": "使用技能自带脚本成功 #7",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.000070",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 62,
+    "next_state": 69,
+    "note": "使用技能自带脚本成功 #8",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.001000",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 98,
+    "next_state": 5,
+    "note": "复用现有工具成功 #1",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.001010",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 98,
+    "next_state": 5,
+    "note": "复用现有工具成功 #2",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.001020",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 98,
+    "next_state": 5,
+    "note": "复用现有工具成功 #3",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.001030",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 98,
+    "next_state": 5,
+    "note": "复用现有工具成功 #4",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.001040",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 98,
+    "next_state": 5,
+    "note": "复用现有工具成功 #5",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.002000",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "switch_skill",
+    "outcome": "failure",
+    "reward": -1.0,
+    "state": 33,
+    "next_state": 40,
+    "note": "切换技能失败 #1",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.002010",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "switch_skill",
+    "outcome": "failure",
+    "reward": -1.0,
+    "state": 33,
+    "next_state": 40,
+    "note": "切换技能失败 #2",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.002020",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "switch_skill",
+    "outcome": "failure",
+    "reward": -1.0,
+    "state": 33,
+    "next_state": 40,
+    "note": "切换技能失败 #3",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.002030",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "switch_skill",
+    "outcome": "failure",
+    "reward": -1.0,
+    "state": 33,
+    "next_state": 40,
+    "note": "切换技能失败 #4",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.003000",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "try_fix_three_times",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 62,
+    "next_state": 69,
+    "note": "三次修复尝试成功 #1",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.003010",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "try_fix_three_times",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 62,
+    "next_state": 69,
+    "note": "三次修复尝试成功 #2",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.003020",
+    "context": {
+      "task_type": "daily-video-factory",
+      "phase": "P2b",
+      "time_pressure": "low",
+      "context_complexity": "medium"
+    },
+    "action": "try_fix_three_times",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 62,
+    "next_state": 69,
+    "note": "三次修复尝试成功 #3",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.004000",
+    "context": {
+      "task_type": "code-review",
+      "phase": "review",
+      "time_pressure": "medium",
+      "context_complexity": "medium"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 44,
+    "next_state": 51,
+    "note": "遵循规范审核成功 #1",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.004010",
+    "context": {
+      "task_type": "code-review",
+      "phase": "review",
+      "time_pressure": "medium",
+      "context_complexity": "medium"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 44,
+    "next_state": 51,
+    "note": "遵循规范审核成功 #2",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.004020",
+    "context": {
+      "task_type": "code-review",
+      "phase": "review",
+      "time_pressure": "medium",
+      "context_complexity": "medium"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 44,
+    "next_state": 51,
+    "note": "遵循规范审核成功 #3",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.004030",
+    "context": {
+      "task_type": "code-review",
+      "phase": "review",
+      "time_pressure": "medium",
+      "context_complexity": "medium"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 44,
+    "next_state": 51,
+    "note": "遵循规范审核成功 #4",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.005000",
+    "context": {
+      "task_type": "code-review",
+      "phase": "review",
+      "time_pressure": "medium",
+      "context_complexity": "medium"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 78,
+    "next_state": 85,
+    "note": "使用linter工具 #1",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.005010",
+    "context": {
+      "task_type": "code-review",
+      "phase": "review",
+      "time_pressure": "medium",
+      "context_complexity": "medium"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 78,
+    "next_state": 85,
+    "note": "使用linter工具 #2",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.006000",
+    "context": {
+      "task_type": "code-review",
+      "phase": "review",
+      "time_pressure": "medium",
+      "context_complexity": "medium"
+    },
+    "action": "switch_skill",
+    "outcome": "failure",
+    "reward": -1.0,
+    "state": 83,
+    "next_state": 90,
+    "note": "切换审核工具失败",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.007000",
+    "context": {
+      "task_type": "skill-installation",
+      "phase": "install",
+      "time_pressure": "low",
+      "context_complexity": "low"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 34,
+    "next_state": 41,
+    "note": "skillhub_install 成功 #1",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.007010",
+    "context": {
+      "task_type": "skill-installation",
+      "phase": "install",
+      "time_pressure": "low",
+      "context_complexity": "low"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 34,
+    "next_state": 41,
+    "note": "skillhub_install 成功 #2",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.007020",
+    "context": {
+      "task_type": "skill-installation",
+      "phase": "install",
+      "time_pressure": "low",
+      "context_complexity": "low"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 34,
+    "next_state": 41,
+    "note": "skillhub_install 成功 #3",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.007030",
+    "context": {
+      "task_type": "skill-installation",
+      "phase": "install",
+      "time_pressure": "low",
+      "context_complexity": "low"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 34,
+    "next_state": 41,
+    "note": "skillhub_install 成功 #4",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.007040",
+    "context": {
+      "task_type": "skill-installation",
+      "phase": "install",
+      "time_pressure": "low",
+      "context_complexity": "low"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 34,
+    "next_state": 41,
+    "note": "skillhub_install 成功 #5",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.008000",
+    "context": {
+      "task_type": "skill-installation",
+      "phase": "install",
+      "time_pressure": "low",
+      "context_complexity": "low"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 79,
+    "next_state": 86,
+    "note": "按技能说明安装成功 #1",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.008010",
+    "context": {
+      "task_type": "skill-installation",
+      "phase": "install",
+      "time_pressure": "low",
+      "context_complexity": "low"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 79,
+    "next_state": 86,
+    "note": "按技能说明安装成功 #2",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.008020",
+    "context": {
+      "task_type": "skill-installation",
+      "phase": "install",
+      "time_pressure": "low",
+      "context_complexity": "low"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 79,
+    "next_state": 86,
+    "note": "按技能说明安装成功 #3",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.009000",
+    "context": {
+      "task_type": "skill-installation",
+      "phase": "install",
+      "time_pressure": "low",
+      "context_complexity": "low"
+    },
+    "action": "switch_skill",
+    "outcome": "failure",
+    "reward": -1.0,
+    "state": 30,
+    "next_state": 37,
+    "note": "手动pip安装失败",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.009500",
+    "context": {
+      "task_type": "skill-installation",
+      "phase": "install",
+      "time_pressure": "low",
+      "context_complexity": "low"
+    },
+    "action": "try_fix_three_times",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 93,
+    "next_state": 0,
+    "note": "网络错误重试3次成功",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.010000",
+    "context": {
+      "task_type": "debug",
+      "phase": "import_error",
+      "time_pressure": "high",
+      "context_complexity": "high"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 3,
+    "next_state": 10,
+    "note": "先检查scripts目录 #1",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.010010",
+    "context": {
+      "task_type": "debug",
+      "phase": "import_error",
+      "time_pressure": "high",
+      "context_complexity": "high"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 3,
+    "next_state": 10,
+    "note": "先检查scripts目录 #2",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.010020",
+    "context": {
+      "task_type": "debug",
+      "phase": "import_error",
+      "time_pressure": "high",
+      "context_complexity": "high"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 3,
+    "next_state": 10,
+    "note": "先检查scripts目录 #3",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.010030",
+    "context": {
+      "task_type": "debug",
+      "phase": "import_error",
+      "time_pressure": "high",
+      "context_complexity": "high"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 3,
+    "next_state": 10,
+    "note": "先检查scripts目录 #4",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.011000",
+    "context": {
+      "task_type": "debug",
+      "phase": "import_error",
+      "time_pressure": "high",
+      "context_complexity": "high"
+    },
+    "action": "write_script",
+    "outcome": "partial",
+    "reward": -0.3,
+    "state": 14,
+    "next_state": 21,
+    "note": "未检查现有脚本直接写新脚本",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.011100",
+    "context": {
+      "task_type": "debug",
+      "phase": "import_error",
+      "time_pressure": "high",
+      "context_complexity": "high"
+    },
+    "action": "switch_skill",
+    "outcome": "failure",
+    "reward": -1.0,
+    "state": 22,
+    "next_state": 29,
+    "note": "切换方案失败",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.012000",
+    "context": {
+      "task_type": "debug",
+      "phase": "import_error",
+      "time_pressure": "high",
+      "context_complexity": "high"
+    },
+    "action": "try_fix_three_times",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 16,
+    "next_state": 23,
+    "note": "三次修复尝试 #1",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.012010",
+    "context": {
+      "task_type": "debug",
+      "phase": "import_error",
+      "time_pressure": "high",
+      "context_complexity": "high"
+    },
+    "action": "try_fix_three_times",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 16,
+    "next_state": 23,
+    "note": "三次修复尝试 #2",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.012020",
+    "context": {
+      "task_type": "debug",
+      "phase": "import_error",
+      "time_pressure": "high",
+      "context_complexity": "high"
+    },
+    "action": "try_fix_three_times",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 16,
+    "next_state": 23,
+    "note": "三次修复尝试 #3",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.013000",
+    "context": {
+      "task_type": "coding",
+      "phase": "write",
+      "time_pressure": "medium",
+      "context_complexity": "medium"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 62,
+    "next_state": 69,
+    "note": "复用现有代码 #1",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.013010",
+    "context": {
+      "task_type": "coding",
+      "phase": "write",
+      "time_pressure": "medium",
+      "context_complexity": "medium"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 62,
+    "next_state": 69,
+    "note": "复用现有代码 #2",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.013020",
+    "context": {
+      "task_type": "coding",
+      "phase": "write",
+      "time_pressure": "medium",
+      "context_complexity": "medium"
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 62,
+    "next_state": 69,
+    "note": "复用现有代码 #3",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.014000",
+    "context": {
+      "task_type": "coding",
+      "phase": "write",
+      "time_pressure": "medium",
+      "context_complexity": "medium"
+    },
+    "action": "switch_skill",
+    "outcome": "failure",
+    "reward": -1.0,
+    "state": 12,
+    "next_state": 19,
+    "note": "切换AI助手失败",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.014100",
+    "context": {
+      "task_type": "coding",
+      "phase": "write",
+      "time_pressure": "medium",
+      "context_complexity": "medium"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 37,
+    "next_state": 44,
+    "note": "遵循项目规范编写",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.015000",
+    "context": {
+      "task_type": "general",
+      "phase": "any",
+      "time_pressure": "medium",
+      "context_complexity": "low"
+    },
+    "action": "skip_phase",
+    "outcome": "failure",
+    "reward": -1.0,
+    "state": 12,
+    "next_state": 19,
+    "note": "跳过必要阶段失败",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.016000",
+    "context": {
+      "task_type": "general",
+      "phase": "any",
+      "time_pressure": "medium",
+      "context_complexity": "low"
+    },
+    "action": "report_user",
+    "outcome": "partial",
+    "reward": -0.3,
+    "state": 52,
+    "next_state": 59,
+    "note": "未尝试修复直接报告用户",
+    "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T09:44:45.623687.016100",
+    "context": {
+      "task_type": "general",
+      "phase": "any",
+      "time_pressure": "medium",
+      "context_complexity": "low"
+    },
+    "action": "report_user",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 53,
+    "next_state": 60,
+    "note": "三次失败后报告用户",
+    "source": "bootstrapped"
+  }
+]
