@@ -922,5 +922,33 @@
     "next_state": 60,
     "note": "三次失败后报告用户",
     "source": "bootstrapped"
+  },
+  {
+    "timestamp": "2026-07-02T10:21:25.512835",
+    "context": {
+      "task": "test",
+      "phase": "P2b"
+    },
+    "action": "report_user",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 18,
+    "next_state": 25,
+    "note": "Phase1 verification test record",
+    "source": "runtime_record"
+  },
+  {
+    "timestamp": "2026-07-02T10:24:50.733369",
+    "context": {
+      "task": "test",
+      "phase": "P2b"
+    },
+    "action": "report_user",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 81,
+    "next_state": 88,
+    "note": "Phase1 verification test record",
+    "source": "runtime_record"
   }
 ]

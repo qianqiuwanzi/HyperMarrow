@@ -142,6 +142,30 @@ class QLearningAgent:
     def get_q_table(self) -> np.ndarray:
         """Get current Q-table"""
         return self.q_table
+
+    def get_stats(self) -> dict:
+        """
+        Get Q-Learning agent statistics.
+
+        Returns:
+            dict with keys: n_states, n_actions, total_experiences,
+                            nonzero_entries, total_entries, nonzero_pct, q_sum,
+                            alpha, gamma, epsilon
+        """
+        nonzero = int(np.count_nonzero(self.q_table))
+        total = float(np.sum(self.q_table))
+        return {
+            "n_states": self.state_space_size,
+            "n_actions": self.action_space_size,
+            "total_experiences": len(self.experience_buffer),
+            "nonzero_entries": nonzero,
+            "total_entries": self.q_table.size,
+            "nonzero_pct": round(nonzero / self.q_table.size * 100, 2) if self.q_table.size > 0 else 0,
+            "q_sum": round(total, 4),
+            "alpha": self.learning_rate,
+            "gamma": self.discount_factor,
+            "epsilon": self.epsilon,
+        }
     
     def state_to_index(self, state_str: str) -> int:
         """
