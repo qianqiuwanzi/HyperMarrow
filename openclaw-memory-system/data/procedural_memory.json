@@ -1,12 +1,12 @@
 {
   "version": "1.0",
   "created_at": "2026-07-01T12:39:16.852708",
-  "updated_at": "2026-07-01T12:41:29.243657",
+  "updated_at": "2026-07-03T14:45:00",
   "rules": {
     "rule_001": {
       "rule_id": "rule_001",
       "rule_name": "P2b下载必须使用技能脚本",
-      "description": "",
+      "description": "执行 daily-video-factory P2b 素材下载阶段时，必须先检查技能自带的 scripts/ 目录，优先使用现有的 Node.js 下载脚本",
       "context_patterns": [
         "daily-video-factory",
         "P2b",
@@ -41,7 +41,7 @@
     "rule_002": {
       "rule_id": "rule_002",
       "rule_name": "遇到问题先修复3次再报告",
-      "description": "",
+      "description": "遇到任何错误/问题时，先尝试至少 3 种不同的修复方案，修复无效后才能报告用户，禁止擅自跳过或切换方案",
       "context_patterns": [
         "problem",
         "error",
@@ -63,7 +63,7 @@
     "rule_003": {
       "rule_id": "rule_003",
       "rule_name": "使用技能前检查scripts目录",
-      "description": "",
+      "description": "使用任何技能前，必须先完整读取技能 SKILL.md，检查 scripts/ 目录下有无现成脚本，有脚本必须用脚本",
       "context_patterns": [
         "skill",
         "scripts"
