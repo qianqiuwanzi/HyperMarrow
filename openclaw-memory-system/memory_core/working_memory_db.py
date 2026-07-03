@@ -5,6 +5,7 @@ Maintains a sliding-window context buffer for the current session.
 API: update_context(), get_active_context(), set_task(), push_task(), pop_task()
 """
 import json
+import sys as _sys
 from pathlib import Path
 from datetime import datetime
 from .config import get_data_dir
@@ -40,7 +41,7 @@ class WorkingMemoryDB:
         self.path = Path(path) if not isinstance(path, Path) else path
         self.data = self._load_or_init()
         print(f"[WorkingMemory] Loaded: {len(self.data.get('recent_items', []))} recent, "
-              f"task={self.data.get('current_task', 'none')}")
+              f"task={self.data.get('current_task')}", file=_sys.stderr)
 
     def _load_or_init(self) -> dict:
         if self.path.exists():
@@ -189,3 +190,78 @@ class WorkingMemoryDB:
             "session_id": self.data.get("session_id"),
             "updated_at": self.data.get("updated_at"),
         }
+
+    def auto_update_from_context(self, context_str: str, action: str = None) -> dict:
+        """
+        从原始 context 字符串自动解析并填充工作记忆。
+
+        提取逻辑（按优先级）：
+        1. JSON 块 → 解析为键值对
+        2. 任务标记 [task=X] / [phase=X] / [goal=X]
+        3. action 关键字（从 check/record 调用传入）
+        4. 关键词模式（skill/phase/tool/error）
+
+        Args:
+            context_str: 原始 context 字符串
+            action: 当前 action 名称
+
+        Returns:
+            dict: 提取的字段映射
+        """
+        import re
+        extracted = {}
+
+        # 1. Extract from action
+        if action:
+            extracted["last_action"] = action
+            # Infer phase from action name
+            phase_match = re.search(r'[Pp](\d+[ab]?)', action)
+            if phase_match:
+                extracted["phase"] = f"P{phase_match.group(1)}"
+
+        # 2. Extract [key=value] markers
+        for match in re.finditer(r'\[(\w+)=([^\]]+)\]', context_str):
+            key, val = match.group(1), match.group(2).strip()
+            if key and val and len(val) < 200:
+                extracted[key.lower()] = val
+
+        # 3. JSON block extraction
+        json_matches = re.findall(r'\{[^{}]{5,500}\}', context_str)
+        for js in json_matches:
+            try:
+                d = json.loads(js)
+                if isinstance(d, dict):
+                    for k, v in d.items():
+                        if isinstance(v, str) and len(v) < 200:
+                            extracted[k.lower()] = v
+                        elif isinstance(v, (int, float, bool)):
+                            extracted[k.lower()] = v
+            except (json.JSONDecodeError, TypeError):
+                pass
+
+        # 4. Keyword inference
+        ctx_lower = context_str.lower()
+        if any(k in ctx_lower for k in ["skill", "scripts", "tool"]):
+            extracted["domain"] = "skill"
+        if any(k in ctx_lower for k in ["video", "clip", "scene", "素材"]):
+            extracted["domain"] = "media"
+        if any(k in ctx_lower for k in ["git", "commit", "push"]):
+            extracted["domain"] = "git"
+        if any(k in ctx_lower for k in ["error", "bug", "failed", "失败"]):
+            extracted["has_error"] = True
+
+        # 5. Session / channel info
+        session_match = re.search(r'session[_-]?key[=:"]*([\w-]+)', ctx_lower)
+        if session_match:
+            extracted["session_key"] = session_match.group(1)
+
+        channel_match = re.search(r'channel[=:"]*(\w+)', ctx_lower)
+        if channel_match:
+            extracted["channel"] = channel_match.group(1)
+
+        # Apply only if non-empty
+        update_kwargs = {k: v for k, v in extracted.items() if v is not None}
+        if update_kwargs:
+            self.update_context(**update_kwargs)
+
+        return update_kwargs

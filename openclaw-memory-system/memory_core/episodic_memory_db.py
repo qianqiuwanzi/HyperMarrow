@@ -5,6 +5,7 @@ Structured memory records with {what, when, context, outcome, emotion, lesson}.
 API: add_episode(), get_recent_episodes(), search_episodes(), get_outcome_stats()
 """
 import json
+import sys as _sys
 import uuid
 import numpy as np
 from pathlib import Path
@@ -57,7 +58,7 @@ class EpisodicMemoryDB:
         if auto_clear and self.path.exists():
             self.path.unlink()
         self.data = self._load()
-        print(f"[EpisodicMemory] Loaded {len(self.data)} episodes")
+        print(f"[EpisodicMemory] Loaded {len(self.data)} episodes", file=_sys.stderr)
 
     def _load(self) -> list:
         """Load episodes from JSON. Always uses dict wrapper format."""

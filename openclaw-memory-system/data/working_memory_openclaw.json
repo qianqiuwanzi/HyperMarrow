@@ -1,0 +1,102 @@
+{
+  "version": "1.0",
+  "session_id": "2026-07-03T08:54:23.450231",
+  "active_context": {
+    "last_action": "test_record_save",
+    "channel": "id",
+    "domain": "skill",
+    "error_type": "timeout",
+    "has_error": true,
+    "channelid": "webchat",
+    "session_key": "test"
+  },
+  "context_stack": [],
+  "recent_items": [
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "switch_skill",
+        "channel": "webchat",
+        "domain": "skill"
+      },
+      "ts": "2026-07-03T08:54:23.578455"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "switch_skill",
+        "domain": "skill",
+        "channel": "webchat"
+      },
+      "ts": "2026-07-03T08:54:23.597533"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "switch_skill",
+        "domain": "media",
+        "error_type": "timeout",
+        "has_error": true,
+        "channel": "webchat"
+      },
+      "ts": "2026-07-03T14:44:50.918688"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "switch_skill",
+        "domain": "skill",
+        "has_error": true,
+        "channel": "webchat"
+      },
+      "ts": "2026-07-03T14:44:50.931688"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "write_script",
+        "channelid": "webchat",
+        "domain": "skill",
+        "has_error": true,
+        "channel": "id"
+      },
+      "ts": "2026-07-03T19:10:40.778020"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "write_script",
+        "channelid": "webchat",
+        "domain": "skill",
+        "has_error": true,
+        "channel": "id"
+      },
+      "ts": "2026-07-03T19:10:40.792022"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "write_script",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T19:43:09.895276"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "test_record_save",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T19:46:00.759689"
+    }
+  ],
+  "current_task": null,
+  "goal": null,
+  "updated_at": "2026-07-03T19:46:00.759689"
+}

@@ -1,16 +1,17 @@
 {
   "version": "1.0",
   "created_at": "2026-07-01T12:39:16.852708",
-  "updated_at": "2026-07-03T14:45:00",
+  "updated_at": "2026-07-03T19:46:13.367907",
   "rules": {
     "rule_001": {
       "rule_id": "rule_001",
       "rule_name": "P2b下载必须使用技能脚本",
-      "description": "执行 daily-video-factory P2b 素材下载阶段时，必须先检查技能自带的 scripts/ 目录，优先使用现有的 Node.js 下载脚本",
+      "description": "执行 daily-video-factory P2b 素材下载阶段时，必须先检查技能自带的 scripts/ 目录，优先使用现有的 Node.js 下载脚本，禁止擅自编写 Python 脚本。",
       "context_patterns": [
         "daily-video-factory",
         "P2b",
-        "scripts"
+        "scripts",
+        "下载素材"
       ],
       "level": 2,
       "success_count": 2,
@@ -23,60 +24,333 @@
       "last_used_at": "2026-07-01T12:41:29.243657",
       "promoted_at": "2026-07-01T12:41:29.243657",
       "demoted_at": null,
-      "notes": [
-        {
-          "timestamp": "2026-07-01T12:41:28.771343",
-          "success": true,
-          "context": "",
-          "note": "再次成功使用技能脚本"
-        },
-        {
-          "timestamp": "2026-07-01T12:41:29.243657",
-          "success": true,
-          "context": "",
-          "note": "P2b下载成功使用Node.js脚本"
-        }
-      ]
+      "notes": []
     },
     "rule_002": {
       "rule_id": "rule_002",
       "rule_name": "遇到问题先修复3次再报告",
-      "description": "遇到任何错误/问题时，先尝试至少 3 种不同的修复方案，修复无效后才能报告用户，禁止擅自跳过或切换方案",
+      "description": "遇到任何错误/问题时，先尝试至少 3 种不同的修复方案，修复无效后才能报告用户。禁止未经修复尝试就直接报告或切换方案。",
       "context_patterns": [
-        "problem",
         "error",
-        "issue"
+        "bug",
+        "失败",
+        "报错",
+        "修复"
+      ],
+      "level": 3,
+      "success_count": 7,
+      "failure_count": 1,
+      "total_attempts": 8,
+      "success_rate": 0.875,
+      "consecutive_success": 4,
+      "consecutive_failure": 0,
+      "created_at": "2026-07-01T12:42:00.000000",
+      "last_used_at": "2026-07-03T19:46:13.367907",
+      "promoted_at": "2026-07-03T19:43:23.680062",
+      "demoted_at": null,
+      "notes": [
+        {
+          "timestamp": "2026-07-03T19:43:23.680062",
+          "success": true,
+          "context": "write_script {\"session_key\": \"test\", \"channel\": \"webchat\"} [WM:task=None | ctx=(last_action=write_script, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat)]",
+          "note": "极简测试"
+        },
+        {
+          "timestamp": "2026-07-03T19:46:13.367907",
+          "success": true,
+          "context": "test_record_save {\"session_key\": \"test_save\", \"channel\": \"webchat\"} [WM:task=None | ctx=(last_action=write_script, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test)]",
+          "note": "验证数据持久化"
+        }
+      ]
+    },
+    "rule_003": {
+      "rule_id": "rule_003",
+      "rule_name": "使用技能前必须检查scripts目录",
+      "description": "使用任何技能前，必须先完整读取技能 SKILL.md，并检查 scripts/ 目录是否有现成脚本可用。确认无现成脚本后才能自己编写。",
+      "context_patterns": [
+        "技能",
+        "SKILL.md",
+        "scripts",
+        "写脚本"
       ],
       "level": 1,
-      "success_count": 0,
-      "failure_count": 0,
-      "total_attempts": 0,
-      "success_rate": 0.0,
-      "consecutive_success": 0,
+      "success_count": 3,
+      "failure_count": 1,
+      "total_attempts": 4,
+      "success_rate": 0.75,
+      "consecutive_success": 1,
       "consecutive_failure": 0,
-      "created_at": "2026-07-01T12:40:28.593056",
-      "last_used_at": null,
+      "created_at": "2026-07-01T12:43:00.000000",
+      "last_used_at": "2026-07-03T08:00:00.000000",
       "promoted_at": null,
       "demoted_at": null,
       "notes": []
     },
-    "rule_003": {
-      "rule_id": "rule_003",
-      "rule_name": "使用技能前检查scripts目录",
-      "description": "使用任何技能前，必须先完整读取技能 SKILL.md，检查 scripts/ 目录下有无现成脚本，有脚本必须用脚本",
+    "rule_004": {
+      "rule_id": "rule_004",
+      "rule_name": "切换技能前必须报告用户",
+      "description": "用户指定使用 A 技能，必须先用 A，即使用 B 更好。需要切换技能时，必须先报告用户并等待明确同意，禁止擅自切换。",
       "context_patterns": [
-        "skill",
-        "scripts"
+        "切换技能",
+        "换技能",
+        "用另一个"
       ],
       "level": 1,
-      "success_count": 0,
-      "failure_count": 0,
-      "total_attempts": 0,
-      "success_rate": 0.0,
-      "consecutive_success": 0,
+      "success_count": 2,
+      "failure_count": 1,
+      "total_attempts": 3,
+      "success_rate": 0.67,
+      "consecutive_success": 1,
       "consecutive_failure": 0,
-      "created_at": "2026-07-01T12:40:27.467752",
-      "last_used_at": null,
+      "created_at": "2026-07-01T12:44:00.000000",
+      "last_used_at": "2026-07-01T18:00:00.000000",
+      "promoted_at": null,
+      "demoted_at": null,
+      "notes": []
+    },
+    "rule_005": {
+      "rule_id": "rule_005",
+      "rule_name": "跳过阶段前必须报告用户",
+      "description": "任何流水线/多阶段任务，禁止擅自跳过阶段。需要跳过时，必须先报告用户并等待明确同意，说明跳过原因和已尝试方案。",
+      "context_patterns": [
+        "跳过",
+        "阶段门禁",
+        "bypass"
+      ],
+      "level": 1,
+      "success_count": 2,
+      "failure_count": 1,
+      "total_attempts": 3,
+      "success_rate": 0.67,
+      "consecutive_success": 1,
+      "consecutive_failure": 0,
+      "created_at": "2026-07-01T12:45:00.000000",
+      "last_used_at": "2026-07-01T18:00:00.000000",
+      "promoted_at": null,
+      "demoted_at": null,
+      "notes": []
+    },
+    "rule_006": {
+      "rule_id": "rule_006",
+      "rule_name": "绕过问题前必须尝试修复3次并报告",
+      "description": "禁止未经修复尝试就绕过问题。正确流程：遇到问题 → 尝试3次不同修复方案 → 修复失败 → 报告用户 → 征得同意后才能绕过。",
+      "context_patterns": [
+        "绕过",
+        "workaround",
+        "skip"
+      ],
+      "level": 1,
+      "success_count": 1,
+      "failure_count": 1,
+      "total_attempts": 2,
+      "success_rate": 0.5,
+      "consecutive_success": 0,
+      "consecutive_failure": 1,
+      "created_at": "2026-07-01T12:46:00.000000",
+      "last_used_at": "2026-07-01T18:00:00.000000",
+      "promoted_at": null,
+      "demoted_at": null,
+      "notes": []
+    },
+    "rule_007": {
+      "rule_id": "rule_007",
+      "rule_name": "写脚本前必须检查技能scripts目录",
+      "description": "决策检查点：写脚本前，必须停下来检查技能 scripts/ 目录是否有现成脚本。这是最高优先级的检查点，违反即违规。",
+      "context_patterns": [
+        "写脚本",
+        "create script",
+        "scripts目录"
+      ],
+      "level": 2,
+      "success_count": 3,
+      "failure_count": 0,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "consecutive_success": 3,
+      "consecutive_failure": 0,
+      "created_at": "2026-07-01T12:47:00.000000",
+      "last_used_at": "2026-07-03T08:00:00.000000",
+      "promoted_at": "2026-07-01T12:48:00.000000",
+      "demoted_at": null,
+      "notes": []
+    },
+    "rule_008": {
+      "rule_id": "rule_008",
+      "rule_name": "技能切换禁止规则",
+      "description": "用户说使用 A 技能，就必须用 A。即使用 B 效果更好，也必须先征得用户同意。这是权限边界的核心规则。",
+      "context_patterns": [
+        "技能切换",
+        "权限边界",
+        "用户指令"
+      ],
+      "level": 2,
+      "success_count": 2,
+      "failure_count": 1,
+      "total_attempts": 3,
+      "success_rate": 0.67,
+      "consecutive_success": 1,
+      "consecutive_failure": 0,
+      "created_at": "2026-07-01T12:48:00.000000",
+      "last_used_at": "2026-07-01T18:00:00.000000",
+      "promoted_at": null,
+      "demoted_at": null,
+      "notes": []
+    },
+    "rule_009": {
+      "rule_id": "rule_009",
+      "rule_name": "阶段门禁遵守规则",
+      "description": "多阶段任务（如 daily-video-factory）必须按顺序执行，每个阶段完成后再进入下一阶段。禁止跳过阶段或改变流程顺序。",
+      "context_patterns": [
+        "阶段",
+        "流水线",
+        "P0",
+        "P1",
+        "P2"
+      ],
+      "level": 1,
+      "success_count": 2,
+      "failure_count": 1,
+      "total_attempts": 3,
+      "success_rate": 0.67,
+      "consecutive_success": 1,
+      "consecutive_failure": 0,
+      "created_at": "2026-07-01T12:49:00.000000",
+      "last_used_at": "2026-07-01T18:00:00.000000",
+      "promoted_at": null,
+      "demoted_at": null,
+      "notes": []
+    },
+    "rule_010": {
+      "rule_id": "rule_010",
+      "rule_name": "错误修复决策树遵守规则",
+      "description": "遇到错误时，严格遵循决策树：尝试修复（至少3次）→ 修复失败 → 报告用户 → 等待同意 → 才能绕过。禁止跳过任何步骤。",
+      "context_patterns": [
+        "错误",
+        "修复",
+        "决策树"
+      ],
+      "level": 1,
+      "success_count": 3,
+      "failure_count": 1,
+      "total_attempts": 4,
+      "success_rate": 0.75,
+      "consecutive_success": 2,
+      "consecutive_failure": 0,
+      "created_at": "2026-07-01T12:50:00.000000",
+      "last_used_at": "2026-07-03T08:00:00.000000",
+      "promoted_at": null,
+      "demoted_at": null,
+      "notes": []
+    },
+    "rule_011": {
+      "rule_id": "rule_011",
+      "rule_name": "流程优先于效率规则",
+      "description": "新思维：流程优先 → 先检查，再行动。禁止为了提高效率而跳过检查步骤或走捷径。宁可慢，不要错。",
+      "context_patterns": [
+        "流程",
+        "效率",
+        "检查"
+      ],
+      "level": 1,
+      "success_count": 2,
+      "failure_count": 1,
+      "total_attempts": 3,
+      "success_rate": 0.67,
+      "consecutive_success": 1,
+      "consecutive_failure": 0,
+      "created_at": "2026-07-01T12:51:00.000000",
+      "last_used_at": "2026-07-03T08:00:00.000000",
+      "promoted_at": null,
+      "demoted_at": null,
+      "notes": []
+    },
+    "rule_012": {
+      "rule_id": "rule_012",
+      "rule_name": "文档优先规则",
+      "description": "不确定时，必须先查阅 SKILL.md 和 MEMORY.md，禁止凭记忆或猜测执行。文档是最新的真相来源。",
+      "context_patterns": [
+        "不确定",
+        "文档",
+        "SKILL.md",
+        "MEMORY.md"
+      ],
+      "level": 1,
+      "success_count": 3,
+      "failure_count": 0,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "consecutive_success": 3,
+      "consecutive_failure": 0,
+      "created_at": "2026-07-01T12:52:00.000000",
+      "last_used_at": "2026-07-03T08:00:00.000000",
+      "promoted_at": null,
+      "demoted_at": null,
+      "notes": []
+    },
+    "rule_013": {
+      "rule_id": "rule_013",
+      "rule_name": "报告优先规则",
+      "description": "遇到问题或需要决策时，先报告用户再行动。禁止擅自决策（如切换技能、跳过阶段、绕过问题）。",
+      "context_patterns": [
+        "报告",
+        "决策",
+        "擅自"
+      ],
+      "level": 1,
+      "success_count": 2,
+      "failure_count": 2,
+      "total_attempts": 4,
+      "success_rate": 0.5,
+      "consecutive_success": 0,
+      "consecutive_failure": 2,
+      "created_at": "2026-07-01T12:53:00.000000",
+      "last_used_at": "2026-07-01T18:00:00.000000",
+      "promoted_at": null,
+      "demoted_at": "2026-07-01T18:00:00.000000",
+      "notes": []
+    },
+    "rule_014": {
+      "rule_id": "rule_014",
+      "rule_name": "记忆写入规则",
+      "description": "重要决策、错误、经验教训必须写入文件（memory/YYYY-MM-DD.md 或 MEMORY.md），禁止只在大脑里记。文字 > 大脑。",
+      "context_patterns": [
+        "记忆",
+        "写入",
+        "记录"
+      ],
+      "level": 1,
+      "success_count": 3,
+      "failure_count": 0,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "consecutive_success": 3,
+      "consecutive_failure": 0,
+      "created_at": "2026-07-01T12:54:00.000000",
+      "last_used_at": "2026-07-03T08:00:00.000000",
+      "promoted_at": null,
+      "demoted_at": null,
+      "notes": []
+    },
+    "rule_015": {
+      "rule_id": "rule_015",
+      "rule_name": "Taste Skill 自动分发规则",
+      "description": "收到前端/UI/设计/品牌相关任务时，必须自动读取 taste-skill-dispatch.md，按关键词匹配加载对应子技能，禁止忽略自动分发机制。",
+      "context_patterns": [
+        "前端",
+        "UI",
+        "设计",
+        "品牌",
+        "taste-skill"
+      ],
+      "level": 1,
+      "success_count": 1,
+      "failure_count": 0,
+      "total_attempts": 1,
+      "success_rate": 1.0,
+      "consecutive_success": 1,
+      "consecutive_failure": 0,
+      "created_at": "2026-07-02T09:00:00.000000",
+      "last_used_at": "2026-07-02T09:00:00.000000",
       "promoted_at": null,
       "demoted_at": null,
       "notes": []

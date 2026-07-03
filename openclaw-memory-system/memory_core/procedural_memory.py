@@ -16,7 +16,7 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 
 # Import memory_core config
-from .config import get_workspace, get_memory_dir
+from .config import get_data_dir
 
 
 class ProceduralMemory:
@@ -38,12 +38,12 @@ class ProceduralMemory:
     - 连续失败 2 次 → Level - 1（降级）
     """
     
-    def __init__(self, workspace=None):
-        if workspace is None:
-            workspace = get_workspace()
-        self.workspace = Path(workspace)
-        self.memory_file = self.workspace / "memory" / "procedural_memory.json"
-        self.rules_file = self.workspace / "memory" / "working_rules.md"
+    def __init__(self, data_dir=None):
+        if data_dir is None:
+            data_dir = get_data_dir()
+        self.data_dir = Path(data_dir)
+        self.memory_file = self.data_dir / "procedural_memory.json"
+        self.rules_file = self.data_dir / "working_rules.md"
         
         # Initialize memory data
         self.data = self._load_or_init()
@@ -52,7 +52,16 @@ class ProceduralMemory:
         """Load existing data or initialize new"""
         if self.memory_file.exists():
             with open(self.memory_file, 'r', encoding='utf-8') as f:
-                return json.load(f)
+                data = json.load(f)
+            # 兼容：确保 automation_levels 存在
+            data.setdefault("automation_levels", {
+                "1": "需要提醒",
+                "2": "偶尔提醒",
+                "3": "很少提醒",
+                "4": "基本自动",
+                "5": "完全自动"
+            })
+            return data
         
         # Initialize new procedural memory
         return {
@@ -369,7 +378,7 @@ class ProceduralMemory:
                     "rule_id": rule_id,
                     "rule_name": rule["rule_name"],
                     "level": rule["level"],
-                    "level_description": self.data["automation_levels"][str(rule["level"])],
+                    "level_desc": {1: "基础", 2: "推荐", 3: "强推荐", 4: "强制", 5: "不可违反"}.get(rule["level"], "未知"),
                     "success_rate": rule["success_rate"],
                     "total_attempts": rule["total_attempts"],
                     "last_used": rule["last_used_at"]

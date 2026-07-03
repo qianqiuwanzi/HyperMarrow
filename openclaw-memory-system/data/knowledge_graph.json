@@ -15,11 +15,11 @@
       "type": "error_type",
       "properties": {
         "source": "record_auto",
-        "action": "switch_skill",
+        "action": "test_record_save",
         "outcome": "success"
       },
       "created_at": "2026-07-03T14:44:50.930690",
-      "updated_at": "2026-07-03T14:44:50.932687"
+      "updated_at": "2026-07-03T19:46:00.759689"
     },
     "2e77d9e0": {
       "id": "2e77d9e0",
@@ -103,6 +103,17 @@
       "type": "action",
       "label": "follow_rule_strictly",
       "created_at": "2026-07-03T06:52:31.160068"
+    },
+    "4b048e0c": {
+      "id": "4b048e0c",
+      "name": "test_record_save",
+      "type": "action",
+      "properties": {
+        "outcome": "success",
+        "reward": 0.5
+      },
+      "created_at": "2026-07-03T19:46:00.760688",
+      "updated_at": "2026-07-03T19:46:00.760688"
     }
   },
   "relationships": [
@@ -116,92 +127,101 @@
       "created_at": "2026-07-03T14:44:50.932687"
     },
     {
-      "source": "action:follow_rule_strictly",
-      "target": "outcome:success",
-      "type": "results_in",
       "weight": 17,
       "count": 17,
-      "created_at": "2026-07-03T06:52:31.160068"
+      "created_at": "2026-07-03T06:52:31.160068",
+      "source_id": "action:follow_rule_strictly",
+      "target_id": "outcome:success",
+      "relation_type": "results_in"
     },
     {
-      "source": "action:switch_skill",
-      "target": "outcome:failure",
-      "type": "results_in",
       "weight": 9,
       "count": 9,
-      "created_at": "2026-07-03T06:52:31.160068"
+      "created_at": "2026-07-03T06:52:31.160068",
+      "source_id": "action:switch_skill",
+      "target_id": "outcome:failure",
+      "relation_type": "results_in"
     },
     {
-      "source": "action:use_existing_tool",
-      "target": "outcome:success",
-      "type": "results_in",
       "weight": 21,
       "count": 21,
-      "created_at": "2026-07-03T06:52:31.160068"
+      "created_at": "2026-07-03T06:52:31.160068",
+      "source_id": "action:use_existing_tool",
+      "target_id": "outcome:success",
+      "relation_type": "results_in"
     },
     {
-      "source": "action:try_fix_three_times",
-      "target": "outcome:success",
-      "type": "results_in",
       "weight": 7,
       "count": 7,
-      "created_at": "2026-07-03T06:52:31.160068"
+      "created_at": "2026-07-03T06:52:31.160068",
+      "source_id": "action:try_fix_three_times",
+      "target_id": "outcome:success",
+      "relation_type": "results_in"
     },
     {
-      "source": "action:write_script",
-      "target": "outcome:partial",
-      "type": "results_in",
       "weight": 1,
       "count": 1,
-      "created_at": "2026-07-03T06:52:31.160068"
+      "created_at": "2026-07-03T06:52:31.160068",
+      "source_id": "action:write_script",
+      "target_id": "outcome:partial",
+      "relation_type": "results_in"
     },
     {
-      "source": "action:skip_phase",
-      "target": "outcome:failure",
-      "type": "results_in",
       "weight": 1,
       "count": 1,
-      "created_at": "2026-07-03T06:52:31.160068"
+      "created_at": "2026-07-03T06:52:31.160068",
+      "source_id": "action:skip_phase",
+      "target_id": "outcome:failure",
+      "relation_type": "results_in"
     },
     {
-      "source": "action:report_user",
-      "target": "outcome:partial",
-      "type": "results_in",
       "weight": 1,
       "count": 1,
-      "created_at": "2026-07-03T06:52:31.160068"
+      "created_at": "2026-07-03T06:52:31.160068",
+      "source_id": "action:report_user",
+      "target_id": "outcome:partial",
+      "relation_type": "results_in"
     },
     {
-      "source": "action:report_user",
-      "target": "outcome:success",
-      "type": "results_in",
       "weight": 5,
       "count": 5,
-      "created_at": "2026-07-03T06:52:31.160068"
+      "created_at": "2026-07-03T06:52:31.160068",
+      "source_id": "action:report_user",
+      "target_id": "outcome:success",
+      "relation_type": "results_in"
     },
     {
-      "source": "action:switch_skill",
-      "target": "outcome:success",
-      "type": "results_in",
       "weight": 3,
       "count": 3,
-      "created_at": "2026-07-03T06:52:31.160068"
+      "created_at": "2026-07-03T06:52:31.160068",
+      "source_id": "action:switch_skill",
+      "target_id": "outcome:success",
+      "relation_type": "results_in"
     },
     {
-      "source": "action:try_fix_three_times",
-      "target": "outcome:failure",
-      "type": "results_in",
       "weight": 1,
       "count": 1,
-      "created_at": "2026-07-03T06:52:31.160068"
+      "created_at": "2026-07-03T06:52:31.160068",
+      "source_id": "action:try_fix_three_times",
+      "target_id": "outcome:failure",
+      "relation_type": "results_in"
     },
     {
-      "source": "action:tool:exec",
-      "target": "outcome:success",
-      "type": "results_in",
       "weight": 1,
       "count": 1,
-      "created_at": "2026-07-03T06:52:31.160068"
+      "created_at": "2026-07-03T06:52:31.160068",
+      "source_id": "action:tool:exec",
+      "target_id": "outcome:success",
+      "relation_type": "results_in"
+    },
+    {
+      "id": "d8b99ffa",
+      "source_id": "7d43672c",
+      "target_id": "4b048e0c",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-03T19:46:00.760688"
     }
   ],
   "entity_type_index": {
@@ -210,9 +230,10 @@
       "7d43672c"
     ],
     "action": [
-      "2e77d9e0"
+      "2e77d9e0",
+      "4b048e0c"
     ]
   },
   "created_at": "2026-07-02T15:40:18.085788",
-  "updated_at": "2026-07-03T06:52:31.160068"
+  "updated_at": "2026-07-03T19:46:00.760688"
 }

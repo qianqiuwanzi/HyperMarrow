@@ -1,0 +1,108 @@
+[
+  {
+    "episode_id": "55a66b51",
+    "what": "old_low_importance",
+    "when": "2024-01-01T00:00:00",
+    "context": {},
+    "outcome": "failure",
+    "emotion": "negative",
+    "tags": [
+      "old"
+    ],
+    "importance": 1,
+    "lesson": "",
+    "duration_seconds": 0.0,
+    "linked_memory_ids": [],
+    "created_at": "2026-07-02T12:57:00.203349",
+    "_archived_at": "2026-07-02T12:57:00.204349",
+    "_archive_reason": "ltd_prune"
+  },
+  {
+    "episode_id": "abc49b32",
+    "what": "old_low_importance",
+    "when": "2024-01-01T00:00:00",
+    "context": {},
+    "outcome": "failure",
+    "emotion": "negative",
+    "tags": [
+      "old"
+    ],
+    "importance": 1,
+    "lesson": "",
+    "duration_seconds": 0.0,
+    "linked_memory_ids": [],
+    "created_at": "2026-07-02T12:58:22.979264",
+    "_archived_at": "2026-07-02T12:58:22.980239",
+    "_archive_reason": "ltd_prune"
+  },
+  {
+    "episode_id": "26a7f6b9",
+    "what": "old_low_importance",
+    "when": "2024-01-01T00:00:00",
+    "context": {},
+    "outcome": "failure",
+    "emotion": "negative",
+    "tags": [
+      "old"
+    ],
+    "importance": 1,
+    "lesson": "",
+    "duration_seconds": 0.0,
+    "linked_memory_ids": [],
+    "created_at": "2026-07-02T13:00:57.025090",
+    "_archived_at": "2026-07-02T13:00:57.027095",
+    "_archive_reason": "ltd_prune"
+  },
+  {
+    "episode_id": "0d5f06d3",
+    "what": "old_low_importance",
+    "when": "2024-01-01T00:00:00",
+    "context": {},
+    "outcome": "failure",
+    "emotion": "negative",
+    "tags": [
+      "old"
+    ],
+    "importance": 1,
+    "lesson": "",
+    "duration_seconds": 0.0,
+    "linked_memory_ids": [],
+    "created_at": "2026-07-02T13:02:04.776685",
+    "_archived_at": "2026-07-02T13:02:04.776685",
+    "_archive_reason": "ltd_prune"
+  },
+  {
+    "episode_id": "b168f4b6",
+    "what": "old_low_importance",
+    "when": "2024-01-01T00:00:00",
+    "context": {},
+    "outcome": "failure",
+    "emotion": "negative",
+    "tags": [
+      "old"
+    ],
+    "importance": 1,
+    "lesson": "",
+    "duration_seconds": 0.0,
+    "linked_memory_ids": [],
+    "created_at": "2026-07-02T13:02:58.127508",
+    "_archived_at": "2026-07-02T13:02:58.129512",
+    "_archive_reason": "ltd_prune"
+  },
+  {
+    "episode_id": "6f2e4bbf",
+    "what": "very_old_low",
+    "when": "2026-03-04T14:27:35.816031",
+    "context": {},
+    "outcome": "failure",
+    "emotion": "neutral",
+    "tags": [],
+    "importance": 1,
+    "lesson": "",
+    "duration_seconds": 0.0,
+    "linked_memory_ids": [],
+    "created_at": "2026-07-02T14:27:35.816031",
+    "_archived_at": "2026-07-02T14:27:35.818034",
+    "_archive_reason": "ltd_prune(strength=0.063)"
+  }
+]

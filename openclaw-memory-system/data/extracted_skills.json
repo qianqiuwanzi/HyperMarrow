@@ -1,0 +1,86 @@
+{
+  "version": "1.0",
+  "skills": {
+    "auto_try_fix_three_times_0": {
+      "id": "auto_try_fix_three_times_0",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "download",
+        "timeout",
+        "retry",
+        "fix_timeout_"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "b5d0f513",
+        "eb65a35b",
+        "c7a7d82d",
+        "daa30a5c"
+      ],
+      "extracted_at": "2026-07-02T14:56:38.007957"
+    },
+    "auto_switch_skill_1": {
+      "id": "auto_switch_skill_1",
+      "action": "switch_skill",
+      "context_patterns": [
+        "unsupported",
+        "format",
+        "switch",
+        "switch_skill_"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "d51267fe",
+        "bb9a0a7e",
+        "e8ffeac8"
+      ],
+      "extracted_at": "2026-07-02T14:56:38.007957"
+    },
+    "auto_try_fix_three_times_2": {
+      "id": "auto_try_fix_three_times_2",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "download",
+        "timeout",
+        "retry",
+        "fix_timeout_"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "affa91a1",
+        "af28681d",
+        "d6a24040",
+        "ff05ff8f"
+      ],
+      "extracted_at": "2026-07-02T14:57:01.037248"
+    },
+    "auto_switch_skill_3": {
+      "id": "auto_switch_skill_3",
+      "action": "switch_skill",
+      "context_patterns": [
+        "unsupported",
+        "format",
+        "switch",
+        "switch_skill_"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "cdb1abab",
+        "399519c6",
+        "8a867f01"
+      ],
+      "extracted_at": "2026-07-02T14:57:01.037248"
+    }
+  },
+  "extraction_count": 2,
+  "created_at": "2026-07-02T14:56:38.006956",
+  "updated_at": "2026-07-02T14:57:01.037248"
+}

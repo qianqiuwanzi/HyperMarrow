@@ -1,0 +1,72 @@
+{
+  "version": "1.0",
+  "agents": {
+    "openclaw": {
+      "action_space": [
+        "follow_rule_strictly",
+        "use_existing_tool",
+        "try_fix_three_times",
+        "report_before_bypass",
+        "switch_skill",
+        "request_user_input",
+        "defer_to_rl"
+      ],
+      "state_features": [
+        "task_type",
+        "phase",
+        "error_type",
+        "attempts",
+        "tools",
+        "emotion",
+        "wm_task",
+        "wm_goal"
+      ],
+      "created_at": "2026-07-03T08:02:23.305573"
+    },
+    "luci": {
+      "action_space": [
+        "follow_rule_strictly",
+        "use_existing_tool",
+        "try_fix_three_times",
+        "report_before_bypass",
+        "switch_skill",
+        "request_user_input",
+        "defer_to_rl"
+      ],
+      "state_features": [
+        "task_type",
+        "phase",
+        "error_type",
+        "attempts",
+        "tools",
+        "emotion",
+        "wm_task",
+        "wm_goal"
+      ],
+      "created_at": "2026-07-03T08:02:23.305573"
+    },
+    "test-import": {
+      "action_space": [
+        "follow_rule_strictly",
+        "use_existing_tool",
+        "try_fix_three_times",
+        "report_before_bypass",
+        "switch_skill",
+        "request_user_input",
+        "defer_to_rl"
+      ],
+      "state_features": [
+        "task_type",
+        "phase",
+        "error_type",
+        "attempts",
+        "tools",
+        "emotion",
+        "wm_task",
+        "wm_goal"
+      ],
+      "created_at": "2026-07-03T08:02:23.305573"
+    }
+  },
+  "updated_at": "2026-07-03T08:02:23.305573"
+}

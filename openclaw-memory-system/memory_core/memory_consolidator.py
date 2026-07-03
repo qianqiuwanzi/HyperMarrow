@@ -5,6 +5,7 @@ Sleep-inspired memory consolidation: strengthening (LTP), decay (LTD),
 episode merging, Q-buffer replay, and periodic sleep cycles.
 """
 import json
+import sys as _sys
 import copy
 import numpy as np
 from pathlib import Path
@@ -42,7 +43,8 @@ class MemoryConsolidator:
         self._consolidating = False
         self._min_experiences_before_consolidation = 5
         print(f"[Consolidator] Loaded: {self.state.get('total_consolidations', 0)} "
-              f"prior consolidations, last sleep: {self.state.get('last_sleep_at', 'never')}")
+              f"prior consolidations, last sleep: {self.state.get('last_sleep_at', 'never')}",
+              file=_sys.stderr)
 
     # ── State Persistence ───────────────────────────────────────────────────
 

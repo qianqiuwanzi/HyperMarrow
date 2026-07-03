@@ -3,6 +3,7 @@
 
 # Set HF mirror for China BEFORE ANY import
 from .config import setup_hf_mirror, get_memory_dir
+import sys as _sys
 
 setup_hf_mirror()
 
@@ -19,7 +20,7 @@ import numpy as np
 class VectorMemoryDB:
     def __init__(self, db_path=None):
         """
-        Initialize Vector Memory Database
+        Initialize Vector Memory Database (lazy: model not loaded until first use)
 
         Args:
             db_path: Path to ChromaDB storage (default: <workspace>/memory/chromadb)
@@ -29,14 +30,12 @@ class VectorMemoryDB:
         self.db_path = Path(db_path)
         self.db_path.mkdir(parents=True, exist_ok=True)
         
-        # Initialize ChromaDB
+        # Initialize ChromaDB (lightweight, no model)
         self.client = chromadb.PersistentClient(path=str(self.db_path))
         
-        # Initialize sentence transformer with mirror
-        print("[VectorDB] Loading sentence transformer model...")
-        print("[VectorDB] Using HF mirror: https://hf-mirror.com")
-        self.model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
-        print("[VectorDB] Model loaded successfully")
+        # Model: lazy loaded on first use
+        self._model = None
+        self._model_name = 'paraphrase-multilingual-MiniLM-L12-v2'
         
         # Create or get collection
         self.collection = self.client.get_or_create_collection(
@@ -44,7 +43,16 @@ class VectorMemoryDB:
             metadata={"description": "OpenClaw memory vectors"}
         )
         
-        print(f"[VectorDB] Collection has {self.collection.count()} vectors")
+        print(f"[VectorDB] Initialized (lazy). Collection has {self.collection.count()} vectors", file=_sys.stderr)
+    
+    def _ensure_model(self):
+        """Lazy-load sentence transformer model (called before first encode)."""
+        if self._model is not None:
+            return
+        print("[VectorDB] Loading sentence transformer model...", file=_sys.stderr)
+        print("[VectorDB] Using HF mirror: https://hf-mirror.com", file=_sys.stderr)
+        self._model = SentenceTransformer(self._model_name)
+        print("[VectorDB] Model loaded successfully", file=_sys.stderr)
     
     def add_memory(self, memory_id, content, metadata=None):
         """
@@ -67,7 +75,8 @@ class VectorMemoryDB:
         metadata.setdefault("created_at", now_iso)
 
         # Generate embedding
-        embedding = self.model.encode(content).tolist()
+        self._ensure_model()
+        embedding = self._model.encode(content).tolist()
 
         # Add to collection
         self.collection.add(
@@ -96,7 +105,8 @@ class VectorMemoryDB:
             results: ChromaDB query result dict (ids, documents, metadatas, distances)
         """
         # Generate query embedding
-        query_embedding = self.model.encode(query).tolist()
+        self._ensure_model()
+        query_embedding = self._model.encode(query).tolist()
 
         # Temporal cutoff (Python-side filtering — ChromaDB where doesn't support ISO string $gte)
         cutoff = None
@@ -342,7 +352,8 @@ class VectorMemoryDB:
         
         # Get embedding dimension from model
         try:
-            sample_embedding = self.model.encode("test")
+            self._ensure_model()
+            sample_embedding = self._model.encode("test")
             embedding_dim = int(sample_embedding.shape[0])
         except Exception:
             embedding_dim = 384  # default for paraphrase-multilingual-MiniLM-L12-v2
@@ -350,7 +361,7 @@ class VectorMemoryDB:
         return {
             "total_vectors": total,
             "collection_name": self.collection.name,
-            "model_name": self.model.model_name if hasattr(self.model, 'model_name') else 'paraphrase-multilingual-MiniLM-L12-v2',
+            "model_name": self._model_name if self._model is None else (self._model.model_name if hasattr(self._model, 'model_name') else self._model_name),
             "embedding_dim": embedding_dim,
             "db_path": str(self.db_path)
         }

@@ -83,8 +83,9 @@ def setup_hf_mirror():
     # Create cache directory
     hf_cache.mkdir(parents=True, exist_ok=True)
     
-    print(f"[Config] HF mirror enabled: https://hf-mirror.com")
-    print(f"[Config] HF cache: {hf_cache}")
+    import sys as _sys
+    print(f"[Config] HF mirror enabled: https://hf-mirror.com", file=_sys.stderr)
+    print(f"[Config] HF cache: {hf_cache}", file=_sys.stderr)
 
 
 # Version info

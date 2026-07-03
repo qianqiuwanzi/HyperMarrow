@@ -1,0 +1,332 @@
+{
+  "version": "1.0",
+  "session_id": "2026-07-02T10:57:26.385715",
+  "active_context": {
+    "task": "集成测试",
+    "phase": "P2验证",
+    "perception_conversation": "topic=general, turns=0"
+  },
+  "context_stack": [
+    {
+      "task": "验证任务A",
+      "context": {},
+      "pushed_at": "2026-07-02T10:57:26.385715"
+    }
+  ],
+  "recent_items": [
+    {
+      "type": "context_update",
+      "data": {
+        "task": "验证P2",
+        "phase": "test"
+      },
+      "ts": "2026-07-02T10:57:26.385715"
+    },
+    {
+      "type": "task_push",
+      "task": "验证任务A",
+      "ts": "2026-07-02T10:57:26.385715"
+    },
+    {
+      "type": "task_push",
+      "task": "验证任务B",
+      "ts": "2026-07-02T10:57:26.386717"
+    },
+    {
+      "type": "task_pop",
+      "task": "验证任务B",
+      "ts": "2026-07-02T10:57:26.386717"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "task": "集成测试",
+        "phase": "P2验证"
+      },
+      "ts": "2026-07-02T10:57:37.206195"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T12:02:51.745482"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T12:14:12.552585"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T12:53:15.022678"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T12:53:24.975171"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T12:54:49.798387"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T12:54:59.137572"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T13:03:23.456304"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T13:03:32.042746"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T13:19:31.467152"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T13:19:47.355351"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:08:02.093730"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:08:13.536476"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:10:52.794824"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:11:06.223100"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:13:44.823433"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:13:57.815028"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:15:47.239948"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:16:00.947511"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:17:27.337982"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:17:40.441353"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:28:53.671541"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:29:08.841149"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:30:23.337500"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:30:36.545300"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:35:46.577846"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:35:57.034071"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:40:46.643018"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:41:02.783108"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:45:01.257591"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:45:11.512165"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:49:27.016757"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:49:39.723107"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:51:12.240443"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:51:25.207844"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:58:29.596313"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T14:58:42.309731"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T15:10:47.700132"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T15:10:59.289825"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T15:19:58.705639"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "perception_conversation": "topic=general, turns=0"
+      },
+      "ts": "2026-07-02T15:20:08.396754"
+    }
+  ],
+  "current_task": "验证任务A",
+  "goal": null,
+  "updated_at": "2026-07-02T15:20:08.396754"
+}

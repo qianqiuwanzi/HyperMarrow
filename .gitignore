@@ -1,6 +1,43 @@
+# Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.Python
 *.egg-info/
-.pytest_cache/
-*.log
+dist/
+build/
+*.egg
+
+# Node.js (Hook Pack 已废弃，但保留忽略规则)
+node_modules/
+npm-debug.log
+package-lock.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
 .DS_Store
+Thumbs.db
+
+# 临时文件
+*.log
+*.tmp
+benchmark/
+find_record.py
+
+# 数据文件（可选：如果不想提交大模型权重）
+# *.bin
+# *.pt
+# *.safetensors
+
+# 测试脚本
+test_*.py
+debug_*.py
+check_*.py
+run_*.py
+live_*.py

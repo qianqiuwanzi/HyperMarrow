@@ -10,6 +10,7 @@ import numpy as np
 import json
 from pathlib import Path
 from typing import Dict, List, Tuple, Any, Optional
+import sys as _sys
 
 
 def _stable_hash(s: str, modulus: int) -> int:
@@ -153,20 +154,21 @@ class QLearningAgent:
             from .neural_state import NeuralAgent
             self._neural_agent = NeuralAgent()
             print(f"[Q-Learning] Neural mode: {neural_mode} "
-                  f"(PyTorch={self._neural_agent.torch_available})")
+                  f"(PyTorch={self._neural_agent.torch_available})", file=_sys.stderr)
 
         # ── Load historical experiences into buffer ──────────────────────
         self._load_experience_buffer()
 
         print(f"[Q-Learning] Initialized with state_space={self.state_space_size}, "
-              f"action_space={self.action_space_size}, auto_expand={self._auto_expand}")
+              f"action_space={self.action_space_size}, auto_expand={self._auto_expand}",
+              file=_sys.stderr)
 
     def enable_world_model(self):
         """启用基于模型的主动推理（Wave 2）。"""
         from .world_model import ModelBasedAgent
         self._world_model = ModelBasedAgent()
         self._active_inference = True
-        print(f"[Q-Learning] World model enabled (active inference)")
+        print(f"[Q-Learning] World model enabled (active inference)", file=_sys.stderr)
 
 
     def _load_experience_buffer(self):
@@ -182,7 +184,8 @@ class QLearningAgent:
 
         # Skip if already loaded (by checking buffer size)
         if len(self.experience_buffer) > 0:
-            print(f"[Q-Learning] Buffer already has {len(self.experience_buffer)} experiences, skipping load")
+            print(f"[Q-Learning] Buffer already has {len(self.experience_buffer)} experiences, skipping load",
+                  file=_sys.stderr)
             return
 
         try:
@@ -210,9 +213,9 @@ class QLearningAgent:
                 loaded += 1
 
             print(f"[Q-Learning] Loaded {loaded}/{len(history)} historical experiences into buffer "
-                  f"(buffer_size={len(self.experience_buffer)})")
+                  f"(buffer_size={len(self.experience_buffer)})", file=_sys.stderr)
         except Exception as e:
-            print(f"[Q-Learning] Failed to load experience buffer: {e}")
+            print(f"[Q-Learning] Failed to load experience buffer: {e}", file=_sys.stderr)
 
     def add_experience(self, state, action, reward, next_state, done=False):
         """

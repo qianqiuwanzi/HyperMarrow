@@ -1,0 +1,140 @@
+{
+  "version": "1.0",
+  "episodes": [
+    {
+      "episode_id": "b23a6a57",
+      "what": "实现了经验缓冲修复，打通 DecisionCheckPoint → QLearningAgent 链路",
+      "when": "2026-07-02T10:49:23.866759",
+      "context": {
+        "phase": "P2",
+        "component": "experience_buffer",
+        "file": "q_learning_agent.py"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "HyperMarrow",
+        "RL",
+        "Phase2"
+      ],
+      "importance": 5,
+      "lesson": "打通数据流比优化单个组件更重要",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-02T10:49:23.866759"
+    },
+    {
+      "episode_id": "7f3e5a62",
+      "what": "Phase 2 实现完成：WorkingMemory + TemporalIndex + EpisodicMemory",
+      "when": "2026-07-02T10:56:36.498855",
+      "context": {
+        "phase": "P2",
+        "components": [
+          "P1",
+          "P2",
+          "P3"
+        ]
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "HyperMarrow",
+        "Phase2"
+      ],
+      "importance": 5,
+      "lesson": "结构化记忆比纯文本更易检索和推理",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-02T10:56:36.498855"
+    },
+    {
+      "episode_id": "290e240e",
+      "what": "经验缓冲修复：打通 DecisionCheckPoint → QLearningAgent",
+      "when": "2026-07-02T10:56:36.498855",
+      "context": {
+        "fix": "experience_buffer",
+        "file": "q_learning_agent.py"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "HyperMarrow",
+        "RL"
+      ],
+      "importance": 5,
+      "lesson": "打通数据流比优化单个组件更重要",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-02T10:56:36.498855"
+    },
+    {
+      "episode_id": "d1a2f73e",
+      "what": "Phase 2 实现完成：WorkingMemory + TemporalIndex + EpisodicMemory",
+      "when": "2026-07-02T10:57:37.201196",
+      "context": {
+        "phase": "P2",
+        "components": [
+          "P1",
+          "P2",
+          "P3"
+        ]
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "HyperMarrow",
+        "Phase2"
+      ],
+      "importance": 5,
+      "lesson": "结构化记忆比纯文本更易检索和推理",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-02T10:57:37.201196"
+    },
+    {
+      "episode_id": "663b2b1b",
+      "what": "经验缓冲修复：打通 DecisionCheckPoint → QLearningAgent",
+      "when": "2026-07-02T10:57:37.202195",
+      "context": {
+        "fix": "experience_buffer",
+        "file": "q_learning_agent.py"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "HyperMarrow",
+        "RL"
+      ],
+      "importance": 5,
+      "lesson": "打通数据流比优化单个组件更重要",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-02T10:57:37.202195"
+    },
+    {
+      "episode_id": "024493f8",
+      "what": "Action 'switch_skill': success",
+      "when": "2026-07-02T10:57:37.208194",
+      "context": {
+        "action": "switch_skill",
+        "context_raw": "{\"test\": \"phase2\"}",
+        "wm_summary": "task=验证任务A | ctx=(phase=P2验证) | stack_depth=1",
+        "reward": 1.0,
+        "note": "Integration test"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-02T10:57:37.208194"
+    }
+  ],
+  "created_at": "2026-07-02T10:57:37.208194",
+  "updated_at": "2026-07-02T10:57:37.208194"
+}

@@ -7,6 +7,7 @@ MetaLearner:     monitors losses/errors, auto-tunes hyperparameters
 SkillExtractor:  discovers reusable action patterns from episodic memory
 """
 import json
+import sys as _sys
 import numpy as np
 from pathlib import Path
 from datetime import datetime
@@ -43,7 +44,8 @@ class MetaLearner:
         self.state = self._load_or_init()
         self._history = {"td_errors": [], "wm_losses": [], "ece": [],
                          "success_rate": [], "state_growth": []}
-        print(f"[MetaLearner] Initialized: {self.state['total_adjustments']} prior adjustments")
+        print(f"[MetaLearner] Initialized: {self.state['total_adjustments']} prior adjustments",
+              file=_sys.stderr)
 
     def _load_or_init(self) -> dict:
         if META_STATE_FILE.exists():
@@ -217,7 +219,8 @@ class SkillExtractor:
         self.em = episodic_memory
         self.kg = knowledge_graph
         self.data = self._load_or_init()
-        print(f"[SkillExtractor] Loaded: {len(self.data['skills'])} extracted skills")
+        print(f"[SkillExtractor] Loaded: {len(self.data['skills'])} extracted skills",
+              file=_sys.stderr)
 
     def _load_or_init(self) -> dict:
         if SKILLS_FILE.exists():

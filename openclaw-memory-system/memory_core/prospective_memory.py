@@ -6,6 +6,7 @@ Maintains intention list: (trigger_condition, action, deadline, created_at).
 Checked on each decision loop; auto-triggers when conditions match.
 """
 import json
+import sys as _sys
 import uuid
 from pathlib import Path
 from datetime import datetime, timedelta
@@ -45,7 +46,8 @@ class ProspectiveMemory:
         self.path = Path(path) if path else INTENTIONS_FILE
         self.data = self._load_or_init()
         self._completed_log = []
-        print(f"[ProspectiveMemory] Loaded: {len(self.data['intentions'])} active intentions")
+        print(f"[ProspectiveMemory] Loaded: {len(self.data['intentions'])} active intentions",
+              file=_sys.stderr)
 
     # ── Persistence ────────────────────────────────────────────────────────
 

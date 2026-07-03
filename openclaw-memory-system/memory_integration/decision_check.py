@@ -5,6 +5,7 @@ This module integrates ProceduralMemory and VectorMemoryDB into the decision-mak
 """
 
 import os
+import sys as _sys
 import json
 import re
 from pathlib import Path
@@ -68,7 +69,7 @@ def _get_or_create_shared_layer() -> dict:
     if _shared_layer is not None:
         return _shared_layer
 
-    print("[DecisionCheckPoint] Creating shared layer...")
+    print("[DecisionCheckPoint] Creating shared layer...", file=_sys.stderr)
     shared = {}
 
     # ProceduralMemory — shared across all agents
@@ -108,15 +109,15 @@ def _get_or_create_shared_layer() -> dict:
     # VectorMemoryDB — shared (semantic memory across agents)
     try:
         shared["vector_db"] = VectorMemoryDB()
-        print("[DecisionCheckPoint] Shared VectorDB: OK")
+        print("[DecisionCheckPoint] Shared VectorDB: OK", file=_sys.stderr)
     except Exception as e:
-        print(f"[DecisionCheckPoint] Shared VectorDB: failed ({e})")
+        print(f"[DecisionCheckPoint] Shared VectorDB: failed ({e})", file=_sys.stderr)
         shared["vector_db"] = None
 
     _shared_layer = shared
     _shared_layer_ready = True
     print(f"[DecisionCheckPoint] Shared layer ready: "
-          f"PM=✓ KG=✓ Perception=✓ Consolidator=✓ TL=✓ PM2=✓ ML=✓ SE=✓ VecDB={'✓' if shared['vector_db'] else '✗'}")
+          f"PM=✓ KG=✓ Perception=✓ Consolidator=✓ TL=✓ PM2=✓ ML=✓ SE=✓ VecDB={'✓' if shared['vector_db'] else '✗'}", file=_sys.stderr)
     return shared
 
 
@@ -159,10 +160,10 @@ def create_for_agent(agent_id: str, action_space: list = None) -> 'DecisionCheck
     global _agent_dc_map, _current_agent_id
 
     if agent_id in _agent_dc_map:
-        print(f"[DC Factory] Returning cached DC for '{agent_id}'")
+        print(f"[DC Factory] Returning cached DC for '{agent_id}'", file=_sys.stderr)
         return _agent_dc_map[agent_id]
 
-    print(f"[DC Factory] Creating DC for agent '{agent_id}'...")
+    print(f"[DC Factory] Creating DC for agent '{agent_id}'...", file=_sys.stderr)
     shared = _get_or_create_shared_layer()
     reg = get_agent_registry()
 
@@ -194,7 +195,7 @@ def create_for_agent(agent_id: str, action_space: list = None) -> 'DecisionCheck
     print(f"[DC Factory] DC for '{agent_id}': "
           f"WM={bundle.working_memory is not None}, "
           f"EM={bundle.episodic_memory is not None}, "
-          f"QL={bundle.ql_agent is not None}")
+          f"QL={bundle.ql_agent is not None}", file=_sys.stderr)
     return dc
 
 
@@ -209,7 +210,7 @@ def set_current_agent(agent_id: str):
     if agent_id not in _agent_dc_map:
         create_for_agent(agent_id)
     _current_agent_id = agent_id
-    print(f"[DC] Current agent switched to '{agent_id}'")
+    print(f"[DC] Current agent switched to '{agent_id}'", file=_sys.stderr)
 
 
 def _get_wm() -> WorkingMemoryDB:
@@ -438,7 +439,7 @@ class DecisionCheckPoint:
             self.skill_extractor   = shared_layer.get("skill_extractor")
             self.vector_db         = shared_layer.get("vector_db")
             if self.vector_db is not None:
-                print(f"[DecisionCheckPoint] Shared VectorDB from layer: OK")
+                print(f"[DecisionCheckPoint] Shared VectorDB from layer: OK", file=_sys.stderr)
         else:
             # Fallback: create own ProceduralMemory if not in shared_layer
             if not hasattr(self, 'procedural_memory') or self.procedural_memory is None:
@@ -448,9 +449,9 @@ class DecisionCheckPoint:
             if enable_vector_db and shared_layer is None:
                 try:
                     self.vector_db = VectorMemoryDB()
-                    print("[DecisionCheckPoint] VectorMemoryDB initialized")
+                    print("[DecisionCheckPoint] VectorMemoryDB initialized", file=_sys.stderr)
                 except Exception as e:
-                    print(f"[DecisionCheckPoint] VectorMemoryDB init failed: {e}")
+                    print(f"[DecisionCheckPoint] VectorMemoryDB init failed: {e}", file=_sys.stderr)
 
         self.enable_vector_db = enable_vector_db
         self.enable_rl = enable_rl
@@ -464,7 +465,7 @@ class DecisionCheckPoint:
               f"agent={self._agent_id} "
               f"(vector_db={self.vector_db is not None}, "
               f"rl={self.ql_agent is not None}, "
-              f"isolated={self._is_agent_mode})")
+              f"isolated={self._is_agent_mode})", file=_sys.stderr)
 
     def _bootstrap_and_load_q_table(self):
         """
@@ -505,12 +506,12 @@ class DecisionCheckPoint:
             n_exp = len(self.ql_agent.experience_buffer)
             nonzero = int(np.count_nonzero(self.ql_agent.q_table))
             print(f"[DecisionCheckPoint] QLearningAgent: buffer={n_exp}, "
-                  f"qtable_nonzero={nonzero}/{self.ql_agent.q_table.size}")
+                  f"qtable_nonzero={nonzero}/{self.ql_agent.q_table.size}", file=_sys.stderr)
 
         except Exception as e:
             import traceback
             traceback.print_exc()
-            print(f"[DecisionCheckPoint] Q-table bootstrap failed: {e}")
+            print(f"[DecisionCheckPoint] Q-table bootstrap failed: {e}", file=_sys.stderr)
             self.ql_agent = None
 
 
@@ -600,6 +601,7 @@ class DecisionCheckPoint:
             "procedural_hints": [],
             "vector_results": [],
             "related_entities": [],
+            "working_memory_summary": "",  # filled after full_context is built
             "_agent_id": self._agent_id,  # tag the result with which agent decided
         }
 
@@ -608,7 +610,7 @@ class DecisionCheckPoint:
         if agent_id is not None and agent_id != self._agent_id:
             target_dc = _agent_dc_map.get(agent_id)
             if target_dc is not None:
-                print(f"[DC.check] Routing '{agent_id}' -> {target_dc._isolated_path}")
+                print(f"[DC.check] Routing '{agent_id}' -> {target_dc._isolated_path}", file=_sys.stderr)
                 return target_dc.check(action, context, agent_id=None)
             else:
                 result["warnings"].append(
@@ -629,7 +631,7 @@ class DecisionCheckPoint:
             for obs in observations:
                 self.perception.inject_to_working_memory(obs)
         except Exception as e:
-            print(f"[DecisionCheckPoint] Non-critical operation failed: {e}")
+            print(f"[DecisionCheckPoint] Non-critical operation failed: {e}", file=_sys.stderr)
 
         # ─── 0b. Prospective memory — check intention triggers ──────────
         try:
@@ -648,6 +650,16 @@ class DecisionCheckPoint:
 
         # Always prepend the action itself
         full_context = f"{action} {context_str} [WM:{wm_summary}]"
+
+        # ── 0c. Auto-fill WorkingMemory from incoming context ────────────────
+        try:
+            self.working_memory.auto_update_from_context(full_context, action=action)
+        except Exception as e:
+            print(f"[DecisionCheckPoint] WorkingMemory auto-update failed (non-critical): {e}",
+                  file=_sys.stderr)
+
+        # Populate working_memory_summary for build_context_prompt
+        result["working_memory_summary"] = wm_summary
 
         # ─── 1. Procedural memory — expanded keyword matching ───────────────
         expanded_tokens = _expand_context(full_context)
@@ -791,7 +803,7 @@ class DecisionCheckPoint:
                         })
                 result["related_entities"] = all_related[:10]
         except Exception as e:
-            print(f"[DecisionCheckPoint] Non-critical operation failed: {e}")
+            print(f"[DecisionCheckPoint] Non-critical operation failed: {e}", file=_sys.stderr)
 
         # ─── 4b. Metacognition — self-reflection check ─────────────────
         try:
@@ -801,7 +813,7 @@ class DecisionCheckPoint:
                     f"[Meta] 自我反思触发: {refl['reason']} (severity={refl['severity']})"
                 )
         except Exception as e:
-            print(f"[DecisionCheckPoint] Non-critical operation failed: {e}")
+            print(f"[DecisionCheckPoint] Non-critical operation failed: {e}", file=_sys.stderr)
 
         # ─── 5. Block rule ────────────────────────────────────────────────
         # If a Level 5 rule explicitly blocks this action
@@ -832,11 +844,11 @@ class DecisionCheckPoint:
         if agent_id is not None and agent_id != self._agent_id:
             target_dc = _agent_dc_map.get(agent_id)
             if target_dc is not None:
-                print(f"[DC.record] Routing '{agent_id}' -> {target_dc._isolated_path}")
+                print(f"[DC.record] Routing '{agent_id}' -> {target_dc._isolated_path}", file=_sys.stderr)
                 target_dc.record(action, context, outcome, reward, note, agent_id=None)
                 return
             else:
-                print(f"[DC.record] Agent '{agent_id}' not registered; recording locally")
+                print(f"[DC.record] Agent '{agent_id}' not registered; recording locally", file=_sys.stderr)
 
         if reward is None:
             reward = 1.0 if outcome == "success" else -1.0
@@ -844,6 +856,62 @@ class DecisionCheckPoint:
         context_str = json.dumps(context, ensure_ascii=False) if isinstance(context, dict) else str(context)
         wm_summary = self.working_memory.get_context_summary()
         full_context = f"{action} {context_str} [WM:{wm_summary}]"
+
+        # ── Auto-fill WorkingMemory from record context ────────────────────────
+        try:
+            self.working_memory.auto_update_from_context(full_context, action=action)
+        except Exception as e:
+            print(f"[DC.record] WorkingMemory auto-update failed (non-critical): {e}",
+                  file=_sys.stderr)
+
+        # ── Auto-extract entities to KnowledgeGraph ───────────────────────────
+        try:
+            extracted_entities = self.knowledge_graph.extract_entities_from_text(full_context)
+            for ent in (extracted_entities or [])[:5]:
+                entity = self.knowledge_graph.add_entity(
+                    name=ent.get("name", ""),
+                    entity_type=ent.get("type", "concept"),
+                    properties={"source": "record_auto", "action": action, "outcome": outcome},
+                )
+                # Auto-link to action entity
+                if entity and entity.get("id"):
+                    action_entity = self.knowledge_graph.add_entity(
+                        name=action,
+                        entity_type="action",
+                        properties={"outcome": outcome, "reward": reward},
+                    )
+                    if action_entity and action_entity.get("id"):
+                        self.knowledge_graph.add_relationship(
+                            source_id=entity["id"],
+                            target_id=action_entity["id"],
+                            relation_type="triggers",
+                        )
+        except Exception as e:
+            print(f"[DC.record] KG auto-extract failed (non-critical): {e}",
+                  file=_sys.stderr)
+
+        # ── Auto-add to VectorDB for semantic memory ──────────────────────────
+        if self.vector_db and outcome in ("success", "failure"):
+            try:
+                import uuid
+                import hashlib
+                # Deduplicate by content hash
+                content_hash = hashlib.sha256(full_context.encode()).hexdigest()[:16]
+                mem_id = f"record_{content_hash}_{int(datetime.now().timestamp())}"
+                self.vector_db.add_memory(
+                    memory_id=mem_id,
+                    content=full_context,
+                    metadata={
+                        "action": action,
+                        "outcome": outcome,
+                        "reward": reward,
+                        "source": "record_auto",
+                        "quality": 5 if outcome == "success" else 3,
+                    },
+                )
+            except Exception as e:
+                print(f"[DC.record] VectorDB auto-add failed (non-critical): {e}",
+                      file=_sys.stderr)
 
         # Update procedural memory (use same full_context as check() for consistency)
         pm_matches = self.procedural_memory.check_context(full_context)
@@ -858,7 +926,7 @@ class DecisionCheckPoint:
                         note=note,
                     )
                 except Exception as e:
-                    print(f"[DecisionCheckPoint] Failed to record PM outcome: {e}")
+                    print(f"[DecisionCheckPoint] Failed to record PM outcome: {e}", file=_sys.stderr)
 
         # Append to RL history
         self._append_rl_history(action, context, outcome, reward, note)
@@ -934,7 +1002,7 @@ class DecisionCheckPoint:
                 "state_index": state_idx,
             })
         except Exception as e:
-            print(f"[DecisionCheckPoint] Non-critical operation failed: {e}")
+            print(f"[DecisionCheckPoint] Non-critical operation failed: {e}", file=_sys.stderr)
 
         # ── Meta-learning: observe metrics, adjust hyperparams periodically ──
         try:
@@ -951,7 +1019,7 @@ class DecisionCheckPoint:
         except Exception:
             pass
 
-        print(f"[DecisionCheckPoint] Recorded: {action} -> {outcome} (reward={reward})")
+        print(f"[DecisionCheckPoint] Recorded: {action} -> {outcome} (reward={reward})", file=_sys.stderr)
 
     def _persist_q_table(self):
         """
@@ -977,7 +1045,7 @@ class DecisionCheckPoint:
             with open(qtable_path, 'w', encoding='utf-8') as f:
                 json.dump(qdata, f, ensure_ascii=False, indent=2)
         except Exception as e:
-            print(f"[DecisionCheckPoint] Failed to persist Q-table: {e}")
+            print(f"[DecisionCheckPoint] Failed to persist Q-table: {e}", file=_sys.stderr)
 
     def _append_rl_history(self, action: str, context: Any, outcome: str, reward: float, note: str) -> None:
         """
@@ -1024,7 +1092,7 @@ class DecisionCheckPoint:
             with open(history_path, 'w', encoding='utf-8') as f:
                 json.dump(history, f, ensure_ascii=False, indent=2)
         except Exception as e:
-            print(f"[DecisionCheckPoint] Failed to append RL history: {e}")
+            print(f"[DecisionCheckPoint] Failed to append RL history: {e}", file=_sys.stderr)
 
 
 __all__ = [

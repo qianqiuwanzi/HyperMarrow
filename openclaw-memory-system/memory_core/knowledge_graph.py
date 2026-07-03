@@ -4,6 +4,7 @@ Knowledge Graph — Entity-Relationship storage and graph queries.
 Complements VectorMemoryDB: graph for structured relationships, vectors for semantics.
 """
 import json
+import sys as _sys
 import uuid
 from pathlib import Path
 from collections import deque
@@ -93,7 +94,7 @@ class KnowledgeGraph:
         self._adjacency: dict = {}        # entity_id → [(neighbor_id, rel), ...]
         self._build_indexes()
         print(f"[KnowledgeGraph] Loaded: {len(self.data['entities'])} entities, "
-              f"{len(self.data['relationships'])} relationships")
+              f"{len(self.data['relationships'])} relationships", file=_sys.stderr)
 
     # ── Persistence ────────────────────────────────────────────────────────
 
@@ -126,7 +127,9 @@ class KnowledgeGraph:
         """Rebuild name and adjacency indexes from raw data. O(E + R)."""
         self._name_index.clear()
         for eid, ent in self.data["entities"].items():
-            key = (ent["name"].lower(), ent["type"])
+            # Compatible with both old format (name) and new format (label)
+            name = ent.get("name") or ent.get("label", "")
+            key = (name.lower(), ent.get("type", "unknown"))
             self._name_index[key] = eid
 
         self._adjacency.clear()

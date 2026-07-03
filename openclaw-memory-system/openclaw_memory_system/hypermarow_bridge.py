@@ -39,10 +39,13 @@ sys.stderr.reconfigure(encoding="utf-8")
 _real_stdout = sys.stdout
 sys.stdout = sys.stderr
 
-# ── Observability ────────────────────────────────────────────────
-from metrics import RPCMetrics, get_metrics, LatencyBreakdown
-
-_metrics = get_metrics()  # global singleton
+# ── Observability (lazy import, path set in _init_hm) ─────────────────────
+try:
+    from metrics import RPCMetrics, get_metrics, LatencyBreakdown
+    _metrics = get_metrics()  # global singleton
+except ImportError:
+    print("[HyperMarrow Bridge] metrics module not found, observability disabled", file=sys.stderr, flush=True)
+    _metrics = None
 
 # ── HyperMarrow Imports ───────────────────────────────────────────
 print("[HyperMarrow Bridge] Initializing...", file=sys.stderr, flush=True)
@@ -52,7 +55,7 @@ DC = None
 
 def _init_hm():
     """Initialize HyperMarrow DecisionCheckPoint."""
-    global DC, _HM_READY
+    global DC, _HM_READY, _LEARNING_AGENT
     try:
         # Setup HuggingFace mirror
         try:
@@ -63,9 +66,18 @@ def _init_hm():
 
         # Create DC for openclaw agent
         from memory_integration.decision_check import create_for_agent
-
         DC = create_for_agent("openclaw")
         _HM_READY = True
+
+        # ── Initialize Learning System ──────────────────────────
+        try:
+            sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / "openclaw-learning-system"))
+            from learning_core.independent_q_agent import IndependentQLearningAgent
+            _LEARNING_AGENT = IndependentQLearningAgent()
+            print(f"[Learning] IndependentQLearningAgent initialized: Q-table {_LEARNING_AGENT.q_table.shape}", file=sys.stderr, flush=True)
+        except Exception as e:
+            print(f"[Learning] Failed to initialize: {e}", file=sys.stderr, flush=True)
+            _LEARNING_AGENT = None
 
         # Get stats for startup log
         stats = _get_stats()
@@ -83,6 +95,18 @@ def _init_hm():
         traceback.print_exc(file=sys.stderr)
         print(f"[HyperMarrow Bridge] Init FAILED: {e}", file=sys.stderr, flush=True)
         _HM_READY = False
+
+
+def _dummy_metrics():
+    """Fallback if metrics import failed."""
+    class _Dummy:
+        def record(self, *a, **kw): pass
+        def summary(self): return {}
+        def health_check(self): return {"status": "DISABLED"}
+    return _Dummy()
+
+if _metrics is None:
+    _metrics = _dummy_metrics()
 def _get_stats() -> dict:
     """Get current system statistics."""
     if not _HM_READY or DC is None:
@@ -98,7 +122,7 @@ def _get_stats() -> dict:
                 "total_rules": len(rules),
                 "levels": sorted(set(r.get("level", 1) for r in rules)),
             }
-        except Exception:
+        except Exception as e:
             pm_stats = {"error": str(type(e).__name__)}
 
     ql_stats = {}
@@ -112,7 +136,7 @@ def _get_stats() -> dict:
                 "pct": f"{100*nonzero/max(qt.size,1):.1f}%",
                 "buffer_size": len(DC.ql_agent.experience_buffer),
             }
-        except Exception:
+        except Exception as e:
             ql_stats = {"error": str(type(e).__name__)}
 
     vec_count = 0
@@ -386,6 +410,25 @@ def _handle_check(params: dict) -> dict:
         traceback.print_exc(file=sys.stderr)
         return {"success": False, "error": f"dc.check() failed: {e}"}
 
+    # ── Learning System: get meta-learning suggestion ─────────
+    learning_suggestion = None
+    if _LEARNING_AGENT is not None:
+        try:
+            state = {
+                "action": action,
+                "context": ctx_for_check,
+                "outcome": "unknown"
+            }
+            learning_action, confidence = _LEARNING_AGENT.decide(state)
+            learning_suggestion = {
+                "action": learning_action,
+                "confidence": float(confidence),
+                "source": "independent_q_agent"
+            }
+            print(f"[Learning] Suggestion: {learning_action} (conf={confidence:.2f})", file=sys.stderr, flush=True)
+        except Exception as e:
+            print(f"[Learning] decide() failed: {e}", file=sys.stderr, flush=True)
+
     # Build injection text
     inject_text = _build_context_prompt(check_result)
 
@@ -437,6 +480,21 @@ def _handle_record(params: dict) -> dict:
         import traceback
         traceback.print_exc(file=sys.stderr)
         return {"success": False, "error": f"dc.record() failed: {e}"}
+
+    # ── Learning System: record experience ──────────────────────
+    if _LEARNING_AGENT is not None:
+        try:
+            state = {
+                "action": action,
+                "context": ctx_for_record,
+                "outcome": outcome
+            }
+            next_state = state  # simplified
+            reward_val = reward if reward is not None else (1.0 if outcome == "success" else 0.0 if outcome == "failure" else 0.5)
+            _LEARNING_AGENT.add_experience(state, action, reward_val, next_state, False)
+            print(f"[Learning] Recorded experience: {action} -> {outcome} (reward={reward_val})", file=sys.stderr, flush=True)
+        except Exception as e:
+            print(f"[Learning] add_experience() failed: {e}", file=sys.stderr, flush=True)
 
     # Return updated stats
     import numpy as np

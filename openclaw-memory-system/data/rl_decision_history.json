@@ -950,5 +950,136 @@
     "next_state": 88,
     "note": "Phase1 verification test record",
     "source": "runtime_record"
+  },
+  {
+    "timestamp": "2026-07-02T10:42:59.028966",
+    "context": {
+      "task": "test_exp_buffer",
+      "phase": "P2b"
+    },
+    "action": "report_user",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 3,
+    "next_state": 10,
+    "note": "Exp buffer verification test",
+    "source": "runtime_record"
+  },
+  {
+    "timestamp": "2026-07-02T10:43:46.768660",
+    "context": {
+      "task": "test_exp_buffer",
+      "phase": "P2b"
+    },
+    "action": "report_user",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 67,
+    "next_state": 74,
+    "note": "Exp buffer verification test",
+    "source": "runtime_record"
+  },
+  {
+    "timestamp": "2026-07-02T10:57:37.207194",
+    "context": {
+      "test": "phase2"
+    },
+    "action": "switch_skill",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 92,
+    "next_state": 99,
+    "note": "Integration test",
+    "source": "runtime_record"
+  },
+  {
+    "timestamp": "2026-07-02T15:40:32.469708",
+    "context": {
+      "task": "download_stuck"
+    },
+    "action": "switch_skill",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 58,
+    "next_state": 58,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-02T15:40:32.472709",
+    "context": {
+      "task": "test"
+    },
+    "action": "try_fix_three_times",
+    "outcome": "failure",
+    "reward": -1.0,
+    "state": 25,
+    "next_state": 25,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "luci"
+  },
+  {
+    "timestamp": "2026-07-02T17:16:52.739570",
+    "context": {
+      "session_key": "test-session",
+      "channel": "webchat",
+      "raw": {}
+    },
+    "action": "tool:exec",
+    "outcome": "success",
+    "reward": 0.3,
+    "state": 38,
+    "next_state": 38,
+    "note": "test",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T08:54:23.646386",
+    "context": {
+      "session_key": "test",
+      "channel": "webchat",
+      "raw": {}
+    },
+    "action": "switch_skill",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 70,
+    "next_state": 70,
+    "note": "test",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:43:23.681057",
+    "context": {
+      "session_key": "test",
+      "channel": "webchat"
+    },
+    "action": "write_script",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 24,
+    "next_state": 24,
+    "note": "极简测试",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:46:13.367907",
+    "context": {
+      "session_key": "test_save",
+      "channel": "webchat"
+    },
+    "action": "test_record_save",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 42,
+    "next_state": 42,
+    "note": "验证数据持久化",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
   }
 ]
