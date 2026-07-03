@@ -11,6 +11,7 @@ Per-agent (isolated):                  Shared (cross-agent):
   Action Space                           TransferLearner
   State Features                         PerceptionChannels
 """
+import sys as _sys
 import json
 from pathlib import Path
 from datetime import datetime
@@ -125,8 +126,8 @@ class AgentRegistry:
         for bundle in self._agents.values():
             self._inject_shared(bundle)
         print(f"[AgentRegistry] Initialized: {len(self._agents)} agents, "
-              f"shared={'✓' if shared_components else '✗'}, "
-              f"auto_transfer_threshold={self.AUTO_TRANSFER_THRESHOLD}")
+              f"auto_transfer_threshold={self.AUTO_TRANSFER_THRESHOLD}",
+              file=_sys.stderr)
 
     def _inject_shared(self, bundle: AgentBundle):
         """注入共享层引用到 AgentBundle。"""

@@ -4,6 +4,7 @@ Metacognition Monitor — 元认知监控台
 Self-awareness dashboard: confidence calibration, anomaly detection,
 self-reflection triggers, and cross-subsystem performance aggregation.
 """
+import sys as _sys
 import json
 import numpy as np
 from pathlib import Path
@@ -53,8 +54,7 @@ class MetacognitionMonitor:
         self._consecutive_failures = 0
         self._total_decisions = 0
         print(f"[Metacognition] Loaded: {len(self.calibration['entries'])} calibration entries, "
-              f"{len(self.anomalies['anomalies'])} anomalies, "
-              f"{len(self.reflections['reflections'])} reflections")
+              f"{len(self.anomalies['anomalies'])} anomalies", file=_sys.stderr)
 
     def _load_or_init(self, path: Path, default: dict) -> dict:
         if path.exists():
