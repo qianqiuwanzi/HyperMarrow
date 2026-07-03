@@ -115,7 +115,8 @@ def _get_stats() -> dict:
     import numpy as np
 
     pm_stats = {}
-    if DC.procedural_memory:
+    # Try DC.procedural_memory first
+    if DC is not None and DC.procedural_memory is not None:
         try:
             rules = DC.procedural_memory.list_rules()
             pm_stats = {
@@ -124,6 +125,19 @@ def _get_stats() -> dict:
             }
         except Exception as e:
             pm_stats = {"error": str(type(e).__name__)}
+    else:
+        # Fallback: load ProceduralMemory directly from data dir
+        try:
+            from memory_core.procedural_memory import ProceduralMemory
+            pm = ProceduralMemory()
+            rules = pm.list_rules()
+            pm_stats = {
+                "total_rules": len(rules),
+                "levels": sorted(set(r.get("level", 1) for r in rules)),
+                "source": "fallback_direct_load"
+            }
+        except Exception as e:
+            pm_stats = {"error": f"fallback failed: {type(e).__name__}: {e}"}
 
     ql_stats = {}
     if DC.ql_agent:
@@ -419,18 +433,35 @@ def _handle_check(params: dict) -> dict:
                 "context": ctx_for_check,
                 "outcome": "unknown"
             }
-            learning_action, confidence = _LEARNING_AGENT.decide(state)
+            decision = _LEARNING_AGENT.decide(state)
+            # Handle both old format (action_index, action_name) and new (action, confidence)
+            if isinstance(decision, tuple) and len(decision) >= 2:
+                if isinstance(decision[0], int) or isinstance(decision[0], str) and decision[0] in ['explore','follow_rule','use_existing_tool','switch_skill','skip_phase','ask_user']:
+                    # New format: (action, confidence)
+                    action_name = decision[0]
+                    confidence = decision[1] if len(decision) > 1 else 0.5
+                else:
+                    # Old format: (action_index, action_name)
+                    action_index = decision[0]
+                    action_name = decision[1]
+                    confidence = 0.5  # default
+            else:
+                action_name = str(decision)
+                confidence = 0.5
             learning_suggestion = {
-                "action": learning_action,
-                "confidence": float(confidence),
+                "action": action_name,
+                "confidence": confidence,
                 "source": "independent_q_agent"
             }
-            print(f"[Learning] Suggestion: {learning_action} (conf={confidence:.2f})", file=sys.stderr, flush=True)
+            print(f"[Learning] Suggestion: {action_name} (confidence={confidence})", file=sys.stderr, flush=True)
         except Exception as e:
             print(f"[Learning] decide() failed: {e}", file=sys.stderr, flush=True)
 
     # Build injection text
     inject_text = _build_context_prompt(check_result)
+
+    # Build context_prompt (for direct use by LLM)
+    context_prompt = inject_text  # alias for clarity
 
     return {
         "success": True,
@@ -438,9 +469,11 @@ def _handle_check(params: dict) -> dict:
         "suggestion": check_result.get("suggestion"),
         "confidence": check_result.get("confidence", 0.5),
         "inject_text": inject_text,
+        "context_prompt": context_prompt,
         "warnings": check_result.get("warnings", []),
         "rule": check_result.get("rule"),
         "rl_recommendation": check_result.get("rl_recommendation"),
+        "learning_suggestion": learning_suggestion if '_LEARNING_AGENT' in globals() and _LEARNING_AGENT is not None else None,
         "similar_memories": check_result.get("similar_memories", [])[:5],
         "metadata": {
             "agent_id": DC._agent_id,

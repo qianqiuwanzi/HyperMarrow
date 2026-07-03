@@ -162,6 +162,9 @@ class KnowledgeGraph:
         existing = self.data["entities"].get(existing_id) if existing_id else None
         if existing:
             if properties:
+                # Ensure properties field exists (backward compat)
+                if "properties" not in existing:
+                    existing["properties"] = {}
                 existing["properties"].update(properties)
                 existing["updated_at"] = _now()
                 self._save()

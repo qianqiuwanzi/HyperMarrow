@@ -931,7 +931,7 @@ class DecisionCheckPoint:
         # Append to RL history
         self._append_rl_history(action, context, outcome, reward, note)
 
-        # Record as episodic memory (P3: automatic experience logging)
+        # Record as episodic memory
         emotion_map = {"success": "positive", "failure": "negative", "partial": "neutral"}
         self.episodic_memory.add_episode(
             what=f"Action '{action}': {outcome}",
