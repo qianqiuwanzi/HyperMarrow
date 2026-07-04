@@ -20,6 +20,7 @@ setup(
         "chromadb>=0.4.0",
         "sentence-transformers>=2.2.0",
         "numpy>=1.21.0",
+        "openclaw-learning-system>=1.0.0",
     ],
     python_requires=">=3.10",
     entry_points={

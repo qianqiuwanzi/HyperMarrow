@@ -12,8 +12,8 @@ from .vector_memory_db import VectorMemoryDB
 from .procedural_memory import ProceduralMemory
 from .q_learning_agent import QLearningAgent, ACTIONS, ACTION_MAP
 from .rl_decision_helper import RLDecisionHelper
-from .working_memory import WorkingMemoryDB
-from .episodic_memory import EpisodicMemoryDB
+from .working_memory_db import WorkingMemoryDB
+from .episodic_memory_db import EpisodicMemoryDB
 from .knowledge_graph import KnowledgeGraph
 from .perception_channels import PerceptionOrchestrator, Observation
 from .metacognition_monitor import MetacognitionMonitor

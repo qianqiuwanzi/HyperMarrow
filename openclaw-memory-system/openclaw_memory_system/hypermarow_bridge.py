@@ -55,7 +55,7 @@ DC = None
 
 def _init_hm():
     """Initialize HyperMarrow DecisionCheckPoint."""
-    global DC, _HM_READY, _LEARNING_AGENT
+    global DC, _HM_READY
     try:
         # Setup HuggingFace mirror
         try:
@@ -69,15 +69,8 @@ def _init_hm():
         DC = create_for_agent("openclaw")
         _HM_READY = True
 
-        # ── Initialize Learning System ──────────────────────────
-        try:
-            sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / "openclaw-learning-system"))
-            from learning_core.independent_q_agent import IndependentQLearningAgent
-            _LEARNING_AGENT = IndependentQLearningAgent()
-            print(f"[Learning] IndependentQLearningAgent initialized: Q-table {_LEARNING_AGENT.q_table.shape}", file=sys.stderr, flush=True)
-        except Exception as e:
-            print(f"[Learning] Failed to initialize: {e}", file=sys.stderr, flush=True)
-            _LEARNING_AGENT = None
+        # ── Learning system is integrated via DC.ql_agent (full QLearningAgent) ──
+        # No separate learning agent needed — DecisionCheckPoint handles RL natively
 
         # Get stats for startup log
         stats = _get_stats()
@@ -424,38 +417,26 @@ def _handle_check(params: dict) -> dict:
         traceback.print_exc(file=sys.stderr)
         return {"success": False, "error": f"dc.check() failed: {e}"}
 
-    # ── Learning System: get meta-learning suggestion ─────────
+    # ── Learning System: RL suggestion from full QLearningAgent ──
     learning_suggestion = None
-    if _LEARNING_AGENT is not None:
+    if DC.ql_agent is not None:
         try:
-            state = {
-                "action": action,
-                "context": ctx_for_check,
-                "outcome": "unknown"
-            }
-            decision = _LEARNING_AGENT.decide(state)
-            # Handle both old format (action_index, action_name) and new (action, confidence)
-            if isinstance(decision, tuple) and len(decision) >= 2:
-                if isinstance(decision[0], int) or isinstance(decision[0], str) and decision[0] in ['explore','follow_rule','use_existing_tool','switch_skill','skip_phase','ask_user']:
-                    # New format: (action, confidence)
-                    action_name = decision[0]
-                    confidence = decision[1] if len(decision) > 1 else 0.5
-                else:
-                    # Old format: (action_index, action_name)
-                    action_index = decision[0]
-                    action_name = decision[1]
-                    confidence = 0.5  # default
-            else:
-                action_name = str(decision)
-                confidence = 0.5
+            state_idx = DC.ql_agent.state_to_index(ctx_for_check)
+            action_idx = DC.ql_agent.get_action(state_idx, training=False)
+            from memory_core.q_learning_agent import ACTIONS as _ACT
+            action_name = _ACT[action_idx] if action_idx < len(_ACT) else "unknown"
+            # Get Q-values for confidence
+            q_vals = DC.ql_agent.q_table[state_idx, :]
+            max_q = float(np.max(np.abs(q_vals))) if hasattr(np, 'max') else 1.0
+            confidence = float(q_vals[action_idx]) / (max_q + 1e-6) if max_q > 0 else 0.0
+            confidence = max(0.0, min(1.0, confidence))
             learning_suggestion = {
                 "action": action_name,
-                "confidence": confidence,
-                "source": "independent_q_agent"
+                "confidence": round(confidence, 3),
+                "source": "ql_agent"
             }
-            print(f"[Learning] Suggestion: {action_name} (confidence={confidence})", file=sys.stderr, flush=True)
         except Exception as e:
-            print(f"[Learning] decide() failed: {e}", file=sys.stderr, flush=True)
+            print(f"[Learning] RL suggestion failed: {e}", file=sys.stderr, flush=True)
 
     # Build injection text
     inject_text = _build_context_prompt(check_result)
@@ -473,7 +454,7 @@ def _handle_check(params: dict) -> dict:
         "warnings": check_result.get("warnings", []),
         "rule": check_result.get("rule"),
         "rl_recommendation": check_result.get("rl_recommendation"),
-        "learning_suggestion": learning_suggestion if '_LEARNING_AGENT' in globals() and _LEARNING_AGENT is not None else None,
+        "learning_suggestion": learning_suggestion,
         "similar_memories": check_result.get("similar_memories", [])[:5],
         "metadata": {
             "agent_id": DC._agent_id,
@@ -514,20 +495,7 @@ def _handle_record(params: dict) -> dict:
         traceback.print_exc(file=sys.stderr)
         return {"success": False, "error": f"dc.record() failed: {e}"}
 
-    # ── Learning System: record experience ──────────────────────
-    if _LEARNING_AGENT is not None:
-        try:
-            state = {
-                "action": action,
-                "context": ctx_for_record,
-                "outcome": outcome
-            }
-            next_state = state  # simplified
-            reward_val = reward if reward is not None else (1.0 if outcome == "success" else 0.0 if outcome == "failure" else 0.5)
-            _LEARNING_AGENT.add_experience(state, action, reward_val, next_state, False)
-            print(f"[Learning] Recorded experience: {action} -> {outcome} (reward={reward_val})", file=sys.stderr, flush=True)
-        except Exception as e:
-            print(f"[Learning] add_experience() failed: {e}", file=sys.stderr, flush=True)
+    # ── Learning System: RL already recorded via DC.record() ──────
 
     # Return updated stats
     import numpy as np

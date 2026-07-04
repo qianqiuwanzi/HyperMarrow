@@ -1,10 +1,26 @@
 """
-Configuration for openclaw-learning-system (independent).
-This module does NOT import from memory_core.
+Configuration for openclaw-learning-system (self-contained).
+No dependency on memory_core — breaks the circular dependency chain.
 """
 
+import os
 from pathlib import Path
 from typing import Optional
+
+
+def get_workspace() -> Path:
+    """Resolve workspace root (same logic as memory_core.config)."""
+    if "OPENCLAW_WORKSPACE" in os.environ:
+        return Path(os.environ["OPENCLAW_WORKSPACE"])
+    return Path(__file__).parent.parent.parent.parent
+
+
+def get_data_dir() -> Path:
+    """Get canonical data directory (shared with memory-system)."""
+    data_dir = get_workspace() / "HyperMarrow" / "openclaw-memory-system" / "data"
+    data_dir.mkdir(parents=True, exist_ok=True)
+    return data_dir
+
 
 # Default data directory
 DEFAULT_DATA_DIR = Path(__file__).parent.parent / "data"

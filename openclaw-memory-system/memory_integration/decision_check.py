@@ -28,8 +28,8 @@ os.environ['HF_HOME'] = str(_hf_cache)
 from memory_core.procedural_memory import ProceduralMemory
 from memory_core.q_learning_agent import QLearningAgent, ACTIONS, ACTION_MAP, _stable_hash
 from memory_core.vector_memory_db import VectorMemoryDB
-from memory_core.working_memory import WorkingMemoryDB
-from memory_core.episodic_memory import EpisodicMemoryDB
+from memory_core.working_memory_db import WorkingMemoryDB
+from memory_core.episodic_memory_db import EpisodicMemoryDB
 from memory_core.knowledge_graph import KnowledgeGraph
 from memory_core.perception_channels import PerceptionOrchestrator
 from memory_core.metacognition_monitor import MetacognitionMonitor
