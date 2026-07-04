@@ -187,6 +187,34 @@ def _list_tools():
                 "required": ["task"],
             },
         },
+        {
+            "name": "transfer",
+            "description": "Transfer learned knowledge from one agent to another (cross-agent Q-table seeding + episodic pattern sharing).",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "source": {"type": "string", "description": "Source agent ID (e.g. openclaw)"},
+                    "target": {"type": "string", "description": "Target agent ID (e.g. luci)"},
+                },
+                "required": ["source", "target"],
+            },
+        },
+        {
+            "name": "consolidate",
+            "description": "Run a full memory consolidation cycle: LTP strengthening + LTD decay + episode merging + Q-buffer replay + skill extraction.",
+            "inputSchema": {
+                "type": "object",
+                "properties": {},
+            },
+        },
+        {
+            "name": "skills",
+            "description": "List all extracted skills and auto-generated procedural rules.",
+            "inputSchema": {
+                "type": "object",
+                "properties": {},
+            },
+        },
     ]
 
 
@@ -206,6 +234,12 @@ def _call_tool(name: str, args: dict) -> dict:
         return _tool_stats(args)
     elif name == "analogy":
         return _tool_analogy(args)
+    elif name == "transfer":
+        return _tool_transfer(args)
+    elif name == "consolidate":
+        return _tool_consolidate(args)
+    elif name == "skills":
+        return _tool_skills(args)
     else:
         return {"content": [{"type": "text", "text": f"Unknown tool: {name}"}]}
 
@@ -325,6 +359,77 @@ def _tool_analogy(args: dict) -> dict:
         return {"content": [{"type": "text", "text": text}]}
     except Exception as e:
         return {"content": [{"type": "text", "text": f"Analogy failed: {e}"}]}
+
+
+def _tool_transfer(args: dict) -> dict:
+    source = args.get("source", "openclaw")
+    target = args.get("target", "luci")
+    try:
+        from memory_integration.decision_check import get_agent_registry
+        reg = get_agent_registry()
+        result = reg.cross_agent_transfer(source, target)
+        text = (f"Cross-agent transfer {source}→{target}:\n"
+                f"  Episodes transferred: {result.get('episodes_transferred', 0)}\n"
+                f"  Q-table cells seeded: {result.get('q_cells_seeded', 0)}\n"
+                f"  Calibration references: {result.get('calibration_references', 0)}")
+        return {"content": [{"type": "text", "text": text}]}
+    except Exception as e:
+        return {"content": [{"type": "text", "text": f"Transfer failed: {e}"}]}
+
+
+def _tool_consolidate(args: dict) -> dict:
+    try:
+        from memory_integration.decision_check import get_agent_registry
+        from memory_core.meta_learner import SkillExtractor
+        reg = get_agent_registry()
+        text = "Consolidation results:\n"
+        for agent_id in reg.list_agents():
+            bundle = reg.get(agent_id)
+            if not bundle or not bundle.consolidator:
+                continue
+            result = bundle.consolidator.consolidate()
+            text += (f"  {agent_id}: LTP={result.get('ltp_count',0)}, "
+                     f"LTD={result.get('ltd_pruned',0)}, "
+                     f"merged={result.get('episodes_merged',0)}, "
+                     f"Q_replay={result.get('q_replayed',0)}\n")
+            # Skill extraction
+            try:
+                se = SkillExtractor(episodic_memory=bundle.episodic_memory,
+                                     knowledge_graph=bundle.knowledge_graph)
+                extracted = se.extract_skills(min_successes=2)
+                if extracted > 0:
+                    fed = se.feed_procedural(bundle.procedural_memory)
+                    text += f"    Skills: extracted={extracted}, fed to PM={fed}\n"
+            except: pass
+        # Cross-agent share
+        reg.share_all()
+        text += "  Cross-agent sharing: complete"
+        return {"content": [{"type": "text", "text": text}]}
+    except Exception as e:
+        return {"content": [{"type": "text", "text": f"Consolidation failed: {e}"}]}
+
+
+def _tool_skills(args: dict) -> dict:
+    try:
+        from memory_core.meta_learner import SkillExtractor
+        se = SkillExtractor()
+        skills = se.data.get("skills", {})
+        text = f"Extracted Skills ({len(skills)}):\n"
+        for sid, skill in list(skills.items())[:20]:
+            text += (f"  [{skill['action']}] patterns={skill.get('context_patterns',[])[:3]} "
+                     f"n={skill.get('success_count',0)}, sr={skill.get('success_rate',0):.0%}\n")
+        # Also show procedural rules
+        pm = DC.procedural_memory if DC else None
+        if pm:
+            rules = pm.data.get("rules", {})
+            auto_rules = [r for r in rules.values() if "[Auto]" in r.get("rule_name","")]
+            text += f"\nAuto-generated Procedural Rules ({len(auto_rules)}):\n"
+            for r in auto_rules[:10]:
+                text += (f"  {r['rule_name']} (L{r['level']}, "
+                         f"sr={r.get('success_rate',0):.0%})\n")
+        return {"content": [{"type": "text", "text": text}]}
+    except Exception as e:
+        return {"content": [{"type": "text", "text": f"Skills query failed: {e}"}]}
 
 
 # ── Resources ────────────────────────────────────────────────────────────────

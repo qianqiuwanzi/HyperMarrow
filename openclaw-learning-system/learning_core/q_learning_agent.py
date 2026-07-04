@@ -151,7 +151,7 @@ class QLearningAgent:
         self._world_model = None
         self._active_inference = False
         if neural_mode in ("neural", "hybrid"):
-            from .neural_state import NeuralAgent
+            from memory_core.neural_state import NeuralAgent
             self._neural_agent = NeuralAgent()
             print(f"[Q-Learning] Neural mode: {neural_mode} "
                   f"(PyTorch={self._neural_agent.torch_available})", file=_sys.stderr)
@@ -275,7 +275,12 @@ class QLearningAgent:
                            if self.neural_mode == "neural"
                            else self.q_table[next_state_idx, :])
                 target_q = reward + self.discount_factor * float(np.max(next_qs))
-            self._neural_agent.train_step(state, action_idx, target_q,
+            # Serialize state to fixed vector for neural training
+            from memory_core.neural_state import _serialize_state
+            s_vec = _serialize_state(state) if isinstance(state, dict) else (
+                _serialize_state({"task_type": str(state)[:30]}) if isinstance(state, str)
+                else np.zeros(34, dtype=np.float32))
+            self._neural_agent.train_step(s_vec, action_idx, target_q,
                                           learning_rate=self.learning_rate * 0.1)
 
         # World model training (Wave 2)
