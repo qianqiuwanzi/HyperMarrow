@@ -1081,5 +1081,715 @@
     "note": "验证数据持久化",
     "source": "runtime_record",
     "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:43.996160",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.048501",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.094999",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.139744",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.187365",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.233596",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.285760",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.339418",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.387733",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.431585",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.477370",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.528312",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.585231",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.638158",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.684407",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.732372",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.778921",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.828178",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.874308",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.922334",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:44.968317",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:45.013429",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:45.065198",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:45.127654",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T19:57:45.177906",
+    "context": {
+      "session_key": "bench",
+      "channel": "webchat"
+    },
+    "action": "benchmark_test",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 28,
+    "next_state": 28,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T20:13:36.292921",
+    "context": {
+      "session_key": "bench",
+      "channel": "test"
+    },
+    "action": "bench_warmup_0",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 47,
+    "next_state": 47,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T20:13:36.295921",
+    "context": {
+      "session_key": "bench",
+      "channel": "test"
+    },
+    "action": "bench_warmup_1",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 89,
+    "next_state": 89,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T20:13:41.312085",
+    "context": {
+      "session_key": "bench",
+      "channel": "test",
+      "domain": "skill"
+    },
+    "action": "bench_async_0",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 18,
+    "next_state": 18,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T20:13:41.315086",
+    "context": {
+      "session_key": "bench",
+      "channel": "test",
+      "domain": "skill"
+    },
+    "action": "bench_async_1",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 59,
+    "next_state": 59,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T20:13:41.318309",
+    "context": {
+      "session_key": "bench",
+      "channel": "test",
+      "domain": "skill"
+    },
+    "action": "bench_async_2",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 5,
+    "next_state": 5,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T20:13:41.321304",
+    "context": {
+      "session_key": "bench",
+      "channel": "test",
+      "domain": "skill"
+    },
+    "action": "bench_async_3",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 53,
+    "next_state": 53,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T20:13:41.323304",
+    "context": {
+      "session_key": "bench",
+      "channel": "test",
+      "domain": "skill"
+    },
+    "action": "bench_async_4",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 59,
+    "next_state": 59,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T20:13:41.326298",
+    "context": {
+      "session_key": "bench",
+      "channel": "test",
+      "domain": "skill"
+    },
+    "action": "bench_async_5",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 79,
+    "next_state": 79,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T20:13:41.329298",
+    "context": {
+      "session_key": "bench",
+      "channel": "test",
+      "domain": "skill"
+    },
+    "action": "bench_async_6",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 27,
+    "next_state": 27,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T20:13:41.333298",
+    "context": {
+      "session_key": "bench",
+      "channel": "test",
+      "domain": "skill"
+    },
+    "action": "bench_async_7",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 0,
+    "next_state": 0,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T20:13:41.336298",
+    "context": {
+      "session_key": "bench",
+      "channel": "test",
+      "domain": "skill"
+    },
+    "action": "bench_async_8",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 75,
+    "next_state": 75,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T20:13:41.339300",
+    "context": {
+      "session_key": "bench",
+      "channel": "test",
+      "domain": "skill"
+    },
+    "action": "bench_async_9",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 6,
+    "next_state": 6,
+    "note": "benchmark",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T21:33:31.879263",
+    "context": {
+      "session_key": "unknown",
+      "channel": "webchat",
+      "raw": {
+        "session_key": "test",
+        "channel": "webchat",
+        "provider": "webchat",
+        "trigger": "test",
+        "domain": "skill"
+      }
+    },
+    "action": "write_script",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 90,
+    "next_state": 90,
+    "note": "rpc_test",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T21:44:19.674599",
+    "context": {
+      "session_key": "unknown",
+      "channel": "webchat",
+      "raw": {
+        "session_key": "test",
+        "channel": "webchat",
+        "provider": "webchat",
+        "trigger": "test",
+        "domain": "skill"
+      }
+    },
+    "action": "write_script",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 90,
+    "next_state": 90,
+    "note": "rpc_test",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T21:46:35.628850",
+    "context": {
+      "session_key": "unknown",
+      "channel": "webchat",
+      "raw": {
+        "session_key": "test",
+        "channel": "webchat",
+        "provider": "webchat",
+        "trigger": "test",
+        "domain": "skill"
+      }
+    },
+    "action": "write_script",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 90,
+    "next_state": 90,
+    "note": "rpc_test",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T21:47:17.604044",
+    "context": {
+      "session_key": "unknown",
+      "channel": "webchat",
+      "raw": {
+        "session_key": "test",
+        "channel": "webchat",
+        "provider": "webchat",
+        "trigger": "test",
+        "domain": "skill"
+      }
+    },
+    "action": "write_script",
+    "outcome": "success",
+    "reward": 0.5,
+    "state": 90,
+    "next_state": 90,
+    "note": "rpc_test",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T22:12:14.150195",
+    "context": {
+      "session_key": "unknown",
+      "channel": "webchat",
+      "raw": {
+        "task": "test_rpc",
+        "phase": "P0"
+      }
+    },
+    "action": "",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 54,
+    "next_state": 54,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T22:13:41.885673",
+    "context": {
+      "session_key": "unknown",
+      "channel": "webchat",
+      "raw": {
+        "task": "test_rpc",
+        "phase": "P0"
+      }
+    },
+    "action": "",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 54,
+    "next_state": 54,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-03T22:15:12.903008",
+    "context": {
+      "session_key": "unknown",
+      "channel": "webchat",
+      "raw": {
+        "task": "test_rpc",
+        "phase": "P0"
+      }
+    },
+    "action": "",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 54,
+    "next_state": 54,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
   }
 ]

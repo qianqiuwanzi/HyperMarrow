@@ -2,87 +2,162 @@
   "version": "1.0",
   "session_id": "2026-07-03T08:54:23.450231",
   "active_context": {
-    "last_action": "test_record_save",
+    "last_action": "agent_think",
     "channel": "id",
     "domain": "skill",
     "error_type": "timeout",
     "has_error": true,
     "channelid": "webchat",
-    "session_key": "test"
+    "session_key": "test",
+    "provider": "webchat",
+    "trigger": "test",
+    "task": "test_rpc",
+    "phase": "P0"
   },
   "context_stack": [],
   "recent_items": [
     {
       "type": "context_update",
       "data": {
-        "last_action": "switch_skill",
-        "channel": "webchat",
-        "domain": "skill"
-      },
-      "ts": "2026-07-03T08:54:23.578455"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "switch_skill",
-        "domain": "skill",
-        "channel": "webchat"
-      },
-      "ts": "2026-07-03T08:54:23.597533"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "switch_skill",
-        "domain": "media",
-        "error_type": "timeout",
-        "has_error": true,
-        "channel": "webchat"
-      },
-      "ts": "2026-07-03T14:44:50.918688"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "switch_skill",
-        "domain": "skill",
-        "has_error": true,
-        "channel": "webchat"
-      },
-      "ts": "2026-07-03T14:44:50.931688"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "write_script",
-        "channelid": "webchat",
-        "domain": "skill",
-        "has_error": true,
-        "channel": "id"
-      },
-      "ts": "2026-07-03T19:10:40.778020"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "write_script",
-        "channelid": "webchat",
-        "domain": "skill",
-        "has_error": true,
-        "channel": "id"
-      },
-      "ts": "2026-07-03T19:10:40.792022"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "write_script",
+        "last_action": "benchmark_test",
         "session_key": "test",
         "channel": "id",
         "domain": "skill",
         "has_error": true
       },
-      "ts": "2026-07-03T19:43:09.895276"
+      "ts": "2026-07-03T19:57:44.531313"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "benchmark_test",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T19:57:44.589201"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "benchmark_test",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T19:57:44.641156"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "benchmark_test",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T19:57:44.687442"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "benchmark_test",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T19:57:44.735395"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "benchmark_test",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T19:57:44.782921"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "benchmark_test",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T19:57:44.831178"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "benchmark_test",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T19:57:44.878308"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "benchmark_test",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T19:57:44.925335"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "benchmark_test",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T19:57:44.971317"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "benchmark_test",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T19:57:45.017431"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "benchmark_test",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T19:57:45.068240"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "benchmark_test",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T19:57:45.131621"
     },
     {
       "type": "context_update",
@@ -93,10 +168,431 @@
         "domain": "skill",
         "has_error": true
       },
-      "ts": "2026-07-03T19:46:00.759689"
+      "ts": "2026-07-03T20:11:25.885204"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_warmup_0",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:21.006993"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_warmup_1",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:32.724172"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_0",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:38.777335"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_1",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:38.825337"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_2",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:38.876976"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_3",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:38.934410"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_4",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:38.984444"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_5",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:39.034747"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_6",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:39.085665"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_7",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:39.138243"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_8",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:39.188761"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_9",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:39.240752"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_10",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:39.288934"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_11",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:39.337244"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_12",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:39.391254"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_13",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:39.445668"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_14",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:39.495043"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_15",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:39.547004"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_16",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:39.598071"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_17",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:39.654289"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_18",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:39.706952"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bench_async_19",
+        "session_key": "test",
+        "channel": "id",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T20:13:39.756935"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "write_script",
+        "session_key": "test",
+        "channel": "id",
+        "provider": "webchat",
+        "trigger": "test",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T21:33:31.802128"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "write_script",
+        "session_key": "test",
+        "channel": "id",
+        "provider": "webchat",
+        "trigger": "test",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T21:33:31.817127"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "write_script",
+        "session_key": "test",
+        "channel": "id",
+        "provider": "webchat",
+        "trigger": "test",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T21:44:19.603080"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "write_script",
+        "session_key": "test",
+        "channel": "id",
+        "provider": "webchat",
+        "trigger": "test",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T21:44:19.623434"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "write_script",
+        "session_key": "test",
+        "channel": "id",
+        "provider": "webchat",
+        "trigger": "test",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T21:46:35.568244"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "write_script",
+        "session_key": "test",
+        "channel": "id",
+        "provider": "webchat",
+        "trigger": "test",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T21:46:35.582494"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "write_script",
+        "session_key": "test",
+        "channel": "id",
+        "provider": "webchat",
+        "trigger": "test",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T21:47:17.537924"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "write_script",
+        "session_key": "test",
+        "channel": "id",
+        "provider": "webchat",
+        "trigger": "test",
+        "domain": "skill",
+        "has_error": true
+      },
+      "ts": "2026-07-03T21:47:17.553972"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "agent_think",
+        "task": "test_rpc",
+        "phase": "P0",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-03T22:12:14.083580"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "task": "test_rpc",
+        "phase": "P0",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-03T22:12:14.099800"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "agent_think",
+        "task": "test_rpc",
+        "phase": "P0",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-03T22:13:41.823721"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "task": "test_rpc",
+        "phase": "P0",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-03T22:13:41.838874"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "agent_think",
+        "task": "test_rpc",
+        "phase": "P0",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-03T22:15:12.839252"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "task": "test_rpc",
+        "phase": "P0",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-03T22:15:12.856401"
     }
   ],
   "current_task": null,
   "goal": null,
-  "updated_at": "2026-07-03T19:46:00.759689"
+  "updated_at": "2026-07-03T22:15:12.856401"
 }

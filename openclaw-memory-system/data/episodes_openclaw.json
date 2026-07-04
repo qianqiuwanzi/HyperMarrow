@@ -135,8 +135,1020 @@
       "duration_seconds": 0.0,
       "linked_memory_ids": [],
       "created_at": "2026-07-03T19:46:13.369906"
+    },
+    {
+      "episode_id": "8a277e2b",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:43.998159",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:43.998159"
+    },
+    {
+      "episode_id": "9ffffbc2",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.050500",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.050500"
+    },
+    {
+      "episode_id": "50daf391",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.096999",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.096999"
+    },
+    {
+      "episode_id": "a3af4e7f",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.141774",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.141774"
+    },
+    {
+      "episode_id": "f5505c16",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.189389",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.189389"
+    },
+    {
+      "episode_id": "f15ab4ea",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.234601",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.234601"
+    },
+    {
+      "episode_id": "b93ff03a",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.288759",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.288759"
+    },
+    {
+      "episode_id": "c733de27",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.342416",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.342416"
+    },
+    {
+      "episode_id": "d2f1921f",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.388700",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.388700"
+    },
+    {
+      "episode_id": "97d8d454",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.433588",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.433588"
+    },
+    {
+      "episode_id": "7563a35a",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.479369",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.479369"
+    },
+    {
+      "episode_id": "c5311339",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.530312",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.530312"
+    },
+    {
+      "episode_id": "4669d69d",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.587201",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.587201"
+    },
+    {
+      "episode_id": "52a7580c",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.640154",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.640154"
+    },
+    {
+      "episode_id": "e53aefab",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.686413",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.686413"
+    },
+    {
+      "episode_id": "8229829c",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.734372",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.734372"
+    },
+    {
+      "episode_id": "2ac0519f",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.781920",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.781920"
+    },
+    {
+      "episode_id": "1142adb0",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.830179",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.830179"
+    },
+    {
+      "episode_id": "b3b5e9ec",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.877306",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.877306"
+    },
+    {
+      "episode_id": "d9ba8875",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.923335",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.923335"
+    },
+    {
+      "episode_id": "6ea907c2",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:44.970317",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:44.970317"
+    },
+    {
+      "episode_id": "2fb56a48",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:45.015458",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:45.015458"
+    },
+    {
+      "episode_id": "345f7fe7",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:45.067198",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:45.067198"
+    },
+    {
+      "episode_id": "8a9e6057",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:45.129622",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:45.129622"
+    },
+    {
+      "episode_id": "3ae8e780",
+      "what": "Action 'benchmark_test': success",
+      "when": "2026-07-03T19:57:45.180905",
+      "context": {
+        "action": "benchmark_test",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=benchmark_test, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 0.5,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T19:57:45.180905"
+    },
+    {
+      "episode_id": "223ec005",
+      "what": "Action 'bench_warmup_0': success",
+      "when": "2026-07-03T20:13:36.294921",
+      "context": {
+        "action": "bench_warmup_0",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"test\"}",
+        "wm_summary": "task=None | ctx=(last_action=bench_warmup_1, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 1.0,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T20:13:36.294921"
+    },
+    {
+      "episode_id": "47a4c7ea",
+      "what": "Action 'bench_warmup_1': success",
+      "when": "2026-07-03T20:13:36.299234",
+      "context": {
+        "action": "bench_warmup_1",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"test\"}",
+        "wm_summary": "task=None | ctx=(last_action=bench_warmup_1, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 1.0,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T20:13:36.299234"
+    },
+    {
+      "episode_id": "293394ac",
+      "what": "Action 'bench_async_0': success",
+      "when": "2026-07-03T20:13:41.314085",
+      "context": {
+        "action": "bench_async_0",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"}",
+        "wm_summary": "task=None | ctx=(last_action=bench_async_19, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 1.0,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T20:13:41.314085"
+    },
+    {
+      "episode_id": "731c5a19",
+      "what": "Action 'bench_async_1': success",
+      "when": "2026-07-03T20:13:41.317086",
+      "context": {
+        "action": "bench_async_1",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"}",
+        "wm_summary": "task=None | ctx=(last_action=bench_async_19, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 1.0,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T20:13:41.317086"
+    },
+    {
+      "episode_id": "54d213e1",
+      "what": "Action 'bench_async_2': success",
+      "when": "2026-07-03T20:13:41.319306",
+      "context": {
+        "action": "bench_async_2",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"}",
+        "wm_summary": "task=None | ctx=(last_action=bench_async_19, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 1.0,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T20:13:41.319306"
+    },
+    {
+      "episode_id": "265b805f",
+      "what": "Action 'bench_async_3': success",
+      "when": "2026-07-03T20:13:41.322305",
+      "context": {
+        "action": "bench_async_3",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"}",
+        "wm_summary": "task=None | ctx=(last_action=bench_async_19, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 1.0,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T20:13:41.322305"
+    },
+    {
+      "episode_id": "b338150c",
+      "what": "Action 'bench_async_4': success",
+      "when": "2026-07-03T20:13:41.324305",
+      "context": {
+        "action": "bench_async_4",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"}",
+        "wm_summary": "task=None | ctx=(last_action=bench_async_19, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 1.0,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T20:13:41.324305"
+    },
+    {
+      "episode_id": "20c4292f",
+      "what": "Action 'bench_async_5': success",
+      "when": "2026-07-03T20:13:41.328298",
+      "context": {
+        "action": "bench_async_5",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"}",
+        "wm_summary": "task=None | ctx=(last_action=bench_async_19, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 1.0,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T20:13:41.328298"
+    },
+    {
+      "episode_id": "07ab6e2d",
+      "what": "Action 'bench_async_6': success",
+      "when": "2026-07-03T20:13:41.331298",
+      "context": {
+        "action": "bench_async_6",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"}",
+        "wm_summary": "task=None | ctx=(last_action=bench_async_19, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 1.0,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T20:13:41.331298"
+    },
+    {
+      "episode_id": "57d403da",
+      "what": "Action 'bench_async_7': success",
+      "when": "2026-07-03T20:13:41.334298",
+      "context": {
+        "action": "bench_async_7",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"}",
+        "wm_summary": "task=None | ctx=(last_action=bench_async_19, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 1.0,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T20:13:41.334298"
+    },
+    {
+      "episode_id": "155709e2",
+      "what": "Action 'bench_async_8': success",
+      "when": "2026-07-03T20:13:41.338299",
+      "context": {
+        "action": "bench_async_8",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"}",
+        "wm_summary": "task=None | ctx=(last_action=bench_async_19, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 1.0,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T20:13:41.338299"
+    },
+    {
+      "episode_id": "494ef460",
+      "what": "Action 'bench_async_9': success",
+      "when": "2026-07-03T20:13:41.341300",
+      "context": {
+        "action": "bench_async_9",
+        "context_raw": "{\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"}",
+        "wm_summary": "task=None | ctx=(last_action=bench_async_19, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=benchmark)",
+        "reward": 1.0,
+        "note": "benchmark"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T20:13:41.341300"
+    },
+    {
+      "episode_id": "b2709077",
+      "what": "Action 'write_script': success",
+      "when": "2026-07-03T21:33:31.880371",
+      "context": {
+        "action": "write_script",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"session_key\": \"test\", \"channel\": \"webchat\", \"provider\": \"webchat\", \"trigger\": \"test\", \"domain\": \"skill\"}}",
+        "wm_summary": "task=None | ctx=(last_action=write_script, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test)",
+        "reward": 0.5,
+        "note": "rpc_test"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T21:33:31.880371"
+    },
+    {
+      "episode_id": "7274408e",
+      "what": "Action 'write_script': success",
+      "when": "2026-07-03T21:44:19.677856",
+      "context": {
+        "action": "write_script",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"session_key\": \"test\", \"channel\": \"webchat\", \"provider\": \"webchat\", \"trigger\": \"test\", \"domain\": \"skill\"}}",
+        "wm_summary": "task=None | ctx=(last_action=write_script, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test)",
+        "reward": 0.5,
+        "note": "rpc_test"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T21:44:19.677856"
+    },
+    {
+      "episode_id": "79cb3e51",
+      "what": "Action 'write_script': success",
+      "when": "2026-07-03T21:46:35.630851",
+      "context": {
+        "action": "write_script",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"session_key\": \"test\", \"channel\": \"webchat\", \"provider\": \"webchat\", \"trigger\": \"test\", \"domain\": \"skill\"}}",
+        "wm_summary": "task=None | ctx=(last_action=write_script, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test)",
+        "reward": 0.5,
+        "note": "rpc_test"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T21:46:35.630851"
+    },
+    {
+      "episode_id": "cc4d69d3",
+      "what": "Action 'write_script': success",
+      "when": "2026-07-03T21:47:17.606045",
+      "context": {
+        "action": "write_script",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"session_key\": \"test\", \"channel\": \"webchat\", \"provider\": \"webchat\", \"trigger\": \"test\", \"domain\": \"skill\"}}",
+        "wm_summary": "task=None | ctx=(last_action=write_script, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test)",
+        "reward": 0.5,
+        "note": "rpc_test"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T21:47:17.606045"
+    },
+    {
+      "episode_id": "62101f58",
+      "what": "Action '': success",
+      "when": "2026-07-03T22:12:14.152194",
+      "context": {
+        "action": "",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"task\": \"test_rpc\", \"phase\": \"P0\"}}",
+        "wm_summary": "task=None | ctx=(last_action=agent_think, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=P0)",
+        "reward": 1.0,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T22:12:14.152194"
+    },
+    {
+      "episode_id": "b2a0c845",
+      "what": "Action '': success",
+      "when": "2026-07-03T22:13:41.887672",
+      "context": {
+        "action": "",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"task\": \"test_rpc\", \"phase\": \"P0\"}}",
+        "wm_summary": "task=None | ctx=(last_action=agent_think, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=P0)",
+        "reward": 1.0,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T22:13:41.887672"
+    },
+    {
+      "episode_id": "4ca20ae3",
+      "what": "Action '': success",
+      "when": "2026-07-03T22:15:12.905023",
+      "context": {
+        "action": "",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"task\": \"test_rpc\", \"phase\": \"P0\"}}",
+        "wm_summary": "task=None | ctx=(last_action=agent_think, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=P0)",
+        "reward": 1.0,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-03T22:15:12.905023"
     }
   ],
   "created_at": "2026-07-02T15:28:17.476644",
-  "updated_at": "2026-07-03T19:46:13.369906"
+  "updated_at": "2026-07-03T22:15:12.906009"
 }

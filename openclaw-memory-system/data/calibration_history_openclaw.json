@@ -1,0 +1,326 @@
+{
+  "version": "1.0",
+  "entries": [
+    {
+      "timestamp": "2026-07-03T19:57:43.999159",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.051505",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.097999",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.143140",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.190366",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.235597",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.289759",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.343417",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.389700",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.434032",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.480371",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.531313",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.589201",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.641156",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.687442",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.735395",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.782921",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.831178",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.878308",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T19:57:44.924334",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "benchmark_test",
+      "state_context_hash": "benchmark_test {\"session_key\": \"bench\", \"channel\": \"webchat\"} [WM:task=None | ct",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:32.724172",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_warmup_0",
+      "state_context_hash": "bench_warmup_0 {\"session_key\": \"bench\", \"channel\": \"test\"} [WM:task=None | ctx=(",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:32.771263",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_warmup_1",
+      "state_context_hash": "bench_warmup_1 {\"session_key\": \"bench\", \"channel\": \"test\"} [WM:task=None | ctx=(",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:38.825337",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_async_0",
+      "state_context_hash": "bench_async_0 {\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"} [WM",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:38.875976",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_async_1",
+      "state_context_hash": "bench_async_1 {\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"} [WM",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:38.934410",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_async_2",
+      "state_context_hash": "bench_async_2 {\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"} [WM",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:38.984444",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_async_3",
+      "state_context_hash": "bench_async_3 {\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"} [WM",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:39.034747",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_async_4",
+      "state_context_hash": "bench_async_4 {\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"} [WM",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:39.085665",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_async_5",
+      "state_context_hash": "bench_async_5 {\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"} [WM",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:39.138243",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_async_6",
+      "state_context_hash": "bench_async_6 {\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"} [WM",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:39.188761",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_async_7",
+      "state_context_hash": "bench_async_7 {\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"} [WM",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:39.240752",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_async_8",
+      "state_context_hash": "bench_async_8 {\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"} [WM",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:39.287913",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_async_9",
+      "state_context_hash": "bench_async_9 {\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"} [WM",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:39.337244",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_async_10",
+      "state_context_hash": "bench_async_10 {\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"} [W",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:39.391254",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_async_11",
+      "state_context_hash": "bench_async_11 {\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"} [W",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:39.444669",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_async_12",
+      "state_context_hash": "bench_async_12 {\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"} [W",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:39.495043",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_async_13",
+      "state_context_hash": "bench_async_13 {\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"} [W",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:39.547004",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_async_14",
+      "state_context_hash": "bench_async_14 {\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"} [W",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:39.598071",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_async_15",
+      "state_context_hash": "bench_async_15 {\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"} [W",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:39.654289",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_async_16",
+      "state_context_hash": "bench_async_16 {\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"} [W",
+      "calibrated": false
+    },
+    {
+      "timestamp": "2026-07-03T20:13:39.706952",
+      "predicted_confidence": 0.5,
+      "actual_outcome": "success",
+      "action": "bench_async_17",
+      "state_context_hash": "bench_async_17 {\"session_key\": \"bench\", \"channel\": \"test\", \"domain\": \"skill\"} [W",
+      "calibrated": false
+    }
+  ],
+  "updated_at": "2026-07-03T20:13:39.706952"
+}
