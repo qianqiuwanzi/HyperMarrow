@@ -165,7 +165,7 @@ class QLearningAgent:
 
     def enable_world_model(self):
         """启用基于模型的主动推理（Wave 2）。"""
-        from .world_model import ModelBasedAgent
+        from memory_core.world_model import ModelBasedAgent
         self._world_model = ModelBasedAgent()
         self._active_inference = True
         print(f"[Q-Learning] World model enabled (active inference)", file=_sys.stderr)

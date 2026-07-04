@@ -176,6 +176,14 @@ def create_for_agent(agent_id: str, action_space: list = None) -> 'DecisionCheck
 
     bundle = reg.register(agent_id, action_space=action_space)
 
+    # Inject shared layer into AgentBundle (so bundle.knowledge_graph works)
+    bundle.knowledge_graph = shared.get("knowledge_graph")
+    bundle.vector_db = shared.get("vector_db")
+    bundle.procedural_memory = shared.get("procedural_memory")
+    bundle.consolidator = shared.get("consolidator")
+    bundle.transfer_learner = shared.get("transfer_learner")
+    bundle.perception = shared.get("perception")
+
     # Wire shared consolidator + skill_extractor to the agent's episodic memory
     # Note: MemoryConsolidator uses self.em (not self.episodic_memory)
     shared["consolidator"].em = bundle.episodic_memory
