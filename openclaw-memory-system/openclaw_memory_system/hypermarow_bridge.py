@@ -54,7 +54,7 @@ _HM_READY = False
 DC = None
 
 def _init_hm():
-    """Initialize HyperMarrow DecisionCheckPoint."""
+    """Initialize HyperMarrow — multi-agent registry + world model + auto sleep."""
     global DC, _HM_READY
     try:
         # Setup HuggingFace mirror
@@ -62,23 +62,37 @@ def _init_hm():
             from memory_core.config import setup_hf_mirror
             setup_hf_mirror()
         except ImportError:
-            pass  # config may not exist
+            pass
 
-        # Create DC for openclaw agent
-        from memory_integration.decision_check import create_for_agent
+        from memory_integration.decision_check import create_for_agent, get_agent_registry
+
+        # ── A1: Register dual agents (openclaw + luci) ──────────────────
         DC = create_for_agent("openclaw")
+        _DC_luci = create_for_agent("luci")
+        reg = get_agent_registry()
+
+        # ── A2: Enable world model on both agents ───────────────────────
+        try:
+            DC.ql_agent.enable_world_model()
+            _DC_luci.ql_agent.enable_world_model()
+            print("[HyperMarrow Bridge] WorldModel enabled (active inference)",
+                  file=sys.stderr, flush=True)
+        except Exception as e:
+            print(f"[HyperMarrow Bridge] WorldModel init skipped: {e}",
+                  file=sys.stderr, flush=True)
+
+        # ── A3: Auto sleep scheduling ───────────────────────────────────
+        _start_sleep_scheduler(reg)
+
         _HM_READY = True
-
-        # ── Learning system is integrated via DC.ql_agent (full QLearningAgent) ──
-        # No separate learning agent needed — DecisionCheckPoint handles RL natively
-
         # Get stats for startup log
         stats = _get_stats()
+        kg_stats = stats.get('knowledge_graph', {})
         print(
-            f"[HyperMarrow Bridge] Ready. "
+            f"[HyperMarrow Bridge] Ready — {len(reg.list_agents())} agents, "
             f"PM={stats.get('procedural_memory',{}).get('total_rules',0)} rules, "
             f"QL={stats.get('q_learning',{}).get('nonzero',0)}/{stats.get('q_learning',{}).get('total',0)} Q, "
-            f"VecDB={stats.get('vector_memory',{}).get('vectors',0)} vectors, "
+            f"KG={kg_stats.get('total_entities',0)} entities, "
             f"EM={stats.get('episodic_memory',{}).get('episodes',0)} episodes",
             file=sys.stderr, flush=True
         )
@@ -88,6 +102,42 @@ def _init_hm():
         traceback.print_exc(file=sys.stderr)
         print(f"[HyperMarrow Bridge] Init FAILED: {e}", file=sys.stderr, flush=True)
         _HM_READY = False
+
+
+# ── A3: Sleep cycle scheduler ────────────────────────────────────────────────
+import threading
+import time as _time
+
+_SLEEP_INTERVAL_SEC = 4 * 3600  # 4 hours
+_last_sleep_at = 0
+
+
+def _start_sleep_scheduler(reg):
+    """Background thread: run MemoryConsolidator.sleep_cycle every 4 hours."""
+    def _sleep_loop():
+        global _last_sleep_at
+        while True:
+            _time.sleep(600)  # Check every 10 minutes
+            now = _time.time()
+            if now - _last_sleep_at >= _SLEEP_INTERVAL_SEC:
+                try:
+                    for agent_id in reg.list_agents():
+                        bundle = reg.get(agent_id)
+                        if bundle and bundle.consolidator:
+                            result = bundle.consolidator.sleep_cycle(force=True)
+                            print(f"[Sleep] Agent '{agent_id}': LTP={result.get('ltp_count',0)}, "
+                                  f"LTD={result.get('ltd_pruned',0)}",
+                                  file=sys.stderr, flush=True)
+                    # Cross-agent knowledge sharing after sleep
+                    reg.share_all()
+                    _last_sleep_at = now
+                except Exception as e:
+                    print(f"[Sleep] Cycle failed: {e}", file=sys.stderr, flush=True)
+
+    t = threading.Thread(target=_sleep_loop, daemon=True, name="hm_sleep")
+    t.start()
+    print(f"[HyperMarrow Bridge] Sleep scheduler started (interval={_SLEEP_INTERVAL_SEC//3600}h)",
+          file=sys.stderr, flush=True)
 
 
 def _dummy_metrics():

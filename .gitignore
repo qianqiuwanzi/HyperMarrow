@@ -35,15 +35,15 @@ find_record.py
 # *.pt
 # *.safetensors
 
-# 测试脚本
-test_*.py
+# 测试脚本（tests/ 目录内的除外 — 用 git add -f 添加）
 debug_*.py
 check_*.py
 run_*.py
 live_*.py
 
-# 运行时数据（用户特定，不跟踪）
+# 运行时校准数据（每 Agent 独立，初始状态由代码生成）
 calibration_history_*.json
-rl_decision_history.json
-episodes_*.json
-working_memory_*.json
+# 以下数据文件纳入版本控制（核心学习资产）：
+# rl_decision_history.json — 决策历史
+# episodes_*.json — 情景记忆
+# working_memory_*.json — 工作记忆快照
