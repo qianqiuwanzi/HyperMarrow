@@ -24,6 +24,7 @@ from .neural_state import NeuralAgent
 from .world_model import WorldModel, ModelBasedAgent
 from .meta_learner import MetaLearner, SkillExtractor
 from .agent_registry import AgentRegistry, AgentBundle
+from .analogical_reasoner import AnalogicalReasoner, CollaborationProtocol
 
 __all__ = [
     # P1: Working Memory
@@ -56,6 +57,9 @@ __all__ = [
     # Multi-Agent
     "AgentRegistry",
     "AgentBundle",
+    # Analogical Reasoning + Collaboration (Path B)
+    "AnalogicalReasoner",
+    "CollaborationProtocol",
     # Procedural Memory
     "ProceduralMemory",
     # RL (canonical location)

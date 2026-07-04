@@ -113,31 +113,119 @@ _last_sleep_at = 0
 
 
 def _start_sleep_scheduler(reg):
-    """Background thread: run MemoryConsolidator.sleep_cycle every 4 hours."""
+    """
+    Background thread: nightly cognitive cycle.
+    Consolidation → Skill Extraction → WorldModel optimization → Cross-agent sharing.
+    Runs every 4 hours.
+    """
     def _sleep_loop():
         global _last_sleep_at
+        import numpy as np
         while True:
             _time.sleep(600)  # Check every 10 minutes
             now = _time.time()
             if now - _last_sleep_at >= _SLEEP_INTERVAL_SEC:
                 try:
+                    print(f"[Sleep] === Nightly cognitive cycle starting ===",
+                          file=sys.stderr, flush=True)
+
                     for agent_id in reg.list_agents():
                         bundle = reg.get(agent_id)
-                        if bundle and bundle.consolidator:
+                        if not bundle:
+                            continue
+
+                        # ── 1. Memory Consolidation (LTP/LTD) ──────────
+                        if bundle.consolidator:
                             result = bundle.consolidator.sleep_cycle(force=True)
-                            print(f"[Sleep] Agent '{agent_id}': LTP={result.get('ltp_count',0)}, "
-                                  f"LTD={result.get('ltd_pruned',0)}",
+                            print(f"[Sleep] {agent_id}: LTP={result.get('ltp_count',0)}, "
+                                  f"LTD={result.get('ltd_pruned',0)}, "
+                                  f"merged={result.get('episodes_merged',0)}",
                                   file=sys.stderr, flush=True)
-                    # Cross-agent knowledge sharing after sleep
+
+                        # ── B1: Skill Extraction from episodic memory ────
+                        try:
+                            from memory_core.meta_learner import SkillExtractor
+                            se = SkillExtractor(
+                                episodic_memory=bundle.episodic_memory,
+                                knowledge_graph=bundle.knowledge_graph,
+                            )
+                            extracted = se.extract_skills(min_successes=2, min_success_rate=0.5)
+                            if extracted > 0:
+                                fed = se.feed_procedural(bundle.procedural_memory)
+                                print(f"[Sleep] {agent_id}: Skills extracted={extracted}, "
+                                      f"fed to PM={fed}",
+                                      file=sys.stderr, flush=True)
+                        except Exception as e:
+                            print(f"[Sleep] {agent_id}: Skill extraction skipped: {e}",
+                                  file=sys.stderr, flush=True)
+
+                        # ── B2: WorldModel prioritized training ─────────
+                        try:
+                            if (bundle.ql_agent and bundle.ql_agent._world_model
+                                    and bundle.ql_agent._neural_agent):
+                                wm = bundle.ql_agent._world_model.wm
+                                buf = bundle.ql_agent.experience_buffer
+                                if len(buf) >= 5:
+                                    # Prioritized replay: sample by abs(reward)
+                                    weights = np.array([abs(e.get("reward", 0)) + 0.1
+                                                       for e in buf])
+                                    weights /= weights.sum()
+                                    indices = np.random.choice(
+                                        len(buf), size=min(16, len(buf)),
+                                        replace=False, p=weights)
+                                    trained = 0
+                                    for idx in indices:
+                                        exp = buf[idx]
+                                        s_emb = bundle.ql_agent._neural_agent.encode(
+                                            str(exp.get("state", "")))
+                                        ns_emb = bundle.ql_agent._neural_agent.encode(
+                                            str(exp.get("next_state", "")))
+                                        wm.train_step(s_emb, exp["action"], ns_emb,
+                                                     exp.get("reward", 0), learning_rate=0.0005)
+                                        trained += 1
+                                    print(f"[Sleep] {agent_id}: WM trained {trained} "
+                                          f"prioritized samples, "
+                                          f"loss={wm._state_losses[-1]:.4f}" if wm._state_losses else "",
+                                          file=sys.stderr, flush=True)
+                        except Exception as e:
+                            print(f"[Sleep] {agent_id}: WM training skipped: {e}",
+                                  file=sys.stderr, flush=True)
+
+                    # ── 3. Cross-agent knowledge sharing ────────────────
                     reg.share_all()
+
+                    # ── B4: Multi-agent collaboration stats ─────────────
+                    _log_collaboration_stats(reg)
+
                     _last_sleep_at = now
+                    print(f"[Sleep] === Cycle complete ===", file=sys.stderr, flush=True)
+
                 except Exception as e:
+                    import traceback
+                    traceback.print_exc(file=sys.stderr)
                     print(f"[Sleep] Cycle failed: {e}", file=sys.stderr, flush=True)
 
     t = threading.Thread(target=_sleep_loop, daemon=True, name="hm_sleep")
     t.start()
-    print(f"[HyperMarrow Bridge] Sleep scheduler started (interval={_SLEEP_INTERVAL_SEC//3600}h)",
+    print(f"[HyperMarrow Bridge] Sleep scheduler started "
+          f"(interval={_SLEEP_INTERVAL_SEC//3600}h, skills+WM optimization enabled)",
           file=sys.stderr, flush=True)
+
+
+def _log_collaboration_stats(reg):
+    """B4: Log per-agent success rates for collaboration decisions."""
+    try:
+        for agent_id in reg.list_agents():
+            bundle = reg.get(agent_id)
+            if bundle and bundle.metacognition:
+                meta = bundle.metacognition
+                dash = meta.get_performance_dashboard()
+                print(f"[Collab] {agent_id}: accuracy={dash.get('recent_accuracy',0):.0%}, "
+                      f"health={dash.get('overall_health','?')}, "
+                      f"decisions={dash.get('total_decisions',0)}",
+                      file=sys.stderr, flush=True)
+    except Exception:
+        pass
 
 
 def _dummy_metrics():
