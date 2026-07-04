@@ -22,12 +22,16 @@ Methods:
 import sys, json, os, time
 from pathlib import Path
 
+# ── Add HyperMarrow packages to sys.path ──────────────────────
+_HYPERMARROW_ROOT = Path(r"D:\OpenClaw\workspace\HyperMarrow")
+sys.path.insert(0, str(_HYPERMARROW_ROOT / "openclaw-memory-system"))
+sys.path.insert(0, str(_HYPERMARROW_ROOT / "openclaw-learning-system"))
+
 # ── Working directory: HyperMarrow package root ──────────────────
 # Bridge is at: openclaw_memory_system/hypermarow_bridge.py
 # Package root: openclaw_memory_system/
 _BRIDGE_DIR = Path(__file__).parent.resolve()
 _PACKAGE_ROOT = _BRIDGE_DIR  # openclaw_memory_system/
-sys.path.insert(0, str(_PACKAGE_ROOT.parent.parent))
 
 # ── Ensure UTF-8 ──────────────────────────────────────────────────
 sys.stdout.reconfigure(encoding="utf-8")
