@@ -78,9 +78,28 @@
         "8a867f01"
       ],
       "extracted_at": "2026-07-02T14:57:01.037248"
+    },
+    "auto_try_fix_4": {
+      "id": "auto_try_fix_4",
+      "action": "try_fix",
+      "context_patterns": [
+        "timeout",
+        "retry",
+        "fix_"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "da654bfe",
+        "0f46fb63",
+        "05d69d37",
+        "eebb5de5"
+      ],
+      "extracted_at": "2026-07-04T11:06:11.883652"
     }
   },
-  "extraction_count": 2,
+  "extraction_count": 3,
   "created_at": "2026-07-02T14:56:38.006956",
-  "updated_at": "2026-07-02T14:57:01.037248"
+  "updated_at": "2026-07-04T11:06:11.883652"
 }

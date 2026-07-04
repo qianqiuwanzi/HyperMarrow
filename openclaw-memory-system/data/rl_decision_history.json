@@ -1791,5 +1791,78 @@
     "note": "",
     "source": "runtime_record",
     "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T10:54:05.417558",
+    "context": {
+      "task": "smoke_test",
+      "phase": "P2b"
+    },
+    "action": "try_fix_three_times",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 3,
+    "next_state": 3,
+    "note": "Bridge startup smoke test",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T10:54:57.549436",
+    "context": {
+      "task": "smoke_test",
+      "phase": "P2b"
+    },
+    "action": "try_fix_three_times",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 3,
+    "next_state": 3,
+    "note": "Bridge startup smoke test",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T10:55:31.967353",
+    "context": {
+      "task": "smoke_test",
+      "phase": "P2b"
+    },
+    "action": "try_fix_three_times",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 3,
+    "next_state": 3,
+    "note": "Bridge startup smoke test",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T10:59:19.298014",
+    "context": {
+      "task": "mcp_test"
+    },
+    "action": "try_fix_three_times",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 89,
+    "next_state": 89,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T11:09:56.772975",
+    "context": {
+      "task": "integration"
+    },
+    "action": "try_fix_three_times",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 59,
+    "next_state": 59,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
   }
 ]

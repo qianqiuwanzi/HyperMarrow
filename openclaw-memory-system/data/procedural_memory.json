@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "created_at": "2026-07-01T12:39:16.852708",
-  "updated_at": "2026-07-03T22:15:12.902009",
+  "updated_at": "2026-07-04T11:09:56.772975",
   "rules": {
     "rule_001": {
       "rule_id": "rule_001",
@@ -38,14 +38,14 @@
         "修复"
       ],
       "level": 5,
-      "success_count": 62,
+      "success_count": 67,
       "failure_count": 1,
-      "total_attempts": 63,
-      "success_rate": 0.9841269841269841,
-      "consecutive_success": 59,
+      "total_attempts": 68,
+      "success_rate": 0.9852941176470589,
+      "consecutive_success": 64,
       "consecutive_failure": 0,
       "created_at": "2026-07-01T12:42:00.000000",
-      "last_used_at": "2026-07-03T22:15:12.902009",
+      "last_used_at": "2026-07-04T11:09:56.772975",
       "promoted_at": "2026-07-03T19:57:44.527313",
       "demoted_at": null,
       "notes": [
@@ -372,6 +372,24 @@
           "success": true,
           "context": "write_script {\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"session_key\": \"test\", \"channel\": \"webchat\", \"provider\": \"webchat\", \"trigger\": \"test\", \"domain\": \"skill\"}} [WM:task=None | ctx=(last_action=write_script, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test)]",
           "note": "rpc_test"
+        },
+        {
+          "timestamp": "2026-07-04T10:54:05.417558",
+          "success": true,
+          "context": "try_fix_three_times {\"task\": \"smoke_test\", \"phase\": \"P2b\"} [WM:task=None | ctx=(last_action=try_fix_three_times, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=P2b, attempts=1)]",
+          "note": "Bridge startup smoke test"
+        },
+        {
+          "timestamp": "2026-07-04T10:54:57.549436",
+          "success": true,
+          "context": "try_fix_three_times {\"task\": \"smoke_test\", \"phase\": \"P2b\"} [WM:task=None | ctx=(last_action=try_fix_three_times, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=P2b, attempts=1)]",
+          "note": "Bridge startup smoke test"
+        },
+        {
+          "timestamp": "2026-07-04T10:55:31.967353",
+          "success": true,
+          "context": "try_fix_three_times {\"task\": \"smoke_test\", \"phase\": \"P2b\"} [WM:task=None | ctx=(last_action=try_fix_three_times, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=P2b, attempts=1)]",
+          "note": "Bridge startup smoke test"
         }
       ]
     },

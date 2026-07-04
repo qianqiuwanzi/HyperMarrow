@@ -15,11 +15,11 @@
       "type": "error_type",
       "properties": {
         "source": "record_auto",
-        "action": "",
+        "action": "try_fix_three_times",
         "outcome": "success"
       },
       "created_at": "2026-07-03T14:44:50.930690",
-      "updated_at": "2026-07-03T22:15:12.857401"
+      "updated_at": "2026-07-04T11:09:56.725302"
     },
     "2e77d9e0": {
       "id": "2e77d9e0",
@@ -340,6 +340,17 @@
       },
       "created_at": "2026-07-03T22:12:14.100802",
       "updated_at": "2026-07-03T22:15:12.858401"
+    },
+    "3e82da6a": {
+      "id": "3e82da6a",
+      "name": "try_fix_three_times",
+      "type": "action",
+      "properties": {
+        "outcome": "success",
+        "reward": 1.0
+      },
+      "created_at": "2026-07-04T10:54:05.369801",
+      "updated_at": "2026-07-04T11:09:56.725302"
     }
   },
   "relationships": [
@@ -585,6 +596,15 @@
       "weight": 1.0,
       "metadata": {},
       "created_at": "2026-07-03T22:12:14.101787"
+    },
+    {
+      "id": "d5d06b86",
+      "source_id": "7d43672c",
+      "target_id": "3e82da6a",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T10:54:05.369801"
     }
   ],
   "entity_type_index": {
@@ -619,7 +639,8 @@
       "1285004e",
       "bd2fe0b9",
       "ca668bc6",
-      "f9d55d4f"
+      "f9d55d4f",
+      "3e82da6a"
     ],
     "concept": [
       "905c3805",
@@ -628,5 +649,5 @@
     ]
   },
   "created_at": "2026-07-02T15:40:18.085788",
-  "updated_at": "2026-07-03T22:15:12.858401"
+  "updated_at": "2026-07-04T11:09:56.725302"
 }
