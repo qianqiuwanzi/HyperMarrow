@@ -15,22 +15,22 @@
       "type": "error_type",
       "properties": {
         "source": "record_auto",
-        "action": "try_fix_three_times",
-        "outcome": "success"
+        "action": "switch_skill",
+        "outcome": "failure"
       },
       "created_at": "2026-07-03T14:44:50.930690",
-      "updated_at": "2026-07-04T11:09:56.725302"
+      "updated_at": "2026-07-04T23:39:19.930956"
     },
     "2e77d9e0": {
       "id": "2e77d9e0",
       "name": "switch_skill",
       "type": "action",
       "properties": {
-        "outcome": "success",
-        "reward": 1.0
+        "outcome": "failure",
+        "reward": -1.0
       },
       "created_at": "2026-07-03T14:44:50.932687",
-      "updated_at": "2026-07-03T14:44:50.932687"
+      "updated_at": "2026-07-04T23:39:19.931946"
     },
     "4b048e0c": {
       "id": "4b048e0c",
@@ -350,7 +350,108 @@
         "reward": 1.0
       },
       "created_at": "2026-07-04T10:54:05.369801",
-      "updated_at": "2026-07-04T11:09:56.725302"
+      "updated_at": "2026-07-04T23:39:19.704525"
+    },
+    "89a75154": {
+      "id": "89a75154",
+      "name": "import_error",
+      "type": "error_type",
+      "properties": {
+        "source": "record_auto",
+        "action": "switch_skill",
+        "outcome": "failure"
+      },
+      "created_at": "2026-07-04T11:46:24.759071",
+      "updated_at": "2026-07-04T23:39:19.928947"
+    },
+    "be2433c4": {
+      "id": "be2433c4",
+      "name": "bypass_problem",
+      "type": "action",
+      "properties": {
+        "outcome": "failure",
+        "reward": -1.0
+      },
+      "created_at": "2026-07-04T11:46:24.762072",
+      "updated_at": "2026-07-04T23:39:19.759900"
+    },
+    "a18bdc7a": {
+      "id": "a18bdc7a",
+      "name": "format_unsupported",
+      "type": "error_type",
+      "properties": {
+        "source": "record_auto",
+        "action": "switch_skill",
+        "outcome": "failure"
+      },
+      "created_at": "2026-07-04T11:46:24.882731",
+      "updated_at": "2026-07-04T11:46:25.133379"
+    },
+    "e65ffeea": {
+      "id": "e65ffeea",
+      "name": "follow_rule_strictly",
+      "type": "action",
+      "properties": {
+        "outcome": "success",
+        "reward": 1.0
+      },
+      "created_at": "2026-07-04T11:46:24.951506",
+      "updated_at": "2026-07-04T23:39:19.598714"
+    },
+    "d9f01bf4": {
+      "id": "d9f01bf4",
+      "name": "write_script",
+      "type": "action",
+      "properties": {
+        "outcome": "success",
+        "reward": 1.0
+      },
+      "created_at": "2026-07-04T11:46:25.073837",
+      "updated_at": "2026-07-04T23:39:19.819422"
+    },
+    "dcf2364f": {
+      "id": "dcf2364f",
+      "name": "ask_user_question",
+      "type": "action",
+      "properties": {
+        "outcome": "success",
+        "reward": 0.8
+      },
+      "created_at": "2026-07-04T11:46:25.194123",
+      "updated_at": "2026-07-04T11:46:25.196126"
+    },
+    "6d3cdea6": {
+      "id": "6d3cdea6",
+      "name": "test_data_ingestion",
+      "type": "action",
+      "properties": {
+        "outcome": "success",
+        "reward": 1.0
+      },
+      "created_at": "2026-07-04T23:37:06.755201",
+      "updated_at": "2026-07-04T23:37:06.758201"
+    },
+    "db5e2486": {
+      "id": "db5e2486",
+      "name": "use_existing_tool",
+      "type": "action",
+      "properties": {
+        "outcome": "success",
+        "reward": 1.0
+      },
+      "created_at": "2026-07-04T23:39:19.473214",
+      "updated_at": "2026-07-04T23:39:19.875496"
+    },
+    "179610f3": {
+      "id": "179610f3",
+      "name": "report_user",
+      "type": "action",
+      "properties": {
+        "outcome": "success",
+        "reward": 1.0
+      },
+      "created_at": "2026-07-04T23:39:19.651751",
+      "updated_at": "2026-07-04T23:39:19.654750"
     }
   },
   "relationships": [
@@ -605,12 +706,176 @@
       "weight": 1.0,
       "metadata": {},
       "created_at": "2026-07-04T10:54:05.369801"
+    },
+    {
+      "id": "c7a7f9bd",
+      "source_id": "89a75154",
+      "target_id": "be2433c4",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T11:46:24.763072"
+    },
+    {
+      "id": "b954374a",
+      "source_id": "7d43672c",
+      "target_id": "be2433c4",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T11:46:24.765071"
+    },
+    {
+      "id": "8b6bbb86",
+      "source_id": "a18bdc7a",
+      "target_id": "3e82da6a",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T11:46:24.890465"
+    },
+    {
+      "id": "80ac5572",
+      "source_id": "7d43672c",
+      "target_id": "e65ffeea",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T11:46:24.951506"
+    },
+    {
+      "id": "2d2405e3",
+      "source_id": "a18bdc7a",
+      "target_id": "2e77d9e0",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T11:46:25.013759"
+    },
+    {
+      "id": "62d3d6b0",
+      "source_id": "7d43672c",
+      "target_id": "d9f01bf4",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T11:46:25.073837"
+    },
+    {
+      "id": "7f0795aa",
+      "source_id": "89a75154",
+      "target_id": "dcf2364f",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T11:46:25.194123"
+    },
+    {
+      "id": "9393e924",
+      "source_id": "7d43672c",
+      "target_id": "dcf2364f",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T11:46:25.196126"
+    },
+    {
+      "id": "f2578357",
+      "source_id": "89a75154",
+      "target_id": "e65ffeea",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T11:46:25.257209"
+    },
+    {
+      "id": "9d70bf21",
+      "source_id": "89a75154",
+      "target_id": "d9f01bf4",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T11:46:25.320078"
+    },
+    {
+      "id": "4a9afb8d",
+      "source_id": "89a75154",
+      "target_id": "6d3cdea6",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T23:37:06.756201"
+    },
+    {
+      "id": "580bc4c1",
+      "source_id": "7d43672c",
+      "target_id": "6d3cdea6",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T23:37:06.759201"
+    },
+    {
+      "id": "b97fd00d",
+      "source_id": "89a75154",
+      "target_id": "db5e2486",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T23:39:19.474214"
+    },
+    {
+      "id": "2753a1f9",
+      "source_id": "7d43672c",
+      "target_id": "db5e2486",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T23:39:19.477400"
+    },
+    {
+      "id": "d2f28671",
+      "source_id": "89a75154",
+      "target_id": "2e77d9e0",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T23:39:19.533979"
+    },
+    {
+      "id": "77d293d6",
+      "source_id": "89a75154",
+      "target_id": "179610f3",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T23:39:19.652750"
+    },
+    {
+      "id": "5cdc85c5",
+      "source_id": "7d43672c",
+      "target_id": "179610f3",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T23:39:19.654750"
+    },
+    {
+      "id": "71e1e2f9",
+      "source_id": "89a75154",
+      "target_id": "3e82da6a",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-04T23:39:19.702516"
     }
   ],
   "entity_type_index": {
     "error_type": [
       "3c01b240",
-      "7d43672c"
+      "7d43672c",
+      "89a75154",
+      "a18bdc7a"
     ],
     "action": [
       "2e77d9e0",
@@ -640,7 +905,14 @@
       "bd2fe0b9",
       "ca668bc6",
       "f9d55d4f",
-      "3e82da6a"
+      "3e82da6a",
+      "be2433c4",
+      "e65ffeea",
+      "d9f01bf4",
+      "dcf2364f",
+      "6d3cdea6",
+      "db5e2486",
+      "179610f3"
     ],
     "concept": [
       "905c3805",
@@ -649,5 +921,5 @@
     ]
   },
   "created_at": "2026-07-02T15:40:18.085788",
-  "updated_at": "2026-07-04T11:09:56.725302"
+  "updated_at": "2026-07-04T23:39:19.932946"
 }

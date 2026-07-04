@@ -1864,5 +1864,385 @@
     "note": "",
     "source": "runtime_record",
     "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T11:46:24.800287",
+    "context": {
+      "task": "import_error",
+      "phase": "P1",
+      "error": "import_error"
+    },
+    "action": "bypass_problem",
+    "outcome": "failure",
+    "reward": -0.5,
+    "state": 14,
+    "next_state": 14,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T11:46:24.863456",
+    "context": {
+      "task": "memory_full",
+      "phase": "P2",
+      "error": "memory_full"
+    },
+    "action": "try_fix_three_times",
+    "outcome": "success",
+    "reward": 0.8,
+    "state": 45,
+    "next_state": 45,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T11:46:24.926035",
+    "context": {
+      "task": "format_unsupported",
+      "phase": "P3",
+      "error": "format"
+    },
+    "action": "try_fix_three_times",
+    "outcome": "success",
+    "reward": 0.8,
+    "state": 1,
+    "next_state": 1,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T11:46:24.989169",
+    "context": {
+      "task": "memory_full",
+      "phase": "P2",
+      "error": "memory_full"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "failure",
+    "reward": -0.5,
+    "state": 15,
+    "next_state": 15,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T11:46:25.052649",
+    "context": {
+      "task": "format_unsupported",
+      "phase": "P3",
+      "error": "format"
+    },
+    "action": "switch_skill",
+    "outcome": "success",
+    "reward": 0.8,
+    "state": 62,
+    "next_state": 62,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T11:46:25.115734",
+    "context": {
+      "task": "memory_full",
+      "phase": "P2",
+      "error": "memory_full"
+    },
+    "action": "write_script",
+    "outcome": "success",
+    "reward": 0.8,
+    "state": 67,
+    "next_state": 67,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T11:46:25.163225",
+    "context": {
+      "task": "format_unsupported",
+      "phase": "P3",
+      "error": "format"
+    },
+    "action": "switch_skill",
+    "outcome": "failure",
+    "reward": -0.5,
+    "state": 62,
+    "next_state": 62,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T11:46:25.241369",
+    "context": {
+      "task": "import_error",
+      "phase": "P1",
+      "error": "import_error"
+    },
+    "action": "ask_user_question",
+    "outcome": "success",
+    "reward": 0.8,
+    "state": 29,
+    "next_state": 29,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T11:46:25.307701",
+    "context": {
+      "task": "import_error",
+      "phase": "P1",
+      "error": "import_error"
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 0.8,
+    "state": 51,
+    "next_state": 51,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T11:46:25.368867",
+    "context": {
+      "task": "import_error",
+      "phase": "P1",
+      "error": "import_error"
+    },
+    "action": "write_script",
+    "outcome": "failure",
+    "reward": -0.5,
+    "state": 41,
+    "next_state": 41,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T23:37:06.815567",
+    "context": {
+      "session_key": "unknown",
+      "channel": "webchat",
+      "raw": {
+        "task": "test memory ingestion",
+        "phase": "testing",
+        "success": true
+      }
+    },
+    "action": "test_data_ingestion",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 22,
+    "next_state": 22,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T23:39:19.466215",
+    "context": {
+      "session_key": "unknown",
+      "channel": "webchat",
+      "raw": {
+        "task": "test batch ingestion",
+        "phase": "execution",
+        "success": false
+      }
+    },
+    "action": "write_script",
+    "outcome": "failure",
+    "reward": -1.0,
+    "state": 89,
+    "next_state": 89,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T23:39:19.524980",
+    "context": {
+      "session_key": "unknown",
+      "channel": "webchat",
+      "raw": {
+        "task": "test batch ingestion",
+        "phase": "execution",
+        "success": true
+      }
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 82,
+    "next_state": 82,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T23:39:19.588363",
+    "context": {
+      "session_key": "unknown",
+      "channel": "webchat",
+      "raw": {
+        "task": "test batch ingestion",
+        "phase": "decision",
+        "success": false
+      }
+    },
+    "action": "switch_skill",
+    "outcome": "failure",
+    "reward": -1.0,
+    "state": 16,
+    "next_state": 16,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T23:39:19.644752",
+    "context": {
+      "session_key": "unknown",
+      "channel": "webchat",
+      "raw": {
+        "task": "test batch ingestion",
+        "phase": "decision",
+        "success": true
+      }
+    },
+    "action": "follow_rule_strictly",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 43,
+    "next_state": 43,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T23:39:19.695517",
+    "context": {
+      "session_key": "unknown",
+      "channel": "webchat",
+      "raw": {
+        "task": "test batch ingestion",
+        "phase": "error",
+        "success": true
+      }
+    },
+    "action": "report_user",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 69,
+    "next_state": 69,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T23:39:19.749617",
+    "context": {
+      "session_key": "unknown",
+      "channel": "webchat",
+      "raw": {
+        "task": "test batch ingestion",
+        "phase": "error",
+        "success": true
+      }
+    },
+    "action": "try_fix_three_times",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 79,
+    "next_state": 79,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T23:39:19.808433",
+    "context": {
+      "session_key": "unknown",
+      "channel": "webchat",
+      "raw": {
+        "task": "test batch ingestion",
+        "phase": "error",
+        "success": false
+      }
+    },
+    "action": "bypass_problem",
+    "outcome": "failure",
+    "reward": -1.0,
+    "state": 95,
+    "next_state": 95,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T23:39:19.865286",
+    "context": {
+      "session_key": "unknown",
+      "channel": "webchat",
+      "raw": {
+        "task": "test batch ingestion 2",
+        "phase": "execution",
+        "success": true
+      }
+    },
+    "action": "write_script",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 77,
+    "next_state": 77,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T23:39:19.921495",
+    "context": {
+      "session_key": "unknown",
+      "channel": "webchat",
+      "raw": {
+        "task": "test batch ingestion 2",
+        "phase": "execution",
+        "success": true
+      }
+    },
+    "action": "use_existing_tool",
+    "outcome": "success",
+    "reward": 1.0,
+    "state": 9,
+    "next_state": 9,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-04T23:39:19.977406",
+    "context": {
+      "session_key": "unknown",
+      "channel": "webchat",
+      "raw": {
+        "task": "test batch ingestion 2",
+        "phase": "decision",
+        "success": false
+      }
+    },
+    "action": "switch_skill",
+    "outcome": "failure",
+    "reward": -1.0,
+    "state": 71,
+    "next_state": 71,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "openclaw"
   }
 ]

@@ -2,7 +2,7 @@
   "version": "1.0",
   "session_id": "2026-07-03T08:54:23.450231",
   "active_context": {
-    "last_action": "try_fix_three_times",
+    "last_action": "switch_skill",
     "channel": "id",
     "domain": "skill",
     "error_type": "timeout",
@@ -11,378 +11,14 @@
     "session_key": "test",
     "provider": "webchat",
     "trigger": "test",
-    "task": "integration",
-    "phase": "P2b",
-    "attempts": 1
+    "task": "test batch ingestion 2",
+    "phase": "decision",
+    "attempts": 1,
+    "error": "import_error",
+    "success": false
   },
   "context_stack": [],
   "recent_items": [
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "benchmark_test",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T19:57:45.068240"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "benchmark_test",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T19:57:45.131621"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "test_record_save",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:11:25.885204"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_warmup_0",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:21.006993"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_warmup_1",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:32.724172"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_0",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:38.777335"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_1",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:38.825337"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_2",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:38.876976"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_3",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:38.934410"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_4",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:38.984444"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_5",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:39.034747"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_6",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:39.085665"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_7",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:39.138243"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_8",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:39.188761"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_9",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:39.240752"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_10",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:39.288934"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_11",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:39.337244"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_12",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:39.391254"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_13",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:39.445668"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_14",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:39.495043"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_15",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:39.547004"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_16",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:39.598071"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_17",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:39.654289"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_18",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:39.706952"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "bench_async_19",
-        "session_key": "test",
-        "channel": "id",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T20:13:39.756935"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "write_script",
-        "session_key": "test",
-        "channel": "id",
-        "provider": "webchat",
-        "trigger": "test",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T21:33:31.802128"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "write_script",
-        "session_key": "test",
-        "channel": "id",
-        "provider": "webchat",
-        "trigger": "test",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T21:33:31.817127"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "write_script",
-        "session_key": "test",
-        "channel": "id",
-        "provider": "webchat",
-        "trigger": "test",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T21:44:19.603080"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "write_script",
-        "session_key": "test",
-        "channel": "id",
-        "provider": "webchat",
-        "trigger": "test",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T21:44:19.623434"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "write_script",
-        "session_key": "test",
-        "channel": "id",
-        "provider": "webchat",
-        "trigger": "test",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T21:46:35.568244"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "write_script",
-        "session_key": "test",
-        "channel": "id",
-        "provider": "webchat",
-        "trigger": "test",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T21:46:35.582494"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "write_script",
-        "session_key": "test",
-        "channel": "id",
-        "provider": "webchat",
-        "trigger": "test",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T21:47:17.537924"
-    },
     {
       "type": "context_update",
       "data": {
@@ -613,9 +249,454 @@
         "channel": "id"
       },
       "ts": "2026-07-04T11:09:56.725302"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bypass_problem",
+        "task": "import_error",
+        "phase": "P1",
+        "error": "import_error",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:14.809699"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bypass_problem",
+        "task": "import_error",
+        "phase": "P1",
+        "error": "import_error",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:24.761072"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "try_fix_three_times",
+        "task": "memory_full",
+        "phase": "P2",
+        "error": "memory_full",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:24.800287"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "try_fix_three_times",
+        "task": "memory_full",
+        "phase": "P2",
+        "error": "memory_full",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:24.822307"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "try_fix_three_times",
+        "task": "format_unsupported",
+        "phase": "P3",
+        "error": "format",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:24.876784"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "try_fix_three_times",
+        "task": "format_unsupported",
+        "phase": "P3",
+        "error": "format",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:24.882731"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "follow_rule_strictly",
+        "task": "memory_full",
+        "phase": "P2",
+        "error": "memory_full",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:24.941110"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "follow_rule_strictly",
+        "task": "memory_full",
+        "phase": "P2",
+        "error": "memory_full",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:24.947746"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "switch_skill",
+        "task": "format_unsupported",
+        "phase": "P3",
+        "error": "format",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:24.989169"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "switch_skill",
+        "task": "format_unsupported",
+        "phase": "P3",
+        "error": "format",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:25.005126"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "write_script",
+        "task": "memory_full",
+        "phase": "P2",
+        "error": "memory_full",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:25.052649"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "write_script",
+        "task": "memory_full",
+        "phase": "P2",
+        "error": "memory_full",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:25.068299"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "switch_skill",
+        "task": "format_unsupported",
+        "phase": "P3",
+        "error": "format",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:25.115734"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "switch_skill",
+        "task": "format_unsupported",
+        "phase": "P3",
+        "error": "format",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:25.131376"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "ask_user_question",
+        "task": "import_error",
+        "phase": "P1",
+        "error": "import_error",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:25.180902"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "ask_user_question",
+        "task": "import_error",
+        "phase": "P1",
+        "error": "import_error",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:25.180902"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "follow_rule_strictly",
+        "task": "import_error",
+        "phase": "P1",
+        "error": "import_error",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:25.246716"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "follow_rule_strictly",
+        "task": "import_error",
+        "phase": "P1",
+        "error": "import_error",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:25.254763"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "write_script",
+        "task": "import_error",
+        "phase": "P1",
+        "error": "import_error",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:25.311702"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "write_script",
+        "task": "import_error",
+        "phase": "P1",
+        "error": "import_error",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T11:46:25.320078"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "write_script",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T23:26:47.005694"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "test_data_ingestion",
+        "task": "test memory ingestion",
+        "phase": "testing",
+        "success": true,
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T23:37:06.753201"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "write_script",
+        "task": "test batch ingestion",
+        "phase": "execution",
+        "success": false,
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T23:39:19.411365"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "use_existing_tool",
+        "task": "test batch ingestion",
+        "phase": "execution",
+        "success": true,
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T23:39:19.470215"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "switch_skill",
+        "task": "test batch ingestion",
+        "phase": "decision",
+        "success": false,
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T23:39:19.530979"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "follow_rule_strictly",
+        "task": "test batch ingestion",
+        "phase": "decision",
+        "success": true,
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T23:39:19.593712"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "report_user",
+        "task": "test batch ingestion",
+        "phase": "error",
+        "success": true,
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T23:39:19.649752"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "try_fix_three_times",
+        "task": "test batch ingestion",
+        "phase": "error",
+        "success": true,
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T23:39:19.699524"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "bypass_problem",
+        "task": "test batch ingestion",
+        "phase": "error",
+        "success": false,
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T23:39:19.753615"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "write_script",
+        "task": "test batch ingestion 2",
+        "phase": "execution",
+        "success": true,
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T23:39:19.813445"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "use_existing_tool",
+        "task": "test batch ingestion 2",
+        "phase": "execution",
+        "success": true,
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T23:39:19.870292"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "switch_skill",
+        "task": "test batch ingestion 2",
+        "phase": "decision",
+        "success": false,
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-04T23:39:19.927947"
     }
   ],
   "current_task": null,
   "goal": null,
-  "updated_at": "2026-07-04T11:09:56.725302"
+  "updated_at": "2026-07-04T23:39:19.927947"
 }

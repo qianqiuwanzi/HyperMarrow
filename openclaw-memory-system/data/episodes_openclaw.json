@@ -1262,8 +1262,491 @@
       "duration_seconds": 0.0,
       "linked_memory_ids": [],
       "created_at": "2026-07-04T11:09:56.772975"
+    },
+    {
+      "episode_id": "bbe4ea0d",
+      "what": "Action 'bypass_problem': failure",
+      "when": "2026-07-04T11:46:24.800287",
+      "context": {
+        "action": "bypass_problem",
+        "context_raw": "{\"task\": \"import_error\", \"phase\": \"P1\", \"error\": \"import_error\"}",
+        "wm_summary": "task=None | ctx=(last_action=bypass_problem, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=P1, attempts=1, error=import_error)",
+        "reward": -0.5,
+        "note": ""
+      },
+      "outcome": "failure",
+      "emotion": "negative",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 4,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T11:46:24.800287"
+    },
+    {
+      "episode_id": "94f61130",
+      "what": "Action 'try_fix_three_times': success",
+      "when": "2026-07-04T11:46:24.863456",
+      "context": {
+        "action": "try_fix_three_times",
+        "context_raw": "{\"task\": \"memory_full\", \"phase\": \"P2\", \"error\": \"memory_full\"}",
+        "wm_summary": "task=None | ctx=(last_action=try_fix_three_times, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=P2, attempts=1, error=memory_full)",
+        "reward": 0.8,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T11:46:24.863456"
+    },
+    {
+      "episode_id": "ad11d1c9",
+      "what": "Action 'try_fix_three_times': success",
+      "when": "2026-07-04T11:46:24.939107",
+      "context": {
+        "action": "try_fix_three_times",
+        "context_raw": "{\"task\": \"format_unsupported\", \"phase\": \"P3\", \"error\": \"format\"}",
+        "wm_summary": "task=None | ctx=(last_action=try_fix_three_times, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=P3, attempts=1, error=format)",
+        "reward": 0.8,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T11:46:24.939107"
+    },
+    {
+      "episode_id": "2cc5a0ce",
+      "what": "Action 'follow_rule_strictly': failure",
+      "when": "2026-07-04T11:46:24.989169",
+      "context": {
+        "action": "follow_rule_strictly",
+        "context_raw": "{\"task\": \"memory_full\", \"phase\": \"P2\", \"error\": \"memory_full\"}",
+        "wm_summary": "task=None | ctx=(last_action=follow_rule_strictly, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=P2, attempts=1, error=memory_full)",
+        "reward": -0.5,
+        "note": ""
+      },
+      "outcome": "failure",
+      "emotion": "negative",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 4,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T11:46:24.989169"
+    },
+    {
+      "episode_id": "ef367229",
+      "what": "Action 'switch_skill': success",
+      "when": "2026-07-04T11:46:25.052649",
+      "context": {
+        "action": "switch_skill",
+        "context_raw": "{\"task\": \"format_unsupported\", \"phase\": \"P3\", \"error\": \"format\"}",
+        "wm_summary": "task=None | ctx=(last_action=switch_skill, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=P3, attempts=1, error=format)",
+        "reward": 0.8,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T11:46:25.052649"
+    },
+    {
+      "episode_id": "35153c26",
+      "what": "Action 'write_script': success",
+      "when": "2026-07-04T11:46:25.115734",
+      "context": {
+        "action": "write_script",
+        "context_raw": "{\"task\": \"memory_full\", \"phase\": \"P2\", \"error\": \"memory_full\"}",
+        "wm_summary": "task=None | ctx=(last_action=write_script, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=P2, attempts=1, error=memory_full)",
+        "reward": 0.8,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T11:46:25.115734"
+    },
+    {
+      "episode_id": "4b71ad37",
+      "what": "Action 'switch_skill': failure",
+      "when": "2026-07-04T11:46:25.180902",
+      "context": {
+        "action": "switch_skill",
+        "context_raw": "{\"task\": \"format_unsupported\", \"phase\": \"P3\", \"error\": \"format\"}",
+        "wm_summary": "task=None | ctx=(last_action=switch_skill, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=P3, attempts=1, error=format)",
+        "reward": -0.5,
+        "note": ""
+      },
+      "outcome": "failure",
+      "emotion": "negative",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 4,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T11:46:25.180902"
+    },
+    {
+      "episode_id": "05f93e7c",
+      "what": "Action 'ask_user_question': success",
+      "when": "2026-07-04T11:46:25.241369",
+      "context": {
+        "action": "ask_user_question",
+        "context_raw": "{\"task\": \"import_error\", \"phase\": \"P1\", \"error\": \"import_error\"}",
+        "wm_summary": "task=None | ctx=(last_action=ask_user_question, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=P1, attempts=1, error=import_error)",
+        "reward": 0.8,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T11:46:25.241369"
+    },
+    {
+      "episode_id": "26caf60e",
+      "what": "Action 'follow_rule_strictly': success",
+      "when": "2026-07-04T11:46:25.309702",
+      "context": {
+        "action": "follow_rule_strictly",
+        "context_raw": "{\"task\": \"import_error\", \"phase\": \"P1\", \"error\": \"import_error\"}",
+        "wm_summary": "task=None | ctx=(last_action=follow_rule_strictly, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=P1, attempts=1, error=import_error)",
+        "reward": 0.8,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T11:46:25.309702"
+    },
+    {
+      "episode_id": "5b3d1d9e",
+      "what": "Action 'write_script': failure",
+      "when": "2026-07-04T11:46:25.368867",
+      "context": {
+        "action": "write_script",
+        "context_raw": "{\"task\": \"import_error\", \"phase\": \"P1\", \"error\": \"import_error\"}",
+        "wm_summary": "task=None | ctx=(last_action=write_script, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=P1, attempts=1, error=import_error)",
+        "reward": -0.5,
+        "note": ""
+      },
+      "outcome": "failure",
+      "emotion": "negative",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 4,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T11:46:25.368867"
+    },
+    {
+      "episode_id": "ee3da6dd",
+      "what": "Action 'test_data_ingestion': success",
+      "when": "2026-07-04T23:37:06.817756",
+      "context": {
+        "action": "test_data_ingestion",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"task\": \"test memory ingestion\", \"phase\": \"testing\", \"success\": true}}",
+        "wm_summary": "task=None | ctx=(last_action=test_data_ingestion, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=testing, attempts=1, error=import_error, success=True)",
+        "reward": 1.0,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T23:37:06.817756"
+    },
+    {
+      "episode_id": "a18c0c38",
+      "what": "Action 'write_script': failure",
+      "when": "2026-07-04T23:39:19.468214",
+      "context": {
+        "action": "write_script",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"task\": \"test batch ingestion\", \"phase\": \"execution\", \"success\": false}}",
+        "wm_summary": "task=None | ctx=(last_action=write_script, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=execution, attempts=1, error=import_error, success=False)",
+        "reward": -1.0,
+        "note": ""
+      },
+      "outcome": "failure",
+      "emotion": "negative",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 4,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T23:39:19.468214"
+    },
+    {
+      "episode_id": "27140b47",
+      "what": "Action 'use_existing_tool': success",
+      "when": "2026-07-04T23:39:19.527988",
+      "context": {
+        "action": "use_existing_tool",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"task\": \"test batch ingestion\", \"phase\": \"execution\", \"success\": true}}",
+        "wm_summary": "task=None | ctx=(last_action=use_existing_tool, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=execution, attempts=1, error=import_error, success=True)",
+        "reward": 1.0,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T23:39:19.527988"
+    },
+    {
+      "episode_id": "a13f3aff",
+      "what": "Action 'switch_skill': failure",
+      "when": "2026-07-04T23:39:19.591713",
+      "context": {
+        "action": "switch_skill",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"task\": \"test batch ingestion\", \"phase\": \"decision\", \"success\": false}}",
+        "wm_summary": "task=None | ctx=(last_action=switch_skill, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=decision, attempts=1, error=import_error, success=False)",
+        "reward": -1.0,
+        "note": ""
+      },
+      "outcome": "failure",
+      "emotion": "negative",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 4,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T23:39:19.591713"
+    },
+    {
+      "episode_id": "9fee400e",
+      "what": "Action 'follow_rule_strictly': success",
+      "when": "2026-07-04T23:39:19.647752",
+      "context": {
+        "action": "follow_rule_strictly",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"task\": \"test batch ingestion\", \"phase\": \"decision\", \"success\": true}}",
+        "wm_summary": "task=None | ctx=(last_action=follow_rule_strictly, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=decision, attempts=1, error=import_error, success=True)",
+        "reward": 1.0,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T23:39:19.647752"
+    },
+    {
+      "episode_id": "26537a1e",
+      "what": "Action 'report_user': success",
+      "when": "2026-07-04T23:39:19.697525",
+      "context": {
+        "action": "report_user",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"task\": \"test batch ingestion\", \"phase\": \"error\", \"success\": true}}",
+        "wm_summary": "task=None | ctx=(last_action=report_user, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=error, attempts=1, error=import_error, success=True)",
+        "reward": 1.0,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T23:39:19.697525"
+    },
+    {
+      "episode_id": "bccbf4f2",
+      "what": "Action 'try_fix_three_times': success",
+      "when": "2026-07-04T23:39:19.751614",
+      "context": {
+        "action": "try_fix_three_times",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"task\": \"test batch ingestion\", \"phase\": \"error\", \"success\": true}}",
+        "wm_summary": "task=None | ctx=(last_action=try_fix_three_times, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=error, attempts=1, error=import_error, success=True)",
+        "reward": 1.0,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T23:39:19.751614"
+    },
+    {
+      "episode_id": "26ca9a5c",
+      "what": "Action 'bypass_problem': failure",
+      "when": "2026-07-04T23:39:19.811422",
+      "context": {
+        "action": "bypass_problem",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"task\": \"test batch ingestion\", \"phase\": \"error\", \"success\": false}}",
+        "wm_summary": "task=None | ctx=(last_action=bypass_problem, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=error, attempts=1, error=import_error, success=False)",
+        "reward": -1.0,
+        "note": ""
+      },
+      "outcome": "failure",
+      "emotion": "negative",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 4,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T23:39:19.811422"
+    },
+    {
+      "episode_id": "d1632fb9",
+      "what": "Action 'write_script': success",
+      "when": "2026-07-04T23:39:19.868293",
+      "context": {
+        "action": "write_script",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"task\": \"test batch ingestion 2\", \"phase\": \"execution\", \"success\": true}}",
+        "wm_summary": "task=None | ctx=(last_action=write_script, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=execution, attempts=1, error=import_error, success=True)",
+        "reward": 1.0,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T23:39:19.868293"
+    },
+    {
+      "episode_id": "823ab589",
+      "what": "Action 'use_existing_tool': success",
+      "when": "2026-07-04T23:39:19.924842",
+      "context": {
+        "action": "use_existing_tool",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"task\": \"test batch ingestion 2\", \"phase\": \"execution\", \"success\": true}}",
+        "wm_summary": "task=None | ctx=(last_action=use_existing_tool, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=execution, attempts=1, error=import_error, success=True)",
+        "reward": 1.0,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T23:39:19.924842"
+    },
+    {
+      "episode_id": "888e3074",
+      "what": "Action 'switch_skill': failure",
+      "when": "2026-07-04T23:39:19.980406",
+      "context": {
+        "action": "switch_skill",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"task\": \"test batch ingestion 2\", \"phase\": \"decision\", \"success\": false}}",
+        "wm_summary": "task=None | ctx=(last_action=switch_skill, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=decision, attempts=1, error=import_error, success=False)",
+        "reward": -1.0,
+        "note": ""
+      },
+      "outcome": "failure",
+      "emotion": "negative",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 4,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-04T23:39:19.980406"
     }
   ],
   "created_at": "2026-07-02T15:28:17.476644",
-  "updated_at": "2026-07-04T11:09:56.772975"
+  "updated_at": "2026-07-04T23:39:19.981407"
 }
