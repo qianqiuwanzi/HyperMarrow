@@ -41,3 +41,9 @@ debug_*.py
 check_*.py
 run_*.py
 live_*.py
+
+# 运行时数据（用户特定，不跟踪）
+calibration_history_*.json
+rl_decision_history.json
+episodes_*.json
+working_memory_*.json
