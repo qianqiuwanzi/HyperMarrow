@@ -113,7 +113,7 @@ def learning_overview():
             "merged_total": con.get("total_episodes_merged",0)},
         "transfer": _DC.transfer_learner.get_stats() if _DC.transfer_learner else {},
         "world_model": _DC.ql_agent._world_model.get_stats() if getattr(_DC.ql_agent,'_world_model',None) else {},
-        "meta_learner": {"adjustments": 0},
+        "meta_learner": {"adjustments": _DC.meta_learner.state.get("total_adjustments", 0) if _DC.meta_learner else 0},
         "neural": ql.get("neural_stats",{}),
     }
 
@@ -143,12 +143,18 @@ def dream_status():
     if r is None:
         return {"running":False,"last":_DC.consolidator.state.get("last_sleep_at"),
                 "total":_DC.consolidator.state.get("total_consolidations",0)}
+    # Filter: only keep integer phase values (strip dict/object entries like calibrate)
+    if "phases" in r:
+        r["phases"] = {k:v for k,v in r["phases"].items() if isinstance(v,int)}
     return r
 
 @app.get("/api/v1/dream/run")
 def dream_run():
     _init()
-    return _DC.consolidator.dream_cycle(force=True)
+    r = _DC.consolidator.dream_cycle(force=True)
+    if "phases" in r:
+        r["phases"] = {k:v for k,v in r["phases"].items() if isinstance(v,int)}
+    return r
 
 @app.get("/api/v1/skills/list")
 def skills_list():
@@ -186,6 +192,24 @@ def interceptor_stats():
         from memory_integration.interceptor import get_interceptor_stats
         return get_interceptor_stats()
     except: return {}
+
+@app.get("/api/v1/achievements")
+def achievements():
+    _init()
+    kg = _DC.knowledge_graph.get_stats()
+    ql = _DC.ql_agent.get_stats()
+    em = _DC.episodic_memory.get_stats()
+    con = _DC.consolidator.state
+    meta = _DC.metacognition.get_performance_dashboard()
+    achievements = []
+    em_total = em["total_episodes"]; ql_nz = ql["nonzero_entries"]; kg_ent = kg["total_entities"]; con_total = con.get("total_consolidations",0); meta_acc = meta.get("recent_accuracy",0)
+    descs = {"mem":"记录了 " + str(em_total) + " 条情景记忆","ql":"Q表非零条目突破 " + str(ql_nz),"kg":"知识图谱已有 " + str(kg_ent) + " 个实体","dream":"已完成 " + str(con_total) + " 次记忆巩固","acc":"决策准确率 " + str(int(meta_acc*100)) + "%"}
+    if em_total >= 10: achievements.append({"id":"mem_10","title":"记忆收藏家","desc":descs["mem"],"icon":"📒","level":1 if em_total<50 else 2 if em_total<100 else 3})
+    if ql_nz >= 100: achievements.append({"id":"ql_100","title":"学习达人","desc":descs["ql"],"icon":"🎯","level":1 if ql_nz<300 else 2 if ql_nz<500 else 3})
+    if kg_ent >= 3: achievements.append({"id":"kg_3","title":"知识编织者","desc":descs["kg"],"icon":"🕸️","level":1})
+    if con_total >= 10: achievements.append({"id":"dream_10","title":"安睡者","desc":descs["dream"],"icon":"🌙","level":1})
+    if meta_acc >= 0.7: achievements.append({"id":"acc_70","title":"精准决策者","desc":descs["acc"],"icon":"🎯","level":2})
+    return {"achievements":achievements,"total":len(achievements)}
 
 @app.get("/api/v1/share/card")
 def share_card():
