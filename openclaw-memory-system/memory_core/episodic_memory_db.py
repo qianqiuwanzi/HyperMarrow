@@ -155,6 +155,14 @@ class EpisodicMemoryDB:
             "created_at": datetime.now().isoformat(),
         }
 
+        # Auto-inject source annotation (V2: GBrain-style [Source: ...])
+        if "_source" not in episode:
+            episode["_source"] = {
+                "agent": getattr(self, '_agent_id', "unknown"),
+                "channel": getattr(self, '_channel', "internal"),
+                "captured_at": datetime.now().isoformat(),
+            }
+
         self.data.append(episode)
         self._save()
         print(f"[EpisodicMemory] [{episode['episode_id']}] {outcome}/{emotion}: {what[:50]}")

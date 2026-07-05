@@ -836,7 +836,7 @@ class DecisionCheckPoint:
         return result
 
     def record(self, action: str, context: Any, outcome: str, reward: float = None,
-               note: str = "", agent_id: str = None) -> None:
+               note: str = "", agent_id: str = None, async_mode: bool = False) -> None:
         """
         Record a decision outcome and update all memory subsystems.
 
@@ -847,7 +847,19 @@ class DecisionCheckPoint:
             reward: Explicit reward (auto-computed if None)
             note: Optional note
             agent_id: If provided, route to that agent's DC (for cross-agent call)
+            async_mode: If True, execute in background daemon thread (V2: non-blocking)
         """
+        if async_mode:
+            import threading
+            t = threading.Thread(
+                target=self.record,
+                args=(action, context, outcome, reward, note, agent_id, False),
+                daemon=True, name=f"hm_record_{action}"
+            )
+            t.start()
+            print(f"[DC.record] Queued async: {action} -> {outcome}", file=_sys.stderr)
+            return
+
         # ── Agent routing ────────────────────────────────────────────────
         if agent_id is not None and agent_id != self._agent_id:
             target_dc = _agent_dc_map.get(agent_id)
