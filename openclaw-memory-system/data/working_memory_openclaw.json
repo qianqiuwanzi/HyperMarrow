@@ -2,7 +2,7 @@
   "version": "1.0",
   "session_id": "2026-07-03T08:54:23.450231",
   "active_context": {
-    "last_action": "switch_skill",
+    "last_action": "try_fix_three_times",
     "channel": "id",
     "domain": "skill",
     "error_type": "timeout",
@@ -11,52 +11,14 @@
     "session_key": "test",
     "provider": "webchat",
     "trigger": "test",
-    "task": "test batch ingestion 2",
-    "phase": "decision",
+    "task": "wire_test",
+    "phase": "P2b",
     "attempts": 1,
     "error": "import_error",
     "success": false
   },
   "context_stack": [],
   "recent_items": [
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "write_script",
-        "session_key": "test",
-        "channel": "id",
-        "provider": "webchat",
-        "trigger": "test",
-        "domain": "skill",
-        "has_error": true
-      },
-      "ts": "2026-07-03T21:47:17.553972"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "agent_think",
-        "task": "test_rpc",
-        "phase": "P0",
-        "domain": "skill",
-        "has_error": true,
-        "session_key": "test",
-        "channel": "id"
-      },
-      "ts": "2026-07-03T22:12:14.083580"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "task": "test_rpc",
-        "phase": "P0",
-        "domain": "skill",
-        "has_error": true,
-        "session_key": "test",
-        "channel": "id"
-      },
-      "ts": "2026-07-03T22:12:14.099800"
-    },
     {
       "type": "context_update",
       "data": {
@@ -694,9 +656,46 @@
         "channel": "id"
       },
       "ts": "2026-07-04T23:39:19.927947"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "test_async",
+        "task": "verify",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-05T10:12:50.875798"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "try_fix_three_times",
+        "task": "download_timeout",
+        "phase": "P2b",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-05T10:17:12.990330"
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "try_fix_three_times",
+        "task": "wire_test",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-05T10:17:22.674498"
     }
   ],
   "current_task": null,
   "goal": null,
-  "updated_at": "2026-07-04T23:39:19.927947"
+  "updated_at": "2026-07-05T10:17:22.674498"
 }
