@@ -13,6 +13,8 @@ from .config import get_data_dir
 DATA_DIR = get_data_dir()
 WORKING_MEM_FILE = DATA_DIR / "working_memory.json"
 MAX_WORKING_SIZE = 50
+AGGRESSIVE_PRUNE_THRESHOLD = 40  # Start pruning at 80% capacity
+SUMMARY_TRIGGER_COUNT = 5  # Summarize groups of 5+ similar items
 
 
 class WorkingMemoryDB:
@@ -172,12 +174,40 @@ class WorkingMemoryDB:
         print(f"[WorkingMemory] Cleared (old session: {old_session})")
 
     def _add_recent_item(self, item: dict):
-        """追加到 recent_items 并做 sliding window 截断。"""
+        """追加到 recent_items 并做激进修剪 + 自动摘要。"""
         item["ts"] = datetime.now().isoformat()
+        item["_imp"] = item.get("importance", 1)
         recent = self.data.setdefault("recent_items", [])
         recent.append(item)
-        if len(recent) > MAX_WORKING_SIZE:
-            self.data["recent_items"] = recent[-MAX_WORKING_SIZE:]
+
+        # P1-1: Aggressive pruning at 80% capacity
+        if len(recent) > AGGRESSIVE_PRUNE_THRESHOLD:
+            # Summarize old low-importance items before eviction
+            self._summarize_old_items(recent)
+            # Evict: keep high-importance, drop low-importance oldest first
+            recent.sort(key=lambda x: (x.get("_imp", 1), x.get("ts", "")), reverse=True)
+            self.data["recent_items"] = recent[:AGGRESSIVE_PRUNE_THRESHOLD]
+
+    def _summarize_old_items(self, recent: list):
+        """P1-1: 将被驱逐的低重要性条目自动摘要，保留关键信息。"""
+        old_items = [i for i in recent if i.get("_imp", 1) <= 2]
+        if len(old_items) >= SUMMARY_TRIGGER_COUNT:
+            types = {}
+            for item in old_items:
+                t = item.get("type", "misc")
+                types.setdefault(t, []).append(item.get("data", {}))
+            summary_parts = []
+            for t, items in types.items():
+                if len(items) >= 3:
+                    summary_parts.append(f"{len(items)} {t} events")
+            if summary_parts:
+                recent.append({
+                    "type": "summary",
+                    "data": {"summary": ", ".join(summary_parts),
+                             "summarized_count": len(old_items)},
+                    "ts": datetime.now().isoformat(),
+                    "_imp": 3,
+                })
 
     def get_stats(self) -> dict:
         """返回统计信息。"""
