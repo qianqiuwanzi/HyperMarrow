@@ -672,6 +672,14 @@ class KnowledgeGraph:
             "type_sibling": self.infer_type_relationships(),
         }
 
+    def get_orphan_entities(self) -> list:
+        """返回没有任何关系的孤立实体列表。"""
+        orphans = []
+        for eid, ent in self.data["entities"].items():
+            if eid not in self._adjacency or len(self._adjacency[eid]) == 0:
+                orphans.append(ent)
+        return orphans
+
     def get_stats(self) -> dict:
         """返回知识图谱统计信息。"""
         entities = self.data["entities"]

@@ -140,10 +140,14 @@ def _start_sleep_scheduler(reg):
 
                         # ── 1. Memory Consolidation (LTP/LTD) ──────────
                         if bundle.consolidator:
-                            result = bundle.consolidator.sleep_cycle(force=True)
-                            print(f"[Sleep] {agent_id}: LTP={result.get('ltp_count',0)}, "
-                                  f"LTD={result.get('ltd_pruned',0)}, "
-                                  f"merged={result.get('episodes_merged',0)}",
+                            result = bundle.consolidator.dream_cycle(force=True)
+                            phases = result.get("phases", {})
+                            print(f"[Sleep] {agent_id}: status={result.get('status','?')}, "
+                                  f"backlinks={phases.get('backlinks',0)}, "
+                                  f"synthesize={phases.get('synthesize',0)}, "
+                                  f"extract={phases.get('extract',0)}, "
+                                  f"purge={phases.get('purge',0)}, "
+                                  f"orphans={phases.get('orphans',0)}",
                                   file=sys.stderr, flush=True)
 
                         # ── B1: Skill Extraction from episodic memory ────
