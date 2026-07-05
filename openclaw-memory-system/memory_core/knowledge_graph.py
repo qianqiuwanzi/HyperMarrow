@@ -204,16 +204,50 @@ class KnowledgeGraph:
         """按名称查找实体（精确匹配，公开接口）。"""
         return self._find_entity_by_name(name, entity_type)
 
-    def search_entities(self, query: str, limit: int = 10) -> list:
-        """按名称模糊搜索实体（子串匹配）。"""
+    def search_entities(self, query: str, limit: int = 10,
+                         sort_by: str = "relevance") -> list:
+        """
+        搜索实体（支持相关性排序）。
+
+        Args:
+            query: 搜索关键词
+            limit: 结果上限
+            sort_by: "relevance" (词频×时效×重要性) | "name" (字母序)
+
+        P0-3 relevance score = token_overlap×0.5 + recency×0.3 + importance×0.2
+        """
         lc = query.lower()
+        query_tokens = set(lc.split())
+        now = datetime.now()
         results = []
+
         for ent in self.data["entities"].values():
-            if lc in ent["name"].lower():
-                results.append(ent)
-            if len(results) >= limit:
-                break
-        return results
+            name_lc = ent["name"].lower()
+            if lc not in name_lc:
+                continue
+
+            if sort_by == "relevance":
+                # Token overlap
+                name_tokens = set(name_lc.replace("-", " ").replace("_", " ").split())
+                overlap = len(query_tokens & name_tokens) / max(len(query_tokens), 1)
+                # Recency decay (1 day half-life)
+                try:
+                    updated = datetime.fromisoformat(ent.get("updated_at", ""))
+                    age_hours = max(0, (now - updated).total_seconds() / 3600)
+                    recency = 2.0 ** (-age_hours / 24)  # 1-day half-life
+                except (ValueError, TypeError):
+                    recency = 0.5
+                # Importance from properties or degree
+                importance = min(1.0, len(self._adjacency.get(ent["id"], [])) / 10.0)
+                score = overlap * 0.5 + recency * 0.3 + importance * 0.2
+                results.append((score, ent))
+            else:
+                results.append((0, ent))
+
+        if sort_by == "relevance":
+            results.sort(key=lambda x: x[0], reverse=True)
+
+        return [ent for _, ent in results[:limit]]
 
     def update_entity(self, entity_id: str, properties: dict) -> bool:
         """更新实体属性。"""

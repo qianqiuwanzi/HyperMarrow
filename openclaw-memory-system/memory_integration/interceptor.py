@@ -34,6 +34,8 @@ def _ensure_dc(agent_id: str = "openclaw"):
 def hypermarow_intercept(user_message: str,
                           agent_response: str = "",
                           agent_id: str = "openclaw",
+                          inherit_from: str = None,
+                          inherit_level: str = "rules",
                           blocking: bool = False) -> dict:
     """
     OpenClaw 每条消息后自动调用。
@@ -48,19 +50,24 @@ def hypermarow_intercept(user_message: str,
         user_message: 用户消息原文
         agent_response: Agent 回复 (可选)
         agent_id: 当前 Agent ID
+        inherit_from: 父 Agent ID — 子代理继承其 PM 规则和 KG 实体
+        inherit_level: "rules" | "full" | "none" — 继承级别
         blocking: True=同步执行, False=后台线程 (默认)
 
     Returns:
         {"entities_found": int, "episodes_created": int,
-         "rules_matched": int, "intentions_triggered": int}
+         "rules_matched": int, "intentions_triggered": int,
+         "inherited_from": str or None}
     """
     if blocking:
-        return _intercept_sync(user_message, agent_response, agent_id)
+        return _intercept_sync(user_message, agent_response, agent_id,
+                                inherit_from, inherit_level)
     else:
         result_holder = {}
         t = threading.Thread(
             target=lambda: result_holder.update(
-                _intercept_sync(user_message, agent_response, agent_id)),
+                _intercept_sync(user_message, agent_response, agent_id,
+                                inherit_from, inherit_level)),
             daemon=True, name=f"hm_intercept"
         )
         t.start()
@@ -68,15 +75,48 @@ def hypermarow_intercept(user_message: str,
 
 
 def _intercept_sync(user_message: str, agent_response: str,
-                     agent_id: str) -> dict:
+                     agent_id: str, inherit_from: str = None,
+                     inherit_level: str = "rules") -> dict:
     """Synchronous interceptor logic."""
     dc = _ensure_dc(agent_id)
     result = {"entities_found": 0, "episodes_created": 0,
-              "rules_matched": 0, "intentions_triggered": 0}
+              "rules_matched": 0, "intentions_triggered": 0,
+              "inherited_from": None}
 
     combined_text = user_message
     if agent_response:
         combined_text += " " + agent_response[:200]
+
+    # ── P0-1: Child agent memory inheritance ──────────────────────────────
+    if inherit_from and inherit_level != "none":
+        try:
+            parent_dc = _ensure_dc(inherit_from)
+            inherited_count = 0
+
+            # Inherit PM rules: match parent's rules against current context
+            if inherit_level in ("rules", "full"):
+                parent_rules = parent_dc.procedural_memory.check_context(combined_text)
+                if parent_rules:
+                    wm = dc.working_memory
+                    rule_names = [r["rule_name"] for r in parent_rules[:5]]
+                    wm.update_context(inherited_rules=", ".join(rule_names))
+                    inherited_count += len(rule_names)
+
+            # Inherit KG entities: copy parent's matching entities
+            if inherit_level == "full":
+                parent_entities = parent_dc.knowledge_graph.extract_entities_from_text(
+                    combined_text)
+                for ent in parent_entities[:3]:
+                    dc.knowledge_graph.add_entity(
+                        ent["name"], ent["type"], ent.get("properties", {}))
+                    inherited_count += 1
+
+            result["inherited_from"] = inherit_from
+            if inherited_count > 0:
+                print(f"[Interceptor] Inherited {inherited_count} items from '{inherit_from}' "
+                      f"(level={inherit_level})", file=sys.stderr, flush=True)
+        except Exception as e:
+            print(f"[Interceptor] Inheritance failed: {e}", file=sys.stderr, flush=True)
 
     try:
         # 1. Entity extraction → KG

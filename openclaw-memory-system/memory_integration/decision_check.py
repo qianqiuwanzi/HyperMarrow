@@ -833,6 +833,27 @@ class DecisionCheckPoint:
                     result["suggestion"] = f"[BLOCKED] Rule '{match['rule_name']}' (Level 5) blocks this action"
                     result["confidence"] = 0.0
 
+        # ─── P0-2: Memory-first lookup path ────────────────────────────────
+        result["lookup_path"] = []
+        if result.get("procedural_hints"):
+            result["lookup_path"].append(
+                f"PM: {len(result['procedural_hints'])} rules matched")
+        if result["rl_recommendation"] and result["rl_recommendation"].get("recommended_action"):
+            rl = result["rl_recommendation"]
+            result["lookup_path"].append(
+                f"RL: recommends '{rl['recommended_action']}' "
+                f"(conf={rl.get('confidence',0):.0%})")
+        if result.get("related_entities"):
+            result["lookup_path"].append(
+                f"KG: {len(result['related_entities'])} entities related")
+        if result.get("similar_memories"):
+            result["lookup_path"].append(
+                f"EM: {len(result['similar_memories'])} similar memories found")
+        if result.get("arbitration"):
+            arb = result["arbitration"]
+            result["lookup_path"].append(
+                f"ARB: {arb.get('winner','?')} wins ({arb.get('reason','')[:60]})")
+
         return result
 
     def record(self, action: str, context: Any, outcome: str, reward: float = None,
