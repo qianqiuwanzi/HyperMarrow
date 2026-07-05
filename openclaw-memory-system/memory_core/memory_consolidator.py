@@ -34,9 +34,11 @@ class MemoryConsolidator:
     """
 
     def __init__(self, episodic_memory=None, knowledge_graph=None,
-                 q_agent=None, data_dir: Path = None):
+                 q_agent=None, data_dir: Path = None, procedural_memory=None, metacog=None):
         self.em = episodic_memory
         self.kg = knowledge_graph
+        self.pm = procedural_memory  # ProceduralMemory (for rule extraction)
+        self.metacog = metacog  # Metacognition (for calibration)
         self.ql_agent = q_agent
         self.data_dir = data_dir or DATA_DIR
         self.state = self._load_state()
@@ -472,7 +474,7 @@ class MemoryConsolidator:
 
     def dream_cycle(self, force: bool = False) -> dict:
         """
-        V2: 9-stage Dream Cycle — 对标 GBrain 的夜间维护。
+        V2.1: 12-stage Dream Cycle — 9-stage 基础 + 3-stage 学习系统巩固。
 
         Returns:
             {"status": "ok"|"partial", "phases": {...}, "duration_sec": float}
@@ -486,7 +488,7 @@ class MemoryConsolidator:
             issues = self._dream_lint()
             phases["lint"] = issues
         except Exception as e:
-            phases["lint"] = -1  # error
+            phases["lint"] = -1
             print(f"[Dream] lint failed: {e}")
 
         # 2. Backlinks: infer KG relationships
@@ -501,7 +503,7 @@ class MemoryConsolidator:
 
         # 3. Sync: cross-agent knowledge sharing
         try:
-            phases["sync"] = 0  # Wired externally via AgentRegistry
+            phases["sync"] = 0
         except Exception:
             phases["sync"] = -1
 
@@ -535,7 +537,7 @@ class MemoryConsolidator:
         try:
             phases["embed"] = 0
             if hasattr(self, 'ql_agent') and self.ql_agent and self.ql_agent._neural_agent:
-                phases["embed"] = 1  # Neural agent present
+                phases["embed"] = 1
         except Exception:
             phases["embed"] = -1
 
@@ -556,6 +558,49 @@ class MemoryConsolidator:
             phases["purge"] = -1
             print(f"[Dream] purge failed: {e}")
 
+        # ============================================================
+        # 新增 3 个学习系统巩固阶段 (V2.1)
+        # ============================================================
+
+        # 10. Batch Learn: Q-Learning 批量重训练（用所有历史经验）
+        try:
+            if self.ql_agent and hasattr(self.ql_agent, 'batch_learn'):
+                # experience_buffer 已有历史经验（初始化时加载了 94 条）
+                buffer_size = len(self.ql_agent.experience_buffer)
+                if buffer_size > 0:
+                    self.ql_agent.batch_learn(batch_size=min(32, buffer_size))
+                    self.ql_agent.save_q_table()
+                    phases["batch_learn"] = buffer_size
+                else:
+                    phases["batch_learn"] = 0
+            else:
+                phases["batch_learn"] = 0
+        except Exception as e:
+            phases["batch_learn"] = -1
+            print(f"[Dream] batch_learn failed: {e}")
+
+        # 11. Extract Rules: 从情景记忆中提取高频成功模式 → 晋升为规则
+        try:
+            if self.em and hasattr(self, 'pm') and self.pm:
+                new_rules = self._extract_rules_from_episodes()
+                phases["extract_rules"] = new_rules
+            else:
+                phases["extract_rules"] = 0
+        except Exception as e:
+            phases["extract_rules"] = -1
+            print(f"[Dream] extract_rules failed: {e}")
+
+        # 12. Calibrate: 元认知校准（评估决策质量，调整探索率）
+        try:
+            calib_result = self._calibrate_metacognition()
+            phases["calibrate"] = calib_result
+        except Exception as e:
+            phases["calibrate"] = -1
+            print(f"[Dream] calibrate failed: {e}")
+
+        # ============================================================
+        # 返回结果
+        # ============================================================
         elapsed = round(time.time() - t0, 3)
         errors = sum(1 for v in phases.values() if v == -1)
         status = "ok" if errors == 0 else "partial"
@@ -570,7 +615,10 @@ class MemoryConsolidator:
               f"sync={phases.get('sync',0)}, synth={phases.get('synthesize',0)}, "
               f"extract={phases.get('extract',0)}, patterns={phases.get('patterns',0)}, "
               f"embed={phases.get('embed',0)}, orphans={phases.get('orphans',0)}, "
-              f"purge={phases.get('purge',0)}")
+              f"purge={phases.get('purge',0)}, "
+              f"batch_learn={phases.get('batch_learn',0)}, "
+              f"extract_rules={phases.get('extract_rules',0)}, "
+              f"calibrate={phases.get('calibrate',0)}")
         return result
 
     def _dream_lint(self) -> int:
@@ -644,6 +692,146 @@ class MemoryConsolidator:
             "last_sleep": self.state.get("last_sleep_at"),
             "consolidation_count": self.state.get("total_consolidations", 0),
             "health_score": round(min(100, 50 + avg_imp * 10 + min(q_buf_size / 10, 30)), 1),
+        }
+
+
+    # ── 学习系统巩固方法 (V2.1) ─────────────────────────────────────
+
+    def _load_all_experiences(self) -> list:
+        """
+        加载所有历史经验（不仅 buffer）。
+
+        Returns:
+            经验列表 [{"state":..., "action":..., "reward":..., ...}, ...]
+        """
+        history = []
+        data_dir = self.data_dir
+
+        # 1. 从 rl_decision_history.json 加载
+        history_file = data_dir / "rl_decision_history.json"
+        if history_file.exists():
+            try:
+                with open(history_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    if isinstance(data, list):
+                        history.extend(data)
+            except (json.JSONDecodeError, OSError) as e:
+                print(f"[Consolidator] Load history failed: {e}")
+
+        # 2. 从 ql_agent.experience_buffer 加载（去重）
+        if self.ql_agent and hasattr(self.ql_agent, 'experience_buffer'):
+            buf = self.ql_agent.experience_buffer
+            existing_keys = set()
+            if history:
+                existing_keys = {f"{e.get('state')}-{e.get('action')}-{e.get('reward')}" for e in history}
+            for exp in buf:
+                key = f"{exp.get('state')}-{exp.get('action')}-{exp.get('reward')}"
+                if key not in existing_keys:
+                    history.append(exp)
+                    existing_keys.add(key)
+
+        return history
+
+    def _extract_rules_from_episodes(self, min_freq: int = 3, min_success_rate: float = 0.8) -> int:
+        """
+        从情景记忆中提取高频成功模式 → 晋升为程序性规则。
+
+        Args:
+            min_freq: 最小出现频率
+            min_success_rate: 最小成功率
+
+        Returns:
+            新提取的规则数量
+        """
+        if not self.em or not self.em.data:
+            return 0
+        if not hasattr(self, 'pm') or not self.pm:
+            return 0
+
+        from collections import Counter
+        import itertools
+
+        episodes = self.em.data
+        # 1. 统计高频 (action, context) 模式
+        patterns = Counter()
+        for ep in episodes:
+            ctx = ep.get("context", {})
+            action = ctx.get("action", "unknown")
+            tags = tuple(sorted(ep.get("tags", [])))
+            outcome = ep.get("outcome", "")
+            if outcome == "success":
+                patterns[(action, tags)] += 1
+
+        # 2. 过滤高频成功模式
+        new_rules = 0
+        for (action, tags), freq in patterns.items():
+            if freq < min_freq:
+                continue
+
+            # 计算成功率
+            total = sum(1 for ep in episodes
+                        if ep.get("context", {}).get("action") == action)
+            success = sum(1 for ep in episodes
+                         if ep.get("context", {}).get("action") == action
+                         and ep.get("outcome") == "success")
+            success_rate = success / total if total > 0 else 0
+
+            if success_rate < min_success_rate:
+                continue
+
+            # 3. 晋升为规则
+            rule = {
+                "description": f"高频成功模式: {action} (频率={freq}, 成功率={success_rate:.0%})",
+                "condition": {"action": action, "tags": list(tags)},
+                "action": action,
+                "success_rate": success_rate,
+                "level": 1,  # 初始级别
+                "source": "auto_extracted",
+                "created_at": _now(),
+            }
+            try:
+                self.pm.add_rule(rule)
+                new_rules += 1
+            except Exception as e:
+                print(f"[Consolidator] Rule extraction failed: {e}")
+
+        if new_rules > 0:
+            self.pm._save()
+            print(f"[Consolidator] Extracted {new_rules} rules from episodes")
+
+        return new_rules
+
+    def _calibrate_metacognition(self) -> dict:
+        """
+        元认知校准：评估决策质量，调整探索率。
+
+        Returns:
+            {"accuracy": float, "old_epsilon": float, "new_epsilon": float}
+        """
+        if not hasattr(self, 'metacog') or not self.metacog:
+            return {"accuracy": 0.0, "old_epsilon": 0.0, "new_epsilon": 0.0}
+
+        metacog = self.metacog
+
+        # 1. 计算决策准确率
+        accuracy = metacog.calculate_decision_accuracy()
+
+        # 2. 调整探索率（ε-greedy）
+        old_epsilon = metacog.epsilon
+        if accuracy > 0.9:
+            # 决策准确 → 减少探索
+            metacog.epsilon = max(0.1, metacog.epsilon * 0.9)
+        else:
+            # 决策不准 → 增加探索
+            metacog.epsilon = min(0.5, metacog.epsilon * 1.1)
+
+        # 3. 保存元认知状态
+        metacog._save()
+
+        return {
+            "accuracy": round(accuracy, 2),
+            "old_epsilon": round(old_epsilon, 3),
+            "new_epsilon": round(metacog.epsilon, 3)
         }
 
 
