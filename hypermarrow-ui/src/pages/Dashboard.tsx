@@ -132,35 +132,20 @@ export default function Dashboard() {
       <div style={{ position: 'absolute', right: -20, top: -30, fontSize: 140, opacity: 0.06, pointerEvents: 'none' }}>🧠</div>
       <div style={{ position: 'absolute', left: '40%', bottom: -10, width: 200, height: 4, background: 'linear-gradient(90deg, transparent, #667eea44, transparent)', borderRadius: 2 }} />
 
-      {/* 人物形象 — 全身 + 走路动画 */}
-      <div style={{ textAlign: 'center', minWidth: 110, position: 'relative' }}>
+      {/* 人物形象 — 真人年龄照片 */}
+      <div style={{ textAlign: 'center', minWidth: 110 }}>
         <style>{`
-          @keyframes walk {
-            0%,100% { transform: translateY(0) rotate(0deg); }
-            25% { transform: translateY(-4px) rotate(-2deg); }
-            75% { transform: translateY(-4px) rotate(2deg); }
-          }
-          @keyframes arms {
-            0%,100% { transform: rotate(0deg); }
-            50% { transform: rotate(8deg); }
-          }
-          @keyframes shadow {
-            0%,100% { transform: scaleX(1); opacity: 0.3; }
-            50% { transform: scaleX(0.7); opacity: 0.15; }
-          }
-          .walking-character { animation: walk 1.2s ease-in-out infinite; display: inline-block; }
-          .walking-character .arm { animation: arms 0.6s ease-in-out infinite; display: inline-block; }
-          .walking-character .arm-delay { animation: arms 0.6s ease-in-out 0.3s infinite; display: inline-block; }
+          @keyframes floatPhoto { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+          @keyframes fadeInPhoto { from { opacity:0; transform:scale(.9); } to { opacity:1; transform:scale(1); } }
+          .age-photo-img { width:100px; height:130px; object-fit:cover; border-radius:14px;
+            box-shadow:0 6px 20px rgba(0,0,0,0.15); animation: floatPhoto 2s ease-in-out infinite, fadeInPhoto .4s ease-out;
+            border:2px solid rgba(255,255,255,0.6); transition:all .3s; }
+          .age-photo-img:hover { box-shadow:0 10px 30px rgba(102,126,234,0.4); border-color:rgba(102,126,234,0.5); }
         `}</style>
-        <div style={{ position: 'relative', height: 90 }}>
-          <div className="walking-character" style={{ fontSize: 72, lineHeight: 1, filter: 'drop-shadow(0 6px 12px rgba(0,0,0,0.15))', cursor: 'pointer' }}
-            onMouseEnter={e => (e.currentTarget as HTMLElement).style.filter = 'drop-shadow(0 8px 20px rgba(102,126,234,0.4))'}
-            onMouseLeave={e => (e.currentTarget as HTMLElement).style.filter = 'drop-shadow(0 6px 12px rgba(0,0,0,0.15))'}>
-            {avatarEmoji}
-          </div>
-          <div style={{ position: 'absolute', bottom: -2, left: '50%', width: 40, height: 6, background: 'rgba(0,0,0,0.1)', borderRadius: '50%', transform: 'translateX(-50%)', animation: 'shadow 1.2s ease-in-out infinite' }} />
-        </div>
-        <div style={{ marginTop: 4, fontSize: 11, color: '#868e96', fontWeight: 600, letterSpacing: 1 }}>{cognitive.stage}</div>
+        <img className="age-photo-img" key={displayAge}
+          src={`/ages/${displayAge<=2?'0岁':displayAge<=6?'3岁':displayAge<=12?'10岁':displayAge<=17?'15岁':displayAge<=25?'20岁':displayAge<=35?'30岁':displayAge<=45?'40岁':displayAge<=60?'50岁':displayAge<=80?'70岁':'90岁'}.png`}
+          alt={`${displayAge}岁`} />
+        <div style={{ marginTop:6,fontSize:11,color:'#868e96',fontWeight:600 }}>{cognitive.stage} · {displayAge}岁</div>
       </div>
 
       {/* 年龄信息 — 动态 + 进度到下一级 */}
