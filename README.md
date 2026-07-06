@@ -7,6 +7,72 @@
 
 ---
 
+## 本机 QClaw / OpenClaw 接入方式（当前实例）
+
+> 本机（即运行这份文档的 OpenClaw Agent）采用**一线接线**方式：只需在 `SOUL.md` 中 `import` 一个文件，并在对话生命周期里调用三个钩子函数，无需 MCP、无需额外进程。
+
+### 接线原理
+
+```
+SOUL.md ──import──> openclaw_wire.hm ──> DecisionCheckPoint(agent="openclaw")
+                                    ├─ intercept()  每条消息后自动记
+                                    ├─ check()     决策前给建议
+                                    └─ record()    决策后回写
+```
+
+`openclaw_wire.py` 是官方提供的**单文件接线层**：它在被 `import` 时自动完成初始化（注册 Agent `openclaw`、挂好记忆/学习/知识图谱子系统），并对外只暴露一个全局单例 `hm`，把拦截器、决策检查、记忆记录、巩固全部收敛到这一个对象上。
+
+### 步骤一：在 `SOUL.md` 中注册（已内置）
+
+`SOUL.md` 末尾已加入以下代码，Agent 每次启动即自动加载 HyperMarrow：
+
+```python
+import sys
+from pathlib import Path
+
+# 添加 HyperMarrow 到 sys.path
+_HYPERMARROW = Path(r"D:\\OpenClaw\\workspace\\HyperMarrow")
+sys.path.insert(0, str(_HYPERMARROW / "openclaw-memory-system"))
+sys.path.insert(0, str(_HYPERMARROW / "openclaw-learning-system"))
+
+from openclaw_wire import hm
+
+# 每条消息后自动触发（后台线程，非阻塞）
+def on_message(user_message: str, agent_response: str = ""):
+    hm.intercept(user_message, agent_response)
+
+# 决策前检查 → 返回规则命中 / 关联实体 / RL 推荐
+def check_action(action: str, **ctx):
+    return hm.check(action, **ctx)
+
+# 决策后记录 → 回写情景记忆、更新 Q 表、必要时提炼规则
+def record_action(action: str, ctx: dict, outcome: str, reward: float = None):
+    hm.record(action, ctx, outcome, reward)
+```
+
+### 步骤二：对话中的使用约定
+
+| 时机 | 调用 | 作用 |
+|------|------|------|
+| 每条消息后 | `on_message(user_msg, agent_reply)` | 自动提取实体→知识图谱、存档→情景记忆、匹配规则→程序性记忆 |
+| 决策前 | `check_action("try_fix_three_times", task="下载超时")` | 返回命中的规则、关联实体、相似案例与 RL 推荐动作 |
+| 决策后 | `record_action("try_fix_three_times", ctx, "success")` | 把结果写回记忆，更新 Q 表（异步，不阻塞回复） |
+| 定期（每晚 23:00） | `hm.dream()` | 触发 12 阶段「睡眠巩固」：批学习经验、提炼规则、校准判断 |
+
+### 步骤三：记忆巩固定时任务
+
+每晚由 OpenClaw 的 cron 任务「HyperMarrow Dream Cycle」自动调用 `hm.dream()`（也可手动执行 `HyperMarrow/scripts/run_dream_cycle.py` 立即触发）。巩固结果写入 `logs/`，可在 Web Dashboard 查看运行历史。
+
+### 验证
+
+```python
+from openclaw_wire import hm
+print(hm.stats())   # 显示 KG / QL / PM / EM 统计
+# 示例输出: KG=3, QL=408/700, PM=15, EM=6
+```
+
+---
+
 ## Claude 接入 HyperMarrow（最佳实践）
 
 ### 方式一：Python 直连（推荐，零配置）
