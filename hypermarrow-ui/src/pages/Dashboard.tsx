@@ -7,7 +7,7 @@ const F = (p: string) => fetch(`${API}${p}`).then(r => r.json()).catch(() => nul
 function calcCognitiveAge(m: any, l: any): { age: number; stage: string; desc: string; traits: string[] } {
   const kg = (m?.knowledge_graph?.entities || 0); const rels = (m?.knowledge_graph?.relationships || 0)
   const qlpct = l?.q_learning?.nonzero_pct || 0; const em = m?.p3_episodic_memory?.total || 0
-  const pm = (m?.procedural_memory?.total_rules || rules?.length || 0)
+  const pm = (m?.procedural_memory?.total_rules || 0)
   const ece = l?.metacognition?.ece ?? 0.5; const acc = l?.metacognition?.accuracy || 0
   const neural = l?.neural?.train_steps > 0; const wm = l?.world_model?.train_steps > 0
 
@@ -109,29 +109,17 @@ export default function Dashboard() {
     return () => { try { ws?.close() } catch { } }
   }, [])
 
-  if (loading) return <div style={{ padding: 100, textAlign: 'center', color: 'white' }}><div style={{ fontSize: 56, marginBottom: 16 }}>🧠</div><div style={{ fontSize: 20, fontWeight: 700 }}>藏慧晶核正在唤醒…</div><div style={{ marginTop: 8, opacity: 0.6, fontSize: 13 }}>连接记忆与学习系统</div></div>
-  if (error) return <div style={{ ...c.card, padding: 60, textAlign: 'center', maxWidth: 500, margin: '60px auto' }}><div style={{ fontSize: 24, fontWeight: 700, color: '#e03131' }}>连接失败</div><div style={{ marginTop: 8, color: '#868e96' }}>{error}</div><div style={{ marginTop: 16, fontSize: 12, color: '#adb5bd' }}>请确认后端已启动: <code>python start_server.py</code></div></div>
-
+  // Hooks must be before any conditional return
   const m: any = mem || {}; const l: any = lrn || {}
   const qlpct = l?.q_learning?.nonzero_pct || 0; const qlnz = l?.q_learning?.nonzero || 0
   const entities = graph?.nodes || []
   const cognitive = calcCognitiveAge(m, l)
   const prevAge = useRef(cognitive.age)
   const [displayAge, setDisplayAge] = useState(cognitive.age)
-  useEffect(() => {
-    if (cognitive.age !== prevAge.current) {
-      prevAge.current = cognitive.age
-      // Animate: count from previous to new
-      const start = displayAge; const end = cognitive.age; const steps = 15
-      let i = 0
-      const timer = setInterval(() => {
-        i++; setDisplayAge(Math.round(start + (end - start) * (i / steps)))
-        if (i >= steps) clearInterval(timer)
-      }, 80)
-      return () => clearInterval(timer)
-    }
-    setDisplayAge(cognitive.age)
-  }, [cognitive.age, qlnz, m?.knowledge_graph?.entities, l?.metacognition?.ece])
+  useEffect(() => { setDisplayAge(cognitive.age) }, [cognitive.age])
+
+  if (loading) return <div style={{ padding: 100, textAlign: 'center', color: 'white' }}><div style={{ fontSize: 56, marginBottom: 16 }}>🧠</div><div style={{ fontSize: 20, fontWeight: 700 }}>藏慧晶核正在唤醒…</div><div style={{ marginTop: 8, opacity: 0.6, fontSize: 13 }}>连接记忆与学习系统</div></div>
+  if (error) return <div style={{ ...c.card, padding: 60, textAlign: 'center', maxWidth: 500, margin: '60px auto' }}><div style={{ fontSize: 24, fontWeight: 700, color: '#e03131' }}>连接失败</div><div style={{ marginTop: 8, color: '#868e96' }}>{error}</div></div>
 
   // 人物形象：根据年龄选择
   const avatarEmoji = cognitive.age <= 5 ? '👶' : cognitive.age <= 8 ? '🧒' : cognitive.age <= 12 ? '🧑' : '🧑‍🎓'
