@@ -112,7 +112,7 @@ def learning_overview():
             "ltp_total": con.get("total_ltp",0), "ltd_total": con.get("total_ltd_pruned",0),
             "merged_total": con.get("total_episodes_merged",0)},
         "transfer": _DC.transfer_learner.get_stats() if _DC.transfer_learner else {},
-        "world_model": _DC.ql_agent._world_model.get_stats() if getattr(_DC.ql_agent,'_world_model',None) else {},
+        "world_model": _DC.ql_agent._world_model.get_stats() if (getattr(_DC.ql_agent,'_world_model',None) and _DC.ql_agent._world_model.wm) else {"train_steps":0,"torch_available":True,"status":"待机（需要 neural_mode 和数据训练）"},
         "meta_learner": {"adjustments": _DC.meta_learner.state.get("total_adjustments", 0) if _DC.meta_learner else 0},
         "neural": ql.get("neural_stats",{}),
     }

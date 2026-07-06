@@ -276,10 +276,10 @@ export default function Dashboard() {
             <div>🔁 迁移: <strong>{l?.transfer?.total_transfers || 0}</strong> 次</div>
           </div>
         </Card>
-        <Card><CardHead icon="🧬" title="高级认知" badge={l?.world_model?.train_steps > 0 ? '活跃' : '待机'} badgeColor={l?.world_model?.train_steps > 0 ? '#a78bfa' : '#adb5bd'} />
+        <Card><CardHead icon="🧬" title="高级认知" badge={l?.world_model?.train_steps > 0 ? '活跃' : l?.neural?.train_steps > 0 ? '部分活跃' : '待机'} badgeColor={l?.world_model?.train_steps > 0 ? '#40c057' : l?.neural?.train_steps > 0 ? '#fd7e14' : '#adb5bd'} />
           <div style={{ fontSize: 13, color: '#495057', lineHeight: 2.2 }}>
-            <div>🌍 世界模型: <strong>{l?.world_model?.train_steps || 0}</strong> 步</div>
-            <div>🧠 神经模式: {l?.neural?.train_steps > 0 ? <strong>{l?.neural?.train_steps} 步</strong> : '未启用'}</div>
+            <div>🌍 世界模型: {l?.world_model?.train_steps > 0 ? <strong>{l?.world_model?.train_steps} 步</strong> : <span style={{color:'#adb5bd'}}>待启用（需神经模式+训练数据）</span>}</div>
+            <div>🧠 神经模式: {l?.neural?.train_steps > 0 ? <strong>{l?.neural?.train_steps} 步</strong> : <span style={{color:'#adb5bd'}}>未启用（neural_mode=tabular）</span>}</div>
             <div>⚙️ 元学习: {l?.meta_learner?.adjustments || 0} 次调节</div>
             <div>⏰ 前瞻: {m?.prospective?.active || 0} 活跃 · {m?.prospective?.completed || 0} 完成</div>
             <div>👁️ 感知: 屏幕 {m?.perception?.screen?.captures || 0} 次 · 对话 {m?.perception?.conversation?.total_turns || 0} 轮</div>

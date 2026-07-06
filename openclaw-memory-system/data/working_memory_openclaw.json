@@ -11,7 +11,7 @@
     "session_key": "test",
     "provider": "webchat",
     "trigger": "test",
-    "task": "test",
+    "task": "connection_test",
     "phase": "P2b",
     "attempts": 1,
     "error": "import_error",
@@ -20,6 +20,15 @@
   },
   "context_stack": [],
   "recent_items": [
+    {
+      "type": "summary",
+      "data": {
+        "summary": "39 context_update events",
+        "summarized_count": 39
+      },
+      "ts": "2026-07-06T13:28:44.325169",
+      "_imp": 3
+    },
     {
       "type": "summary",
       "data": {
@@ -37,6 +46,19 @@
       },
       "ts": "2026-07-06T08:32:30.600252",
       "_imp": 3
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "try_fix_three_times",
+        "task": "connection_test",
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-06T13:28:44.325169",
+      "_imp": 1
     },
     {
       "type": "context_update",
@@ -517,37 +539,9 @@
         "channel": "id"
       },
       "ts": "2026-07-04T11:46:24.941110"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "try_fix_three_times",
-        "task": "format_unsupported",
-        "phase": "P3",
-        "error": "format",
-        "domain": "skill",
-        "has_error": true,
-        "session_key": "test",
-        "channel": "id"
-      },
-      "ts": "2026-07-04T11:46:24.882731"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "try_fix_three_times",
-        "task": "format_unsupported",
-        "phase": "P3",
-        "error": "format",
-        "domain": "skill",
-        "has_error": true,
-        "session_key": "test",
-        "channel": "id"
-      },
-      "ts": "2026-07-04T11:46:24.876784"
     }
   ],
   "current_task": null,
   "goal": null,
-  "updated_at": "2026-07-06T08:32:39.148430"
+  "updated_at": "2026-07-06T13:28:44.325169"
 }
