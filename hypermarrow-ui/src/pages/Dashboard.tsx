@@ -168,11 +168,10 @@ export default function Dashboard() {
       <div style={{ fontSize: 12, color: '#868e96', fontWeight: 700, letterSpacing: 3, marginBottom: 18, textTransform: 'uppercase' }}>🤖 Agent 中心 · 实时连接状态</div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
         {agents.map((a: any) => {
-          const connected = a.ql_total > 0
-          const neuralActive = (l?.neural?.train_steps || 0) > 0
-          const wmActive = (l?.world_model?.train_steps || 0) > 0
-          const statusColor = connected ? '#40c057' : '#adb5bd'
-          const statusText = connected ? '● 已连接' : '○ 离线'
+          const statusColors: Record<string,string> = {active:'#40c057',standby:'#fd7e14',registered:'#adb5bd',offline:'#868e96'}
+          const sc = statusColors[a.status] || '#adb5bd'
+          const neuralActive = a.neural_active
+          const wmActive = a.wm_active
           return (
             <div key={a.id} style={{ background: '#f8f9fa', borderRadius: 14, padding: '18px 20px', border: `2px solid ${connected ? 'rgba(64,192,87,0.2)' : 'rgba(173,181,189,0.2)'}` }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>

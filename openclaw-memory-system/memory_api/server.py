@@ -29,6 +29,10 @@ def _init():
         _DC = create_for_agent("openclaw"); _REG = get_agent_registry()
         # Auto-activate if saved neural weights exist
         _CLAUDE_DC = create_for_agent("claude")
+        # Wire DC back to bundle so agents endpoint shows correct status
+        for aid, dc in [("openclaw",_DC),("claude",_CLAUDE_DC)]:
+            b = _REG.get(aid)
+            if b and dc: b.decision_checkpoint = dc
         for aid in _REG.list_agents():
             bundle = _REG.get(aid)
             if not bundle: continue
@@ -193,14 +197,33 @@ def skills_list():
 def agents_list():
     _init()
     r=[]
+    now = datetime.now()
     for aid in _REG.list_agents():
         b=_REG.get(aid)
-        if not b: continue
+        if not b:
+            r.append({"id":aid,"status":"offline","status_text":"离线（数据文件存在但未初始化）","actions":0})
+            continue
+        dc = b.decision_checkpoint
         ql=b.ql_agent.get_stats(); em=b.episodic_memory.get_stats()
         meta=b.metacognition.get_performance_dashboard()
-        r.append({"id":aid,"actions":b.action_dim,"ql_nonzero":ql["nonzero_entries"],
-                  "ql_total":ql["total_entries"],"em_episodes":em["total_episodes"],
-                  "health":meta.get("overall_health","?"),"accuracy":meta.get("recent_accuracy",0)})
+        wm=b.working_memory
+        wm_ctx=wm.get_active_context()
+        # Determine real status
+        last_activity = dc.last_activity_at if dc and hasattr(dc,'last_activity_at') else None
+        neural_active = ql.get("neural_mode","tabular") != "tabular"
+        wm_active = ql.get("world_model_stats") is not None
+        has_recent = last_activity and (now - datetime.fromisoformat(last_activity)).total_seconds() < 3600
+        has_em = em["total_episodes"] > 0
+        has_wm_task = bool(wm_ctx.get("current_task"))
+        if has_recent or has_wm_task: status="active"; status_text="● 活跃（正在工作）"
+        elif dc is not None: status="standby"; status_text="◐ 待机（已初始化，等待任务）"
+        else: status="registered"; status_text="○ 已注册（未初始化）"
+        r.append({"id":aid,"status":status,"status_text":status_text,
+            "actions":b.action_dim,"ql_nonzero":ql["nonzero_entries"],"ql_total":ql["total_entries"],
+            "em_episodes":em["total_episodes"],"health":meta.get("overall_health","?"),
+            "accuracy":meta.get("recent_accuracy",0),
+            "neural_active":neural_active,"wm_active":wm_active,
+            "last_activity":last_activity,"has_wm_task":has_wm_task})
     return r
 
 @app.get("/api/v1/search")

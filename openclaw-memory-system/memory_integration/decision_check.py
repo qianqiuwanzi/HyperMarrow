@@ -434,6 +434,7 @@ class DecisionCheckPoint:
             self._is_agent_mode   = False
             self._agent_id        = "__global__"
             self._isolated_path   = "[global]"
+            self.last_activity_at = None  # Track last check/record timestamp
 
         # ── Shared layer ───────────────────────────────────────────────────
         if shared_layer is not None:
