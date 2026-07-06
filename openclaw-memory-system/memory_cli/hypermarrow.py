@@ -228,6 +228,61 @@ def cmd_dream(args):
         print(f"\n  Cross-agent sharing: complete")
 
 
+def cmd_activate(args):
+    """一键激活高级认知：WorldModel + NeuralAgent"""
+    _init()
+    from memory_integration.decision_check import create_for_agent
+    # Ensure all registered agents have a DC
+    for aid in _REG.list_agents():
+        try: create_for_agent(aid)
+        except: pass
+    print("正在激活高级认知能力...")
+    for aid in _REG.list_agents():
+        bundle = _REG.get(aid)
+        if not bundle: continue
+        ql = bundle.ql_agent
+        # Switch to hybrid mode: neural encoding + tabular Q-table
+        if ql.neural_mode == 'tabular':
+            from learning_core.q_learning_agent import QLearningAgent
+            # Create new hybrid-mode agent with same state space
+            new_ql = QLearningAgent(state_space_size=ql.state_space_size,
+                                     action_space_size=ql.action_space_size,
+                                     neural_mode='hybrid')
+            # Copy Q-table from old agent
+            new_ql.q_table = ql.q_table.copy()
+            new_ql._state_map = ql._state_map.copy()
+            new_ql._state_counter = ql._state_counter
+            new_ql.experience_buffer = ql.experience_buffer[:]
+            # Enable world model
+            new_ql.enable_world_model()
+            # Train on existing experience
+            buf = ql.experience_buffer
+            trained = 0
+            for exp in buf[-50:]:
+                new_ql.add_experience(exp['state'], exp['action'], exp['reward'],
+                                      exp['next_state'], exp.get('done', False))
+                trained += 1
+            # Replace the agent's QL in both bundle and DC
+            bundle.ql_agent = new_ql
+            if bundle.decision_checkpoint:
+                bundle.decision_checkpoint.ql_agent = new_ql
+            try:
+                from memory_integration.decision_check import _agent_dc_map
+                if aid in _agent_dc_map:
+                    _agent_dc_map[aid].ql_agent = new_ql
+            except: pass
+            # Persist: save Q-table + neural weights so API restart picks them up
+            from memory_core.config import get_data_dir
+            new_ql.q_table_path = str(get_data_dir() / f"q_table_{aid}.json")
+            new_ql.save_q_table(new_ql.q_table_path)
+            ns = new_ql.get_stats()
+            print(f"  {aid}: 神经={ns.get('neural_stats',{}).get('train_steps',0)}步, "
+                  f"世界模型={ns.get('world_model_stats',{}).get('world_model',{}).get('train_steps',0) if ns.get('world_model_stats') else 0}步")
+        else:
+            ql.enable_world_model()
+            print(f"  {aid}: 已激活 (已是 {ql.neural_mode} 模式)")
+    print("高级认知激活完成。重启 API 后刷新 http://localhost:5173 查看仪表板")
+
 def cmd_export(args):
     _init()
     fmt = args.format or "markdown"
@@ -364,6 +419,8 @@ def main():
     p_export = sub.add_parser("export", help="Export knowledge")
     p_export.add_argument("--format", choices=["markdown", "json"], default="markdown")
 
+    sub.add_parser("activate", help="One-click activate advanced cognition (WorldModel + Neural)")
+
     p_kg = sub.add_parser("kg", help="Knowledge Graph queries")
     p_kg_sub = p_kg.add_subparsers(dest="kg_action")
     p_kg_sub.add_parser("entities", help="List all entities by type")
@@ -380,7 +437,7 @@ def main():
 
     cmds = {"stats": cmd_stats, "agents": cmd_agents, "health": cmd_health,
             "search": cmd_search, "dream": cmd_dream, "export": cmd_export,
-            "kg": cmd_kg}
+            "activate": cmd_activate, "kg": cmd_kg}
     cmds[args.command](args)
 
 

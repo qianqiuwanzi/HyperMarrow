@@ -27,6 +27,30 @@ def _init():
         from memory_core.config import setup_hf_mirror; setup_hf_mirror()
         from memory_integration.decision_check import create_for_agent, get_agent_registry
         _DC = create_for_agent("openclaw"); _REG = get_agent_registry()
+        # Auto-activate if saved neural weights exist
+        _CLAUDE_DC = create_for_agent("claude")
+        for aid in _REG.list_agents():
+            bundle = _REG.get(aid)
+            if not bundle: continue
+            qpath = Path(str(bundle.ql_agent.q_table_path)).with_suffix('.pt')
+            if qpath.exists():
+                try:
+                    from learning_core.q_learning_agent import QLearningAgent
+                    new_ql = QLearningAgent(state_space_size=100, action_space_size=7, neural_mode='hybrid')
+                    new_ql._neural_agent.load(str(qpath))
+                    new_ql.enable_world_model()
+                    new_ql.q_table = bundle.ql_agent.q_table.copy()
+                    new_ql._state_map = bundle.ql_agent._state_map.copy()
+                    new_ql._state_counter = bundle.ql_agent._state_counter
+                    new_ql.experience_buffer = bundle.ql_agent.experience_buffer[:]
+                    bundle.ql_agent = new_ql
+                    if bundle.decision_checkpoint: bundle.decision_checkpoint.ql_agent = new_ql
+                    # Also update the global DC reference
+                    if aid == 'openclaw': _DC = bundle.decision_checkpoint or _DC
+                    if _DC: _DC.ql_agent = new_ql
+                    print(f"[API] {aid}: neural auto-loaded from saved weights", file=sys.stderr, flush=True)
+                except Exception as e:
+                    print(f"[API] {aid}: neural load skipped ({e})", file=sys.stderr, flush=True)
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # 记忆系统 API (7 模块)
