@@ -163,6 +163,42 @@ export default function Dashboard() {
       </div>
     </div>
 
+    {/* ═══════════ Agent 中心（与认知年龄同级） ═══════════ */}
+    <div style={{ background: 'rgba(255,255,255,0.92)', borderRadius: 20, padding: '24px 30px', marginBottom: 24, boxShadow: '0 4px 20px rgba(102,126,234,0.1)' }}>
+      <div style={{ fontSize: 12, color: '#868e96', fontWeight: 700, letterSpacing: 3, marginBottom: 18, textTransform: 'uppercase' }}>🤖 Agent 中心 · 实时连接状态</div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
+        {agents.map((a: any) => {
+          const connected = a.ql_total > 0
+          const neuralActive = (l?.neural?.train_steps || 0) > 0
+          const wmActive = (l?.world_model?.train_steps || 0) > 0
+          const statusColor = connected ? '#40c057' : '#adb5bd'
+          const statusText = connected ? '● 已连接' : '○ 离线'
+          return (
+            <div key={a.id} style={{ background: '#f8f9fa', borderRadius: 14, padding: '18px 20px', border: `2px solid ${connected ? 'rgba(64,192,87,0.2)' : 'rgba(173,181,189,0.2)'}` }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: '50%', background: connected ? 'linear-gradient(135deg,#40c057,#2f9e44)' : 'linear-gradient(135deg,#adb5bd,#868e96)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, color: 'white' }}>{a.id[0].toUpperCase()}</div>
+                  <div>
+                    <div style={{ fontSize: 16, fontWeight: 700, color: '#2c3e50' }}>{a.id}</div>
+                    <div style={{ fontSize: 11, color: statusColor, fontWeight: 600 }}>{statusText}</div>
+                  </div>
+                </div>
+                <span style={{ background: '#667eea', color: 'white', padding: '3px 10px', borderRadius: 10, fontSize: 11 }}>{a.actions} 动作</span>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px 14px', fontSize: 12, color: '#495057' }}>
+                <div>🧠 Q学习: <strong>{a.ql_nonzero}/{a.ql_total}</strong></div>
+                <div>📒 情景: <strong>{a.em_episodes} 条</strong></div>
+                <div>🩺 健康: <strong style={{color: a.health==='good'?'#40c057':'#fd7e14'}}>{a.health}</strong></div>
+                <div>📐 准确率: <strong>{(a.accuracy*100).toFixed(0)}%</strong></div>
+                <div>🧬 神经: <strong style={{color:neuralActive?'#40c057':'#adb5bd'}}>{neuralActive?'已激活':'未激活'}</strong></div>
+                <div>🌍 WM: <strong style={{color:wmActive?'#40c057':'#adb5bd'}}>{wmActive?`${l?.world_model?.train_steps||0}步`:'就绪'}</strong></div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+
     {/* ═══════════ 成就 ═══════════ */}
     {achievements.length > 0 && <div style={{ display: 'flex', gap: 8, marginBottom: 24, flexWrap: 'wrap' }}>
       {achievements.map((a: any) => <div key={a.id} style={{ background: 'rgba(255,255,255,0.88)', padding: '7px 16px', borderRadius: 20, fontSize: 12, display: 'flex', alignItems: 'center', gap: 6, boxShadow: '0 1px 4px rgba(0,0,0,0.06)', backdropFilter: 'blur(4px)' }}>{a.icon} {a.title} {a.level >= 2 && <span style={{ fontSize: 10, background: '#667eea', color: '#fff', borderRadius: 8, padding: '1px 6px', fontWeight: 700 }}>Lv{a.level}</span>}</div>)}
@@ -246,16 +282,6 @@ export default function Dashboard() {
             {(searchR.em || []).map((e: any, i: number) => <div key={`e${i}`} style={{ marginTop: 4, color: '#868e96', padding: '4px 0' }}>[{e.outcome}] {e.what?.slice(0, 60)}</div>)}
           </div>}
           <div style={{ marginTop: 12, fontSize: 11, color: '#adb5bd' }}>📐 嵌入维度: {m?.p2_vector_memory?.embedding_dim || 0} · 集合: {m?.p2_vector_memory?.collection || 'ChromaDB'}</div>
-        </Card>
-        {/* Agent 中心 */}
-        <Card><CardHead icon="🤖" title="Agent 中心" badge={`${agents.length} 个`} badgeColor="#764ba2" />
-          {agents.map((a: any) => <div key={a.id} style={{ padding: '10px 0', borderBottom: '1px solid #f1f3f5' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontWeight: 700, fontSize: 14, color: '#2c3e50' }}>{a.id}</span>
-              <Tag text={`${a.actions} 动作`} color="#667eea" />
-            </div>
-            <div style={{ fontSize: 11, color: '#adb5bd', marginTop: 4 }}>QL {a.ql_nonzero}/{a.ql_total} · 情景 {a.em_episodes} · {a.health}</div>
-          </div>)}
         </Card>
       </div>
     </div>
