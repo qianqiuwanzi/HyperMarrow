@@ -248,20 +248,19 @@ def cmd_activate(args):
             new_ql = QLearningAgent(state_space_size=ql.state_space_size,
                                      action_space_size=ql.action_space_size,
                                      neural_mode='hybrid')
-            # Copy Q-table from old agent
+            # Copy Q-table + state from old agent (preserve months of training)
             new_ql.q_table = ql.q_table.copy()
-            new_ql._state_map = ql._state_map.copy()
+            new_ql._state_map = dict(ql._state_map)
             new_ql._state_counter = ql._state_counter
             new_ql.experience_buffer = ql.experience_buffer[:]
-            # Enable world model
+            new_ql._state_visits = dict(ql._state_visits)
+            # Enable world model (trains on each add_experience)
             new_ql.enable_world_model()
-            # Train on existing experience
+            # Train WM on existing experience (does NOT modify Q-table in hybrid mode)
             buf = ql.experience_buffer
-            trained = 0
             for exp in buf[-50:]:
                 new_ql.add_experience(exp['state'], exp['action'], exp['reward'],
                                       exp['next_state'], exp.get('done', False))
-                trained += 1
             # Replace the agent's QL in both bundle and DC
             bundle.ql_agent = new_ql
             if bundle.decision_checkpoint:
@@ -271,7 +270,7 @@ def cmd_activate(args):
                 if aid in _agent_dc_map:
                     _agent_dc_map[aid].ql_agent = new_ql
             except: pass
-            # Persist: save Q-table + neural weights so API restart picks them up
+            # Persist Q-table JSON (preserves original Q-values) + neural .pt
             from memory_core.config import get_data_dir
             new_ql.q_table_path = str(get_data_dir() / f"q_table_{aid}.json")
             new_ql.save_q_table(new_ql.q_table_path)
