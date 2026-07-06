@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 const API = 'http://localhost:8741/api/v1'
 const F = (p: string) => fetch(`${API}${p}`).then(r => r.json()).catch(() => null)
@@ -116,6 +116,22 @@ export default function Dashboard() {
   const qlpct = l?.q_learning?.nonzero_pct || 0; const qlnz = l?.q_learning?.nonzero || 0
   const entities = graph?.nodes || []
   const cognitive = calcCognitiveAge(m, l)
+  const prevAge = useRef(cognitive.age)
+  const [displayAge, setDisplayAge] = useState(cognitive.age)
+  useEffect(() => {
+    if (cognitive.age !== prevAge.current) {
+      prevAge.current = cognitive.age
+      // Animate: count from previous to new
+      const start = displayAge; const end = cognitive.age; const steps = 15
+      let i = 0
+      const timer = setInterval(() => {
+        i++; setDisplayAge(Math.round(start + (end - start) * (i / steps)))
+        if (i >= steps) clearInterval(timer)
+      }, 80)
+      return () => clearInterval(timer)
+    }
+    setDisplayAge(cognitive.age)
+  }, [cognitive.age, qlnz, m?.knowledge_graph?.entities, l?.metacognition?.ece])
 
   // 人物形象：根据年龄选择
   const avatarEmoji = cognitive.age <= 5 ? '👶' : cognitive.age <= 8 ? '🧒' : cognitive.age <= 12 ? '🧑' : '🧑‍🎓'
@@ -128,23 +144,52 @@ export default function Dashboard() {
       <div style={{ position: 'absolute', right: -20, top: -30, fontSize: 140, opacity: 0.06, pointerEvents: 'none' }}>🧠</div>
       <div style={{ position: 'absolute', left: '40%', bottom: -10, width: 200, height: 4, background: 'linear-gradient(90deg, transparent, #667eea44, transparent)', borderRadius: 2 }} />
 
-      {/* 人物形象 */}
-      <div style={{ textAlign: 'center', minWidth: 100 }}>
-        <div style={{ fontSize: 64, filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))', transition: 'transform .3s', cursor: 'pointer' }}
-          onMouseEnter={e => (e.currentTarget as HTMLElement).style.transform = 'scale(1.1)'}
-          onMouseLeave={e => (e.currentTarget as HTMLElement).style.transform = 'scale(1)'}>
-          {avatarEmoji}
+      {/* 人物形象 — 全身 + 走路动画 */}
+      <div style={{ textAlign: 'center', minWidth: 110, position: 'relative' }}>
+        <style>{`
+          @keyframes walk {
+            0%,100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-4px) rotate(-2deg); }
+            75% { transform: translateY(-4px) rotate(2deg); }
+          }
+          @keyframes arms {
+            0%,100% { transform: rotate(0deg); }
+            50% { transform: rotate(8deg); }
+          }
+          @keyframes shadow {
+            0%,100% { transform: scaleX(1); opacity: 0.3; }
+            50% { transform: scaleX(0.7); opacity: 0.15; }
+          }
+          .walking-character { animation: walk 1.2s ease-in-out infinite; display: inline-block; }
+          .walking-character .arm { animation: arms 0.6s ease-in-out infinite; display: inline-block; }
+          .walking-character .arm-delay { animation: arms 0.6s ease-in-out 0.3s infinite; display: inline-block; }
+        `}</style>
+        <div style={{ position: 'relative', height: 90 }}>
+          <div className="walking-character" style={{ fontSize: 72, lineHeight: 1, filter: 'drop-shadow(0 6px 12px rgba(0,0,0,0.15))', cursor: 'pointer' }}
+            onMouseEnter={e => (e.currentTarget as HTMLElement).style.filter = 'drop-shadow(0 8px 20px rgba(102,126,234,0.4))'}
+            onMouseLeave={e => (e.currentTarget as HTMLElement).style.filter = 'drop-shadow(0 6px 12px rgba(0,0,0,0.15))'}>
+            {avatarEmoji}
+          </div>
+          <div style={{ position: 'absolute', bottom: -2, left: '50%', width: 40, height: 6, background: 'rgba(0,0,0,0.1)', borderRadius: '50%', transform: 'translateX(-50%)', animation: 'shadow 1.2s ease-in-out infinite' }} />
         </div>
-        <div style={{ marginTop: 8, fontSize: 11, color: '#868e96', fontWeight: 600, letterSpacing: 1 }}>{cognitive.stage}</div>
+        <div style={{ marginTop: 4, fontSize: 11, color: '#868e96', fontWeight: 600, letterSpacing: 1 }}>{cognitive.stage}</div>
       </div>
 
-      {/* 年龄信息 */}
+      {/* 年龄信息 — 动态 + 进度到下一级 */}
       <div style={{ flex: 1, minWidth: 200 }}>
-        <div style={{ fontSize: 13, color: '#adb5bd', fontWeight: 600, letterSpacing: 2, marginBottom: 6, textTransform: 'uppercase' }}>认知年龄评估</div>
+        <div style={{ fontSize: 13, color: '#adb5bd', fontWeight: 600, letterSpacing: 2, marginBottom: 6, textTransform: 'uppercase' }}>认知年龄评估 · 实时动态</div>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
-          <span style={{ fontSize: 56, fontWeight: 900, color: '#667eea', lineHeight: 1, fontFamily: 'Georgia, serif' }}>{cognitive.age}</span>
+          <span style={{ fontSize: 56, fontWeight: 900, color: '#667eea', lineHeight: 1, fontFamily: 'Georgia, serif', transition: 'all .6s' }}>{displayAge}</span>
           <span style={{ fontSize: 18, color: '#868e96', fontWeight: 600 }}>岁</span>
-          <span style={{ fontSize: 14, color: '#adb5bd' }}>— 相当于人类 {cognitive.age} 岁{cognitive.age <= 5 ? '幼儿' : cognitive.age <= 8 ? '儿童' : cognitive.age <= 12 ? '少年' : '青少年'}</span>
+          <span style={{ fontSize: 14, color: '#adb5bd' }}>— 相当于人类 {displayAge} 岁{displayAge <= 5 ? '幼儿' : displayAge <= 8 ? '儿童' : displayAge <= 12 ? '少年' : '青少年'}</span>
+        </div>
+        {/* 年龄进度条：距下一级还有多远 */}
+        <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 10, color: '#adb5bd', minWidth: 24 }}>{displayAge}岁</span>
+          <div style={{ flex: 1, height: 6, background: '#e9ecef', borderRadius: 3, overflow: 'hidden' }}>
+            <div style={{ width: `${Math.min(100, displayAge * 10)}%`, height: '100%', background: 'linear-gradient(90deg,#667eea,#764ba2)', borderRadius: 3, transition: 'width 1.2s cubic-bezier(0.4,0,0.2,1)' }} />
+          </div>
+          <span style={{ fontSize: 10, color: '#667eea', minWidth: 30, fontWeight: 600 }}>{displayAge + 1}岁</span>
         </div>
         <div style={{ marginTop: 12, color: '#495057', fontSize: 14, lineHeight: 1.7 }}>{cognitive.desc}</div>
         {cognitive.traits.length > 0 && <div style={{ marginTop: 10, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
