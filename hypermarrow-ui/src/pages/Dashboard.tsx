@@ -173,13 +173,13 @@ export default function Dashboard() {
           const neuralActive = a.neural_active
           const wmActive = a.wm_active
           return (
-            <div key={a.id} style={{ background: '#f8f9fa', borderRadius: 14, padding: '18px 20px', border: `2px solid ${connected ? 'rgba(64,192,87,0.2)' : 'rgba(173,181,189,0.2)'}` }}>
+            <div key={a.id} style={{ background: '#f8f9fa', borderRadius: 14, padding: '18px 20px', border: `2px solid ${a.status==='active'?'rgba(64,192,87,0.3)':a.status==='standby'?'rgba(253,126,20,0.2)':'rgba(173,181,189,0.15)'}` }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <div style={{ width: 40, height: 40, borderRadius: '50%', background: connected ? 'linear-gradient(135deg,#40c057,#2f9e44)' : 'linear-gradient(135deg,#adb5bd,#868e96)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, color: 'white' }}>{a.id[0].toUpperCase()}</div>
+                  <div style={{ width: 40, height: 40, borderRadius: '50%', background: `linear-gradient(135deg,${sc},${sc}cc)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, color: 'white' }}>{a.id[0].toUpperCase()}</div>
                   <div>
                     <div style={{ fontSize: 16, fontWeight: 700, color: '#2c3e50' }}>{a.id}</div>
-                    <div style={{ fontSize: 11, color: statusColor, fontWeight: 600 }}>{statusText}</div>
+                    <div style={{ fontSize: 11, color: sc, fontWeight: 600 }}>{a.status_text || a.status}</div>
                   </div>
                 </div>
                 <span style={{ background: '#667eea', color: 'white', padding: '3px 10px', borderRadius: 10, fontSize: 11 }}>{a.actions} 动作</span>
