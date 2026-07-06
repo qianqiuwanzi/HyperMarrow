@@ -137,7 +137,7 @@ export default function Dashboard() {
         <style>{`
           @keyframes floatPhoto { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
           @keyframes fadeInPhoto { from { opacity:0; transform:scale(.9); } to { opacity:1; transform:scale(1); } }
-          .age-photo-img { width:100px; height:130px; object-fit:cover; border-radius:14px;
+          .age-photo-img { width:100px; height:130px; object-fit:contain; border-radius:14px;
             box-shadow:0 6px 20px rgba(0,0,0,0.15); animation: floatPhoto 2s ease-in-out infinite, fadeInPhoto .4s ease-out;
             border:2px solid rgba(255,255,255,0.6); transition:all .3s; }
           .age-photo-img:hover { box-shadow:0 10px 30px rgba(102,126,234,0.4); border-color:rgba(102,126,234,0.5); }
