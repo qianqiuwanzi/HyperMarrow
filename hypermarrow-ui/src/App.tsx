@@ -17,10 +17,9 @@ export default function App() {
           marginBottom:20, display:'flex', justifyContent:'space-between', alignItems:'center',
           boxShadow:'0 4px 6px rgba(0,0,0,0.1)'
         }}>
-          <h1 style={{fontSize:24, color:'#667eea', margin:0}}>🧠 HyperMarrow 记忆中心</h1>
+          <h1 style={{fontSize:24, color:'#667eea', margin:0}}>🧠 HyperMarrow 藏慧 · 记忆中心</h1>
           <div style={{display:'flex', gap:10}}>
-            <button style={btnPrimaryStyle}>⚙️ 设置</button>
-            <button style={{...btnStyle, background:'#e9ecef', color:'#495057'}}>❓ 帮助</button>
+            <span style={{fontSize:12,color:'#adb5bd',alignSelf:'center'}}>认知年龄 8岁 · 3 Agent · 实时监控</span>
           </div>
         </div>
         {mounted && <Dashboard />}

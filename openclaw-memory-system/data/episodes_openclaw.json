@@ -133,8 +133,36 @@
       "duration_seconds": 0.0,
       "linked_memory_ids": [],
       "created_at": "2026-07-05T10:11:42.183097"
+    },
+    {
+      "episode_id": "fb006674",
+      "what": "Action 'try_fix_three_times': success",
+      "when": "2026-07-06T08:32:39.203398",
+      "context": {
+        "action": "try_fix_three_times",
+        "context_raw": "{\"task\": \"test\"}",
+        "wm_summary": "task=None | ctx=(last_action=try_fix_three_times, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=P2b, attempts=1, error=import_error, success=False, inherited_rules=遇到问题先修复3次再报告, P2b下载必须使用技能脚本, 阶段门禁遵守规则)",
+        "reward": 1.0,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-06T08:32:39.203398",
+      "_source": {
+        "agent": "unknown",
+        "channel": "internal",
+        "captured_at": "2026-07-06T08:32:39.203398"
+      }
     }
   ],
   "created_at": "2026-07-05T10:12:50.901430",
-  "updated_at": "2026-07-05T21:09:40.558346"
+  "updated_at": "2026-07-06T08:32:39.203398"
 }

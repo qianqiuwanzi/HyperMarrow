@@ -97,9 +97,28 @@
         "eebb5de5"
       ],
       "extracted_at": "2026-07-04T11:06:11.883652"
+    },
+    "auto_try_fix_three_times_5": {
+      "id": "auto_try_fix_three_times_5",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "task",
+        "from",
+        "openclaw",
+        "action",
+        "try_fix_three_times"
+      ],
+      "success_count": 2,
+      "total_attempts": 2,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "3981732a",
+        "8e5d09ee"
+      ],
+      "extracted_at": "2026-07-06T08:32:39.219926"
     }
   },
-  "extraction_count": 3,
+  "extraction_count": 4,
   "created_at": "2026-07-02T14:56:38.006956",
-  "updated_at": "2026-07-04T11:06:11.883652"
+  "updated_at": "2026-07-06T08:32:39.219926"
 }

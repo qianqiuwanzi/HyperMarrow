@@ -11,7 +11,7 @@
         "outcome": "success"
       },
       "created_at": "2026-07-05T10:17:12.987183",
-      "updated_at": "2026-07-05T10:56:10.520048"
+      "updated_at": "2026-07-06T08:32:39.150429"
     },
     "77a04807": {
       "id": "77a04807",
@@ -23,7 +23,7 @@
         "outcome": "success"
       },
       "created_at": "2026-07-05T10:17:22.674498",
-      "updated_at": "2026-07-05T10:56:10.515044"
+      "updated_at": "2026-07-06T08:32:39.149450"
     },
     "614ac33b": {
       "id": "614ac33b",
@@ -34,7 +34,15 @@
         "reward": 1.0
       },
       "created_at": "2026-07-05T10:17:22.679550",
-      "updated_at": "2026-07-05T10:56:10.520048"
+      "updated_at": "2026-07-06T08:32:39.150429"
+    },
+    "d24e99d0": {
+      "id": "d24e99d0",
+      "name": "download_stuck",
+      "type": "error_type",
+      "properties": {},
+      "created_at": "2026-07-06T08:32:39.212936",
+      "updated_at": "2026-07-06T08:32:39.212936"
     }
   },
   "relationships": [
@@ -91,17 +99,45 @@
       "weight": 0.5,
       "metadata": {},
       "created_at": "2026-07-05T10:56:10.587836"
+    },
+    {
+      "id": "142ae655",
+      "source_id": "77a04807",
+      "target_id": "d24e99d0",
+      "relation_type": "co_occurs_with",
+      "weight": 0.5,
+      "metadata": {},
+      "created_at": "2026-07-06T08:32:39.216926"
+    },
+    {
+      "id": "1d034cab",
+      "source_id": "e6e3c40b",
+      "target_id": "d24e99d0",
+      "relation_type": "co_occurs_with",
+      "weight": 0.5,
+      "metadata": {},
+      "created_at": "2026-07-06T08:32:39.217920"
+    },
+    {
+      "id": "90e1097d",
+      "source_id": "614ac33b",
+      "target_id": "d24e99d0",
+      "relation_type": "co_occurs_with",
+      "weight": 0.5,
+      "metadata": {},
+      "created_at": "2026-07-06T08:32:39.217920"
     }
   ],
   "entity_type_index": {
     "error_type": [
       "e6e3c40b",
-      "77a04807"
+      "77a04807",
+      "d24e99d0"
     ],
     "action": [
       "614ac33b"
     ]
   },
   "created_at": "2026-07-05T10:17:12.890536",
-  "updated_at": "2026-07-05T22:26:54.583298"
+  "updated_at": "2026-07-06T08:32:39.217920"
 }
