@@ -278,7 +278,7 @@ export default function Dashboard() {
         </Card>
         <Card><CardHead icon="🧬" title="高级认知" badge={l?.world_model?.train_steps > 0 ? '活跃' : l?.neural?.train_steps > 0 ? '部分活跃' : '待机'} badgeColor={l?.world_model?.train_steps > 0 ? '#40c057' : l?.neural?.train_steps > 0 ? '#fd7e14' : '#adb5bd'} />
           <div style={{ fontSize: 13, color: '#495057', lineHeight: 2.2 }}>
-            <div>🌍 世界模型: {l?.world_model?.train_steps > 0 ? <strong>{l?.world_model?.train_steps} 步</strong> : <span style={{color:'#adb5bd'}}>待启用（需神经模式+训练数据）</span>}</div>
+            <div>🌍 世界模型: {l?.world_model?.train_steps > 0 ? <strong>{l?.world_model?.train_steps} 步</strong> : <span style={{color:'#fd7e14'}}>{l?.world_model?.status || '就绪（新数据自动训练）'}</span>}</div>
             <div>🧠 神经模式: {l?.neural?.train_steps > 0 ? <strong>{l?.neural?.train_steps} 步</strong> : <span style={{color:'#adb5bd'}}>未启用（neural_mode=tabular）</span>}</div>
             <div>⚙️ 元学习: {l?.meta_learner?.adjustments || 0} 次调节</div>
             <div>⏰ 前瞻: {m?.prospective?.active || 0} 活跃 · {m?.prospective?.completed || 0} 完成</div>

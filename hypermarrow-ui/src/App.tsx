@@ -18,9 +18,6 @@ export default function App() {
           boxShadow:'0 4px 6px rgba(0,0,0,0.1)'
         }}>
           <h1 style={{fontSize:24, color:'#667eea', margin:0}}>🧠 HyperMarrow 藏慧 · 记忆中心</h1>
-          <div style={{display:'flex', gap:10}}>
-            <span style={{fontSize:12,color:'#adb5bd',alignSelf:'center'}}>认知年龄 8岁 · 3 Agent · 实时监控</span>
-          </div>
         </div>
         {mounted && <Dashboard />}
       </div>
