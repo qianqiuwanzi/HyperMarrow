@@ -1,0 +1,130 @@
+{
+  "timestamp": "2026-07-07T22:02:15.228143",
+  "result": {
+    "status": "ok",
+    "phases": {
+      "lint": 0,
+      "backlinks": 10,
+      "sync": 0,
+      "synthesize": 0,
+      "extract": 0,
+      "patterns": 0,
+      "embed": 0,
+      "orphans": 0,
+      "purge": 0,
+      "batch_learn": 95,
+      "extract_rules": 0,
+      "calibrate": {
+        "accuracy": 0.0,
+        "old_epsilon": 0.0,
+        "new_epsilon": 0.0
+      }
+    },
+    "duration_sec": 0.007
+  },
+  "stats_before": {
+    "kg": {
+      "total_entities": 5,
+      "total_relationships": 13,
+      "entity_types": {
+        "error_type": 3,
+        "action": 1,
+        "skill": 1
+      },
+      "relationship_types": {
+        "co_occurs_with": 11,
+        "triggers": 2
+      },
+      "density": 0.65,
+      "top_central": [
+        {
+          "name": "timeout",
+          "degree": 6
+        },
+        {
+          "name": "import_error",
+          "degree": 6
+        },
+        {
+          "name": "try_fix_three_times",
+          "degree": 6
+        },
+        {
+          "name": "download_stuck",
+          "degree": 4
+        },
+        {
+          "name": "verify",
+          "degree": 4
+        }
+      ],
+      "newest_entity": "verify"
+    },
+    "ql": {
+      "n_states": 100,
+      "n_actions": 7,
+      "distinct_states": 0,
+      "collisions_resolved": 0,
+      "total_experiences": 95,
+      "nonzero_entries": 415,
+      "total_entries": 700,
+      "nonzero_pct": 59.29,
+      "q_sum": 219.7155,
+      "alpha": 0.18725337300753797,
+      "gamma": 0.9,
+      "epsilon": 0.1,
+      "auto_expand": true,
+      "neural_mode": "tabular",
+      "neural_stats": null,
+      "world_model_stats": null
+    },
+    "em": {
+      "total_episodes": 7,
+      "with_lessons": 1,
+      "by_outcome": {
+        "success": 5,
+        "failure": 1,
+        "partial": 1
+      },
+      "by_emotion": {
+        "positive": 5,
+        "neutral": 1,
+        "negative": 1,
+        "mixed": 0
+      },
+      "avg_importance": 3.29,
+      "newest": "2026-07-06T08:32:39.203398",
+      "oldest": "2026-07-02T15:28:17.476644"
+    },
+    "pm": 15,
+    "meta": {
+      "total_decisions": 0,
+      "recent_accuracy": 0.0,
+      "consecutive_failures": 0,
+      "calibration": {
+        "bins": [
+          {
+            "conf_low": 0.5,
+            "conf_high": 0.6,
+            "accuracy": 1.0,
+            "avg_confidence": 0.5,
+            "count": 40
+          }
+        ],
+        "overconfidence": 0.0,
+        "underconfidence": 0.5,
+        "ece": 0.5,
+        "total": 40
+      },
+      "anomalies_recent": 0,
+      "reflections_needed": false,
+      "reflection_reason": null,
+      "overall_health": "good",
+      "health_score": 80.0
+    },
+    "agents": [
+      "openclaw",
+      "claude"
+    ]
+  }
+}

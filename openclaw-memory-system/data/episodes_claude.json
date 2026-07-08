@@ -1,0 +1,361 @@
+{
+  "version": "1.0",
+  "episodes": [
+    {
+      "episode_id": "7f4344fa",
+      "what": "设计 HyperMarrow V2 架构方案，包括 CLI/Interceptor/DreamCycle 9阶段",
+      "when": "2026-07-08T08:23:26.133867",
+      "context": {
+        "action": "write_script",
+        "phase": "design"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "architecture",
+        "design",
+        "v2"
+      ],
+      "importance": 5,
+      "lesson": "V2核心层零改动，接入层新增3个组件",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-08T08:23:26.133867",
+      "_source": {
+        "agent": "unknown",
+        "channel": "internal",
+        "captured_at": "2026-07-08T08:23:26.133867"
+      }
+    },
+    {
+      "episode_id": "d992a116",
+      "what": "实现 16 模块 Web Dashboard（晶核控制台），全中文+蓝色渐变+10张年龄照片",
+      "when": "2026-07-08T08:23:26.134886",
+      "context": {
+        "action": "write_script",
+        "phase": "implementation"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "dashboard",
+        "frontend",
+        "visualization"
+      ],
+      "importance": 5,
+      "lesson": "Crystal Core: FastAPI后端20端点 + React前端16模块",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-08T08:23:26.134886",
+      "_source": {
+        "agent": "unknown",
+        "channel": "internal",
+        "captured_at": "2026-07-08T08:23:26.134886"
+      }
+    },
+    {
+      "episode_id": "77d88c60",
+      "what": "修复 hooks 顺序导致白屏、rules未定义、connected变量残留等前端bug",
+      "when": "2026-07-08T08:23:26.135442",
+      "context": {
+        "action": "try_fix_three_times",
+        "phase": "debug"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "bugfix",
+        "frontend",
+        "react"
+      ],
+      "importance": 4,
+      "lesson": "React hooks必须在条件return之前，变量不能跨作用域引用",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-08T08:23:26.135442",
+      "_source": {
+        "agent": "unknown",
+        "channel": "internal",
+        "captured_at": "2026-07-08T08:23:26.135442"
+      }
+    },
+    {
+      "episode_id": "9c285f86",
+      "what": "从10张人类年龄照片中自动抠图（PIL边缘采样+rembg），透明背景",
+      "when": "2026-07-08T08:23:26.135442",
+      "context": {
+        "action": "use_existing_tool",
+        "phase": "media"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "image",
+        "background-removal",
+        "automation"
+      ],
+      "importance": 3,
+      "lesson": "PIL corner-sampling检测背景色+rembg AI抠图，双方案覆盖",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-08T08:23:26.135442",
+      "_source": {
+        "agent": "unknown",
+        "channel": "internal",
+        "captured_at": "2026-07-08T08:23:26.135442"
+      }
+    },
+    {
+      "episode_id": "903677d1",
+      "what": "激活 WorldModel+NeuralAgent，hybrid模式训练50步，保存权重自动加载",
+      "when": "2026-07-08T08:23:26.135442",
+      "context": {
+        "action": "write_script",
+        "phase": "activation"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "neural",
+        "world-model",
+        "activation"
+      ],
+      "importance": 4,
+      "lesson": "activate命令创建hybrid QL，复制原始Q表，训练50条经验后保存.pt",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-08T08:23:26.135442",
+      "_source": {
+        "agent": "unknown",
+        "channel": "internal",
+        "captured_at": "2026-07-08T08:23:26.135442"
+      }
+    },
+    {
+      "episode_id": "05f60ea0",
+      "what": "修复 activate 命令覆盖原始Q表（415→39），从q_table.json恢复几个月训练数据",
+      "when": "2026-07-08T08:23:26.135442",
+      "context": {
+        "action": "try_fix_three_times",
+        "phase": "debug"
+      },
+      "outcome": "success",
+      "emotion": "negative",
+      "tags": [
+        "bugfix",
+        "q-table",
+        "data-loss"
+      ],
+      "importance": 5,
+      "lesson": "save_q_table前必须确认Q表未被覆盖，保持原始训练数据安全",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-08T08:23:26.135442",
+      "_source": {
+        "agent": "unknown",
+        "channel": "internal",
+        "captured_at": "2026-07-08T08:23:26.135442"
+      }
+    },
+    {
+      "episode_id": "618696e3",
+      "what": "实现 Agent 真实连接状态检测：活跃/待机/已注册/离线，基于EM/QL/WM实时数据",
+      "when": "2026-07-08T08:23:26.135442",
+      "context": {
+        "action": "write_script",
+        "phase": "implementation"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "agent",
+        "status",
+        "dashboard"
+      ],
+      "importance": 3,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-08T08:23:26.135442",
+      "_source": {
+        "agent": "unknown",
+        "channel": "internal",
+        "captured_at": "2026-07-08T08:23:26.135442"
+      }
+    },
+    {
+      "episode_id": "3f4f4190",
+      "what": "删除 luci+test-import 测试Agent，只保留 openclaw+claude 真实Agent",
+      "when": "2026-07-08T08:23:26.135442",
+      "context": {
+        "action": "switch_skill",
+        "phase": "cleanup"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "cleanup",
+        "agent"
+      ],
+      "importance": 2,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-08T08:23:26.135442",
+      "_source": {
+        "agent": "unknown",
+        "channel": "internal",
+        "captured_at": "2026-07-08T08:23:26.135442"
+      }
+    },
+    {
+      "episode_id": "30b89bbe",
+      "what": "[From openclaw] Action 'try_fix_three_times': success",
+      "when": "2026-07-08T08:23:26.135442",
+      "context": {
+        "action": "try_fix_three_times",
+        "context_raw": "{\"task\": \"test\"}",
+        "wm_summary": "task=None | ctx=(last_action=try_fix_three_times, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=P2b, attempts=1, error=import_error, success=False, inherited_rules=遇到问题先修复3次再报告, P2b下载必须使用技能脚本, 阶段门禁遵守规则)",
+        "reward": 1.0,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "decision",
+        "RL",
+        "transferred",
+        "openclaw"
+      ],
+      "importance": 2,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-08T08:23:26.135442",
+      "_source": {
+        "agent": "unknown",
+        "channel": "internal",
+        "captured_at": "2026-07-08T08:23:26.135442"
+      }
+    },
+    {
+      "episode_id": "de2937ce",
+      "what": "[From openclaw] Action 'test_data_ingestion': success",
+      "when": "2026-07-08T08:23:26.135442",
+      "context": {
+        "action": "test_data_ingestion",
+        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"task\": \"test memory ingestion\", \"phase\": \"testing\", \"success\": true}}",
+        "wm_summary": "task=None | ctx=(last_action=test_data_ingestion, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=testing, attempts=1, error=import_error, success=True)",
+        "reward": 1.0,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "RL",
+        "decision",
+        "transferred",
+        "openclaw"
+      ],
+      "importance": 2,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-08T08:23:26.135442",
+      "_source": {
+        "agent": "unknown",
+        "channel": "internal",
+        "captured_at": "2026-07-08T08:23:26.135442"
+      }
+    },
+    {
+      "episode_id": "4f240f22",
+      "what": "[From openclaw] Action 'write_script': success",
+      "when": "2026-07-08T08:23:26.139350",
+      "context": {
+        "action": "write_script",
+        "context_raw": "{\"session_key\": \"test\", \"channel\": \"webchat\"}",
+        "wm_summary": "task=None | ctx=(last_action=write_script, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test)",
+        "reward": 1.0,
+        "note": "极简测试"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "RL",
+        "decision",
+        "transferred",
+        "openclaw"
+      ],
+      "importance": 2,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-08T08:23:26.139350",
+      "_source": {
+        "agent": "unknown",
+        "channel": "internal",
+        "captured_at": "2026-07-08T08:23:26.139350"
+      }
+    },
+    {
+      "episode_id": "fbe685dd",
+      "what": "[From openclaw] Action 'switch_skill': success",
+      "when": "2026-07-08T08:23:26.139350",
+      "context": {
+        "action": "switch_skill",
+        "context_raw": "{\"task\": \"download_stuck\"}",
+        "wm_summary": "task=None",
+        "reward": 1.0,
+        "note": ""
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "RL",
+        "decision",
+        "transferred",
+        "openclaw"
+      ],
+      "importance": 2,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-08T08:23:26.139350",
+      "_source": {
+        "agent": "unknown",
+        "channel": "internal",
+        "captured_at": "2026-07-08T08:23:26.139350"
+      }
+    },
+    {
+      "episode_id": "62611554",
+      "what": "[From openclaw] HyperMarrow registration completed",
+      "when": "2026-07-08T08:23:26.139350",
+      "context": {
+        "action": "register_agents",
+        "phase": "P0"
+      },
+      "outcome": "success",
+      "emotion": "positive",
+      "tags": [
+        "hypermarow",
+        "registration",
+        "transferred",
+        "openclaw"
+      ],
+      "importance": 4,
+      "lesson": "",
+      "duration_seconds": 0.0,
+      "linked_memory_ids": [],
+      "created_at": "2026-07-08T08:23:26.139350",
+      "_source": {
+        "agent": "unknown",
+        "channel": "internal",
+        "captured_at": "2026-07-08T08:23:26.139350"
+      }
+    }
+  ],
+  "created_at": "2026-07-08T08:23:26.133867",
+  "updated_at": "2026-07-08T08:23:26.139350"
+}

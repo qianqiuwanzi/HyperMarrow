@@ -208,22 +208,24 @@ def agents_list():
         meta=b.metacognition.get_performance_dashboard()
         wm=b.working_memory
         wm_ctx=wm.get_active_context()
-        # Determine real status
-        last_activity = dc.last_activity_at if dc and hasattr(dc,'last_activity_at') else None
+        # Determine real status from live data
         neural_active = ql.get("neural_mode","tabular") != "tabular"
         wm_active = ql.get("world_model_stats") is not None
-        has_recent = last_activity and (now - datetime.fromisoformat(last_activity)).total_seconds() < 3600
         has_em = em["total_episodes"] > 0
+        has_ql = ql["nonzero_entries"] > 50
         has_wm_task = bool(wm_ctx.get("current_task"))
-        if has_recent or has_wm_task: status="active"; status_text="● 活跃（正在工作）"
-        elif dc is not None: status="standby"; status_text="◐ 待机（已初始化，等待任务）"
+        has_decisions = meta.get("total_decisions",0) > 0
+        if has_wm_task: status="active"; status_text="● 活跃（正在执行任务）"
+        elif has_em and has_ql: status="active"; status_text="● 活跃（有记忆和训练数据）"
+        elif has_em or has_decisions: status="standby"; status_text="◐ 待机（有数据，等待新任务）"
+        elif dc is not None: status="standby"; status_text="◐ 就绪（刚初始化）"
         else: status="registered"; status_text="○ 已注册（未初始化）"
         r.append({"id":aid,"status":status,"status_text":status_text,
             "actions":b.action_dim,"ql_nonzero":ql["nonzero_entries"],"ql_total":ql["total_entries"],
             "em_episodes":em["total_episodes"],"health":meta.get("overall_health","?"),
             "accuracy":meta.get("recent_accuracy",0),
             "neural_active":neural_active,"wm_active":wm_active,
-            "last_activity":last_activity,"has_wm_task":has_wm_task})
+            "has_em":has_em,"has_ql":has_ql,"has_wm_task":has_wm_task})
     return r
 
 @app.get("/api/v1/search")
