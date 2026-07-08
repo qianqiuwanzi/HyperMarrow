@@ -68,7 +68,7 @@
         "frontend",
         "react"
       ],
-      "importance": 4,
+      "importance": 5,
       "lesson": "React hooks必须在条件return之前，变量不能跨作用域引用",
       "duration_seconds": 0.0,
       "linked_memory_ids": [],
@@ -120,7 +120,7 @@
         "world-model",
         "activation"
       ],
-      "importance": 4,
+      "importance": 5,
       "lesson": "activate命令创建hybrid QL，复制原始Q表，训练50条经验后保存.pt",
       "duration_seconds": 0.0,
       "linked_memory_ids": [],
@@ -222,10 +222,10 @@
       "outcome": "success",
       "emotion": "positive",
       "tags": [
-        "decision",
-        "RL",
         "transferred",
-        "openclaw"
+        "openclaw",
+        "RL",
+        "decision"
       ],
       "importance": 2,
       "lesson": "",
@@ -236,96 +236,6 @@
         "agent": "unknown",
         "channel": "internal",
         "captured_at": "2026-07-08T08:23:26.135442"
-      }
-    },
-    {
-      "episode_id": "de2937ce",
-      "what": "[From openclaw] Action 'test_data_ingestion': success",
-      "when": "2026-07-08T08:23:26.135442",
-      "context": {
-        "action": "test_data_ingestion",
-        "context_raw": "{\"session_key\": \"unknown\", \"channel\": \"webchat\", \"raw\": {\"task\": \"test memory ingestion\", \"phase\": \"testing\", \"success\": true}}",
-        "wm_summary": "task=None | ctx=(last_action=test_data_ingestion, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test, provider=webchat, trigger=test, phase=testing, attempts=1, error=import_error, success=True)",
-        "reward": 1.0,
-        "note": ""
-      },
-      "outcome": "success",
-      "emotion": "positive",
-      "tags": [
-        "RL",
-        "decision",
-        "transferred",
-        "openclaw"
-      ],
-      "importance": 2,
-      "lesson": "",
-      "duration_seconds": 0.0,
-      "linked_memory_ids": [],
-      "created_at": "2026-07-08T08:23:26.135442",
-      "_source": {
-        "agent": "unknown",
-        "channel": "internal",
-        "captured_at": "2026-07-08T08:23:26.135442"
-      }
-    },
-    {
-      "episode_id": "4f240f22",
-      "what": "[From openclaw] Action 'write_script': success",
-      "when": "2026-07-08T08:23:26.139350",
-      "context": {
-        "action": "write_script",
-        "context_raw": "{\"session_key\": \"test\", \"channel\": \"webchat\"}",
-        "wm_summary": "task=None | ctx=(last_action=write_script, channel=id, domain=skill, error_type=timeout, has_error=True, channelid=webchat, session_key=test)",
-        "reward": 1.0,
-        "note": "极简测试"
-      },
-      "outcome": "success",
-      "emotion": "positive",
-      "tags": [
-        "RL",
-        "decision",
-        "transferred",
-        "openclaw"
-      ],
-      "importance": 2,
-      "lesson": "",
-      "duration_seconds": 0.0,
-      "linked_memory_ids": [],
-      "created_at": "2026-07-08T08:23:26.139350",
-      "_source": {
-        "agent": "unknown",
-        "channel": "internal",
-        "captured_at": "2026-07-08T08:23:26.139350"
-      }
-    },
-    {
-      "episode_id": "fbe685dd",
-      "what": "[From openclaw] Action 'switch_skill': success",
-      "when": "2026-07-08T08:23:26.139350",
-      "context": {
-        "action": "switch_skill",
-        "context_raw": "{\"task\": \"download_stuck\"}",
-        "wm_summary": "task=None",
-        "reward": 1.0,
-        "note": ""
-      },
-      "outcome": "success",
-      "emotion": "positive",
-      "tags": [
-        "RL",
-        "decision",
-        "transferred",
-        "openclaw"
-      ],
-      "importance": 2,
-      "lesson": "",
-      "duration_seconds": 0.0,
-      "linked_memory_ids": [],
-      "created_at": "2026-07-08T08:23:26.139350",
-      "_source": {
-        "agent": "unknown",
-        "channel": "internal",
-        "captured_at": "2026-07-08T08:23:26.139350"
       }
     },
     {
@@ -344,8 +254,8 @@
         "transferred",
         "openclaw"
       ],
-      "importance": 4,
-      "lesson": "",
+      "importance": 5,
+      "lesson": "在类似上下文中，'register_agents' 是有效的 (hypermarow, registration, transferred, openclaw)",
       "duration_seconds": 0.0,
       "linked_memory_ids": [],
       "created_at": "2026-07-08T08:23:26.139350",
@@ -357,5 +267,5 @@
     }
   ],
   "created_at": "2026-07-08T08:23:26.133867",
-  "updated_at": "2026-07-08T08:23:26.139350"
+  "updated_at": "2026-07-08T08:32:00.083467"
 }

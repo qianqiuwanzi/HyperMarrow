@@ -29,6 +29,7 @@ def _init():
         _DC = create_for_agent("openclaw"); _REG = get_agent_registry()
         # Auto-activate if saved neural weights exist
         _CLAUDE_DC = create_for_agent("claude")
+        _CLAUDE_DC._api_session_active = True  # Claude is in active session now
         # Wire DC back to bundle so agents endpoint shows correct status
         for aid, dc in [("openclaw",_DC),("claude",_CLAUDE_DC)]:
             b = _REG.get(aid)
@@ -208,24 +209,23 @@ def agents_list():
         meta=b.metacognition.get_performance_dashboard()
         wm=b.working_memory
         wm_ctx=wm.get_active_context()
-        # Determine real status from live data
+        # Real status: connected=live session, initialized=DC exists, registered=stale
         neural_active = ql.get("neural_mode","tabular") != "tabular"
         wm_active = ql.get("world_model_stats") is not None
         has_em = em["total_episodes"] > 0
-        has_ql = ql["nonzero_entries"] > 50
         has_wm_task = bool(wm_ctx.get("current_task"))
-        has_decisions = meta.get("total_decisions",0) > 0
-        if has_wm_task: status="active"; status_text="● 活跃（正在执行任务）"
-        elif has_em and has_ql: status="active"; status_text="● 活跃（有记忆和训练数据）"
-        elif has_em or has_decisions: status="standby"; status_text="◐ 待机（有数据，等待新任务）"
-        elif dc is not None: status="standby"; status_text="◐ 就绪（刚初始化）"
-        else: status="registered"; status_text="○ 已注册（未初始化）"
+        # Connected: actively receiving check/record calls in this API session
+        dc_active = dc is not None and getattr(dc,'_api_session_active',False)
+        if dc_active: status="connected"; status_text="● 已连接（实时会话中）"
+        elif dc is not None and has_em: status="initialized"; status_text="◐ 已初始化（有历史数据，等待实时连接）"
+        elif dc is not None: status="initialized"; status_text="◐ 已初始化（新Agent，无历史数据）"
+        else: status="registered"; status_text="○ 仅注册（未加载）"
         r.append({"id":aid,"status":status,"status_text":status_text,
             "actions":b.action_dim,"ql_nonzero":ql["nonzero_entries"],"ql_total":ql["total_entries"],
             "em_episodes":em["total_episodes"],"health":meta.get("overall_health","?"),
             "accuracy":meta.get("recent_accuracy",0),
             "neural_active":neural_active,"wm_active":wm_active,
-            "has_em":has_em,"has_ql":has_ql,"has_wm_task":has_wm_task})
+            "has_em":has_em,"has_wm_task":has_wm_task})
     return r
 
 @app.get("/api/v1/search")
