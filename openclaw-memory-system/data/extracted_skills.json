@@ -362,9 +362,255 @@
         "30b89bbe"
       ],
       "extracted_at": "2026-07-08T09:26:42.352036"
+    },
+    "auto_write_script_18": {
+      "id": "auto_write_script_18",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T09:38:23.342304"
+    },
+    "auto_try_fix_three_times_19": {
+      "id": "auto_try_fix_three_times_19",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T09:38:23.342304"
+    },
+    "auto_write_script_20": {
+      "id": "auto_write_script_20",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T09:38:23.357286"
+    },
+    "auto_try_fix_three_times_21": {
+      "id": "auto_try_fix_three_times_21",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T09:38:23.357286"
+    },
+    "auto_write_script_22": {
+      "id": "auto_write_script_22",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T09:40:07.561396"
+    },
+    "auto_try_fix_three_times_23": {
+      "id": "auto_try_fix_three_times_23",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T09:40:07.561396"
+    },
+    "auto_write_script_24": {
+      "id": "auto_write_script_24",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T09:40:19.499889"
+    },
+    "auto_try_fix_three_times_25": {
+      "id": "auto_try_fix_three_times_25",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T09:40:19.499889"
+    },
+    "auto_write_script_26": {
+      "id": "auto_write_script_26",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T09:44:50.555998"
+    },
+    "auto_try_fix_three_times_27": {
+      "id": "auto_try_fix_three_times_27",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T09:44:50.555998"
+    },
+    "auto_write_script_28": {
+      "id": "auto_write_script_28",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T09:44:50.576229"
+    },
+    "auto_try_fix_three_times_29": {
+      "id": "auto_try_fix_three_times_29",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T09:44:50.576229"
     }
   },
-  "extraction_count": 10,
+  "extraction_count": 16,
   "created_at": "2026-07-02T14:56:38.006956",
-  "updated_at": "2026-07-08T09:26:42.352036"
+  "updated_at": "2026-07-08T09:44:50.576229"
 }

@@ -1,4 +1,4 @@
-"""HyperMarrow Bridge startup — import this in OpenClaw's hook or entry point."""
+"""HyperMarrow startup — import this in OpenClaw's entry point."""
 import sys
 from pathlib import Path
 
@@ -16,22 +16,27 @@ _HM_READY = False
 
 try:
     DC = create_for_agent("openclaw")
-    _DC_luci = create_for_agent("luci")
 
     # Enable WorldModel if torch available
     try:
         DC.ql_agent.enable_world_model()
-        _DC_luci.ql_agent.enable_world_model()
     except Exception:
         pass
 
-    # Start sleep scheduler
-    from openclaw_memory_system.hypermarow_bridge import _start_sleep_scheduler
-    from memory_integration.decision_check import get_agent_registry
-    _start_sleep_scheduler(get_agent_registry())
+    # Announce connection to API server (real-time status)
+    try:
+        import urllib.request, json
+        req = urllib.request.Request(
+            'http://localhost:8741/api/v1/agents/openclaw/connect',
+            method='POST'
+        )
+        urllib.request.urlopen(req)
+        print("[HyperMarrow] Connection announced to API server")
+    except Exception:
+        pass  # API might not be running yet, that's ok
 
     _HM_READY = True
-    print(f"[HyperMarrow] Bridge ready: 2 agents, "
+    print(f"[HyperMarrow] Bridge ready: "
           f"KG={DC.knowledge_graph.get_stats()['total_entities']} entities, "
           f"QL={DC.ql_agent.get_stats()['nonzero_entries']}/700, "
           f"PM={len(DC.procedural_memory.data.get('rules',{}))} rules")

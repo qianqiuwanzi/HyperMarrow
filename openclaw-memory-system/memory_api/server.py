@@ -259,6 +259,32 @@ def achievements():
     if meta_acc >= 0.7: achievements.append({"id":"acc_70","title":"精准决策者","desc":descs["acc"],"icon":"🎯","level":2})
     return {"achievements":achievements,"total":len(achievements)}
 
+@app.post("/api/v1/agents/{agent_id}/connect")
+def agent_connect(agent_id: str):
+    """外部 Agent 注册连接 — OpenClaw/Bridge 启动时调用此接口"""
+    _init()
+    dc = None
+    if agent_id == 'openclaw': dc = _DC
+    elif agent_id == 'claude': dc = _CLAUDE_DC
+    if dc:
+        dc._api_session_active = True
+        b = _REG.get(agent_id)
+        if b: b.decision_checkpoint = dc
+        return {"status":"ok","agent":agent_id,"connected":True}
+    return {"status":"error","message":f"Agent '{agent_id}' not found"}
+
+@app.post("/api/v1/agents/{agent_id}/disconnect")
+def agent_disconnect(agent_id: str):
+    """外部 Agent 断开连接"""
+    _init()
+    dc = None
+    if agent_id == 'openclaw': dc = _DC
+    elif agent_id == 'claude': dc = _CLAUDE_DC
+    if dc:
+        dc._api_session_active = False
+        return {"status":"ok","agent":agent_id,"connected":False}
+    return {"status":"error","message":f"Agent '{agent_id}' not found"}
+
 @app.get("/api/v1/share/card")
 def share_card():
     _init()
