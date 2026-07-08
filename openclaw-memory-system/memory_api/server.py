@@ -210,13 +210,18 @@ def agents_list():
         meta=b.metacognition.get_performance_dashboard()
         wm=b.working_memory
         wm_ctx=wm.get_active_context()
-        # Real status: connected=live session, initialized=DC exists, registered=stale
+        # Real status with heartbeat check (stale after 60s without heartbeat)
         neural_active = ql.get("neural_mode","tabular") != "tabular"
         wm_active = ql.get("world_model_stats") is not None
-        has_em = em["total_episodes"] > 0
-        has_wm_task = bool(wm_ctx.get("current_task"))
-        # Connected: actively receiving check/record calls in this API session
         dc_active = dc is not None and getattr(dc,'_api_session_active',False)
+        # Check heartbeat staleness
+        if dc_active and hasattr(dc,'_last_heartbeat') and dc._last_heartbeat:
+            try:
+                last = datetime.fromisoformat(dc._last_heartbeat)
+                if (now - last).total_seconds() > 60:
+                    dc._api_session_active = False
+                    dc_active = False
+            except: pass
         if dc_active: status="connected"; status_text="● 已连接"
         elif dc is not None: status="offline"; status_text="○ 未连接"
         else: status="registered"; status_text="— 仅注册"
@@ -225,7 +230,7 @@ def agents_list():
             "em_episodes":em["total_episodes"],"health":meta.get("overall_health","?"),
             "accuracy":meta.get("recent_accuracy",0),
             "neural_active":neural_active,"wm_active":wm_active,
-            "has_em":has_em,"has_wm_task":has_wm_task})
+            "has_em":em["total_episodes"] > 0,"has_wm_task":bool(wm_ctx.get("current_task"))})
     return r
 
 @app.get("/api/v1/search")
@@ -262,16 +267,30 @@ def achievements():
 
 @app.post("/api/v1/agents/{agent_id}/connect")
 def agent_connect(agent_id: str):
-    """外部 Agent 注册连接 — OpenClaw/Bridge 启动时调用此接口"""
+    """外部 Agent 注册连接"""
     _init()
     dc = None
     if agent_id == 'openclaw': dc = _DC
     elif agent_id == 'claude': dc = _CLAUDE_DC
     if dc:
         dc._api_session_active = True
+        dc._last_heartbeat = datetime.now().isoformat()
         b = _REG.get(agent_id)
         if b: b.decision_checkpoint = dc
         return {"status":"ok","agent":agent_id,"connected":True}
+    return {"status":"error","message":f"Agent '{agent_id}' not found"}
+
+@app.post("/api/v1/agents/{agent_id}/heartbeat")
+def agent_heartbeat(agent_id: str):
+    """Agent 心跳 — 定期调用以维持连接状态"""
+    _init()
+    dc = None
+    if agent_id == 'openclaw': dc = _DC
+    elif agent_id == 'claude': dc = _CLAUDE_DC
+    if dc:
+        dc._api_session_active = True
+        dc._last_heartbeat = datetime.now().isoformat()
+        return {"status":"ok","agent":agent_id,"alive":True}
     return {"status":"error","message":f"Agent '{agent_id}' not found"}
 
 @app.post("/api/v1/agents/{agent_id}/disconnect")
