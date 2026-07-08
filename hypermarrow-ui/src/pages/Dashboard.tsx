@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 
-const API = 'http://localhost:8741/api/v1'
+const API = 'http://localhost:8742/api/v1'
 const F = (p: string) => fetch(`${API}${p}`).then(r => r.json()).catch(() => null)
 
 // ══════════════════════ 认知年龄计算 ══════════════════════

@@ -50,9 +50,10 @@ def _init():
                     new_ql.experience_buffer = bundle.ql_agent.experience_buffer[:]
                     bundle.ql_agent = new_ql
                     if bundle.decision_checkpoint: bundle.decision_checkpoint.ql_agent = new_ql
-                    # Also update the global DC reference
-                    if aid == 'openclaw': _DC = bundle.decision_checkpoint or _DC
-                    if _DC: _DC.ql_agent = new_ql
+                    # Only update _DC for openclaw (not claude!)
+                    if aid == 'openclaw':
+                        _DC = bundle.decision_checkpoint or _DC
+                        if _DC: _DC.ql_agent = new_ql
                     print(f"[API] {aid}: neural auto-loaded from saved weights", file=sys.stderr, flush=True)
                 except Exception as e:
                     print(f"[API] {aid}: neural load skipped ({e})", file=sys.stderr, flush=True)

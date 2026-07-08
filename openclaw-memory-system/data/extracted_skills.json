@@ -608,9 +608,91 @@
         "30b89bbe"
       ],
       "extracted_at": "2026-07-08T09:44:50.576229"
+    },
+    "auto_write_script_30": {
+      "id": "auto_write_script_30",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T09:48:10.393938"
+    },
+    "auto_try_fix_three_times_31": {
+      "id": "auto_try_fix_three_times_31",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T09:48:10.393938"
+    },
+    "auto_write_script_32": {
+      "id": "auto_write_script_32",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T09:48:10.402274"
+    },
+    "auto_try_fix_three_times_33": {
+      "id": "auto_try_fix_three_times_33",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T09:48:10.402274"
     }
   },
-  "extraction_count": 16,
+  "extraction_count": 18,
   "created_at": "2026-07-02T14:56:38.006956",
-  "updated_at": "2026-07-08T09:44:50.576229"
+  "updated_at": "2026-07-08T09:48:10.402274"
 }
