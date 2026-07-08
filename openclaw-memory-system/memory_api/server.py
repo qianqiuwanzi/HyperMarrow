@@ -216,10 +216,9 @@ def agents_list():
         has_wm_task = bool(wm_ctx.get("current_task"))
         # Connected: actively receiving check/record calls in this API session
         dc_active = dc is not None and getattr(dc,'_api_session_active',False)
-        if dc_active: status="connected"; status_text="● 已连接（实时会话中）"
-        elif dc is not None and has_em: status="initialized"; status_text="◐ 已初始化（有历史数据，等待实时连接）"
-        elif dc is not None: status="initialized"; status_text="◐ 已初始化（新Agent，无历史数据）"
-        else: status="registered"; status_text="○ 仅注册（未加载）"
+        if dc_active: status="connected"; status_text="● 已连接"
+        elif dc is not None: status="offline"; status_text="○ 未连接"
+        else: status="registered"; status_text="— 仅注册"
         r.append({"id":aid,"status":status,"status_text":status_text,
             "actions":b.action_dim,"ql_nonzero":ql["nonzero_entries"],"ql_total":ql["total_entries"],
             "em_episodes":em["total_episodes"],"health":meta.get("overall_health","?"),
