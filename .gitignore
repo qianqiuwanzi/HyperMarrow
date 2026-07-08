@@ -29,6 +29,7 @@ Thumbs.db
 *.tmp
 benchmark/
 find_record.py
+.hypermarrow.pid
 
 # 数据文件（可选：如果不想提交大模型权重）
 # *.bin

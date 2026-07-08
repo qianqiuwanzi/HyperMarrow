@@ -11,7 +11,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="openclaw-memory-system",
-    version="1.0.0",
+    version="2.0.0",
     description="A pluggable memory and learning system for AI agents",
     author="OpenClaw",
     packages=find_packages(where='.'),

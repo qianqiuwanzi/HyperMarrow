@@ -14,7 +14,7 @@ packages = find_packages(include=['learning_core', 'learning_integration'])
 
 setup(
     name="openclaw-learning-system",
-    version="1.0.0",
+    version="2.0.0",
     description="A pluggable reinforcement learning decision system for AI agents",
     author="OpenClaw",
     packages=packages,
