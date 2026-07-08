@@ -186,15 +186,16 @@ export default function Dashboard() {
       <div style={{ fontSize: 12, color: '#868e96', fontWeight: 700, letterSpacing: 3, marginBottom: 18, textTransform: 'uppercase' }}>🤖 Agent 中心 · 实时连接状态</div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
         {agents.map((a: any) => {
-          const statusColors: Record<string,string> = {active:'#40c057',standby:'#fd7e14',registered:'#adb5bd',offline:'#868e96'}
+          const statusColors: Record<string,string> = {connected:'#40c057', active:'#40c057', standby:'#fd7e14', offline:'#868e96', registered:'#adb5bd'}
           const sc = statusColors[a.status] || '#adb5bd'
+          const isLive = a.status === 'connected'
           const neuralActive = a.neural_active
           const wmActive = a.wm_active
           return (
-            <div key={a.id} style={{ background: '#f8f9fa', borderRadius: 14, padding: '18px 20px', border: `2px solid ${a.status==='active'?'rgba(64,192,87,0.3)':a.status==='standby'?'rgba(253,126,20,0.2)':'rgba(173,181,189,0.15)'}` }}>
+            <div key={a.id} style={{ background: '#f8f9fa', borderRadius: 14, padding: '18px 20px', border: `2px solid ${isLive ? 'rgba(64,192,87,0.4)' : a.status==='offline' ? 'rgba(134,142,150,0.15)' : 'rgba(253,126,20,0.2)'}`, boxShadow: isLive ? '0 0 16px rgba(64,192,87,0.15)' : 'none' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <div style={{ width: 40, height: 40, borderRadius: '50%', background: `linear-gradient(135deg,${sc},${sc}cc)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, color: 'white' }}>{a.id[0].toUpperCase()}</div>
+                  <div style={{ width: 40, height: 40, borderRadius: '50%', background: `linear-gradient(135deg,${sc},${sc}cc)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, color: 'white', boxShadow: isLive ? '0 0 12px rgba(64,192,87,0.4)' : 'none', animation: isLive ? 'pulse 2s ease-in-out infinite' : 'none' }}>{a.id[0].toUpperCase()}</div>
                   <div>
                     <div style={{ fontSize: 16, fontWeight: 700, color: '#2c3e50' }}>{a.id}</div>
                     <div style={{ fontSize: 11, color: sc, fontWeight: 600 }}>{a.status_text || a.status}</div>

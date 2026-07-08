@@ -7,3 +7,4 @@ body.light { background: #f6f8fa; color: #1f2328 }
 ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px }
 input:focus, button:focus { outline: none; box-shadow: 0 0 0 2px #58a6ff44 }
 @keyframes pulse { 0%, 100% { opacity: 1 } 50% { opacity: 0.5 } }
+@keyframes statusPulse { 0%,100% { box-shadow: 0 0 8px rgba(64,192,87,0.3); } 50% { box-shadow: 0 0 20px rgba(64,192,87,0.6); } }
