@@ -42,6 +42,39 @@ def _init():
     print(f"[HyperMarrow] Ready: KG={kg['total_entities']}, QL={ql['nonzero_entries']}/700, "
           f"PM={pm}, EM={_DC.episodic_memory.get_stats()['total_episodes']}")
 
+    # ── Heartbeat thread: keep agent connection alive ─────────────────────
+    _start_heartbeat()
+
+
+def _start_heartbeat():
+    """Start a daemon heartbeat thread to keep openclaw agent connected."""
+    import urllib.request
+    _heartbeat_started = getattr(_start_heartbeat, '_started', False)
+    if _heartbeat_started:
+        return
+    _start_heartbeat._started = True
+
+    def _beat():
+        # Send initial connect, then heartbeat every 30s
+        url_connect = 'http://localhost:8741/api/v1/agents/openclaw/connect'
+        url_beat = 'http://localhost:8741/api/v1/agents/openclaw/heartbeat'
+        # Initial connect
+        try:
+            urllib.request.urlopen(urllib.request.Request(url_connect, method='POST'), timeout=3)
+        except Exception:
+            pass
+        # Periodic heartbeat
+        while True:
+            try:
+                urllib.request.urlopen(urllib.request.Request(url_beat, method='POST'), timeout=3)
+            except Exception:
+                pass  # API server might not be running
+            import time
+            time.sleep(30)
+
+    t = threading.Thread(target=_beat, daemon=True, name="hm_heartbeat")
+    t.start()
+
 
 class HyperMarrowWire:
     """OpenClaw 一线接入接口"""
@@ -98,7 +131,6 @@ class HyperMarrowWire:
         """触发记忆巩固"""
         _init()
         return _DC.consolidator.dream_cycle(force=True)
-
 
 # ── Global singleton ─────────────────────────────────────────────────────
 hm = HyperMarrowWire()

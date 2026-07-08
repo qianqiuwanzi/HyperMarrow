@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Dashboard from './pages/Dashboard'
+import LicenseStatus from './pages/LicenseStatus'
 
 export default function App() {
   const [mounted, setMounted] = useState(false)
@@ -19,6 +20,7 @@ export default function App() {
         }}>
           <h1 style={{fontSize:24, color:'#667eea', margin:0}}>🧠 HyperMarrow 藏慧 · 记忆中心</h1>
         </div>
+        {mounted && <LicenseStatus />}
         {mounted && <Dashboard />}
       </div>
     </div>

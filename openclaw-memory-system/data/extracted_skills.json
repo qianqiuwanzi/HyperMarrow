@@ -936,9 +936,1034 @@
         "30b89bbe"
       ],
       "extracted_at": "2026-07-08T10:07:46.669204"
+    },
+    "auto_write_script_46": {
+      "id": "auto_write_script_46",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T10:22:38.853391"
+    },
+    "auto_try_fix_three_times_47": {
+      "id": "auto_try_fix_three_times_47",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T10:22:38.853391"
+    },
+    "auto_write_script_48": {
+      "id": "auto_write_script_48",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T10:22:38.874571"
+    },
+    "auto_try_fix_three_times_49": {
+      "id": "auto_try_fix_three_times_49",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T10:22:38.874571"
+    },
+    "auto_write_script_50": {
+      "id": "auto_write_script_50",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T13:25:29.240165"
+    },
+    "auto_try_fix_three_times_51": {
+      "id": "auto_try_fix_three_times_51",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T13:25:29.240165"
+    },
+    "auto_write_script_52": {
+      "id": "auto_write_script_52",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T13:25:50.007988"
+    },
+    "auto_try_fix_three_times_53": {
+      "id": "auto_try_fix_three_times_53",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T13:25:50.007988"
+    },
+    "auto_write_script_54": {
+      "id": "auto_write_script_54",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T13:25:50.007988"
+    },
+    "auto_try_fix_three_times_55": {
+      "id": "auto_try_fix_three_times_55",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T13:25:50.007988"
+    },
+    "auto_write_script_56": {
+      "id": "auto_write_script_56",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T13:29:19.355493"
+    },
+    "auto_try_fix_three_times_57": {
+      "id": "auto_try_fix_three_times_57",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T13:29:19.355493"
+    },
+    "auto_write_script_58": {
+      "id": "auto_write_script_58",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T13:29:19.365676"
+    },
+    "auto_try_fix_three_times_59": {
+      "id": "auto_try_fix_three_times_59",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T13:29:19.365676"
+    },
+    "auto_write_script_60": {
+      "id": "auto_write_script_60",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T14:17:43.476376"
+    },
+    "auto_try_fix_three_times_61": {
+      "id": "auto_try_fix_three_times_61",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T14:17:43.476376"
+    },
+    "auto_write_script_62": {
+      "id": "auto_write_script_62",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T14:17:43.491347"
+    },
+    "auto_try_fix_three_times_63": {
+      "id": "auto_try_fix_three_times_63",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T14:17:43.491347"
+    },
+    "auto_write_script_64": {
+      "id": "auto_write_script_64",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T14:50:48.097121"
+    },
+    "auto_try_fix_three_times_65": {
+      "id": "auto_try_fix_three_times_65",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T14:50:48.098128"
+    },
+    "auto_write_script_66": {
+      "id": "auto_write_script_66",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T14:50:48.122121"
+    },
+    "auto_try_fix_three_times_67": {
+      "id": "auto_try_fix_three_times_67",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T14:50:48.122121"
+    },
+    "auto_write_script_68": {
+      "id": "auto_write_script_68",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T15:08:19.652195"
+    },
+    "auto_try_fix_three_times_69": {
+      "id": "auto_try_fix_three_times_69",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T15:08:19.652195"
+    },
+    "auto_write_script_70": {
+      "id": "auto_write_script_70",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T15:08:19.666195"
+    },
+    "auto_try_fix_three_times_71": {
+      "id": "auto_try_fix_three_times_71",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T15:08:19.666195"
+    },
+    "auto_write_script_72": {
+      "id": "auto_write_script_72",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T15:12:06.002328"
+    },
+    "auto_try_fix_three_times_73": {
+      "id": "auto_try_fix_three_times_73",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T15:12:06.003293"
+    },
+    "auto_write_script_74": {
+      "id": "auto_write_script_74",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T15:15:25.366689"
+    },
+    "auto_try_fix_three_times_75": {
+      "id": "auto_try_fix_three_times_75",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T15:15:25.366689"
+    },
+    "auto_write_script_76": {
+      "id": "auto_write_script_76",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T15:16:04.490688"
+    },
+    "auto_try_fix_three_times_77": {
+      "id": "auto_try_fix_three_times_77",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T15:16:04.491690"
+    },
+    "auto_write_script_78": {
+      "id": "auto_write_script_78",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T15:18:25.250018"
+    },
+    "auto_try_fix_three_times_79": {
+      "id": "auto_try_fix_three_times_79",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T15:18:25.250018"
+    },
+    "auto_write_script_80": {
+      "id": "auto_write_script_80",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T15:20:26.654828"
+    },
+    "auto_try_fix_three_times_81": {
+      "id": "auto_try_fix_three_times_81",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T15:20:26.654828"
+    },
+    "auto_write_script_82": {
+      "id": "auto_write_script_82",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T15:24:46.901872"
+    },
+    "auto_try_fix_three_times_83": {
+      "id": "auto_try_fix_three_times_83",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T15:24:46.901872"
+    },
+    "auto_write_script_84": {
+      "id": "auto_write_script_84",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T15:34:13.014032"
+    },
+    "auto_try_fix_three_times_85": {
+      "id": "auto_try_fix_three_times_85",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T15:34:13.014032"
+    },
+    "auto_write_script_86": {
+      "id": "auto_write_script_86",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T15:43:24.617672"
+    },
+    "auto_try_fix_three_times_87": {
+      "id": "auto_try_fix_three_times_87",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T15:43:24.617672"
+    },
+    "auto_write_script_88": {
+      "id": "auto_write_script_88",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T15:43:58.299868"
+    },
+    "auto_try_fix_three_times_89": {
+      "id": "auto_try_fix_three_times_89",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T15:43:58.299868"
+    },
+    "auto_write_script_90": {
+      "id": "auto_write_script_90",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T15:47:56.464496"
+    },
+    "auto_try_fix_three_times_91": {
+      "id": "auto_try_fix_three_times_91",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T15:47:56.464496"
+    },
+    "auto_write_script_92": {
+      "id": "auto_write_script_92",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T16:15:24.074640"
+    },
+    "auto_try_fix_three_times_93": {
+      "id": "auto_try_fix_three_times_93",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T16:15:24.074640"
+    },
+    "auto_write_script_94": {
+      "id": "auto_write_script_94",
+      "action": "write_script",
+      "context_patterns": [
+        "实现",
+        "设计",
+        "hypermarrow",
+        "架构方案",
+        "包括"
+      ],
+      "success_count": 4,
+      "total_attempts": 4,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "7f4344fa",
+        "d992a116",
+        "903677d1",
+        "618696e3"
+      ],
+      "extracted_at": "2026-07-08T17:29:58.599139"
+    },
+    "auto_try_fix_three_times_95": {
+      "id": "auto_try_fix_three_times_95",
+      "action": "try_fix_three_times",
+      "context_patterns": [
+        "修复",
+        "hooks",
+        "顺序导致白屏",
+        "rules未定义",
+        "connected变量残留等前端bug"
+      ],
+      "success_count": 3,
+      "total_attempts": 3,
+      "success_rate": 1.0,
+      "source_episodes": [
+        "77d88c60",
+        "05f60ea0",
+        "30b89bbe"
+      ],
+      "extracted_at": "2026-07-08T17:29:58.599139"
     }
   },
-  "extraction_count": 24,
+  "extraction_count": 49,
   "created_at": "2026-07-02T14:56:38.006956",
-  "updated_at": "2026-07-08T10:07:46.669204"
+  "updated_at": "2026-07-08T17:29:58.599139"
 }

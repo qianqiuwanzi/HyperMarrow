@@ -185,8 +185,33 @@ class AgentRegistry:
             AgentBundle（已注入共享层引用）
         """
         if agent_id in self._agents:
-            print(f"[AgentRegistry] Agent '{agent_id}' already registered")
+            print(f"[AgentRegistry] Agent '{agent_id}' already registered",
+                  file=_sys.stderr)
             return self._agents[agent_id]
+
+        # ── License device limit check (commercial mode) ──────────────────
+        from .config import get_config
+        if get_config().get("license", {}).get("enabled", False):
+            try:
+                import sys, os
+                _ws = get_config().get("paths", {}).get("workspace")
+                if _ws:
+                    sys.path.insert(0, str(_ws))
+                from LICENSE_SDK.license_manager import LicenseManager, LicenseStatus
+                lm = LicenseManager()
+                if lm.verify() in (LicenseStatus.VALID, LicenseStatus.OFFLINE):
+                    max_devices = lm.get_max_devices()
+                    if max_devices > 0 and len(self._agents) >= max_devices:
+                        raise RuntimeError(
+                            f"License device limit reached ({max_devices}). "
+                            f"Currently registered: {len(self._agents)}"
+                        )
+            except ImportError:
+                pass  # LICENSE_SDK not installed
+            except RuntimeError:
+                raise
+            except Exception as e:
+                print(f"[AgentRegistry] License check failed: {e}", file=_sys.stderr)
 
         bundle = AgentBundle(agent_id, action_space, state_features,
                              shared=self._shared_components)

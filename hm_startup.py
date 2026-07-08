@@ -23,17 +23,28 @@ try:
     except Exception:
         pass
 
-    # Announce connection to API server (real-time status)
-    try:
-        import urllib.request, json
-        req = urllib.request.Request(
-            'http://localhost:8741/api/v1/agents/openclaw/connect',
-            method='POST'
-        )
-        urllib.request.urlopen(req)
-        print("[HyperMarrow] Connection announced to API server")
-    except Exception:
-        pass  # API might not be running yet, that's ok
+    # ── Heartbeat thread: keep agent connection alive ─────────────────────
+    def _run_heartbeat():
+        import urllib.request, time
+        url_connect = 'http://localhost:8741/api/v1/agents/openclaw/connect'
+        url_beat = 'http://localhost:8741/api/v1/agents/openclaw/heartbeat'
+        # Initial connect
+        try:
+            urllib.request.urlopen(urllib.request.Request(url_connect, method='POST'), timeout=3)
+            print("[HyperMarrow] Connection announced to API server")
+        except Exception:
+            pass
+        # Periodic heartbeat every 30s
+        while True:
+            try:
+                urllib.request.urlopen(urllib.request.Request(url_beat, method='POST'), timeout=3)
+            except Exception:
+                pass
+            time.sleep(30)
+
+    import threading
+    t = threading.Thread(target=_run_heartbeat, daemon=True, name="hm_startup_heartbeat")
+    t.start()
 
     _HM_READY = True
     print(f"[HyperMarrow] Bridge ready: "

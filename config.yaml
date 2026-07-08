@@ -1,0 +1,77 @@
+# HyperMarrow 藏慧 — 统一配置
+# 替代所有硬编码端口、路径、参数
+# 环境变量覆盖规则: HYPERMARROW_SERVER_PORT → server.port
+
+version: "2.0"
+
+# ── 服务器 ──────────────────────────────────────────────────────────────
+server:
+  host: "0.0.0.0"
+  port: 8741
+  api_token: null            # 生产环境设置 Bearer Token，null = 无认证
+  cors_origins: ["*"]
+
+# ── 路径 ────────────────────────────────────────────────────────────────
+paths:
+  workspace: null            # null = 自动检测 (memory_core/config.py get_workspace)
+  data: null                 # null = workspace/HyperMarrow/openclaw-memory-system/data
+  hf_cache: null             # HuggingFace 缓存目录
+
+# ── Agent 连接 ──────────────────────────────────────────────────────────
+agents:
+  heartbeat_interval: 30     # 心跳间隔（秒）
+  stale_timeout: 60          # 心跳超时（秒），超时后自动离线
+  process_detection:         # 进程检测（服务器代为心跳）
+    openclaw:
+      windows: "QClaw.exe"
+      linux: "openclaw"
+      darwin: "QClaw"
+    claude:
+      windows: "claude.exe"
+      linux: "claude"
+      darwin: "Claude"
+
+# ── License 商业化 ──────────────────────────────────────────────────────
+license:
+  enabled: false             # false = 社区版（全功能免费），true = 商业版
+  server_url: "https://license.openclaw.ai"
+  public_key_path: null      # null = 使用 LICENSE_SDK 内置公钥
+  verify_interval: 86400     # 在线验证间隔（秒），默认 24h
+  offline_days: 7            # 离线模式最大天数
+
+# ── 功能开关（社区版默认全开）───────────────────────────────────────────
+features:
+  working_memory: true
+  episodic_memory: true
+  procedural_memory: true
+  knowledge_graph: true
+  perception: true
+  vector_memory: true
+  q_learning: true
+  metacognition: true
+  consolidation: true
+  transfer_learning: true
+  prospective_memory: true
+  world_model: true
+  meta_learner: true
+  skill_extraction: true
+
+# ── 学习参数 ────────────────────────────────────────────────────────────
+learning:
+  consolidation_interval: 20      # 每 N 条 record 触发巩固
+  transfer_threshold: 10          # 跨 Agent 共享阈值（成功次数）
+  batch_learn_size: 32            # 批量回放样本数
+  dream_cycle_interval_hours: 6   # 定时 Dream Cycle 间隔
+  q_learning:
+    state_space_size: 100
+    action_space_size: 7
+    learning_rate: 0.1
+    discount_factor: 0.9
+    epsilon: 0.1
+    max_buffer_size: 1000
+    neural_mode: "hybrid"         # tabular | neural | hybrid
+
+# ── HuggingFace ─────────────────────────────────────────────────────────
+huggingface:
+  mirror_enabled: true
+  mirror_url: "https://hf-mirror.com"

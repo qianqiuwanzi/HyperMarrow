@@ -2286,5 +2286,61 @@
     "note": "",
     "source": "runtime_record",
     "agent_id": "openclaw"
+  },
+  {
+    "timestamp": "2026-07-08T16:57:24.498267",
+    "context": {
+      "task": "test"
+    },
+    "action": "think",
+    "outcome": "success",
+    "reward": 0.9,
+    "state": 65,
+    "next_state": 65,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "hermes"
+  },
+  {
+    "timestamp": "2026-07-08T16:58:28.831385",
+    "context": {
+      "task": "verify"
+    },
+    "action": "think",
+    "outcome": "success",
+    "reward": 0.9,
+    "state": 64,
+    "next_state": 64,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "test-sdk-agent"
+  },
+  {
+    "timestamp": "2026-07-08T17:01:08.188417",
+    "context": {
+      "task": "test"
+    },
+    "action": "search_code",
+    "outcome": "success",
+    "reward": 0.8,
+    "state": 6,
+    "next_state": 6,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "codex"
+  },
+  {
+    "timestamp": "2026-07-08T17:02:09.097693",
+    "context": {
+      "t": "x"
+    },
+    "action": "think",
+    "outcome": "success",
+    "reward": 0.9,
+    "state": 88,
+    "next_state": 88,
+    "note": "",
+    "source": "runtime_record",
+    "agent_id": "luci"
   }
 ]

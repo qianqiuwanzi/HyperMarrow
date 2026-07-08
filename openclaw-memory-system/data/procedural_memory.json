@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "created_at": "2026-07-01T12:39:16.852708",
-  "updated_at": "2026-07-06T08:32:39.200390",
+  "updated_at": "2026-07-08T17:01:08.187416",
   "rules": {
     "rule_001": {
       "rule_id": "rule_001",
@@ -38,14 +38,14 @@
         "修复"
       ],
       "level": 5,
-      "success_count": 83,
+      "success_count": 84,
       "failure_count": 9,
-      "total_attempts": 92,
-      "success_rate": 0.9021739130434783,
-      "consecutive_success": 3,
+      "total_attempts": 93,
+      "success_rate": 0.9032258064516129,
+      "consecutive_success": 4,
       "consecutive_failure": 0,
       "created_at": "2026-07-01T12:42:00.000000",
-      "last_used_at": "2026-07-06T08:32:39.200390",
+      "last_used_at": "2026-07-08T17:01:08.187416",
       "promoted_at": "2026-07-03T19:57:44.527313",
       "demoted_at": null,
       "notes": [

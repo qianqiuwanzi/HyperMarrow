@@ -48,9 +48,24 @@
       "id": "76dd5ea3",
       "name": "verify",
       "type": "skill",
-      "properties": {},
+      "properties": {
+        "source": "record_auto",
+        "action": "think",
+        "outcome": "success"
+      },
       "created_at": "2026-07-06T13:25:26.905828",
-      "updated_at": "2026-07-06T13:25:26.905828"
+      "updated_at": "2026-07-08T16:58:28.782385"
+    },
+    "e7125df5": {
+      "id": "e7125df5",
+      "name": "think",
+      "type": "action",
+      "properties": {
+        "outcome": "success",
+        "reward": 0.9
+      },
+      "created_at": "2026-07-08T16:58:28.782385",
+      "updated_at": "2026-07-08T16:58:28.782385"
     }
   },
   "relationships": [
@@ -170,6 +185,51 @@
       "weight": 0.5,
       "metadata": {},
       "created_at": "2026-07-06T13:27:05.497987"
+    },
+    {
+      "id": "c745d86c",
+      "source_id": "76dd5ea3",
+      "target_id": "e7125df5",
+      "relation_type": "triggers",
+      "weight": 1.0,
+      "metadata": {},
+      "created_at": "2026-07-08T16:58:28.783386"
+    },
+    {
+      "id": "5dee48e1",
+      "source_id": "e6e3c40b",
+      "target_id": "e7125df5",
+      "relation_type": "co_occurs_with",
+      "weight": 0.5,
+      "metadata": {},
+      "created_at": "2026-07-08T17:03:44.876435"
+    },
+    {
+      "id": "d5124d2c",
+      "source_id": "614ac33b",
+      "target_id": "e7125df5",
+      "relation_type": "co_occurs_with",
+      "weight": 0.5,
+      "metadata": {},
+      "created_at": "2026-07-08T17:03:44.878436"
+    },
+    {
+      "id": "e14fa91d",
+      "source_id": "d24e99d0",
+      "target_id": "e7125df5",
+      "relation_type": "co_occurs_with",
+      "weight": 0.5,
+      "metadata": {},
+      "created_at": "2026-07-08T17:03:44.880436"
+    },
+    {
+      "id": "a209657f",
+      "source_id": "76dd5ea3",
+      "target_id": "e7125df5",
+      "relation_type": "co_occurs_with",
+      "weight": 0.5,
+      "metadata": {},
+      "created_at": "2026-07-08T17:03:44.880436"
     }
   ],
   "entity_type_index": {
@@ -179,12 +239,13 @@
       "d24e99d0"
     ],
     "action": [
-      "614ac33b"
+      "614ac33b",
+      "e7125df5"
     ],
     "skill": [
       "76dd5ea3"
     ]
   },
   "created_at": "2026-07-05T10:17:12.890536",
-  "updated_at": "2026-07-08T10:07:46.667204"
+  "updated_at": "2026-07-08T17:29:58.596138"
 }

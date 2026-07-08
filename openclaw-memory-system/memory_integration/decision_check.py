@@ -139,7 +139,10 @@ def get_agent_registry():
     return _agent_registry
 
 
-def create_for_agent(agent_id: str, action_space: list = None) -> 'DecisionCheckPoint':
+def create_for_agent(agent_id: str, action_space: list = None,
+                     enable_vector_db=True, enable_rl=True,
+                     enable_metacognition=True, enable_world_model=True,
+                     enable_prospective=True) -> 'DecisionCheckPoint':
     """
     Factory: create (or return cached) DecisionCheckPoint for a specific agent.
 
@@ -194,11 +197,15 @@ def create_for_agent(agent_id: str, action_space: list = None) -> 'DecisionCheck
     dc = DecisionCheckPoint(
         agent_bundle=bundle,
         shared_layer=shared,
-        enable_vector_db=shared["vector_db"] is not None,
-        enable_rl=True,
+        enable_vector_db=enable_vector_db and shared["vector_db"] is not None,
+        enable_rl=enable_rl,
+        enable_metacognition=enable_metacognition,
+        enable_world_model=enable_world_model,
+        enable_prospective=enable_prospective,
     )
 
     _agent_dc_map[agent_id] = dc
+    bundle.decision_checkpoint = dc  # Wire DC back to bundle
     _current_agent_id = agent_id
     print(f"[DC Factory] DC for '{agent_id}': "
           f"WM={bundle.working_memory is not None}, "
@@ -391,7 +398,9 @@ class DecisionCheckPoint:
     """
 
     def __init__(self, enable_vector_db=True, enable_rl=True,
-                 agent_bundle=None, shared_layer=None):
+                 agent_bundle=None, shared_layer=None,
+                 enable_metacognition=True, enable_world_model=True,
+                 enable_prospective=True):
         """
         Initialize DecisionCheckPoint.
 
