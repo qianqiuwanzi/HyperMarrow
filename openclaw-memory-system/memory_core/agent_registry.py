@@ -197,6 +197,12 @@ class AgentRegistry:
                 _ws = get_config().get("paths", {}).get("workspace")
                 if _ws:
                     sys.path.insert(0, str(_ws))
+                    sys.path.insert(0, str(Path(_ws) / "commercial"))
+                else:
+                    # Auto-detect: workspace is parent of HyperMarrow
+                    _hm_root = Path(__file__).resolve().parent.parent.parent
+                    sys.path.insert(0, str(_hm_root.parent))
+                    sys.path.insert(0, str(_hm_root.parent / "commercial"))
                 from LICENSE_SDK.license_manager import LicenseManager, LicenseStatus
                 lm = LicenseManager()
                 if lm.verify() in (LicenseStatus.VALID, LicenseStatus.OFFLINE):

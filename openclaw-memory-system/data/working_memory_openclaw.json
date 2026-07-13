@@ -2,7 +2,7 @@
   "version": "1.0",
   "session_id": "2026-07-03T08:54:23.450231",
   "active_context": {
-    "last_action": "try_fix_three_times",
+    "last_action": "test_action",
     "channel": "id",
     "domain": "skill",
     "error_type": "timeout",
@@ -17,10 +17,20 @@
     "error": "import_error",
     "success": false,
     "inherited_rules": "遇到问题先修复3次再报告, P2b下载必须使用技能脚本, 阶段门禁遵守规则",
-    "message": "test"
+    "message": "test",
+    "test": true
   },
   "context_stack": [],
   "recent_items": [
+    {
+      "type": "summary",
+      "data": {
+        "summary": "33 context_update events",
+        "summarized_count": 33
+      },
+      "ts": "2026-07-12T10:07:00.182319",
+      "_imp": 3
+    },
     {
       "type": "summary",
       "data": {
@@ -92,6 +102,19 @@
       },
       "ts": "2026-07-06T08:32:30.600252",
       "_imp": 3
+    },
+    {
+      "type": "context_update",
+      "data": {
+        "last_action": "test_action",
+        "test": true,
+        "domain": "skill",
+        "has_error": true,
+        "session_key": "test",
+        "channel": "id"
+      },
+      "ts": "2026-07-12T10:07:00.182319",
+      "_imp": 1
     },
     {
       "type": "context_update",
@@ -482,37 +505,9 @@
         "channel": "id"
       },
       "ts": "2026-07-04T11:46:25.311702"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "follow_rule_strictly",
-        "task": "import_error",
-        "phase": "P1",
-        "error": "import_error",
-        "domain": "skill",
-        "has_error": true,
-        "session_key": "test",
-        "channel": "id"
-      },
-      "ts": "2026-07-04T11:46:25.254763"
-    },
-    {
-      "type": "context_update",
-      "data": {
-        "last_action": "follow_rule_strictly",
-        "task": "import_error",
-        "phase": "P1",
-        "error": "import_error",
-        "domain": "skill",
-        "has_error": true,
-        "session_key": "test",
-        "channel": "id"
-      },
-      "ts": "2026-07-04T11:46:25.246716"
     }
   ],
   "current_task": null,
   "goal": null,
-  "updated_at": "2026-07-08T18:10:42.948860"
+  "updated_at": "2026-07-12T10:07:00.182319"
 }

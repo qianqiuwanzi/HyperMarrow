@@ -15,8 +15,8 @@
         "hypermarow",
         "registration"
       ],
-      "importance": 5,
-      "lesson": "",
+      "importance": 4,
+      "lesson": "在类似上下文中，'register_agents' 是有效的 (hypermarow, registration)",
       "duration_seconds": 0.0,
       "linked_memory_ids": [],
       "created_at": "2026-07-02T15:28:17.476644"
@@ -218,5 +218,5 @@
     }
   ],
   "created_at": "2026-07-05T10:12:50.901430",
-  "updated_at": "2026-07-08T18:10:43.013861"
+  "updated_at": "2026-07-12T22:01:53.311618"
 }

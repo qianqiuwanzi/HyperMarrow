@@ -49,12 +49,25 @@ class MetacognitionMonitor:
         self.calibration = self._load_or_init(self._cal_file, {"version": "1.0", "entries": []})
         self.anomalies = self._load_or_init(self._anom_file, {"version": "1.0", "anomalies": []})
         self.reflections = self._load_or_init(self._refl_file, {"version": "1.0", "reflections": []})
-        # Rolling window for recent decisions (in memory, not persisted)
-        self._recent_decisions = []
+
+        # Restore in-memory state from persisted calibration history
+        cal_entries = self.calibration.get("entries", [])
+        self._total_decisions = len(cal_entries)
+        # Populate rolling window from last 100 entries
+        self._recent_decisions = cal_entries[-100:] if cal_entries else []
+        # Recalculate consecutive failures from the tail
         self._consecutive_failures = 0
-        self._total_decisions = 0
-        print(f"[Metacognition] Loaded: {len(self.calibration['entries'])} calibration entries, "
-              f"{len(self.anomalies['anomalies'])} anomalies", file=_sys.stderr)
+        for entry in reversed(cal_entries):
+            if entry.get("actual_outcome") == "failure":
+                self._consecutive_failures += 1
+            else:
+                break
+
+        print(f"[Metacognition] Loaded: {len(cal_entries)} calibration entries, "
+              f"{len(self.anomalies.get('anomalies', []))} anomalies, "
+              f"{self._total_decisions} decisions restored, "
+              f"{self._consecutive_failures} consecutive failures",
+              file=_sys.stderr)
 
     def _load_or_init(self, path: Path, default: dict) -> dict:
         if path.exists():

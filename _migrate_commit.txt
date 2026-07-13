@@ -1,7 +1,0 @@
-chore: HyperMarrow 重构成 SDK 2.0 架构 - 迁移安装与接线
-
-- 核心包版本号 1.0.0 -> 2.0.0 (openclaw-memory-system / openclaw-learning-system)
-- hypermarrow-sdk 补 README.md 修复 pip 安装失败 (setup.py open() 缺文件)
-- SOUL.md 接线从旧 openclaw_wire 直连改为 hypermarrow.HyperMarrowWire SDK 本地嵌入模式
-- .gitignore 排除运行时锁 .hypermarrow.pid
-- 验证: 三包 2.0.0 安装成功, SDK 导入 OK, intercept/check/record/stats 全通过

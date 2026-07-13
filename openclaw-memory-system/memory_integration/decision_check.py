@@ -1024,7 +1024,7 @@ class DecisionCheckPoint:
                 try:
                     self.consolidator.consolidate()
                     # Wave 3: auto-extract skills after consolidation
-                    extracted = self.skill_extractor.extract_skills(min_successes=3)
+                    extracted = self.skill_extractor.extract_skills()
                     if extracted > 0:
                         self.skill_extractor.feed_procedural(self.procedural_memory)
                 except Exception:
@@ -1126,9 +1126,9 @@ class DecisionCheckPoint:
                 "agent_id": self._agent_id,  # tag with agent for audit
             }
 
-            # Use ql_agent's path if available (agent-specific), else global
+            # Use per-agent path: rl_decision_history_{agent_id}.json
             if self.ql_agent is not None and hasattr(self.ql_agent, 'q_table_path'):
-                history_path = Path(self.ql_agent.q_table_path).parent / "rl_decision_history.json"
+                history_path = Path(self.ql_agent.q_table_path).parent / f"rl_decision_history_{self._agent_id}.json"
             else:
                 history_path = _data_dir() / "rl_decision_history.json"
 

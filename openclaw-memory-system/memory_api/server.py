@@ -56,7 +56,8 @@ def _init():
         if get_config().get("license", {}).get("enabled", False):
             try:
                 _HYPERMARROW = Path(__file__).resolve().parent.parent.parent
-                sys.path.insert(0, str(_HYPERMARROW.parent))  # workspace/ for LICENSE_SDK
+                sys.path.insert(0, str(_HYPERMARROW.parent))  # workspace/
+                sys.path.insert(0, str(_HYPERMARROW.parent / "commercial"))  # workspace/commercial/ for LICENSE_SDK
                 from LICENSE_SDK.license_manager import LicenseManager, LicenseStatus
                 _lm = LicenseManager()
                 _status = _lm.verify()
@@ -451,6 +452,7 @@ def license_status():
         try:
             _HYPERMARROW = Path(__file__).resolve().parent.parent.parent
             sys.path.insert(0, str(_HYPERMARROW.parent))
+            sys.path.insert(0, str(_HYPERMARROW.parent / "commercial"))
             from LICENSE_SDK.license_manager import LicenseManager, LicenseStatus
             lm = LicenseManager()
             status = lm.verify()
@@ -511,16 +513,17 @@ async def startup():
     from memory_core.config import get_config, get_agent_config
 
     def _is_process_running(process_name: str) -> bool:
-        """Cross-platform process detection."""
+        """Cross-platform process detection (MSYS-safe on Windows)."""
         if not process_name:
             return False
         try:
             if sys.platform == "win32":
+                # Use full tasklist + Python filter instead of /FI flag
+                # because MSYS (Git Bash) mangles /FI as a Unix path
                 r = subprocess.run(
-                    ["tasklist", "/FI", f"IMAGENAME eq {process_name}"],
-                    capture_output=True, text=True, timeout=5
+                    ["tasklist"], capture_output=True, text=True, timeout=8
                 )
-                return process_name in r.stdout
+                return process_name.lower() in r.stdout.lower()
             elif sys.platform == "darwin":
                 r = subprocess.run(
                     ["pgrep", "-f", process_name], capture_output=True, text=True, timeout=5
@@ -538,7 +541,11 @@ async def startup():
         """Check if agent's host process is running (cross-platform, config-driven)."""
         agent_cfg = get_agent_config()
         proc_cfg = agent_cfg.get("process_detection", {}).get(agent_id, {})
-        proc_name = proc_cfg.get(sys.platform) or proc_cfg.get("win32")
+        # sys.platform is "win32" on Windows, but config uses "windows" for readability
+        proc_name = (proc_cfg.get(sys.platform) or
+                     proc_cfg.get("windows") or  # alias for win32
+                     proc_cfg.get("linux") or
+                     proc_cfg.get("darwin"))
         return _is_process_running(proc_name) if proc_name else False
 
     def _agent_heartbeat(agent_id: str, is_alive_check=None):
@@ -559,7 +566,7 @@ async def startup():
 
     # ── Heartbeat threads ────────────────────────────────────────────────
     threading.Thread(
-        target=_agent_heartbeat, args=("claude",),
+        target=_agent_heartbeat, args=("claude", lambda: _is_agent_host_running("claude")),
         daemon=True, name="hm_claude_heartbeat"
     ).start()
     threading.Thread(

@@ -23,18 +23,20 @@ agents:
   stale_timeout: 60          # 心跳超时（秒），超时后自动离线
   process_detection:         # 进程检测（服务器代为心跳）
     openclaw:
+      win32: "QClaw.exe"
       windows: "QClaw.exe"
       linux: "openclaw"
       darwin: "QClaw"
     claude:
+      win32: "claude.exe"
       windows: "claude.exe"
       linux: "claude"
       darwin: "Claude"
 
 # ── License 商业化 ──────────────────────────────────────────────────────
 license:
-  enabled: false             # false = 社区版（全功能免费），true = 商业版
-  server_url: "https://license.openclaw.ai"
+  enabled: true              # false = 社区版（全功能免费），true = 商业版
+  server_url: "https://license.qianshi.cool"
   public_key_path: null      # null = 使用 LICENSE_SDK 内置公钥
   verify_interval: 86400     # 在线验证间隔（秒），默认 24h
   offline_days: 7            # 离线模式最大天数

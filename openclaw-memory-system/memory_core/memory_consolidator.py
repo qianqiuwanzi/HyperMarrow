@@ -519,7 +519,7 @@ class MemoryConsolidator:
             from .meta_learner import SkillExtractor
             se = SkillExtractor(episodic_memory=self.em,
                                  knowledge_graph=self.kg)
-            phases["extract"] = se.extract_skills(min_successes=2)
+            phases["extract"] = se.extract_skills()
         except Exception as e:
             phases["extract"] = -1
             print(f"[Dream] extract failed: {e}")

@@ -219,7 +219,9 @@ class SkillExtractor:
         self.em = episodic_memory
         self.kg = knowledge_graph
         self.data = self._load_or_init()
-        print(f"[SkillExtractor] Loaded: {len(self.data['skills'])} extracted skills",
+        removed = self._deduplicate_skills()
+        print(f"[SkillExtractor] Loaded: {len(self.data['skills'])} extracted skills"
+              f"{f' (deduped {removed})' if removed > 0 else ''}",
               file=_sys.stderr)
 
     def _load_or_init(self) -> dict:
@@ -244,16 +246,107 @@ class SkillExtractor:
         from collections import Counter
         return [w for w, _ in Counter(words).most_common(max_words)]
 
-    def extract_skills(self, min_successes: int = 3,
-                        min_success_rate: float = 0.6) -> int:
+    @staticmethod
+    def _jaccard(set_a: set, set_b: set) -> float:
+        """计算两个集合的 Jaccard 相似度。"""
+        if not set_a or not set_b:
+            return 0.0
+        return len(set_a & set_b) / len(set_a | set_b)
+
+    def _find_duplicate_skill(self, action: str, keywords: list) -> Optional[str]:
+        """
+        检查是否已存在相同 action + 相似 context_patterns 的技能。
+
+        使用 Jaccard 相似度 > 0.5 判定为重复。
+
+        Returns:
+            已存在技能的 skill_id，或 None
+        """
+        new_set = set(keywords)
+        for sid, skill in self.data.get("skills", {}).items():
+            if skill.get("action") != action:
+                continue
+            existing_set = set(skill.get("context_patterns", []))
+            if self._jaccard(new_set, existing_set) > 0.5:
+                return sid
+        return None
+
+    def _deduplicate_skills(self) -> int:
+        """
+        清理已有技能数据中的重复条目。
+
+        对于同一 action + Jaccard > 0.5 的技能，合并到最早的那条，
+        删除重复的条目。
+
+        Returns:
+            删除的重复条目数
+        """
+        skills = self.data.get("skills", {})
+        if len(skills) <= 1:
+            return 0
+
+        # Group by action
+        by_action: dict = {}
+        for sid, skill in skills.items():
+            by_action.setdefault(skill["action"], []).append(sid)
+
+        removed = 0
+        for action, sids in by_action.items():
+            if len(sids) <= 1:
+                continue
+            # Sort by ID to keep the earliest
+            sids.sort()
+            kept = [sids[0]]
+            for sid in sids[1:]:
+                keywords = set(skills[sid].get("context_patterns", []))
+                is_dup = False
+                for keep_sid in kept:
+                    keep_kw = set(skills[keep_sid].get("context_patterns", []))
+                    if self._jaccard(keywords, keep_kw) > 0.5:
+                        # Merge into kept skill
+                        keeper = skills[keep_sid]
+                        keeper["success_count"] = max(
+                            keeper.get("success_count", 0),
+                            skills[sid].get("success_count", 0),
+                        )
+                        keeper["total_attempts"] = max(
+                            keeper.get("total_attempts", 0),
+                            skills[sid].get("total_attempts", 0),
+                        )
+                        # Merge unique source episodes
+                        existing_eps = set(keeper.get("source_episodes", []))
+                        new_eps = set(skills[sid].get("source_episodes", []))
+                        keeper["source_episodes"] = list(
+                            existing_eps | new_eps)[:10]
+                        keeper["success_rate"] = (
+                            keeper["success_count"] / max(1, keeper["total_attempts"])
+                        )
+                        del skills[sid]
+                        removed += 1
+                        is_dup = True
+                        break
+                if not is_dup:
+                    kept.append(sid)
+
+        if removed > 0:
+            self._save()
+            print(f"[SkillExtractor] Deduplicated: removed {removed} duplicate skills",
+                  file=_sys.stderr)
+        return removed
+
+    def extract_skills(self, min_successes: int = 10,
+                        min_success_rate: float = 0.9) -> int:
         """
         从情景记忆中提取技能。
 
         条件: 同一 action 在同一类 context 下成功 ≥ min_successes 次,
               成功率 ≥ min_success_rate。
 
+        去重: 如果已存在相同 action 且 context_patterns Jaccard > 0.5 的技能,
+              则更新已有技能（合并 episode 列表、更新计数），不再新增。
+
         Returns:
-            新提取的技能数量
+            新提取/更新的技能数量
         """
         if not self.em or not self.em.data:
             return 0
@@ -275,6 +368,10 @@ class SkillExtractor:
 
             success_count = len(eps)
             total = success_count  # All are successes in this group
+            success_rate = success_count / max(1, total)
+
+            if success_rate < min_success_rate:
+                continue
 
             # Extract common context keywords
             all_text = " ".join(
@@ -284,7 +381,29 @@ class SkillExtractor:
             )
             keywords = self._extract_keywords(all_text)
 
-            # Create skill entry
+            # ── Deduplication: check if a similar skill already exists ─────
+            dup_id = self._find_duplicate_skill(action, keywords)
+            if dup_id is not None:
+                # Update existing skill instead of creating duplicate
+                existing = self.data["skills"][dup_id]
+                existing["success_count"] = max(
+                    existing.get("success_count", 0), success_count)
+                existing["total_attempts"] = max(
+                    existing.get("total_attempts", 0), total)
+                existing_eps = set(existing.get("source_episodes", []))
+                new_eps = [e.get("episode_id") for e in eps[:5]]
+                existing["source_episodes"] = list(
+                    existing_eps | set(new_eps))[:10]
+                existing["success_rate"] = (
+                    existing["success_count"] / max(1, existing["total_attempts"]))
+                existing["updated_at"] = _now()
+                extracted += 1
+                print(f"[SkillExtractor] Updated existing skill '{action}' "
+                      f"(id={dup_id}, n={success_count})",
+                      file=_sys.stderr)
+                continue
+
+            # Create new skill entry
             skill_id = f"auto_{action}_{len(self.data['skills'])}"
             skill = {
                 "id": skill_id,
@@ -292,14 +411,15 @@ class SkillExtractor:
                 "context_patterns": keywords,
                 "success_count": success_count,
                 "total_attempts": total,
-                "success_rate": 1.0,
+                "success_rate": round(success_rate, 3),
                 "source_episodes": [e.get("episode_id") for e in eps[:5]],
                 "extracted_at": _now(),
             }
             self.data["skills"][skill_id] = skill
             extracted += 1
-            print(f"[SkillExtractor] Skill '{action}': "
-                  f"{keywords[:3]} (n={success_count})")
+            print(f"[SkillExtractor] New skill '{action}': "
+                  f"{keywords[:3]} (n={success_count})",
+                  file=_sys.stderr)
 
         if extracted:
             self.data["extraction_count"] += 1
@@ -399,7 +519,7 @@ if __name__ == "__main__":
 
     # Test SkillExtractor
     se = SkillExtractor(episodic_memory=em)
-    extracted = se.extract_skills(min_successes=3)
+    extracted = se.extract_skills()
     print(f"Skills extracted: {extracted}")
 
     pm = ProceduralMemory(workspace=tmp)

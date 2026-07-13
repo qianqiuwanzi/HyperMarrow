@@ -1,0 +1,263 @@
+{
+  "timestamp": "2026-07-09T17:43:45",
+  "agent_id": "openclaw",
+  "memory": {
+    "knowledge_graph": {
+      "total_entities": 6,
+      "total_relationships": 18,
+      "entity_types": {
+        "error_type": 3,
+        "action": 2,
+        "skill": 1
+      },
+      "relationship_types": {
+        "co_occurs_with": 15,
+        "triggers": 3
+      },
+      "density": 0.6,
+      "top_central": [
+        {
+          "name": "timeout",
+          "degree": 7
+        },
+        {
+          "name": "try_fix_three_times",
+          "degree": 7
+        },
+        {
+          "name": "import_error",
+          "degree": 6
+        },
+        {
+          "name": "verify",
+          "degree": 6
+        },
+        {
+          "name": "download_stuck",
+          "degree": 5
+        }
+      ],
+      "newest_entity": "think"
+    },
+    "episodic_memory": {
+      "total_episodes": 9,
+      "with_lessons": 0,
+      "by_outcome": {
+        "success": 6,
+        "failure": 1,
+        "partial": 2
+      },
+      "by_emotion": {
+        "positive": 6,
+        "neutral": 2,
+        "negative": 1,
+        "mixed": 0
+      },
+      "avg_importance": 3.11,
+      "newest": "2026-07-08T18:10:43.012860",
+      "oldest": "2026-07-02T15:28:17.476644"
+    },
+    "working_memory": {
+      "recent_count": 40,
+      "context_keys": [
+        "last_action",
+        "channel",
+        "domain",
+        "error_type",
+        "has_error",
+        "channelid",
+        "session_key",
+        "provider",
+        "trigger",
+        "task",
+        "phase",
+        "attempts",
+        "error",
+        "success",
+        "inherited_rules",
+        "message"
+      ],
+      "current_task": null,
+      "goal": null,
+      "stack_depth": 0,
+      "session_id": "2026-07-03T08:54:23.450231",
+      "updated_at": "2026-07-08T18:10:42.948860"
+    },
+    "metacognition": {
+      "total_decisions": 0,
+      "calibration_entries": 40,
+      "anomalies": 0,
+      "reflections": 0,
+      "consecutive_failures": 0
+    },
+    "consolidator": {
+      "total_consolidations": 249,
+      "total_ltp": 35,
+      "total_ltd_pruned": 5,
+      "total_episodes_merged": 10,
+      "total_q_replayed": 0,
+      "last_sleep_at": "2026-07-09T17:07:01.123854",
+      "consolidating": false
+    },
+    "vector_db": {
+      "total_vectors": 112,
+      "collection_name": "memory_vectors",
+      "model_name": "paraphrase-multilingual-MiniLM-L12-v2",
+      "embedding_dim": 384,
+      "db_path": "D:\\OpenClaw\\workspace\\memory\\chromadb"
+    },
+    "procedural_memory": {
+      "total_rules": 15,
+      "by_level": {
+        "1": 11,
+        "2": 3,
+        "3": 0,
+        "4": 0,
+        "5": 1
+      },
+      "automatic_rules": 1,
+      "needs_attention": [
+        {
+          "rule_id": "rule_001",
+          "rule_name": "P2b下载必须使用技能脚本",
+          "level": 2,
+          "success_rate": 1.0
+        },
+        {
+          "rule_id": "rule_003",
+          "rule_name": "使用技能前必须检查scripts目录",
+          "level": 1,
+          "success_rate": 0.75
+        },
+        {
+          "rule_id": "rule_004",
+          "rule_name": "切换技能前必须报告用户",
+          "level": 1,
+          "success_rate": 0.67
+        },
+        {
+          "rule_id": "rule_005",
+          "rule_name": "跳过阶段前必须报告用户",
+          "level": 1,
+          "success_rate": 0.67
+        },
+        {
+          "rule_id": "rule_006",
+          "rule_name": "绕过问题前必须尝试修复3次并报告",
+          "level": 1,
+          "success_rate": 0.5
+        },
+        {
+          "rule_id": "rule_007",
+          "rule_name": "写脚本前必须检查技能scripts目录",
+          "level": 2,
+          "success_rate": 1.0
+        },
+        {
+          "rule_id": "rule_008",
+          "rule_name": "技能切换禁止规则",
+          "level": 2,
+          "success_rate": 0.67
+        },
+        {
+          "rule_id": "rule_009",
+          "rule_name": "阶段门禁遵守规则",
+          "level": 1,
+          "success_rate": 0.67
+        },
+        {
+          "rule_id": "rule_010",
+          "rule_name": "错误修复决策树遵守规则",
+          "level": 1,
+          "success_rate": 0.75
+        },
+        {
+          "rule_id": "rule_011",
+          "rule_name": "流程优先于效率规则",
+          "level": 1,
+          "success_rate": 0.67
+        },
+        {
+          "rule_id": "rule_012",
+          "rule_name": "文档优先规则",
+          "level": 1,
+          "success_rate": 1.0
+        },
+        {
+          "rule_id": "rule_013",
+          "rule_name": "报告优先规则",
+          "level": 1,
+          "success_rate": 0.5
+        },
+        {
+          "rule_id": "rule_014",
+          "rule_name": "记忆写入规则",
+          "level": 1,
+          "success_rate": 1.0
+        },
+        {
+          "rule_id": "rule_015",
+          "rule_name": "Taste Skill 自动分发规则",
+          "level": 1,
+          "success_rate": 1.0
+        }
+      ]
+    },
+    "skill_extractor": {
+      "total_skills": 127,
+      "extraction_count": 65,
+      "by_action": {
+        "try_fix_three_times": 3,
+        "switch_skill": 3,
+        "try_fix": 4,
+        "write_script": 4
+      }
+    },
+    "prospective": {
+      "active": 0,
+      "completed": 0,
+      "expired": 0,
+      "cancelled": 0
+    },
+    "transfer_learner": {
+      "total_profiles": 9,
+      "total_transfers": 0,
+      "feature_dim": 27,
+      "recent_transfers": []
+    }
+  },
+  "learning": {
+    "q_learning": {
+      "n_states": 100,
+      "n_actions": 7,
+      "distinct_states": 0,
+      "collisions_resolved": 0,
+      "total_experiences": 96,
+      "nonzero_entries": 415,
+      "total_entries": 700,
+      "nonzero_pct": 59.29,
+      "q_sum": 245.4125,
+      "alpha": 0.1,
+      "gamma": 0.9,
+      "epsilon": 0.1,
+      "auto_expand": true,
+      "neural_mode": "tabular",
+      "neural_stats": null,
+      "world_model_stats": null
+    },
+    "meta_learner": {
+      "total_adjustments": 0,
+      "current_hyperparams": {
+        "learning_rate": 0.1,
+        "epsilon": 0.1,
+        "exploration_weight": 0.3,
+        "consolidation_interval": 20,
+        "planning_horizon": 1
+      },
+      "recent_td_trend": 0.0,
+      "recent_wm_trend": 0.0,
+      "recent_success_rate": 0.0,
+      "recent_ece": 0.0
+    }
+  }
+}

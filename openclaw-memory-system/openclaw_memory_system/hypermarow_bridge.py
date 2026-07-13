@@ -157,7 +157,7 @@ def _start_sleep_scheduler(reg):
                                 episodic_memory=bundle.episodic_memory,
                                 knowledge_graph=bundle.knowledge_graph,
                             )
-                            extracted = se.extract_skills(min_successes=2, min_success_rate=0.5)
+                            extracted = se.extract_skills()
                             if extracted > 0:
                                 fed = se.feed_procedural(bundle.procedural_memory)
                                 print(f"[Sleep] {agent_id}: Skills extracted={extracted}, "
