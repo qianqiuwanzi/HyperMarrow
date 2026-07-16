@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<style>
+.login-container{max-width:420px;margin:80px auto 0;padding:40px 32px;background:var(--card-bg);border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.08);text-align:center}
+.login-container .logo{font-size:3rem;margin-bottom:8px}
+.login-container h1{font-size:1.5rem;color:var(--text-primary);margin-bottom:4px}
+.login-container .subtitle{color:var(--text-secondary);font-size:.9rem;margin-bottom:32px}
+.form-group{margin-bottom:16px;text-align:left}
+.form-group label{display:block;font-size:.85rem;color:var(--text-secondary);margin-bottom:6px}
+.phone-row{display:flex;gap:8px}.phone-row input{flex:1;margin-bottom:0}
+.btn-code{white-space:nowrap;padding:12px 16px;border:2px solid var(--primary);background:transparent;color:var(--primary);border-radius:10px;font-size:.85rem;cursor:pointer;font-weight:600;transition:all .2s;min-width:100px}
+.btn-code:hover{background:var(--primary-light)}.btn-code:disabled{border-color:#ccc;color:#ccc;cursor:not-allowed}
+.msg-box{padding:10px;border-radius:8px;font-size:.85rem;margin-top:10px;display:none}
+.msg-box.show{display:block}.msg-ok{background:#e6f7e6;color:#27ae60}.msg-err{background:#fff0f0;color:#e74c3c}
+</style></head><body>
+<div class="login-container">
+<div class="logo">🧠</div><h1>智商藏不住</h1><p class="subtitle">AI 记忆与学习系统</p>
+<div class="form-group"><label>📱 手机号</label><div class="phone-row"><input type="tel" id="phoneInput" class="input" placeholder="输入手机号" maxlength="11" autofocus><button class="btn-code" id="codeBtn" onclick="sendCode()">获取验证码</button></div></div>
+<div class="form-group"><label>🔑 验证码</label><input type="text" id="codeInput" class="input" placeholder="6位验证码" maxlength="6"></div>
+<button class="btn btn-primary btn-full" onclick="doLogin()" style="margin-top:8px">登录 / 注册</button>
+<p style="font-size:.75rem;color:var(--text-secondary);margin-top:8px">新用户自动注册，无需设置密码</p>
+<div class="msg-box" id="msgBox"></div>
+</div>
+<script>
+let cd=0;
+function showMsg(t,ok){const b=document.getElementById('msgBox');b.textContent=t;b.className='msg-box show '+(ok?'msg-ok':'msg-err');if(ok)setTimeout(()=>{b.className='msg-box'},5000)}
+async function sendCode(){if(cd>0)return;const p=document.getElementById('phoneInput').value.trim();if(!p||p.length<11){showMsg('请输入正确的11位手机号',false);return}
+try{const r=await window.electronAPI.api.post('/api/v1/user/send-code',{phone:p});if(r.data&&r.data.success){const devCode=r.data.dev_code;const msg=devCode?`验证码: ${devCode} (开发模式)`:'验证码已发送，请查收短信';showMsg(msg,true);if(devCode)document.getElementById('codeInput').value=devCode;cd=60;const btn=document.getElementById('codeBtn');btn.disabled=true;const t=setInterval(()=>{cd--;btn.textContent=cd+'s';if(cd<=0){clearInterval(t);btn.textContent='获取验证码';btn.disabled=false}},1000)}else showMsg(r.data?.message||'发送失败',false)}catch(e){showMsg('网络错误',false)}}
+async function doLogin(){const p=document.getElementById('phoneInput').value.trim();const c=document.getElementById('codeInput').value.trim();if(!p||p.length<11){showMsg('请输入手机号',false);return}if(!c){showMsg('请输入验证码',false);return}
+try{const r=await window.electronAPI.api.post('/api/v2/client/auth/login',{phone:p,code:c});console.log('login response:',JSON.stringify(r));if(r.ok&&r.data&&r.data.success){await window.electronAPI.store.set('auth',{token:r.data.token,userId:r.data.user.id,phone:r.data.user.phone,displayName:r.data.user.display_name,expiresAt:Math.floor(Date.now()/1000)+(r.data.expires_in||2592000),issuedAt:Math.floor(Date.now()/1000)});if(r.data.license){await window.electronAPI.license.update({key:r.data.license.key,plan:r.data.license.plan,status:r.data.license.status,expiryDate:r.data.license.expiry_date,remainingDays:r.data.license.remaining_days,lastVerified:new Date().toISOString(),signature:'',hasLicense:true,features:r.data.license.features||[],maxDevices:r.data.license.max_devices||1,currentDevices:r.data.license.current_devices||0})}window.navigateTo('app')}else showMsg(r.data?.detail||r.data?.message||('登录失败 [ok='+r.ok+' status='+r.status+' data='+JSON.stringify(r.data).substring(0,100)+']'),false)}catch(e){showMsg('网络错误: '+e.message,false)}}
+document.addEventListener('keydown',function(e){if(e.key==='Enter')doLogin()});
+</script></body></html>

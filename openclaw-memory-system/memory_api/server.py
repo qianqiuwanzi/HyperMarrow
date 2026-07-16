@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-HyperMarrow 藏慧 — Crystal Core API
+智商藏不住 — Crystal Core API
 """
 import sys, os, json, asyncio
 from pathlib import Path
@@ -16,7 +16,7 @@ from fastapi import FastAPI, WebSocket, Query
 from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
 
-app = FastAPI(title="HyperMarrow 藏慧 Crystal Core", version="2.0")
+app = FastAPI(title="智商藏不住 Crystal Core", version="2.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 # ── API Token Authentication Middleware ────────────────────────────────────
@@ -476,7 +476,7 @@ def share_card():
     kg=_DC.knowledge_graph.get_stats(); ql=_DC.ql_agent.get_stats()
     central=_DC.knowledge_graph.get_central_entities(5)
     meta=_DC.metacognition.get_performance_dashboard()
-    return {"title":"HyperMarrow 藏慧 — 我的AI记忆","generated":datetime.now().isoformat(),
+    return {"title":"智商藏不住 — 我的AI记忆","generated":datetime.now().isoformat(),
         "stats":{"entities":kg["total_entities"],"relationships":kg["total_relationships"],
                  "q_nonzero":ql["nonzero_entries"],"q_total":ql["total_entries"],
                  "health":meta.get("overall_health","?"),"score":meta.get("health_score",0)},
@@ -498,6 +498,107 @@ async def ws_endpoint(ws:WebSocket):
                 "accuracy":meta.get("recent_accuracy",0),"score":meta.get("health_score",0)})
     except: pass
     finally: _WS.discard(ws)
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 用户认证 API
+# ═══════════════════════════════════════════════════════════════════════════════
+
+from memory_api.user_auth import generate_code, verify_code, get_user_by_token
+
+
+@app.post("/api/v1/user/send-code")
+def user_send_code(body: dict):
+    """发送短信验证码"""
+    phone = body.get("phone", "").strip()
+    if not phone or len(phone) < 11:
+        return {"success": False, "message": "请输入正确的11位手机号"}
+    try:
+        code, dev_code = generate_code(phone)
+        result = {"success": True, "message": "验证码已发送"}
+        if dev_code:
+            result["dev_code"] = dev_code  # 开发模式返回验证码
+        return result
+    except ValueError as e:
+        return {"success": False, "message": str(e)}
+    except RuntimeError as e:
+        return {"success": False, "message": str(e)}
+    except Exception as e:
+        return {"success": False, "message": f"发送失败: {e}"}
+
+
+@app.post("/api/v1/user/login")
+def user_login(body: dict):
+    """手机号+验证码登录"""
+    phone = body.get("phone", "").strip()
+    code = body.get("code", "").strip()
+    if not phone or not code:
+        return {"success": False, "message": "请输入手机号和验证码"}
+    result = verify_code(phone, code)
+    if result["success"]:
+        return {
+            "success": True,
+            "token": result["token"],
+            "expires_in": result["expires_in"],
+            "user": result["user"],
+        }
+    return result
+
+
+@app.get("/api/v1/user/info")
+def user_info(token: str = Query("")):
+    """查询用户信息"""
+    user = get_user_by_token(token)
+    if user:
+        return {"success": True, "user": user}
+    return {"success": False, "message": "未登录或 token 已过期"}
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# v2 License API 代理 → https://license.qianshi.cool
+# ═══════════════════════════════════════════════════════════════════════════════
+
+import urllib.request as _urllib
+
+_LICENSE_SERVER = "https://license.qianshi.cool"
+
+
+def _proxy_to_license(path: str, body: dict | None = None):
+    """代理请求到 License 服务器"""
+    try:
+        url = f"{_LICENSE_SERVER}{path}"
+        data = json.dumps(body).encode() if body else None
+        req = _urllib.Request(url, data=data, headers={"Content-Type": "application/json"})
+        if data:
+            req.method = "POST"
+        resp = _urllib.urlopen(req, timeout=30)
+        return json.loads(resp.read().decode())
+    except Exception as e:
+        return {"ok": False, "status": 0, "data": {"detail": f"License 服务器连接失败: {e}"}}
+
+
+@app.get("/api/v2/client/license/status")
+def license_status_v2():
+    """License 状态（v2 格式，代理到 License 服务器）"""
+    return _proxy_to_license("/api/v2/client/license/status")
+
+
+@app.post("/api/v2/client/pay/create")
+def pay_create(body: dict):
+    """创建支付订单（代理到 License 服务器）"""
+    return _proxy_to_license("/api/v2/client/pay/create", body)
+
+
+@app.get("/api/v2/client/pay/status/{out_trade_no}")
+def pay_status(out_trade_no: str):
+    """支付状态查询（代理到 License 服务器）"""
+    return _proxy_to_license(f"/api/v2/client/pay/status/{out_trade_no}")
+
+
+@app.post("/api/v2/client/license/renew")
+def license_renew(body: dict):
+    """许可续期（代理到 License 服务器）"""
+    return _proxy_to_license("/api/v2/client/license/renew", body)
+
 
 # ── Production mode: serve built UI at / ──────────────────────────────────
 # In dev mode (no dist/), UI is served by Vite on port 5173 separately.
@@ -590,7 +691,7 @@ async def startup():
 
     threading.Thread(target=_dream_scheduler, daemon=True, name="dream_scheduler").start()
 
-    print(f"[藏慧 API] http://0.0.0.0:8741 — 记忆7模块 + 学习7模块 已就绪")
+    print(f"[智商藏不住 API] http://0.0.0.0:8741 — 记忆7模块 + 学习7模块 已就绪")
 
 if __name__=="__main__":
     import uvicorn; uvicorn.run(app,host="0.0.0.0",port=8741)

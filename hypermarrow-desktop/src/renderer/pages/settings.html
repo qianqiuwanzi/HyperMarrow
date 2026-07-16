@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<style>
+.spg{max-width:520px;margin:30px auto;padding:0 20px}.spg h2{font-size:1.3rem;margin-bottom:20px}
+.sc{background:var(--card-bg);border-radius:14px;padding:20px 24px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.sr{display:flex;justify-content:space-between;align-items:center;padding:10px 0}
+.sr .lbl{font-weight:500}.sr .desc{font-size:.8rem;color:var(--text-secondary);margin-top:2px}
+.tg{position:relative;width:44px;height:24px;cursor:pointer}.tg input{display:none}
+.tg .sl{position:absolute;inset:0;background:#ccc;border-radius:24px;transition:.3s}
+.tg .sl::before{content:'';position:absolute;width:20px;height:20px;left:2px;top:2px;background:#fff;border-radius:50%;transition:.3s}
+.tg input:checked+.sl{background:var(--primary)}.tg input:checked+.sl::before{transform:translateX(20px)}
+.ir{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f0f0f0}
+.ir:last-child{border-bottom:none}.ir .key{color:var(--text-secondary);font-size:.85rem}.ir .val{font-weight:500;font-size:.9rem}
+.btn-danger{background:transparent;border:2px solid #e74c3c;color:#e74c3c;padding:10px 20px;border-radius:8px;cursor:pointer;font-weight:600}
+.bl{display:block;text-align:center;margin-top:20px;color:var(--text-secondary);cursor:pointer;font-size:.85rem}
+</style></head><body>
+<div class="spg"><h2>⚙ 设置</h2>
+<div class="sc"><div class="sr"><div><div class="lbl">开机自启</div><div class="desc">启动系统时自动运行 智商藏不住</div></div><label class="tg"><input type="checkbox" id="autoLaunchToggle" onchange="tgAL(this.checked)"><span class="sl"></span></label></div>
+<div class="sr"><div><div class="lbl">最小化到托盘</div><div class="desc">关闭窗口时隐藏到系统托盘</div></div><label class="tg"><input type="checkbox" id="minTrayToggle" onchange="tgMT(this.checked)"><span class="sl"></span></label></div></div>
+<div class="sc"><h4 style="margin-bottom:12px">📱 账户信息</h4><div class="ir"><span class="key">手机号</span><span class="val" id="phDisp">-</span></div><div class="ir"><span class="key">用户 ID</span><span class="val" id="uidDisp">-</span></div><div class="ir"><span class="key">客户端版本</span><span class="val" id="verDisp">-</span></div></div>
+<div class="sc"><div style="display:flex;justify-content:space-between;align-items:center"><div><div class="lbl">检查更新</div><div class="desc">检查是否有新版本可用</div></div><button class="btn btn-outline" onclick="chkUpd()" style="padding:8px 16px;font-size:.85rem">检查更新</button></div></div>
+<button class="btn-danger btn-full" onclick="doLogout()" style="margin-top:16px">退出登录</button>
+<a class="bl" onclick="location.reload()">← 返回主界面</a></div>
+<script>
+document.addEventListener('page:loaded',async()=>{try{document.getElementById('autoLaunchToggle').checked=await window.electronAPI.system.getAutoLaunch();document.getElementById('minTrayToggle').checked=await window.electronAPI.store.get('settings.minimizeToTray',true);const a=await window.electronAPI.store.get('auth');if(a){document.getElementById('phDisp').textContent=a.phone||'-';document.getElementById('uidDisp').textContent=a.userId||'-'}const i=await window.electronAPI.system.getDeviceInfo();document.getElementById('verDisp').textContent=i.version||'-'}catch(e){}});
+async function tgAL(v){await window.electronAPI.system.setAutoLaunch(v)}
+async function tgMT(v){await window.electronAPI.store.set('settings.minimizeToTray',v)}
+function chkUpd(){window.electronAPI.system.checkUpdates()}
+async function doLogout(){if(confirm('确定要退出登录吗？')){await window.electronAPI.auth.clear();window.navigateTo('login')}}
+</script></body></html>

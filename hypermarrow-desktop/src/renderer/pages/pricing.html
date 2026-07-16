@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<style>
+.pp{max-width:920px;margin:30px auto;padding:0 20px}.pp h2{text-align:center;font-size:1.5rem;margin-bottom:8px}
+.pp .sub{text-align:center;color:var(--text-secondary);margin-bottom:24px}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:700px){.plans{grid-template-columns:1fr}}
+.pc{background:var(--card-bg);border-radius:14px;padding:28px 20px;text-align:center;box-shadow:0 3px 14px rgba(0,0,0,.06);position:relative}
+.pc.cur{border:3px solid var(--primary);box-shadow:0 4px 20px rgba(102,126,234,.2)}
+.pc.cur::after{content:'当前套餐';position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--primary);color:#fff;padding:3px 16px;border-radius:20px;font-size:.75rem;font-weight:600}
+.pc h3{font-size:1.2rem;margin-bottom:12px}
+.pc .price{font-size:2.4rem;font-weight:700;color:var(--primary)}
+.pc .price span{font-size:.85rem;color:var(--text-secondary);font-weight:400}
+.pc .flist{list-style:none;text-align:left;margin:18px 0}
+.pc .flist li{padding:7px 0;font-size:.82rem;border-bottom:1px solid #f0f0f0}
+.pc .flist li.y{}.pc .flist li.n{color:#ccc;text-decoration:line-through}
+.back{display:block;text-align:center;margin-top:20px;color:var(--text-secondary);cursor:pointer;font-size:.85rem}
+</style></head><body>
+<div class="pp"><h2>📋 版本对比</h2><p class="sub" id="curLabel">选择适合你的方案</p>
+<div class="plans" id="planGrid"></div>
+<a class="back" onclick="location.reload()">← 返回</a></div>
+<script>
+document.addEventListener('page:loaded', loadPricing);
+
+const PLAN_META = [
+  { plan:'free',       name:'Free',   price:'0', period:'永久',  color:'#666',   feat:['basic_memory','knowledge_graph'] },
+  { plan:'pro',        name:'Pro',    price:'99', period:'/月',  color:'#667eea',feat:['basic_memory','knowledge_graph','semantic_search','rl_decision','metacognition'] },
+  { plan:'enterprise', name:'Enterprise', price:'299', period:'/月', color:'#e44d26', feat:['basic_memory','knowledge_graph','semantic_search','rl_decision','metacognition','vector_memory','cross_agent'] },
+];
+
+async function loadPricing() {
+  try { const r = await window.electronAPI.api.get('/api/v2/client/license/status');
+    if (r.ok && r.data) render(r.data); else { const c = await window.electronAPI.license.getCached(); render(c || {}); }
+  } catch(e) { const c = await window.electronAPI.license.getCached(); render(c || {}); }
+}
+
+function render(d) {
+  const lic = d.license || d;
+  const curPlan = lic.plan || 'free';
+  const curFeat = (lic.features && lic.features.length) ? lic.features : FeatureUtils.getAvailable(curPlan);
+  document.getElementById('curLabel').textContent = '当前: ' + (curPlan === 'enterprise' ? 'Enterprise' : curPlan === 'pro' ? 'Pro' : 'Free') + ' — 选择适合你的方案';
+
+  document.getElementById('planGrid').innerHTML = PLAN_META.map(m => {
+    const isCur = m.plan === curPlan;
+    let lis = '';
+    window.FEATURES.forEach(f => {
+      const inPlan = m.feat.includes(f.id);
+      lis += '<li class="' + (inPlan ? 'y' : 'n') + '">' + (inPlan ? '✓ ' : '— ') + f.name + '</li>';
+    });
+    const btnLabel = isCur ? '当前套餐' : (window.PLAN_LEVEL[m.plan] > window.PLAN_LEVEL[curPlan] ? '立即升级' : '');
+    const btnStyle = isCur ? 'btn-outline' : 'btn-primary';
+    const onclick = isCur ? '' : 'onclick="buy(\'' + m.plan + '\')"';
+    return '<div class="pc' + (isCur ? ' cur' : '') + '"><h3>' + m.name + '</h3><div class="price" style="color:' + m.color + '">¥' + m.price + '<span>' + m.period + '</span></div><ul class="flist">' + lis + '</ul>' + (btnLabel ? '<button class="btn ' + btnStyle + ' btn-full" ' + onclick + '>' + btnLabel + '</button>' : '') + '</div>';
+  }).join('');
+}
+
+function buy(plan){ window.navigateTo('payment',{mode:'new',plan}) }
+</script></body></html>

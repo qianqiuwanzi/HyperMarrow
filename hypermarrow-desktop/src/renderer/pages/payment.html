@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<style>
+.pmp{max-width:480px;margin:20px auto;padding:0 20px}.pmc{background:var(--card-bg);border-radius:20px;padding:32px 28px;box-shadow:0 10px 40px rgba(0,0,0,.08)}
+.pmc h2{text-align:center;font-size:1.3rem;margin-bottom:4px}.pmc .sub{text-align:center;color:var(--text-secondary);font-size:.85rem;margin-bottom:24px}
+.psum{background:var(--bg-light);border-radius:12px;padding:16px;margin-bottom:20px;text-align:center}
+.psum .pn{font-weight:700;font-size:1.1rem}.psum .ppr{font-size:2rem;font-weight:700;color:var(--primary);margin:4px 0}
+.pt{display:flex;gap:10px;margin-bottom:24px}.ptb{flex:1;padding:12px;border:2px solid #e0e0e0;border-radius:12px;text-align:center;cursor:pointer;font-weight:600;transition:all .2s;background:transparent}
+.ptb:hover{border-color:var(--primary)}.ptb.act{border-color:var(--primary);background:var(--primary-light)}
+.qa{text-align:center;min-height:260px}.qa canvas{display:inline-block;border:1px solid #eee;border-radius:12px;padding:12px;background:#fff}
+.qa .ad{font-size:1.8rem;font-weight:700;color:#e44d26;margin:12px 0}
+.qa .tip{color:var(--text-secondary);font-size:.85rem;margin:8px 0}
+.sp{text-align:center;padding:20px;color:var(--text-secondary)}
+.sp .spinner{display:inline-block;width:32px;height:32px;border:3px solid #e0e0e0;border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ss{text-align:center;padding:30px}.ss .icon{font-size:4rem;margin-bottom:12px}.ss h3{color:#27ae60;margin-bottom:8px}
+.bl{display:block;text-align:center;margin-top:16px;color:var(--text-secondary);cursor:pointer;font-size:.85rem}
+.hint{display:none;text-align:center;margin-top:12px;padding:12px;background:#f0f7ff;border-radius:10px;font-size:.85rem;color:#667eea}
+</style></head><body>
+<div class="pmp"><div class="pmc"><h2>🛒 收银台</h2><p class="sub">支付成功后 License 自动激活</p>
+<div class="psum"><div class="pn" id="planName">Pro</div><div class="ppr" id="planPrice">¥99.00</div><div style="color:var(--text-secondary);font-size:.85rem">/月</div></div>
+<div class="pt"><button class="ptb act" data-method="wechat" onclick="selM('wechat')">💚 微信支付</button><button class="ptb" data-method="alipay" onclick="selM('alipay')">💙 支付宝</button></div>
+<div class="qa" id="payArea"><div class="sp"><div class="spinner"></div><p>正在生成支付订单...</p></div></div>
+<div class="hint" id="hint">💡 支付成功后 <strong>无需手动操作</strong>，License 将自动激活</div></div>
+<a class="bl" id="backLink" onclick="goBack()">← 返回</a></div>
+<script>
+let plan='pro',method='wechat',timer=null,otn='',mode='new';
+document.addEventListener('page:loaded',function(e){const p=e.detail.params||{};if(p.mode)mode=p.mode;if(p.plan){plan=p.plan;document.getElementById('planName').textContent=plan==='pro'?'Pro':'Enterprise';document.getElementById('planPrice').textContent=plan==='pro'?'¥99.00':'¥299.00'}const bl=document.getElementById('backLink');bl.textContent=mode==='renew'?'← 返回仪表盘':'← 返回套餐选择';bl.onclick=()=>{if(timer)clearInterval(timer);window.navigateTo(mode==='renew'?'dashboard':'pricing')};createOrder()});
+function selM(m){method=m;document.querySelectorAll('.ptb').forEach(t=>t.classList.remove('act'));document.querySelector(`.ptb[data-method="${m}"]`).classList.add('act');createOrder()}
+function goBack(){if(timer)clearInterval(timer);window.navigateTo(mode==='renew'?'dashboard':'pricing')}
+async function createOrder(){if(timer)clearInterval(timer);const a=document.getElementById('payArea');a.innerHTML='<div class="sp"><div class="spinner"></div><p>正在生成支付订单...</p></div>';const ep=mode==='renew'?'/api/v2/client/license/renew':'/api/v2/client/pay/create';try{const r=await window.electronAPI.api.post(ep,{plan,method});if(!r.ok||!r.data.success){a.innerHTML=`<div class="error-box">订单创建失败：${r.data?.message||'未知错误'}</div>`;return}otn=r.data.out_trade_no;if(method==='wechat')wxQR(r.data);else aliPay(r.data);document.getElementById('hint').style.display='block'}catch(e){a.innerHTML=`<div class="error-box">网络错误：${e.message}</div>`}}
+function wxQR(d){const a=document.getElementById('payArea');a.innerHTML=`<div class="ad">¥${d.amount}</div><div id="qrBox"></div><p class="tip">请使用 <strong>微信</strong> 扫一扫支付</p><p class="tip" style="font-size:.75rem;color:#bbb">扫码后请勿关闭此页面</p>`;const c=document.getElementById('qrBox');if(typeof QRCode!=='undefined'){new QRCode(c,{text:d.code_url,width:200,height:200,colorDark:'#000',colorLight:'#fff'})}else{const img=document.createElement('img');img.src=`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(d.code_url)}`;img.width=200;img.height=200;img.style.cssText='border:1px solid #eee;border-radius:12px;padding:12px;background:#fff';c.appendChild(img)}startPoll()}
+function aliPay(d){const a=document.getElementById('payArea');if(d.redirect_url){window.electronAPI.system.openExternal(d.redirect_url);a.innerHTML=`<div class="ad">¥${d.amount}</div><p class="tip">已打开支付宝收银台</p><p class="tip" style="font-size:.78rem;color:#bbb">在浏览器中完成支付后，返回此页面</p><button class="btn btn-primary" style="margin-top:16px" onclick="startPoll()">我已完成支付</button>`}else{a.innerHTML='<div class="error-box">支付宝暂不可用，请选择微信支付</div>'}}
+function startPoll(){const a=document.getElementById('payArea');const sd=document.createElement('div');sd.className='sp';sd.innerHTML='<div class="spinner"></div><p>等待支付确认中...</p>';a.appendChild(sd);let n=0;timer=setInterval(async()=>{n++;if(n>120){clearInterval(timer);a.innerHTML+='<div class="error-box">支付超时，请重新下单</div>';return}try{const r=await window.electronAPI.api.get(`/api/v2/client/pay/status/${otn}`);if(r.data?.status==='success'){clearInterval(timer);if(r.data.license)await window.electronAPI.license.update({key:r.data.license.key,plan:r.data.license.plan,status:r.data.license.status,expiryDate:r.data.license.expiry_date,remainingDays:r.data.license.remaining_days,lastVerified:new Date().toISOString(),signature:'',hasLicense:true});a.innerHTML=`<div class="ss"><div class="icon">🎉</div><h3>支付成功！</h3><p style="color:var(--text-secondary)">License 已自动激活</p><p style="font-size:.85rem;margin-top:8px">套餐：${plan.toUpperCase()} · 有效期：30天</p><button class="btn btn-primary" style="margin-top:20px" onclick="window.navigateTo('dashboard')">查看我的 License</button></div>`}else if(r.data?.status==='failed'){clearInterval(timer);a.innerHTML+=`<div class="error-box">支付失败：${r.data.message||'请重试'}</div>`}}catch(e){}},3000)}
+if(window.electronAPI)window.electronAPI.on('payment:callback',d=>{if(d.outTradeNo===otn&&d.status==='success'){if(timer)clearInterval(timer);startPoll()}});
+</script></body></html>

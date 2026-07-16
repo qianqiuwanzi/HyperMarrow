@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-HyperMarrow 藏慧 — 统一启动脚本
+智商藏不住 — 统一启动脚本
 
 用法:
   python start.py              # 生产模式：构建 UI + 启动 API (端口 8741)
@@ -157,7 +157,7 @@ def start_server(port: int, host: str = "0.0.0.0") -> int | None:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="HyperMarrow 藏慧 — 启动脚本",
+        description="智商藏不住 — 启动脚本",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 示例:
@@ -222,7 +222,7 @@ def main():
     write_pid(os.getpid())
 
     print(f"[Start] ─────────────────────────────────────────────")
-    print(f"[Start]   HyperMarrow 藏慧")
+    print(f"[Start]   智商藏不住")
     print(f"[Start]   API:  http://localhost:{args.port}/docs")
     print(f"[Start]   UI:   {ui_url}")
     print(f"[Start]   停止: python stop.py")

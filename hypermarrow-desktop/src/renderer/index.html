@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.qrserver.com; connect-src 'self' https://license.qianshi.cool http://localhost:* http://127.0.0.1:* ws://localhost:* ws://127.0.0.1:*;">
+  <title>智商藏不住</title>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="app"><div id="pageContainer"></div></div>
+<script src="js/api-client.js"></script>
+<script src="js/features.js"></script>
+<script src="js/shared.js"></script>
+<script>
+(function(){
+  const container=document.getElementById('pageContainer');
+  const routes={login:'pages/login.html',app:'pages/app.html',dashboard:'pages/dashboard.html',pricing:'pages/pricing.html',payment:'pages/payment.html',settings:'pages/settings.html'};
+  async function navigate(page,params={}){
+    window._pageParams=params;
+    try{
+      const resp=await fetch(routes[page]); if(!resp.ok) throw new Error('Load failed');
+      const html=await resp.text();
+      container.innerHTML=html;
+      // innerHTML doesn't execute <script> tags — manually recreate and execute them
+      const scripts=container.querySelectorAll('script');
+      scripts.forEach(old=>{const s=document.createElement('script');s.textContent=old.textContent;old.replaceWith(s)});
+      document.dispatchEvent(new CustomEvent('page:loaded',{detail:{page,params}}));
+    }catch(err){container.innerHTML=`<div class="error-fullscreen"><h2>加载失败</h2><p>${err.message}</p><button class="btn btn-primary" onclick="location.reload()">重试</button></div>`;}
+  }
+  window.navigateTo=navigate;
+  (async function bootstrap(){
+    const loggedIn=await window.electronAPI.auth.isLoggedIn();
+    if(loggedIn){await navigate('app');}
+    else await navigate('login');
+  })().catch(err=>{container.innerHTML=`<div class="error-fullscreen"><h2>启动失败</h2><p>${err.message}</p><button class="btn btn-primary" onclick="location.reload()">重试</button></div>`;});
+})();
+</script>
+</body>
+</html>

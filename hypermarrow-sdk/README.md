@@ -1,4 +1,4 @@
-# HyperMarrow SDK 藏慧 Agent SDK
+# HyperMarrow SDK 智商藏不住 Agent SDK
 
 Agent 集成开发包，提供两种接入模式：
 

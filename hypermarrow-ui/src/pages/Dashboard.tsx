@@ -118,7 +118,7 @@ export default function Dashboard() {
   const [displayAge, setDisplayAge] = useState(cognitive.age)
   useEffect(() => { setDisplayAge(cognitive.age) }, [cognitive.age])
 
-  if (loading) return <div style={{ padding: 100, textAlign: 'center', color: 'white' }}><div style={{ fontSize: 56, marginBottom: 16 }}>🧠</div><div style={{ fontSize: 20, fontWeight: 700 }}>藏慧晶核正在唤醒…</div><div style={{ marginTop: 8, opacity: 0.6, fontSize: 13 }}>连接记忆与学习系统</div></div>
+  if (loading) return <div style={{ padding: 100, textAlign: 'center', color: 'white' }}><div style={{ fontSize: 56, marginBottom: 16 }}>🧠</div><div style={{ fontSize: 20, fontWeight: 700 }}>智商藏不住晶核正在唤醒…</div><div style={{ marginTop: 8, opacity: 0.6, fontSize: 13 }}>连接记忆与学习系统</div></div>
   if (error) return <div style={{ ...c.card, padding: 60, textAlign: 'center', maxWidth: 500, margin: '60px auto' }}><div style={{ fontSize: 24, fontWeight: 700, color: '#e03131' }}>连接失败</div><div style={{ marginTop: 8, color: '#868e96' }}>{error}</div></div>
 
   // 人物形象：根据年龄选择

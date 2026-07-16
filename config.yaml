@@ -1,4 +1,4 @@
-# HyperMarrow 藏慧 — 统一配置
+# 智商藏不住 — 统一配置
 # 替代所有硬编码端口、路径、参数
 # 环境变量覆盖规则: HYPERMARROW_SERVER_PORT → server.port
 

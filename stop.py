@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-HyperMarrow 藏慧 — 停止脚本
+智商藏不住 — 停止脚本
 
 用法:
   python stop.py              # 停止默认端口 8741
@@ -63,7 +63,7 @@ def kill_process(pid: int, force: bool = False) -> bool:
 
 def main():
     import argparse
-    parser = argparse.ArgumentParser(description="HyperMarrow 藏慧 — 停止脚本")
+    parser = argparse.ArgumentParser(description="智商藏不住 — 停止脚本")
     parser.add_argument("--port", type=int, default=_DEFAULT_PORT)
     parser.add_argument("--force", action="store_true", help="强制终止")
     args = parser.parse_args()

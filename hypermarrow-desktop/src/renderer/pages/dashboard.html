@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<style>
+.dh{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:linear-gradient(135deg,var(--bg-dark),#16213e);color:#fff;-webkit-app-region:drag}
+.dh h1{font-size:1.1rem}.dh .acts{display:flex;gap:12px;-webkit-app-region:no-drag}
+.dh .acts button{background:rgba(255,255,255,.15);color:#fff;border:none;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:.8rem}
+.dc{max-width:640px;margin:20px auto;padding:0 20px}
+.lic-card{background:var(--card-bg);border-radius:16px;padding:28px;box-shadow:0 4px 16px rgba(0,0,0,.06);margin-bottom:16px}
+.pb{display:inline-block;padding:4px 14px;border-radius:20px;font-size:.8rem;font-weight:600;margin-bottom:16px}
+.pb-pro{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.pb-ent{background:linear-gradient(135deg,#e44d26,#f39c12);color:#fff}
+.sr{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.sd{width:12px;height:12px;border-radius:50%;display:inline-block}
+.sa{background:#27ae60}.sw{background:#f1c40f}.se{background:#e74c3c}
+.cdown{text-align:center;margin:24px 0}.cdown .days{font-size:4rem;font-weight:700;color:var(--primary);line-height:1}
+.cdown .lbl{color:var(--text-secondary);font-size:.9rem;margin-top:4px}
+.pbar{height:8px;background:#eee;border-radius:4px;margin:16px 0;overflow:hidden}
+.pbar .fill{height:100%;background:linear-gradient(90deg,var(--primary),#764ba2);border-radius:4px;transition:width .5s}
+.fill.warn{background:linear-gradient(90deg,#f39c12,#e74c3c)}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.mi .ml{font-size:.78rem;color:var(--text-secondary)}.mi .mv{font-size:1.1rem;font-weight:600}
+.ar{display:flex;gap:10px;margin-top:20px}.ar .btn{flex:1}
+.fl{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.fl li{font-size:.85rem}.fl li::before{content:'✅ ';margin-right:4px}
+.empty{text-align:center;padding:60px 20px;color:var(--text-secondary)}.empty .icon{font-size:4rem;margin-bottom:16px}
+.key{background:var(--bg-dark);color:#4ec9b0;font-family:Consolas,monospace;padding:12px 16px;border-radius:8px;font-size:.95rem;text-align:center;letter-spacing:1px;margin:12px 0;user-select:all}
+</style></head><body>
+<div class="dh"><h1>🧠 智商藏不住</h1><div class="acts"><button onclick="window.navigateTo('settings')">⚙ 设置</button><button onclick="doLogout()">退出</button></div></div>
+<div class="dc" id="dashContent"><div class="loading">加载中...</div></div>
+<script>
+document.addEventListener('page:loaded',loadDashboard);
+async function loadDashboard(){
+ try{const cached=await window.electronAPI.license.getCached();if(cached&&cached.hasLicense)render(cached);
+ const r=await window.electronAPI.api.get('/api/v2/client/license/status');
+ if(r.ok&&r.data.has_license){const d=r.data.license||{};const lic={key:d.key,plan:d.plan,status:d.status,expiryDate:d.expiry_date,remainingDays:d.remaining_days,lastVerified:new Date().toISOString(),signature:'',hasLicense:true,features:d.features||[],maxDevices:d.max_devices,currentDevices:d.current_devices};await window.electronAPI.license.update(lic);render(lic)}else renderEmpty()}catch(e){const c=await window.electronAPI.license.getCached();c&&c.hasLicense?render(c):document.getElementById('dashContent').innerHTML='<div class="error-box">加载失败，<a href="#" onclick="loadDashboard()">重试</a></div>'}}
+function render(l){const bc=l.plan==='pro'?'pb-pro':l.plan==='enterprise'?'pb-ent':'';const sc=l.status==='active'?'sa':l.status==='expired'?'se':'sw';const sl=l.status==='active'?'已激活':l.status==='expired'?'已过期':'已暂停';const pct=l.plan==='free'?100:Math.round((l.remainingDays/30)*100);const feats=(l.features&&l.features.length?l.features:(l.plan==='pro'?['basic_memory','semantic_search','rl_decision']:['basic_memory']));document.getElementById('dashContent').innerHTML=`<div class="lic-card"><span class="pb ${bc}">${l.plan.toUpperCase()}</span><div class="sr"><span class="sd ${sc}"></span><span style="font-weight:600">${sl}</span></div><div class="key">${l.key||''}</div><div class="cdown"><div class="days">${l.remainingDays>0?l.remainingDays:0}</div><div class="lbl">剩余天数</div></div><div class="pbar"><div class="fill ${l.remainingDays<=7?'warn':''}" style="width:${pct}%"></div></div><p style="text-align:center;font-size:.85rem;color:var(--text-secondary)">到期：${l.expiryDate?l.expiryDate.substring(0,10):'永久有效'}</p><div class="mg"><div class="mi"><div class="ml">设备数</div><div class="mv">${l.currentDevices||0}/${l.maxDevices||1}</div></div><div class="mi"><div class="ml">最后验证</div><div class="mv">${new Date(l.lastVerified).toLocaleDateString('zh-CN')}</div></div></div>${l.status==='active'?`<div class="ar"><button class="btn btn-primary" onclick="window.navigateTo('payment',{mode:'renew',plan:'${l.plan}'})">续费</button>${l.plan!=='enterprise'?`<button class="btn btn-outline" onclick="window.navigateTo('payment',{mode:'upgrade',plan:'enterprise'})">升级 Enterprise</button>`:''}</div>`:`<div class="ar"><button class="btn btn-primary" onclick="window.navigateTo('payment',{mode:'renew',plan:'${l.plan}'})">立即续费</button></div>`}<h4 style="margin:20px 0 10px">功能权限</h4><ul class="fl">${feats.map(f=>'<li>'+label(f)+'</li>').join('')}</ul></div>`}
+function renderEmpty(){document.getElementById('dashContent').innerHTML='<div class="empty"><div class="icon">🧠</div><h2>尚未激活 License</h2><p>选择一个套餐开始使用</p><button class="btn btn-primary" style="margin-top:20px" onclick="window.navigateTo(\'pricing\')">选择套餐</button></div>'}
+function label(f){const m={'basic_memory':'基础记忆','semantic_search':'语义搜索','rl_decision':'RL 决策辅助','*':'全部功能'};return m[f]||f}
+async function doLogout(){await window.electronAPI.auth.clear();window.navigateTo('login')}
+</script></body></html>

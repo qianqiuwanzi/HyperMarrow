@@ -1,4 +1,4 @@
-# HyperMarrow 藏慧 — 类人记忆与学习系统
+# 智商藏不住 — 类人记忆与学习系统
 
 > HyperMarrow = Hyper + Memory Brain — 超记忆之脑
 

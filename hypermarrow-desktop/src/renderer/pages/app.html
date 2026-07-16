@@ -1,0 +1,430 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><style>
+/* ═══════════ 全局 ═══════════ */
+:root{--pri:#667eea;--pri2:#764ba2;--t1:#2c3e50;--t2:#495057;--t3:#868e96;--t4:#adb5bd;--card:#fff;--bg:#f0f2f5}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--t1);height:100vh;overflow:hidden}
+/* ═══════════ 布局 ═══════════ */
+.app{display:flex;height:100vh}
+/* 侧边栏 */
+.sidebar{width:180px;min-width:180px;background:#1e1e2e;display:flex;flex-direction:column;user-select:none}
+.sidebar .logo{padding:20px 16px;color:#fff;font-size:.95rem;font-weight:700;border-bottom:1px solid rgba(255,255,255,.08)}
+.sidebar nav{flex:1;padding:8px 0}
+.sidebar nav .nv{display:flex;align-items:center;gap:10px;padding:12px 16px;color:rgba(255,255,255,.55);cursor:pointer;font-size:.85rem;transition:all .15s;border-left:3px solid transparent}
+.sidebar nav .nv:hover{color:#fff;background:rgba(255,255,255,.05)}
+.sidebar nav .nv.act{color:#fff;background:rgba(102,126,234,.2);border-left-color:var(--pri)}
+.sidebar nav .nv .nvi{font-size:1.1rem;width:22px;text-align:center}
+.sidebar .bot{border-top:1px solid rgba(255,255,255,.08);padding:8px 0}
+.sidebar .bot .nv{font-size:.82rem;color:rgba(255,255,255,.75);justify-content:center}
+.sidebar .bot .nv:hover{color:#fff}
+.sidebar .bot .nv.act{color:#fff;justify-content:center}
+/* 主区域 */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+/* Banner */
+.banner{display:flex;justify-content:space-between;align-items:center;padding:12px 24px;background:#fff;border-bottom:1px solid #e8e8e8;gap:12px}
+.banner .bl{display:flex;align-items:center;gap:10px}
+.pn{display:inline-block;padding:4px 14px;border-radius:20px;font-size:.78rem;font-weight:700}
+.pn-free{background:rgba(102,126,234,.12);color:var(--pri)}
+.pn-pro{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.pn-ent{background:linear-gradient(135deg,#e44d26,#f39c12);color:#fff}
+.lic-txt{font-size:.78rem;color:var(--t3)}
+.btn-sm{padding:7px 14px;border-radius:6px;font-size:.78rem;cursor:pointer;border:none;font-weight:600;transition:all .2s;white-space:nowrap}
+.btn-sm:hover{transform:translateY(-1px)}
+.btn-ghost{background:rgba(102,126,234,.08);color:var(--pri)}
+.btn-up{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+/* 内容区 */
+.content{flex:1;overflow-y:auto;padding:20px 24px}
+.panel{display:none}.panel.act{display:block}
+/* ═══════════ 通用组件 ═══════════ */
+.card{background:#fff;border-radius:12px;padding:18px 22px;box-shadow:0 1px 4px rgba(0,0,0,.04);margin-bottom:14px}
+.card-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #f0f0f0}
+.card-hd .t{font-size:.95rem;font-weight:700}
+.badge{padding:4px 12px;border-radius:12px;font-size:.72rem;font-weight:600;color:#fff}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.pbar{margin:8px 0}.pbar .row{display:flex;justify-content:space-between;margin-bottom:4px;font-size:.78rem}
+.pbar .track{background:#f0f0f0;height:18px;border-radius:9px;overflow:hidden}
+.pbar .fill{height:100%;border-radius:9px;transition:width 1s ease}
+.tg{display:inline-block;padding:3px 10px;border-radius:10px;font-size:.7rem;font-weight:600;margin:2px}
+/* 记忆卡片 */
+.mc{background:#f8f9fa;border-left:3px solid var(--pri);padding:10px 12px;margin:6px 0;border-radius:6px;font-size:.78rem}
+.mc .t{font-size:.68rem;color:var(--t4)}
+/* Agent 卡片 */
+.ac{background:#f8f9fa;border-radius:12px;padding:16px;border:2px solid transparent}
+.ac.live{border-color:rgba(64,192,87,.4);box-shadow:0 0 12px rgba(64,192,87,.1)}
+.ac .ah{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.ac .av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;font-weight:700}
+.ac .a2{display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:.73rem;color:var(--t2)}
+/* Hero */
+.hero{display:flex;align-items:center;gap:24px;flex-wrap:wrap;padding:8px 0}
+.hero .age{text-align:center;min-width:80px}
+.hero .age-num{font-size:2.8rem;font-weight:900;color:var(--pri);line-height:1;font-family:Georgia,serif}
+.hero .age-lbl{font-size:.68rem;color:var(--t3);font-weight:600;margin-top:2px}
+.hero .info{flex:1;min-width:200px}
+.hero .info .desc{color:var(--t2);font-size:.82rem;line-height:1.5;margin-top:6px}
+.hero .kpi{display:flex;gap:16px}
+.hero .kpi .v{text-align:center}
+.hero .kpi .vn{font-size:1.5rem;font-weight:900;font-family:Georgia,serif}
+.hero .kpi .vl{font-size:.65rem;color:var(--t4)}
+/* 锁遮罩 */
+.locked{position:relative}.locked .lock-ov{position:absolute;inset:0;background:rgba(255,255,255,.7);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;backdrop-filter:blur(1px)}
+.lock-ov .lo-btn{margin-top:8px;padding:6px 18px;border-radius:16px;background:var(--pri);color:#fff;border:none;cursor:pointer;font-size:.75rem;font-weight:600}
+/* 搜索 */
+.sbox{display:flex;gap:8px}.sbox input{flex:1;padding:10px 14px;border-radius:8px;border:2px solid #e0e0e0;font-size:.82rem;outline:none}.sbox input:focus{border-color:var(--pri)}
+/* Modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal-box{background:#fff;border-radius:16px;padding:28px;max-width:750px;width:90%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);position:relative}
+.modal-box .mclose{position:absolute;top:14px;right:18px;font-size:1.4rem;cursor:pointer;color:var(--t3);background:none;border:none}
+.modal-box .mclose:hover{color:var(--t1)}
+.modal-box h3{font-size:1.2rem;margin-bottom:6px}
+.modal-box .msub{font-size:.82rem;color:var(--t3);margin-bottom:18px}
+.pc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pc-item{background:#f8f9fa;border-radius:12px;padding:22px 16px;text-align:center}
+.pc-item.cur{border:2px solid var(--pri);background:#fff;box-shadow:0 2px 12px rgba(102,126,234,.15)}
+.pc-item.cur::after{content:'当前套餐';display:block;margin-top:10px;font-size:.7rem;color:var(--pri);font-weight:700}
+.pc-item h4{font-size:1rem;margin-bottom:8px}
+.pc-item .pr{font-size:1.8rem;font-weight:700;color:var(--pri);margin-bottom:2px}
+.pc-item .pr span{font-size:.75rem;color:var(--t3);font-weight:400}
+.pc-item ul{list-style:none;text-align:left;margin:14px 0;font-size:.78rem;line-height:2}
+.pc-item ul li.y{color:var(--t1)}.pc-item ul li.n{color:#ccc}
+.pc-item .pc-btn{display:block;width:100%;padding:10px;border-radius:8px;border:none;font-size:.8rem;font-weight:600;cursor:pointer}
+.pc-item .pc-btn.up{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.pc-item .pc-btn.cur-btn{background:var(--bg);color:var(--t3);cursor:default}
+.ptb{flex:1;padding:10px;border:2px solid #e0e0e0;border-radius:10px;text-align:center;cursor:pointer;font-weight:600;font-size:.82rem;background:transparent;transition:all .2s}
+.ptb:hover{border-color:var(--pri)}.ptb.act{border-color:var(--pri);background:rgba(102,126,234,.08)}
+/* Avatar */
+.avatar-btn{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;cursor:pointer;position:relative}
+.avatar-btn:hover{box-shadow:0 2px 8px rgba(102,126,234,.4)}
+.user-drop{position:absolute;top:40px;right:0;background:#fff;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.15);padding:16px;min-width:180px;z-index:100;display:none}
+.user-drop.show{display:block}
+.user-drop .un{font-size:.85rem;font-weight:600;margin-bottom:4px}
+.user-drop .up{font-size:.75rem;color:var(--t3);margin-bottom:12px}
+.user-drop .ub{display:block;width:100%;padding:8px 0;border:none;background:none;cursor:pointer;font-size:.78rem;text-align:left;border-top:1px solid #f0f0f0;color:var(--t1)}
+.user-drop .ub:hover{color:var(--pri)}
+.user-drop .ub.danger{color:#e74c3c}
+/* Age photo */
+.age-photo{width:90px;height:120px;object-fit:contain;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.1);border:2px solid rgba(255,255,255,.6)}
+/* 加载 */
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--t3)}
+.loading .sk{width:40px;height:40px;border:3px solid #e0e0e0;border-top-color:var(--pri);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style></head><body><div class="app" id="appRoot">
+
+<!-- 侧边栏 -->
+<div class="sidebar">
+  <div class="logo">🧠 智商藏不住</div>
+  <nav>
+    <div class="nv act" data-panel="overview"><span class="nvi">🏠</span>总览</div>
+    <div class="nv" data-panel="memory"><span class="nvi">🧠</span>记忆系统</div>
+    <div class="nv" data-panel="learning"><span class="nvi">🎯</span>学习引擎</div>
+  </nav>
+  <div class="bot">
+    <div class="nv" data-panel="settings"><span class="nvi">⚙</span>设置</div>
+  </div>
+</div>
+
+<!-- 主区域 -->
+<div class="main">
+  <div class="banner">
+    <div class="bl">
+      <span class="pn" id="planBadge">FREE</span>
+      <span class="lic-txt" id="licLabel"></span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="btn-sm btn-ghost" id="upBtn" onclick="doUpgrade()">⚡ 升级</button>
+      <div class="avatar-btn" id="avatarBtn" onclick="toggleUserMenu()" title="用户菜单"></div>
+      <div class="user-drop" id="userDrop">
+        <div class="un" id="userName">-</div>
+        <div class="up" id="userPhone">-</div>
+        <button class="ub" onclick="closeUserMenu();showPricing()">📋 版本升级</button>
+        <button class="ub danger" onclick="if(confirm('确定退出登录？')){window.electronAPI.auth.clear();location.reload();}">退出登录</button>
+      </div>
+    </div>
+  </div>
+  <div class="content" id="contentArea">
+    <div class="loading" id="loadingView"><div class="sk"></div><div style="font-size:.9rem;font-weight:600">智商藏不住晶核正在唤醒…</div><div style="font-size:.75rem;margin-top:4px;opacity:.6">连接记忆与学习系统</div></div>
+    <div class="panel act" id="panel-overview"></div>
+    <div class="panel" id="panel-memory"></div>
+    <div class="panel" id="panel-learning"></div>
+    <div class="panel" id="panel-settings"></div>
+  </div>
+</div>
+
+<!-- 支付弹窗 -->
+<div class="modal-overlay" id="payModal" onclick="if(event.target===this)closePay()">
+  <div class="modal-box" style="max-width:460px">
+    <button class="mclose" onclick="closePay()">✕</button>
+    <h3>🛒 收银台</h3>
+    <p class="msub">支付成功后 License 自动激活</p>
+    <div style="background:#f0f2f5;border-radius:10px;padding:14px;text-align:center;margin-bottom:16px">
+      <div style="font-weight:700;font-size:1rem" id="payPlanName">Pro</div>
+      <div style="font-size:1.8rem;font-weight:700;color:var(--pri)" id="payPlanPrice">¥99.00</div>
+      <div style="font-size:.75rem;color:var(--t3)">/月</div>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+      <button class="ptb act" data-m="wechat" onclick="selPayMethod('wechat')">💚 微信支付</button>
+      <button class="ptb" data-m="alipay" onclick="selPayMethod('alipay')">💙 支付宝</button>
+    </div>
+    <div id="payArea" style="text-align:center;min-height:200px"></div>
+    <div id="payHint" style="display:none;text-align:center;margin-top:10px;padding:10px;background:#f0f7ff;border-radius:8px;font-size:.78rem;color:var(--pri)">支付成功后 License 将自动激活</div>
+    <button class="pc-btn" style="margin-top:12px;background:#f0f0f0;color:var(--t3);width:100%;padding:10px;border-radius:8px;border:none;cursor:pointer;font-size:.8rem" onclick="closePay()">取消</button>
+  </div>
+</div>
+
+<!-- 版本对比弹窗 -->
+<div class="modal-overlay" id="pricingModal" onclick="if(event.target===this)closePricing()">
+  <div class="modal-box">
+    <button class="mclose" onclick="closePricing()">✕</button>
+    <h3>📋 版本对比</h3>
+    <p class="msub" id="pricingSub">选择适合你的方案</p>
+    <div class="pc-grid" id="pricingGrid"></div>
+  </div>
+</div>
+
+<script>
+const MRI='http://127.0.0.1:8741/api/v1',F=p=>fetch(MRI+p).then(r=>r.json()).catch(()=>null);
+let _data=null,_lic=null;
+
+// ═══════════ 导航切换 ═══════════
+document.querySelectorAll('.nv[data-panel]').forEach(el=>{
+  el.addEventListener('click',()=>{
+    document.querySelectorAll('.nv[data-panel]').forEach(x=>x.classList.remove('act'));
+    el.classList.add('act');
+    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('act'));
+    document.getElementById('panel-'+el.dataset.panel).classList.add('act');
+  });
+});
+
+// ═══════════ 初始化 ═══════════
+document.addEventListener('page:loaded',async()=>{
+  try{const r=await window.electronAPI.api.get('/api/v2/client/license/status');
+    if(r.ok&&r.data)_lic=r.data;else{const c=await window.electronAPI.license.getCached();if(c)_lic={has_license:c.hasLicense,license:c};}
+  }catch(e){const c=await window.electronAPI.license.getCached();if(c)_lic={has_license:c.hasLicense,license:c};}
+  updateBanner();
+  loadData();
+});
+
+function updateBanner(){
+  const lic=(_lic&&_lic.license)?_lic.license:{plan:'free',status:'active',remaining_days:0};
+  const plan=lic.plan||'free',days=lic.remaining_days||0;
+  const b=document.getElementById('planBadge');b.textContent=plan==='enterprise'?'ENTERPRISE':plan==='pro'?'PRO':'FREE';
+  b.className='pn pn-'+(plan==='enterprise'?'ent':plan==='pro'?'pro':'free');
+  document.getElementById('licLabel').textContent=plan==='free'?'🎁 社区版':('🔐 商业版 · 剩余 '+days+' 天');
+  const ub=document.getElementById('upBtn');
+  if(plan==='enterprise')ub.style.display='none';else ub.textContent='⚡ 升级';
+}
+
+async function loadData(){
+  const[m,l,g,rules,eps,ags,hm,cal,dream,sk,ach]=await Promise.all([
+    F('/memory/overview'),F('/learning/overview'),F('/kg/graph'),F('/pm/rules'),F('/em/timeline?limit=60'),
+    F('/agents'),F('/ql/heatmap'),F('/meta/calibration'),F('/dream/status'),F('/skills/list'),F('/achievements')
+  ]);
+  if(!m&&!l){document.getElementById('loadingView').innerHTML='<div style="text-align:center;color:var(--t3);padding:40px">⚠ 无法连接记忆系统<br><small>请确保 python start.py 已启动</small></div>';return;}
+  _data={m:m||{},l:l||{},g,rules:rules||[],eps:eps||[],ags:ags||[],hm,cal,dream,skills:Object.values(sk||{}),ach:ach?.achievements||[]};
+  document.getElementById('loadingView').style.display='none';
+  renderAll();
+  try{new WebSocket('ws://127.0.0.1:8741/ws').onmessage=e=>{const d=JSON.parse(e.data);if(_data){_data.l={..._data.l,q_learning:{..._data.l.q_learning,nonzero:d.ql_nonzero,buffer:d.ql_buffer},metacognition:{..._data.l.metacognition,health:d.health,accuracy:d.accuracy,score:d.score}};}};}catch(e){}
+}
+
+// ═══════════ 全量渲染 ═══════════
+function renderAll(){
+  const d=_data;const m=d.m,l=d.l;
+  const qlpct=l?.q_learning?.nonzero_pct||0,qlnz=l?.q_learning?.nonzero||0;
+  const entities=d.g?.nodes||[];
+  const cog=calcCognitive(m,l);
+  const plan=(_lic&&_lic.license)?_lic.license.plan||'free':'free';
+  const feats=(_lic&&_lic.license&&_lic.license.features)?_lic.license.features:['basic_memory','knowledge_graph'];
+  const avail=fid=>feats.includes(fid)||feats.includes('*');
+
+  document.getElementById('panel-overview').innerHTML=renderOverview(cog,m,qlnz,d.rules.length,qlpct,d.ach)+renderAgents(d.ags,l);
+  document.getElementById('panel-memory').innerHTML=renderMemory(m,d.eps,d.rules,entities,avail);
+  document.getElementById('panel-learning').innerHTML=renderLearning(l,m,qlpct,qlnz,d.hm,d.cal,d.dream,d.skills,avail);
+  document.getElementById('panel-settings').innerHTML=renderSettingsPanel();
+  initSettings();
+  window._doSearch=()=>{const q=document.getElementById('searchInput').value.trim();if(!q)return;F('/search?q='+encodeURIComponent(q)+'&limit=5').then(r=>{const el=document.getElementById('searchResult');if(!r){el.innerHTML='搜索失败';return;}el.innerHTML=(r.kg||[]).map(e=>'<span class="tg" style="background:rgba(102,126,234,.1);color:#667eea">'+e.name+' ('+e.type+')</span>').join('')+(r.em||[]).map(e=>'<div style="margin-top:3px;color:var(--t3);font-size:.75rem">['+e.outcome+'] '+e.what.slice(0,60)+'</div>').join('');}).catch(()=>{});};
+}
+
+// ═══════════ 面板渲染函数 ═══════════
+
+function renderOverview(cog,m,qlnz,rulesLen,qlpct,ach){
+  const kpis=[{v:m?.knowledge_graph?.entities||0,l:'知识实体',c:'#667eea'},{v:qlnz,l:'已学习状态',c:'#764ba2'},{v:m?.p3_episodic_memory?.total||0,l:'情景记忆',c:'#51cf66'},{v:rulesLen,l:'程序规则',c:'#ff922b'}];
+  const tags=['#fcc2d7','#d0bfff','#a5d8ff','#ffd8a8'];
+  const lic=(_lic&&_lic.license)?_lic.license:{plan:'free',remaining_days:0,status:'active'};
+  const plan=lic.plan||'free';
+  var ageImg=ageImgFor(cog.age);
+  const h=`<div class="card" style="margin-bottom:14px">
+    <div class="hero">
+      <div class="age"><img class="age-photo" src="${ageImg}" alt="${cog.age}岁" onerror="this.style.display='none'"><div class="age-lbl">${cog.stage}·${cog.age}岁</div></div>
+      <div class="info">
+        <div style="display:flex;align-items:baseline;gap:4px"><span style="font-size:2.2rem;font-weight:900;color:#667eea;font-family:Georgia,serif">${cog.age}</span><span style="color:var(--t3)">岁 — 相当于人类${cog.age<=5?'幼儿':cog.age<=8?'儿童':cog.age<=12?'少年':'青少年'}</span></div>
+        <div style="margin-top:6px;display:flex;align-items:center;gap:6px"><span style="font-size:.65rem;color:var(--t4)">${cog.age}岁</span><div style="flex:1;height:5px;background:#e9ecef;border-radius:3px;overflow:hidden"><div style="width:${Math.min(100,cog.age*10)}%;height:100%;background:linear-gradient(90deg,#667eea,#764ba2);border-radius:3px"></div></div><span style="font-size:.65rem;color:var(--pri);font-weight:600">${cog.age+1}岁</span></div>
+        <div class="desc">${cog.desc}</div>
+        ${cog.traits.length?`<div style="margin-top:6px">${cog.traits.map((t,i)=>'<span class="tg" style="background:'+tags[i%4]+'20;color:'+tags[i%4]+'">'+t+'</span>').join('')}</div>`:''}
+      </div>
+      <div class="kpi">${kpis.map(k=>'<div class="v"><div class="vn" style="color:'+k.c+'">'+k.v+'</div><div class="vl">'+k.l+'</div></div>').join('')}</div>
+    </div>
+  </div>
+  ${ach.length?`<div style="margin-bottom:14px">${ach.map(a=>'<span class="tg" style="background:#fff;padding:6px 14px;border-radius:16px;font-size:.73rem;box-shadow:0 1px 3px rgba(0,0,0,.04)">'+a.icon+' '+a.title+(a.level>=2?' <span style="font-size:.65rem;background:#667eea;color:#fff;border-radius:6px;padding:1px 5px;font-weight:700">Lv'+a.level+'</span>':'')+'</span>').join('')}</div>`:''}
+  <div class="card"><div style="font-weight:700;margin-bottom:12px">📊 记忆分布</div><div class="grid3">${distBars(m,rulesLen,qlpct)}</div></div>`;
+  return h;
+}
+
+function renderMemory(m,eps,rules,entities,avail){
+  const pos=[{l:'45%',t:'35%'},{l:'70%',t:'15%'},{l:'20%',t:'55%'},{l:'65%',t:'60%'},{l:'35%',t:'10%'},{l:'15%',t:'25%'}];
+  const icons=['📦','💡','🎬','⚙️','🔧','📄'];const ents=(entities||[]).slice(0,6);
+  var h='<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:14px\">';
+  h+='<div class=\"card'+(avail('basic_memory')?'':' locked')+'\"><div class=\"card-hd\"><span style=\"display:flex;align-items:center;gap:8px\"><span style=\"font-size:1.1rem\">📒</span><span class=\"t\">情景记忆</span></span><span class=\"badge\" style=\"background:#667eea\">'+(m?.p3_episodic_memory?.total??0)+' 条</span></div>';
+  eps.slice(0,4).forEach(function(e){h+='<div class=\"mc\"><div class=\"t\">'+(e.when||'').slice(0,16)+'</div>'+e.what+'</div>';});
+  if(!avail('basic_memory'))h+=lockHTML('pro');
+  h+='</div>';
+  h+='<div class=\"card'+(avail('basic_memory')?'':' locked')+'\"><div class=\"card-hd\"><span style=\"display:flex;align-items:center;gap:8px\"><span style=\"font-size:1.1rem\">📝</span><span class=\"t\">程序记忆</span></span><span class=\"badge\" style=\"background:#51cf66\">'+rules.length+' 条</span></div>';
+  rules.slice(0,3).forEach(function(r){var pct=(r.success_rate||0)*100;h+='<div style=\"margin:8px 0\"><div style=\"display:flex;justify-content:space-between;margin-bottom:4px\"><span style=\"font-size:.82rem;font-weight:600\">'+r.name+'</span><span style=\"font-size:.72rem;color:'+((r.success_rate||0)>=0.7?'#40c057':'#fd7e14')+';font-weight:700\">'+pct.toFixed(0)+'%</span></div><div class=\"pbar\"><div class=\"track\"><div class=\"fill\" style=\"width:'+pct+'%;background:linear-gradient(90deg,#667eea,#764ba2)\"></div></div></div><div style=\"font-size:.65rem;color:var(--t4)\">'+(r.attempts||0)+' 次应用</div></div>';});
+  if(!avail('basic_memory'))h+=lockHTML('pro');
+  h+='</div>';
+  h+='<div class=\"card'+(avail('knowledge_graph')?'':' locked')+'\"><div class=\"card-hd\"><span style=\"display:flex;align-items:center;gap:8px\"><span style=\"font-size:1.1rem\">🕸️</span><span class=\"t\">知识图谱</span></span><span class=\"badge\" style=\"background:#764ba2\">'+(m?.knowledge_graph?.entities??0)+' 实体</span></div>';
+  h+='<div style=\"height:180px;background:#f8f9fa;border-radius:8px;position:relative;overflow:hidden\">';
+  ents.forEach(function(e,i){h+='<div title=\"'+e.name+'\" style=\"position:absolute;left:'+pos[i].l+';top:'+pos[i].t+';background:#fff;border:2.5px solid #667eea;border-radius:50%;width:50px;height:50px;display:flex;align-items:center;justify-content:center;font-size:18px;transform:translate(-50%,-50%);z-index:2\">'+icons[i]+'</div>';});
+  h+='</div>';
+  if(!avail('knowledge_graph'))h+=lockHTML('pro');
+  h+='</div>';
+  h+='<div class=\"card\"><div class=\"card-hd\"><span style=\"display:flex;align-items:center;gap:8px\"><span style=\"font-size:1.1rem\">🔍</span><span class=\"t\">记忆搜索</span></span><span class=\"badge\" style=\"background:#667eea\">'+(m?.p2_vector_memory?.total_vectors??0)+' 向量</span></div>';
+  h+='<div class=\"sbox\"><input id=\"searchInput\" placeholder=\"搜索实体、情景...\" onkeydown=\"if(event.key===&quot;Enter&quot;)window._doSearch()\"><button onclick=\"window._doSearch()\" class=\"btn-sm btn-up\" style=\"border-radius:8px;padding:9px 16px\">搜索</button></div>';
+  h+='<div id=\"searchResult\" style=\"margin-top:8px;font-size:.75rem\"></div></div>';
+  h+='<div class=\"card\"><div class=\"card-hd\"><span style=\"display:flex;align-items:center;gap:8px\"><span style=\"font-size:1.1rem\">📝</span><span class=\"t\">便签板</span></span><span class=\"badge\" style=\"background:'+(m?.p1_working_memory?.task?'#40c057':'#adb5bd')+'\">'+(m?.p1_working_memory?.task?'活跃':'空闲')+'</span></div>';
+  h+='<div style=\"font-size:.8rem;line-height:2\"><div>📌 <b>'+(m?.p1_working_memory?.task||'空闲')+'</b></div><div>🎯 '+(m?.p1_working_memory?.goal||'无目标')+'</div><div>📚 栈深: '+(m?.p1_working_memory?.stack_depth??0)+' | 🔑 '+(m?.p1_working_memory?.context_keys||[]).slice(0,5).join(' · ')+'</div></div></div>';
+  h+='</div>';
+  return h;
+}
+
+function renderLearning(l,m,qlpct,qlnz,hm,cal,dream,skills,avail){
+  const items=[{l:'健康分',v:(l?.metacognition?.score?.toFixed(0)||'?')+'%',c:'#667eea'},{l:'ECE',v:cal?.ece?.toFixed(4)||'?',c:(cal?.ece||0)<.1?'#40c057':'#fd7e14'},{l:'决策数',v:l?.metacognition?.decisions||0,c:'#764ba2'},{l:'准确率',v:((l?.metacognition?.accuracy*100).toFixed(0))+'%',c:'#51cf66'},{l:'连续失败',v:l?.metacognition?.failures||0,c:l?.metacognition?.failures>2?'#e03131':'#868e96'},{l:'异常',v:l?.metacognition?.anomalies||0,c:'#adb5bd'}];
+  var h='<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:14px\">';
+  h+='<div class=\"card'+(avail('rl_decision')?'':' locked')+'\"><div class=\"card-hd\"><span style=\"display:flex;align-items:center;gap:8px\"><span style=\"font-size:1.1rem\">🎯</span><span class=\"t\">Q学习进度</span></span><span class=\"badge\" style=\"background:'+(qlpct>=50?'#40c057':'#fd7e14')+'\">'+qlpct.toFixed(0)+'%</span></div>';
+  h+='<div class=\"pbar\"><div class=\"row\"><span>Q表非零覆盖率</span><span>'+qlpct.toFixed(0)+'%</span></div><div class=\"track\"><div class=\"fill\" style=\"width:'+qlpct+'%;background:linear-gradient(90deg,#667eea,#764ba2)\"></div></div><div style=\"font-size:.65rem;color:var(--t4);margin-top:2px\">'+qlnz+'/'+(l?.q_learning?.total||700)+' 状态已学习</div></div>';
+  if(!avail('rl_decision'))h+=lockHTML('pro');
+  h+='</div>';
+  h+='<div class=\"card'+(avail('metacognition')?'':' locked')+'\"><div class=\"card-hd\"><span style=\"display:flex;align-items:center;gap:8px\"><span style=\"font-size:1.1rem\">🩺</span><span class=\"t\">自我诊断</span></span><span class=\"badge\" style=\"background:'+(l?.metacognition?.health==='good'?'#40c057':l?.metacognition?.health==='warning'?'#fd7e14':'#e03131')+'\">'+(l?.metacognition?.health||'?')+'</span></div>';
+  h+='<div class=\"grid3\">';
+  items.forEach(function(k){h+='<div style=\"text-align:center;padding:10px;background:#f8f9fa;border-radius:8px\"><div style=\"font-size:1.2rem;font-weight:900;color:'+k.c+';font-family:Georgia,serif\">'+k.v+'</div><div style=\"font-size:.65rem;color:var(--t3);margin-top:1px\">'+k.l+'</div></div>';});
+  h+='</div>';
+  if(!avail('metacognition'))h+=lockHTML('pro');
+  h+='</div>';
+  h+='<div class=\"card\"><div class=\"card-hd\"><span style=\"display:flex;align-items:center;gap:8px\"><span style=\"font-size:1.1rem\">🌙</span><span class=\"t\">记忆巩固</span></span><span class=\"badge\" style=\"background:'+(dream?.phases?'#40c057':'#adb5bd')+'\">'+(dream?.phases?'已运行':'待运行')+'</span></div>';
+  h+='<div style=\"font-size:.78rem;line-height:2\"><div>🕐 上次: <b>'+(dream?.last?.slice(0,19)||'无')+'</b></div><div>⏱️ 累计: <b>'+(dream?.total||0)+' 次</b></div></div>';
+  if(dream?.phases){h+='<div style=\"background:#f8f9fa;padding:8px;border-radius:8px;margin:6px 0;max-height:120px;overflow-y:auto;font-size:.72rem\">';Object.entries(dream.phases).filter(function(e){return e[1]>0;}).forEach(function(e){h+='<div>✅ '+e[0]+': '+e[1]+'</div>';});h+='</div>';}
+  h+='<button class=\"btn-sm btn-up\" style=\"width:100%;margin-top:8px;border-radius:8px;padding:10px\" onclick=\"F(\"/dream/run\").then(function(){alert(\"已完成\")}).catch(function(){})\">🌙 运行巩固</button></div>';
+  h+='<div class=\"card'+(avail('rl_decision')?'':' locked')+'\"><div class=\"card-hd\"><span style=\"display:flex;align-items:center;gap:8px\"><span style=\"font-size:1.1rem\">⚡</span><span class=\"t\">自动技能</span></span><span class=\"badge\" style=\"background:#f472b6\">'+skills.length+' 个</span></div>';
+  if(skills.length){skills.slice(0,5).forEach(function(s){h+='<div style=\"padding:6px 0;border-bottom:1px solid #f0f0f0\"><div style=\"display:flex;justify-content:space-between\"><span style=\"font-size:.78rem;font-weight:600\">'+s.action+'</span><span style=\"font-size:.68rem;color:var(--t3)\">'+s.success_count+' 次</span></div><div style=\"font-size:.68rem;color:var(--t4)\">'+(s.context_patterns||[]).slice(0,4).join(', ')+'</div></div>';});}else{h+='<div style=\"color:var(--t4);padding:12px;text-align:center\">暂无</div>';}
+  if(!avail('rl_decision'))h+=lockHTML('pro');
+  h+='</div>';
+  h+='<div class=\"card'+(avail('cross_agent')?'':' locked')+'\"><div class=\"card-hd\"><span style=\"display:flex;align-items:center;gap:8px\"><span style=\"font-size:1.1rem\">🔄</span><span class=\"t\">知识迁移</span></span><span class=\"badge\" style=\"background:#667eea\">'+(l?.transfer?.total_transfers||0)+' 次</span></div>';
+  h+='<div style=\"font-size:.78rem;line-height:2\"><div>📦 档案: <b>'+(l?.transfer?.total_profiles||0)+'</b></div><div>🔁 迁移: <b>'+(l?.transfer?.total_transfers||0)+' 次</b></div></div>';
+  if(!avail('cross_agent'))h+=lockHTML('enterprise');
+  h+='</div>';
+  h+='<div class=\"card'+(avail('vector_memory')?'':' locked')+'\"><div class=\"card-hd\"><span style=\"display:flex;align-items:center;gap:8px\"><span style=\"font-size:1.1rem\">🧬</span><span class=\"t\">高级认知</span></span><span class=\"badge\" style=\"background:'+(l?.world_model?.train_steps>0?'#40c057':l?.neural?.train_steps>0?'#fd7e14':'#adb5bd')+'\">'+(l?.world_model?.train_steps>0?'活跃':l?.neural?.train_steps>0?'部分活跃':'待机')+'</span></div>';
+  h+='<div style=\"font-size:.78rem;line-height:2\"><div>🌍 世界模型: '+(l?.world_model?.train_steps>0?'<b>'+l?.world_model?.train_steps+' 步</b>':'<span style=\"color:#fd7e14\">就绪</span>')+'</div><div>🧠 神经: '+(l?.neural?.train_steps>0?'<b>'+l?.neural?.train_steps+' 步</b>':'<span style=\"color:var(--t4)\">未启用</span>')+'</div><div>⚙️ 元学习: '+(l?.meta_learner?.adjustments||0)+' 次 | ⏰ 前瞻: '+(m?.prospective?.active||0)+'活/'+(m?.prospective?.completed||0)+'完</div></div>';
+  if(!avail('vector_memory'))h+=lockHTML('enterprise');
+  h+='</div></div>';
+  return h;
+}
+
+function renderAgents(ags,l){
+  const sc={'connected':'#40c057',active:'#40c057',standby:'#fd7e14',offline:'#868e96',registered:'#adb5bd'};
+  return `<div class="grid2">${ags.map(a=>{const c=sc[a.status]||'#adb5bd',isLive=a.status==='connected',na=a.neural_active,wa=a.wm_active;
+    return`<div class="ac${isLive?' live':''}">
+      <div class="ah"><div class="av" style="background:${c}">${(a.id||'?')[0].toUpperCase()}</div><div><div style="font-weight:700">${a.id}</div><div style="font-size:.68rem;color:${c};font-weight:600">${a.status_text||a.status}</div></div><span class="badge" style="background:#667eea;margin-left:auto">${a.actions} 动作</span></div>
+      <div class="a2"><div>🧠 Q学习: <b>${a.ql_nonzero}/${a.ql_total}</b></div><div>📒 情景: <b>${a.em_episodes}</b></div><div>🩺 健康: <b style="color:${a.health==='good'?'#40c057':'#fd7e14'}">${a.health}</b></div><div>📐 准确率: <b>${(a.accuracy*100).toFixed(0)}%</b></div><div>🧬 神经: <b style="color:${na?'#40c057':'#adb5bd'}">${na?'激活':'未激活'}</b></div><div>🌍 WM: <b style="color:${wa?'#40c057':'#adb5bd'}">${wa?`${l?.world_model?.train_steps||0}步`:'就绪'}</b></div></div></div>`;}).join('')}</div>`;
+}
+
+function renderSettingsPanel(){
+  const lic=(_lic&&_lic.license)?_lic.license:{plan:'free'};
+  return `<div class="card"><div class="card-hd"><span class="t">⚙ 设置</span></div>
+    <div style="line-height:2.5;font-size:.85rem">
+    <div>📱 手机号: <b id="setPhone">-</b></div><div>🆔 用户 ID: <b id="setUid">-</b></div><div>📦 版本: <b id="setVer">-</b></div>
+    <div style="margin-top:8px"><label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="setAutoLaunch" onchange="window.electronAPI.system.setAutoLaunch(this.checked)"> 开机自启</label></div>
+    <div style="margin-top:4px"><label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="setMinTray" onchange="window.electronAPI.store.set('settings.minimizeToTray',this.checked)"> 最小化到托盘</label></div>
+    <button class="btn-sm" style="margin-top:12px;background:transparent;border:2px solid #e74c3c;color:#e74c3c;padding:8px 20px;border-radius:8px;font-weight:600;cursor:pointer" onclick="if(confirm('确定退出？')){window.electronAPI.auth.clear();location.reload();}">退出登录</button></div></div>`;
+}
+
+function initSettings(){
+  window.electronAPI.store.get('auth').then(a=>{if(a){document.getElementById('setPhone').textContent=a.phone||'-';document.getElementById('setUid').textContent=a.userId||'-';}});
+  window.electronAPI.system.getDeviceInfo().then(i=>{document.getElementById('setVer').textContent=i.version||'-';});
+  window.electronAPI.system.getAutoLaunch().then(v=>{document.getElementById('setAutoLaunch').checked=v;});
+  window.electronAPI.store.get('settings.minimizeToTray',true).then(v=>{document.getElementById('setMinTray').checked=v;});
+}
+
+// ═══════════ 工具函数 ═══════════
+function calcCognitive(m,l){
+  const kg=m?.knowledge_graph?.entities||0,rels=m?.knowledge_graph?.relationships||0;
+  const qlpct=l?.q_learning?.nonzero_pct||0,em=m?.p3_episodic_memory?.total||0,pm=m?.procedural_memory?.total_rules||0;
+  const ece=l?.metacognition?.ece??.5,acc=l?.metacognition?.accuracy||0;
+  const neural=l?.neural?.train_steps>0,wm=l?.world_model?.train_steps>0;
+  let age=3;
+  if(kg>=3)age++;if(kg>=10)age++;if(kg>=30)age+=2;
+  if(rels>=5)age++;if(rels>=20)age++;
+  if(qlpct>=20)age++;if(qlpct>=40)age++;if(qlpct>=60)age+=2;
+  if(em>=10)age++;if(em>=50)age++;
+  if(pm>=5)age++;
+  if(ece<.3)age++;if(acc>.5)age++;
+  if(neural)age++;if(wm)age++;
+  const traits=[];
+  if(kg>=10)traits.push('能识别常见概念');if(qlpct>=30)traits.push('开始从经验中学习');
+  if(pm>=5)traits.push('形成了初步规则');if(ece<.3)traits.push('自我认知较准');
+  if(neural||wm)traits.push('具备抽象推理雏形');
+  let stage='幼儿期',desc='正在建立基础认知';
+  if(age<=5){stage='幼儿期';desc='正在建立基础认知，像人类3-5岁的幼儿一样探索世界';}
+  else if(age<=8){stage='学龄期';desc='具备了结构化的记忆和简单的学习能力，相当于6-8岁儿童';}
+  else if(age<=12){stage='少年期';desc='规则系统开始形成，能自主学习和巩固记忆，达到9-12岁水平';}
+  else{stage='青春期';desc='元认知觉醒，世界模型建立，具备抽象推理能力，相当于13-15岁青少年';}
+  return{age,stage,desc,traits};
+}
+function distBars(m,rulesLen,qlpct){
+  const total=Math.max(1,(m?.p3_episodic_memory?.total||0)+rulesLen+(m?.knowledge_graph?.entities||1));
+  return [{l:'📒 情景',v:Math.round((m?.p3_episodic_memory?.total||0)/total*100),c:'linear-gradient(90deg,#667eea,#4c6ef5)'},{l:'📝 程序',v:Math.round(rulesLen/total*100),c:'linear-gradient(90deg,#40c057,#2f9e44)'},{l:'🕸️ 图谱',v:Math.round((m?.knowledge_graph?.entities||0)/total*100),c:'linear-gradient(90deg,#fd7e14,#e8590c)'},{l:'🧠 工作',v:10,c:'linear-gradient(90deg,#cc5de8,#9c36b5)'},{l:'🎯 Q学习',v:qlpct,c:'linear-gradient(90deg,#fcc419,#f59f00)'}].map(k=>'<div class="pbar"><div class="row"><span>'+k.l+'</span><span>'+k.v+'%</span></div><div class="track"><div class="fill" style="width:'+k.v+'%;background:'+k.c+'"></div></div></div>').join('');
+}
+function lockHTML(plan){return '<div class="lock-ov"><div style="font-size:1.5rem">🔒</div><div style="font-size:.78rem;margin-top:2px">升级至 '+pName(plan)+' 解锁</div><button class="lo-btn" onclick="upgradeTo(\''+plan+'\')">⚡ 升级</button></div>';}
+function pName(p){return p==='enterprise'?'Enterprise':p==='pro'?'Pro':'Free';}
+function pPrice(p){return p==='enterprise'?299:p==='pro'?99:0;}
+function upgradeTo(plan){showPricing();}
+function doUpgrade(){showPricing();}
+function showPricing(){
+  var lic=(_lic&&_lic.license)?_lic.license:{plan:'free'};
+  var curPlan=lic.plan||'free';
+  document.getElementById('pricingSub').textContent='当前: '+(curPlan==='enterprise'?'Enterprise':curPlan==='pro'?'Pro':'Free')+' — 选择适合你的方案';
+  var plans=[
+    {plan:'free',name:'Free',price:'0',period:'永久',feats:['basic_memory','knowledge_graph']},
+    {plan:'pro',name:'Pro',price:'99',period:'/月',feats:['basic_memory','knowledge_graph','semantic_search','rl_decision','metacognition']},
+    {plan:'enterprise',name:'Enterprise',price:'299',period:'/月',feats:['basic_memory','knowledge_graph','semantic_search','rl_decision','metacognition','vector_memory','cross_agent']}
+  ];
+  var allFeats=window.FEATURES||[{id:'basic_memory',name:'基础记忆'},{id:'knowledge_graph',name:'知识图谱'},{id:'semantic_search',name:'语义搜索'},{id:'rl_decision',name:'RL决策辅助'},{id:'metacognition',name:'元认知校准'},{id:'vector_memory',name:'向量记忆'},{id:'cross_agent',name:'跨Agent迁移'}];
+  var h='';
+  plans.forEach(function(p){
+    var isCur=p.plan===curPlan;
+    h+='<div class="pc-item'+(isCur?' cur':'')+'"><h4>'+p.name+'</h4><div class="pr">¥'+p.price+'<span>'+p.period+'</span></div><ul>';
+    allFeats.forEach(function(f){
+      var inPlan=p.feats.indexOf(f.id)>=0;
+      h+='<li class="'+(inPlan?'y':'n')+'">'+(inPlan?'✓ ':'— ')+f.name+'</li>';
+    });
+    h+='</ul>';
+    if(isCur){h+='<button class="pc-btn cur-btn">当前套餐</button>';}
+    else{h+='<button class="pc-btn up" onclick="buyPlan(\''+p.plan+'\')">立即升级</button>';}
+    h+='</div>';
+  });
+  document.getElementById('pricingGrid').innerHTML=h;
+  document.getElementById('pricingModal').classList.add('show');
+}
+function closePricing(){document.getElementById('pricingModal').classList.remove('show');}
+function buyPlan(plan){closePricing();_payPlan=plan;_payMode='new';showPayModal();}
+var _payPlan='pro',_payMode='new',_payTimer=null,_payOtn='',_payMethod='wechat';
+function showPayModal(){document.getElementById('payPlanName').textContent=_payPlan==='pro'?'Pro':'Enterprise';document.getElementById('payPlanPrice').textContent=_payPlan==='pro'?'¥99.00':'¥299.00';document.getElementById('payArea').innerHTML='<div style=\"text-align:center;padding:20px\"><div class=\"sk\" style=\"margin:0 auto 10px\"></div><p style=\"font-size:.82rem;color:var(--t3)\">正在生成支付订单...</p></div>';document.getElementById('payHint').style.display='none';document.getElementById('payModal').classList.add('show');createPayOrder();}
+function closePay(){if(_payTimer)clearInterval(_payTimer);document.getElementById('payModal').classList.remove('show');}
+function selPayMethod(m){_payMethod=m;document.querySelectorAll('.ptb[data-m]').forEach(function(t){t.classList.toggle('act',t.dataset.m===m)});createPayOrder();}
+function createPayOrder(){if(_payTimer)clearInterval(_payTimer);var ep=_payMode==='renew'?'/api/v2/client/license/renew':'/api/v2/client/pay/create';window.electronAPI.api.post(ep,{plan:_payPlan,method:_payMethod}).then(function(r){var a=document.getElementById('payArea');if(!r.ok||!r.data||!r.data.success){a.innerHTML='<div class=\"error-box\">订单创建失败：'+(r.data&&r.data.message?r.data.message:r.data&&r.data.detail?r.data.detail:'未知错误 [ok='+r.ok+' status='+r.status+']')+'</div>';return;}_payOtn=r.data.out_trade_no;if(_payMethod==='wechat'){a.innerHTML='<div style=\"font-size:1.5rem;font-weight:700;color:#e44d26\">¥'+r.data.amount+'</div><div id=\"qrBox\" style=\"margin:10px auto\"></div><p style=\"font-size:.78rem;color:var(--t3)\">微信扫一扫支付</p>';var q=document.getElementById('qrBox');var img=document.createElement('img');img.src='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(r.data.code_url);img.width=200;img.height=200;img.style.cssText='border:1px solid #eee;border-radius:10px;padding:10px;background:#fff';q.appendChild(img);startPayPoll();}else{var html=r.data.redirect_url||r.data.form_html||'';if(html&&html.indexOf('<form')>=0){window.electronAPI.system.openHtml(html);a.innerHTML='<div style=\"font-size:1.5rem;font-weight:700;color:#e44d26\">¥'+r.data.amount+'</div><p style=\"font-size:.82rem;color:var(--t3);margin:10px 0\">已打开支付宝收银台</p><p style=\"font-size:.75rem;color:var(--t4)\">在浏览器中完成支付后，返回此页面</p><button class=\"btn-sm btn-up\" style=\"border-radius:8px\" onclick=\"startPayPoll()\">我已完成支付</button>';}else{a.innerHTML='<div class=\"error-box\">支付宝暂不可用，请选择微信支付</div>';}}}).catch(function(e){document.getElementById('payArea').innerHTML='<div class=\"error-box\">网络错误</div>';});}
+function startPayPoll(){var a=document.getElementById('payArea');document.getElementById('payHint').style.display='block';var n=0;_payTimer=setInterval(function(){n++;if(n>120){clearInterval(_payTimer);return}window.electronAPI.api.get('/api/v2/client/pay/status/'+_payOtn).then(function(r){if(r.data&&r.data.status==='success'){clearInterval(_payTimer);if(r.data.license)window.electronAPI.license.update({key:r.data.license.key,plan:r.data.license.plan,status:r.data.license.status,expiryDate:r.data.license.expiry_date,remainingDays:r.data.license.remaining_days,lastVerified:new Date().toISOString(),signature:'',hasLicense:true});a.innerHTML='<div style=\"text-align:center;padding:10px\"><div style=\"font-size:2.5rem\">🎉</div><h3 style=\"color:#27ae60\">支付成功！</h3><p style=\"color:var(--t3);font-size:.82rem\">License 已自动激活</p><button class=\"btn-sm btn-up\" style=\"margin-top:12px;border-radius:8px\" onclick=\"closePay();location.reload()\">查看我的 License</button></div>'}else if(r.data&&r.data.status==='failed'){clearInterval(_payTimer);a.innerHTML='<div class=\"error-box\">支付失败，请重试</div>'}}).catch(function(){});},3000);}
+function ageImgFor(age){var f='0%E5%B2%81.png';if(age<=2)f='0%E5%B2%81.png';else if(age<=6)f='3%E5%B2%81.png';else if(age<=12)f='10%E5%B2%81.png';else if(age<=17)f='15%E5%B2%81.png';else if(age<=25)f='20%E5%B2%81.png';else if(age<=35)f='30%E5%B2%81.png';else if(age<=45)f='40%E5%B2%81.png';else if(age<=60)f='50%E5%B2%81.png';else if(age<=80)f='70%E5%B2%81.png';else f='90%E5%B2%81.png';return 'ages/'+f;}
+function toggleUserMenu(){var d=document.getElementById('userDrop');d.classList.toggle('show');}
+function closeUserMenu(){var d=document.getElementById('userDrop');if(d)d.classList.remove('show');}
+function initUserMenu(){var a=null;try{window.electronAPI.store.get('auth').then(function(x){a=x;if(a){document.getElementById('avatarBtn').textContent=(a.displayName||a.phone||'?')[0].toUpperCase();document.getElementById('userName').textContent=a.displayName||a.phone||'-';document.getElementById('userPhone').textContent=a.phone||'-';}}).catch(function(){});}catch(e){}}
+document.addEventListener('page:loaded',initUserMenu);
+document.addEventListener('click',function(e){if(!e.target.closest('#avatarBtn')&&!e.target.closest('#userDrop')){var d=document.getElementById('userDrop');if(d)d.classList.remove('show');}});
+</script></body></html>

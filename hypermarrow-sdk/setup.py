@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 setup(
     name="hypermarrow-sdk",
     version="2.0.0",
-    description="HyperMarrow 藏慧 Agent SDK — 记忆与学习系统集成",
+    description="HyperMarrow 智商藏不住 Agent SDK — 记忆与学习系统集成",
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     author="HyperMarrow Team",

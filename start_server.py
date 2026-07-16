@@ -1,4 +1,4 @@
-"""HyperMarrow 藏慧 API 启动脚本 — 端口冲突安全版"""
+"""智商藏不住 API 启动脚本 — 端口冲突安全版"""
 import sys, socket
 from pathlib import Path
 
