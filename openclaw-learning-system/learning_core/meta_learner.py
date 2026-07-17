@@ -184,6 +184,9 @@ class MetaLearner:
                     "success_rate": round(recent_sr, 4),
                 },
             })
+            # Cap adjustment log to prevent unbounded growth
+            if len(self.state["adjustment_log"]) > 1000:
+                self.state["adjustment_log"] = self.state["adjustment_log"][-500:]
             self._save()
             print(f"[MetaLearner] Adjustments: {'; '.join(adjustments)}")
 

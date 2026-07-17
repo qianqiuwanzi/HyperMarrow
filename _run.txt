@@ -1,0 +1,52 @@
+﻿python : [Config] HF mirror enabled: https://hf-mirror.com
+所在位置 行:1 字符: 129
++ ... tion SilentlyContinue; python weekly_snapshot.py --force 2>&1 | Out-F ...
++                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([Config] HF mir...//hf-mirror.com:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[Config] HF cache: D:\OpenClaw\workspace\.cache\huggingface
+[Config] HF mirror enabled: https://hf-mirror.com
+[Config] HF cache: D:\OpenClaw\workspace\.cache\huggingface
+[DC Factory] Creating DC for agent 'openclaw'...
+[DecisionCheckPoint] Creating shared layer...
+[KnowledgeGraph] Loaded: 6 entities, 18 relationships
+[Consolidator] Loaded: 249 prior consolidations, last sleep: 2026-07-09T17:07:01.123854
+[ProspectiveMemory] Loaded: 0 active intentions
+[MetaLearner] Initialized: 0 prior adjustments
+[SkillExtractor] Loaded: 127 extracted skills
+[VectorDB] Initialized (lazy). Collection has 112 vectors
+[DecisionCheckPoint] Shared VectorDB: OK
+[DecisionCheckPoint] Shared layer ready: PM=\u2713 KG=\u2713 Perception=\u2713 Consolidator=\u2713 TL=\u2713 PM2=\u2713
+ ML=\u2713 SE=\u2713 VecDB=\u2713
+[WorkingMemory] Loaded: 40 recent, task=None
+[EpisodicMemory] Loaded 9 episodes
+[Q-Learning] Loaded 96/147 historical experiences into buffer (buffer_size=96)
+[Q-Learning] Initialized with state_space=100, action_space=7, auto_expand=True
+[Metacognition] Loaded: 40 calibration entries, 0 anomalies
+[WorkingMemory] Loaded: 0 recent, task=None
+[EpisodicMemory] Loaded 10 episodes
+[Q-Learning] Loaded 96/147 historical experiences into buffer (buffer_size=96)
+[Q-Learning] Initialized with state_space=100, action_space=7, auto_expand=True
+[Metacognition] Loaded: 0 calibration entries, 0 anomalies
+[AgentRegistry] Initialized: 2 agents, auto_transfer_threshold=10
+[AgentRegistry] Agent 'openclaw' already registered
+[DecisionCheckPoint] Shared VectorDB from layer: OK
+[Q-Learning] Loaded 96/147 historical experiences into buffer (buffer_size=96)
+[Q-Learning] Initialized with state_space=100, action_space=7, auto_expand=True
+[DecisionCheckPoint] QLearningAgent: buffer=96, qtable_nonzero=415/700
+[DecisionCheckPoint] Initialized agent=openclaw (vector_db=True, rl=True, isolated=True)
+[DC Factory] DC for 'openclaw': WM=True, EM=True, QL=True
+[VectorDB] Loading sentence transformer model...
+[VectorDB] Using HF mirror: https://hf-mirror.com
+[Q-Learning] Q-table loaded from JSON: shape=(100, 7), nonzero=415/700, q_sum=228.9186
+[AgentRegistry] Agent 'openclaw' created: 7 actions, 8 features, shared=鉁?
+[Q-Learning] Q-table loaded from JSON: shape=(100, 7), nonzero=39/700, q_sum=2.5613
+[AgentRegistry] Agent 'claude' created: 7 actions, 8 features, shared=鉁?
+[Q-Learning] Q-table loaded from JSON: shape=(100, 7), nonzero=415/700, q_sum=245.4125
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 13267.21it/s]
+[VectorDB] Model loaded successfully
+[snapshot] saved -> snapshot_20260709_174345.json
+[compare] 娌℃湁涓婁竴鍛ㄥ揩鐓э紝鏈懆涓哄熀绾裤€備笅鍛ㄤ竴璧峰彲鑷姩瀵规瘮銆?

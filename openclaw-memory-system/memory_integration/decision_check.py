@@ -8,7 +8,11 @@ import os
 import sys as _sys
 import json
 import re
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+
+# Shared thread pool for async record operations (prevents thread explosion)
+_record_pool = ThreadPoolExecutor(max_workers=4, thread_name_prefix="hm_record")
 from datetime import datetime
 from typing import Dict, List, Optional, Any
 
@@ -881,13 +885,9 @@ class DecisionCheckPoint:
             async_mode: If True, execute in background daemon thread (V2: non-blocking)
         """
         if async_mode:
-            import threading
-            t = threading.Thread(
-                target=self.record,
-                args=(action, context, outcome, reward, note, agent_id, False),
-                daemon=True, name=f"hm_record_{action}"
+            _record_pool.submit(
+                self.record, action, context, outcome, reward, note, agent_id, False
             )
-            t.start()
             print(f"[DC.record] Queued async: {action} -> {outcome}", file=_sys.stderr)
             return
 
@@ -1139,6 +1139,9 @@ class DecisionCheckPoint:
                 history = []
 
             history.append(entry)
+            # Cap history to prevent unbounded file growth
+            if len(history) > 5000:
+                history = history[-2000:]
 
             with open(history_path, 'w', encoding='utf-8') as f:
                 json.dump(history, f, ensure_ascii=False, indent=2)

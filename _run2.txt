@@ -1,0 +1,78 @@
+﻿python : [Config] HF mirror enabled: https://hf-mirror.com
+所在位置 行:1 字符: 39
++ ... workspace\HyperMarrow; python weekly_snapshot.py --force 2>&1 | Out-F ...
++                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([Config] HF mir...//hf-mirror.com:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[Config] HF cache: D:\OpenClaw\workspace\.cache\huggingface
+[Config] HF mirror enabled: https://hf-mirror.com
+[Config] HF cache: D:\OpenClaw\workspace\.cache\huggingface
+[DC Factory] Creating DC for agent 'openclaw'...
+[DecisionCheckPoint] Creating shared layer...
+[KnowledgeGraph] Loaded: 6 entities, 18 relationships
+[Consolidator] Loaded: 249 prior consolidations, last sleep: 2026-07-09T17:07:01.123854
+[ProspectiveMemory] Loaded: 0 active intentions
+[MetaLearner] Initialized: 0 prior adjustments
+[SkillExtractor] Loaded: 127 extracted skills
+[VectorDB] Initialized (lazy). Collection has 112 vectors
+[DecisionCheckPoint] Shared VectorDB: OK
+[DecisionCheckPoint] Shared layer ready: PM=\u2713 KG=\u2713 Perception=\u2713 Consolidator=\u2713 TL=\u2713 PM2=\u2713
+ ML=\u2713 SE=\u2713 VecDB=\u2713
+[WorkingMemory] Loaded: 40 recent, task=None
+[EpisodicMemory] Loaded 9 episodes
+[Q-Learning] Loaded 96/147 historical experiences into buffer (buffer_size=96)
+[Q-Learning] Initialized with state_space=100, action_space=7, auto_expand=True
+[Metacognition] Loaded: 40 calibration entries, 0 anomalies
+[WorkingMemory] Loaded: 0 recent, task=None
+[EpisodicMemory] Loaded 10 episodes
+[Q-Learning] Loaded 96/147 historical experiences into buffer (buffer_size=96)
+[Q-Learning] Initialized with state_space=100, action_space=7, auto_expand=True
+[Metacognition] Loaded: 0 calibration entries, 0 anomalies
+[AgentRegistry] Initialized: 2 agents, auto_transfer_threshold=10
+[AgentRegistry] Agent 'openclaw' already registered
+[DecisionCheckPoint] Shared VectorDB from layer: OK
+[Q-Learning] Loaded 96/147 historical experiences into buffer (buffer_size=96)
+[Q-Learning] Initialized with state_space=100, action_space=7, auto_expand=True
+[DecisionCheckPoint] QLearningAgent: buffer=96, qtable_nonzero=415/700
+[DecisionCheckPoint] Initialized agent=openclaw (vector_db=True, rl=True, isolated=True)
+[DC Factory] DC for 'openclaw': WM=True, EM=True, QL=True
+[VectorDB] Loading sentence transformer model...
+[VectorDB] Using HF mirror: https://hf-mirror.com
+[Q-Learning] Q-table loaded from JSON: shape=(100, 7), nonzero=415/700, q_sum=228.9186
+[AgentRegistry] Agent 'openclaw' created: 7 actions, 8 features, shared=鉁?
+[Q-Learning] Q-table loaded from JSON: shape=(100, 7), nonzero=39/700, q_sum=2.5613
+[AgentRegistry] Agent 'claude' created: 7 actions, 8 features, shared=鉁?
+[Q-Learning] Q-table loaded from JSON: shape=(100, 7), nonzero=415/700, q_sum=245.4125
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 22112.71it/s]
+[VectorDB] Model loaded successfully
+[snapshot] saved -> snapshot_20260709_174435.json
+
+馃搮 澶嶇洏鍛ㄦ湡: 2026-07-01T10:00:00  鈫? 2026-07-09T17:44:35
+
+馃 璁板繂鑳藉姏 (Memory)
+------------------------------------------------
+  鐭ヨ瘑鍥捐氨瀹炰綋鏁?               6 (涓婂懆 4, 螖+2)                      鈻?杩涙
+  鐭ヨ瘑鍥捐氨鍏崇郴鏁?               18 (涓婂懆 10, 螖+8)                    鈻?杩涙
+  鍥捐氨瀵嗗害                   60.0% (涓婂懆 60.0%, 螖+0.0%)           鈥?鎸佸钩
+  鎯呮櫙璁板繂鎬绘暟                 9 (涓婂懆 5, 螖+4)                      鈻?杩涙
+  鎴愬姛缁忛獙鏁?                 6 (涓婂懆 6, 螖+0)                      鈥?鎸佸钩
+  澶辫触缁忛獙鏁?                 1 (涓婂懆 1, 螖+0)                      鈻?鎸佸钩
+  骞冲潎閲嶈搴?                 3.11 (涓婂懆 3.11, 螖+0)                鈥?鎸佸钩
+  璇箟鍚戦噺鏁?                 112 (涓婂懆 80, 螖+32)                  鈻?杩涙
+  鎻愬彇鎶€鑳芥暟                  127 (涓婂懆 100, 螖+27)                 鈻?杩涙
+  绋嬪簭璁板繂瑙勫垯鏁?               15 (涓婂懆 15, 螖+0)                    鈥?鎸佸钩
+  璁板繂宸╁浐娆℃暟                 249 (涓婂懆 249, 螖+0)                  鈥?鎸佸钩
+
+馃帗 瀛︿範鑳藉姏 (Learning)
+------------------------------------------------
+  Q琛ㄩ潪闆堕」                  415 (涓婂懆 300, 螖+115)                鈻?杩涙
+  Q琛ㄩ潪闆剁巼                  59.3% (涓婂懆 59.3%, 螖+0.0%)           鈥?鎸佸钩
+  绱瀛︿範缁忛獙                 96 (涓婂懆 60, 螖+36)                   鈻?杩涙
+  Q鍊兼€诲拰                   245.4125 (涓婂懆 245.4125, 螖+0)        鈥?鎸佸钩
+  鎺㈢储鐜噀psilon             0.1 (涓婂懆 0.1, 螖+0)                  鈻?鎸佸钩
+  鍏冨涔犺皟鏁存鏁?               0 (涓婂懆 0, 螖+0)                      鈥?鎸佸钩
+
+[report] saved -> compare_20260709.md

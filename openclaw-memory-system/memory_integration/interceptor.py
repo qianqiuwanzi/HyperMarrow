@@ -7,9 +7,13 @@ HyperMarrow Interceptor — 消息拦截器
 """
 import sys, os
 import threading
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from datetime import datetime
 from typing import Optional
+
+# Shared thread pool for async intercept operations (prevents thread explosion)
+_intercept_pool = ThreadPoolExecutor(max_workers=4, thread_name_prefix="hm_intercept")
 
 # ── Path setup: MUST run before any memory_core imports ──────────────────────
 _HERE = Path(__file__).parent.parent  # openclaw-memory-system/
@@ -63,15 +67,11 @@ def hypermarow_intercept(user_message: str,
         return _intercept_sync(user_message, agent_response, agent_id,
                                 inherit_from, inherit_level)
     else:
-        result_holder = {}
-        t = threading.Thread(
-            target=lambda: result_holder.update(
-                _intercept_sync(user_message, agent_response, agent_id,
-                                inherit_from, inherit_level)),
-            daemon=True, name=f"hm_intercept"
+        _intercept_pool.submit(
+            _intercept_sync, user_message, agent_response, agent_id,
+            inherit_from, inherit_level
         )
-        t.start()
-        return {"status": "queued", "thread": t.name}
+        return {"status": "queued"}
 
 
 def _intercept_sync(user_message: str, agent_response: str,

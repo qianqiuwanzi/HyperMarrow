@@ -1,0 +1,47 @@
+﻿python : [Config] HF mirror enabled: https://hf-mirror.com
+所在位置 行:1 字符: 39
++ cd D:\OpenClaw\workspace\HyperMarrow; python -c "
++                                       ~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([Config] HF mir...//hf-mirror.com:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[Config] HF cache: D:\OpenClaw\workspace\.cache\huggingface
+[Config] HF mirror enabled: https://hf-mirror.com
+[Config] HF cache: D:\OpenClaw\workspace\.cache\huggingface
+[DC Factory] Creating DC for agent 'openclaw'...
+[DecisionCheckPoint] Creating shared layer...
+[KnowledgeGraph] Loaded: 6 entities, 18 relationships
+[Consolidator] Loaded: 249 prior consolidations, last sleep: 2026-07-09T17:07:01.123854
+[ProspectiveMemory] Loaded: 0 active intentions
+[MetaLearner] Initialized: 0 prior adjustments
+[SkillExtractor] Loaded: 127 extracted skills
+[VectorDB] Initialized (lazy). Collection has 112 vectors
+[DecisionCheckPoint] Shared VectorDB: OK
+[DecisionCheckPoint] Shared layer ready: PM=\u2713 KG=\u2713 Perception=\u2713 Consolidator=\u2713 TL=\u2713 PM2=\u2713
+ ML=\u2713 SE=\u2713 VecDB=\u2713
+[WorkingMemory] Loaded: 40 recent, task=None
+[EpisodicMemory] Loaded 9 episodes
+[Q-Learning] Loaded 96/147 historical experiences into buffer (buffer_size=96)
+[Q-Learning] Initialized with state_space=100, action_space=7, auto_expand=True
+[Metacognition] Loaded: 40 calibration entries, 0 anomalies
+[WorkingMemory] Loaded: 0 recent, task=None
+[EpisodicMemory] Loaded 10 episodes
+[Q-Learning] Loaded 96/147 historical experiences into buffer (buffer_size=96)
+[Q-Learning] Initialized with state_space=100, action_space=7, auto_expand=True
+[Metacognition] Loaded: 0 calibration entries, 0 anomalies
+[AgentRegistry] Initialized: 2 agents, auto_transfer_threshold=10
+[AgentRegistry] Agent 'openclaw' already registered
+[DecisionCheckPoint] Shared VectorDB from layer: OK
+[Q-Learning] Loaded 96/147 historical experiences into buffer (buffer_size=96)
+[Q-Learning] Initialized with state_space=100, action_space=7, auto_expand=True
+[DecisionCheckPoint] QLearningAgent: buffer=96, qtable_nonzero=415/700
+[DecisionCheckPoint] Initialized agent=openclaw (vector_db=True, rl=True, isolated=True)
+[DC Factory] DC for 'openclaw': WM=True, EM=True, QL=True
+[Q-Learning] Q-table loaded from JSON: shape=(100, 7), nonzero=415/700, q_sum=228.9186
+[AgentRegistry] Agent 'openclaw' created: 7 actions, 8 features, shared=鉁?
+[Q-Learning] Q-table loaded from JSON: shape=(100, 7), nonzero=39/700, q_sum=2.5613
+[AgentRegistry] Agent 'claude' created: 7 actions, 8 features, shared=鉁?
+[Q-Learning] Q-table loaded from JSON: shape=(100, 7), nonzero=415/700, q_sum=245.4125
+AUTOMATION_SUMMARY_TYPE: <class 'dict'>
+{'total_rules': 15, 'by_level': {'1': 11, '2': 3, '3': 0, '4': 0, '5': 1}, 'automatic_rules': 1, 'needs_attention': [{'rule_id': 'rule_001', 'rule_name': 'P2b涓嬭浇蹇呴』浣跨敤鎶€鑳借剼鏈?, 'level': 2, 'success_rate': 1.0}, {'rule_id': 'rule_003', 'rule_name': '浣跨敤鎶€鑳藉墠蹇呴』妫€鏌cripts鐩綍', 'level': 1, 'success_rate': 0.75}, {'rule_id': 'rule_004', 'rule_name': '鍒囨崲鎶€鑳藉墠蹇呴』鎶ュ憡鐢ㄦ埛', 'level': 1, 'success_rate': 0.67}, {'rule_id': 'rule_005', 'rule_name': '璺宠繃闃舵鍓嶅繀椤绘姤鍛婄敤鎴?, 'level': 1, 'success_rate': 0.67}, {'rule_id': 'rule_006', 'rule_name': '缁曡繃闂鍓嶅繀椤诲皾璇曚慨澶?娆″苟鎶ュ憡', 'level': 1, 'success_rate': 0.5}, {'rule_id': 'rule_007', 'rule_name': '鍐欒剼鏈墠蹇呴』妫€鏌ユ妧鑳絪cripts鐩綍', 'level': 2, 'success_rate': 1.0}, {'rule_id': 'rule_008', 'rule_name': '鎶€鑳藉垏鎹㈢姝㈣鍒?, 'level': 2, 'success_rate': 0.67}, {'rule_id': 'rule_009', 'rule_name': '闃舵闂ㄧ閬靛畧瑙勫垯', 'level': 
+N_RULES: 15

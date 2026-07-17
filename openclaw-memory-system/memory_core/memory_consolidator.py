@@ -354,6 +354,9 @@ class MemoryConsolidator:
         episode["_archived_at"] = _now()
         episode["_archive_reason"] = reason
         archive.append(episode)
+        # Cap archive to prevent unbounded file growth
+        if len(archive) > 3000:
+            archive = archive[-1500:]
         with open(ARCHIVE_FILE, 'w', encoding='utf-8') as f:
             json.dump(archive, f, ensure_ascii=False, indent=2)
 

@@ -44,6 +44,8 @@ def _init():
 
     # ── Heartbeat thread: keep agent connection alive ─────────────────────
     _start_heartbeat()
+    # ── Dream scheduler: periodic memory consolidation (prevents leaks) ────
+    _start_dream_scheduler()
 
 
 def _start_heartbeat():
@@ -73,6 +75,31 @@ def _start_heartbeat():
             time.sleep(30)
 
     t = threading.Thread(target=_beat, daemon=True, name="hm_heartbeat")
+    t.start()
+
+
+def _start_dream_scheduler():
+    """Start a daemon dream scheduler — runs consolidation every 4 hours.
+    Prevents unbounded memory growth in long-running SDK processes.
+    Mirrors the API server's _dream_scheduler behavior."""
+    _dream_started = getattr(_start_dream_scheduler, '_started', False)
+    if _dream_started:
+        return
+    _start_dream_scheduler._started = True
+
+    def _schedule():
+        import time as _time
+        _time.sleep(300)  # Wait 5 min after startup before first cycle
+        while True:
+            try:
+                _init()
+                _DC.consolidator.dream_cycle(force=True)
+                print(f"[Dream Scheduler] Cycle completed — memory pruned", flush=True)
+            except Exception as e:
+                print(f"[Dream Scheduler] Failed: {e}", flush=True)
+            _time.sleep(14400)  # Every 4 hours
+
+    t = threading.Thread(target=_schedule, daemon=True, name="hm_dream_scheduler")
     t.start()
 
 

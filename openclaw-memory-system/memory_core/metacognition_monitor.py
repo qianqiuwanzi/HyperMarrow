@@ -110,6 +110,9 @@ class MetacognitionMonitor:
             "calibrated": actual_outcome == "success" and predicted_confidence > 0.5,
         }
         self.calibration["entries"].append(entry)
+        # Cap entries to prevent unbounded memory growth
+        if len(self.calibration["entries"]) > 5000:
+            self.calibration["entries"] = self.calibration["entries"][-2000:]
 
         # Track consecutive failures
         if actual_outcome == "failure":
@@ -229,6 +232,9 @@ class MetacognitionMonitor:
                 "findings": anomalies_found,
             }
             self.anomalies["anomalies"].append(anomaly)
+            # Cap anomalies to prevent unbounded memory growth
+            if len(self.anomalies["anomalies"]) > 1000:
+                self.anomalies["anomalies"] = self.anomalies["anomalies"][-500:]
             if len(self.anomalies["anomalies"]) % 5 == 0:
                 self._save(self.anomalies, self._anom_file)
             return anomaly

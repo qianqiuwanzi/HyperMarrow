@@ -164,6 +164,10 @@ class EpisodicMemoryDB:
             }
 
         self.data.append(episode)
+        # Trim old episodes to prevent unbounded memory growth
+        if len(self.data) > 500:
+            self.data = sorted(self.data, key=lambda e: e.get('importance', 0))
+            self.data = self.data[-300:]
         self._save()
         print(f"[EpisodicMemory] [{episode['episode_id']}] {outcome}/{emotion}: {what[:50]}")
 
