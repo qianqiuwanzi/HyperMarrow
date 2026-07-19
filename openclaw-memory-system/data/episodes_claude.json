@@ -16,7 +16,7 @@
         "design",
         "v2"
       ],
-      "importance": 5,
+      "importance": 4,
       "lesson": "V2核心层零改动，接入层新增3个组件",
       "duration_seconds": 0.0,
       "linked_memory_ids": [],
@@ -42,7 +42,7 @@
         "frontend",
         "visualization"
       ],
-      "importance": 5,
+      "importance": 4,
       "lesson": "Crystal Core: FastAPI后端20端点 + React前端16模块",
       "duration_seconds": 0.0,
       "linked_memory_ids": [],
@@ -68,7 +68,7 @@
         "frontend",
         "react"
       ],
-      "importance": 5,
+      "importance": 4,
       "lesson": "React hooks必须在条件return之前，变量不能跨作用域引用",
       "duration_seconds": 0.0,
       "linked_memory_ids": [],
@@ -120,7 +120,7 @@
         "world-model",
         "activation"
       ],
-      "importance": 5,
+      "importance": 4,
       "lesson": "activate命令创建hybrid QL，复制原始Q表，训练50条经验后保存.pt",
       "duration_seconds": 0.0,
       "linked_memory_ids": [],
@@ -146,7 +146,7 @@
         "q-table",
         "data-loss"
       ],
-      "importance": 5,
+      "importance": 4,
       "lesson": "save_q_table前必须确认Q表未被覆盖，保持原始训练数据安全",
       "duration_seconds": 0.0,
       "linked_memory_ids": [],
@@ -254,7 +254,7 @@
         "transferred",
         "openclaw"
       ],
-      "importance": 5,
+      "importance": 4,
       "lesson": "在类似上下文中，'register_agents' 是有效的 (hypermarow, registration, transferred, openclaw)",
       "duration_seconds": 0.0,
       "linked_memory_ids": [],
@@ -267,5 +267,5 @@
     }
   ],
   "created_at": "2026-07-08T08:23:26.133867",
-  "updated_at": "2026-07-08T08:32:00.083467"
+  "updated_at": "2026-07-19T10:01:09.633103"
 }

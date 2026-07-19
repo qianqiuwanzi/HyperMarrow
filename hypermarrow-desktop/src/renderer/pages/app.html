@@ -343,6 +343,7 @@ function renderSettingsPanel(){
     <div>📱 手机号: <b id="setPhone">-</b></div><div>🆔 用户 ID: <b id="setUid">-</b></div><div>📦 版本: <b id="setVer">-</b></div>
     <div style="margin-top:8px"><label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="setAutoLaunch" onchange="window.electronAPI.system.setAutoLaunch(this.checked)"> 开机自启</label></div>
     <div style="margin-top:4px"><label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="setMinTray" onchange="window.electronAPI.store.set('settings.minimizeToTray',this.checked)"> 最小化到托盘</label></div>
+    <div style="margin-top:12px"><div>💚 微信: <b id="wechatStatus">-</b></div><div id="wechatActions" style="margin-top:4px"></div></div>
     <button class="btn-sm" style="margin-top:12px;background:transparent;border:2px solid #e74c3c;color:#e74c3c;padding:8px 20px;border-radius:8px;font-weight:600;cursor:pointer" onclick="if(confirm('确定退出？')){window.electronAPI.auth.clear();location.reload();}">退出登录</button></div></div>`;
 }
 
@@ -351,6 +352,60 @@ function initSettings(){
   window.electronAPI.system.getDeviceInfo().then(i=>{document.getElementById('setVer').textContent=i.version||'-';});
   window.electronAPI.system.getAutoLaunch().then(v=>{document.getElementById('setAutoLaunch').checked=v;});
   window.electronAPI.store.get('settings.minimizeToTray',true).then(v=>{document.getElementById('setMinTray').checked=v;});
+  // WeChat bind status
+  window.electronAPI.api.get('/api/v2/client/license/status').then(function(r){
+    var bound = false;
+    if(r.ok && r.data && r.data.user) bound = r.data.user.wechat_bound;
+    if(!bound && r.data && r.data.license && r.data.license.user) bound = r.data.license.user.wechat_bound;
+    document.getElementById('wechatStatus').textContent = bound ? '已绑定' : '未绑定';
+    var act = document.getElementById('wechatActions');
+    if(bound){
+      act.innerHTML = '<button class=\"btn-sm btn-ghost\" style=\"font-size:.72rem;padding:4px 12px\" onclick=\"unbindWechat()\">解绑微信</button>';
+    } else {
+      act.innerHTML = '<button class=\"btn-sm btn-up\" style=\"font-size:.72rem;padding:4px 12px\" onclick=\"showWechatBind()\">绑定微信</button><div id=\"wxBindArea\" style=\"margin-top:6px\"></div>';
+    }
+  }).catch(function(){});
+}
+var _wxBindState='',_wxBindTimer=null;
+function showWechatBind(){
+  window.electronAPI.api.get('/api/v1/auth/wechat/url?mode=bind').then(function(r){
+    if(!r.ok||!r.data) return;
+    _wxBindState = r.data.state;
+    var a = document.getElementById('wxBindArea');
+    a.innerHTML = '<div style=\"text-align:center;margin-top:4px\"><img id=\"wxBindQR\" src=\"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='+encodeURIComponent(r.data.url)+'\" style=\"width:150px;height:150px;border:1px solid #eee;border-radius:8px;padding:6px;background:#fff\"><p style=\"font-size:.7rem;color:#999;margin-top:4px\">请使用微信扫一扫</p></div>';
+    pollWechatBind();
+  });
+}
+function pollWechatBind(){
+  if(_wxBindTimer) clearInterval(_wxBindTimer);
+  var n = 0;
+  _wxBindTimer = setInterval(function(){
+    n++; if(n > 120) { clearInterval(_wxBindTimer); return; }
+    window.electronAPI.api.get('/api/v1/auth/wechat/status?state='+encodeURIComponent(_wxBindState)).then(function(s){
+      if(!s.data) return;
+      if(s.data.status === 'bind_ready' && s.data.openid){
+        clearInterval(_wxBindTimer);
+        window.electronAPI.api.post('/api/v1/user/bind-wechat', {state:_wxBindState, openid:s.data.openid}).then(function(r){
+          if(r.data && r.data.success){
+            document.getElementById('wechatStatus').textContent = '已绑定';
+            document.getElementById('wechatActions').innerHTML = '<button class=\"btn-sm btn-ghost\" style=\"font-size:.72rem;padding:4px 12px\" onclick=\"unbindWechat()\">解绑微信</button>';
+          }
+        });
+      } else if(s.data.status === 'expired'){
+        clearInterval(_wxBindTimer);
+        document.getElementById('wxBindArea').innerHTML = '<span style=\"color:#e74c3c;font-size:.7rem\">已过期，<a href=\"#\" onclick=\"showWechatBind()\">重试</a></span>';
+      }
+    }).catch(function(){});
+  }, 3000);
+}
+function unbindWechat(){
+  if(!confirm('确定要解绑微信吗？')) return;
+  window.electronAPI.api.post('/api/v1/user/unbind-wechat', {}).then(function(r){
+    if(r.data && r.data.success){
+      document.getElementById('wechatStatus').textContent = '未绑定';
+      document.getElementById('wechatActions').innerHTML = '<button class=\"btn-sm btn-up\" style=\"font-size:.72rem;padding:4px 12px\" onclick=\"showWechatBind()\">绑定微信</button><div id=\"wxBindArea\" style=\"margin-top:6px\"></div>';
+    }
+  });
 }
 
 // ═══════════ 工具函数 ═══════════
