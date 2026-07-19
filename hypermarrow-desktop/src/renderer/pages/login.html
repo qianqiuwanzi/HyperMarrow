@@ -1,59 +1,57 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
 <style>
-.lwrap{display:flex;max-width:780px;margin:60px auto 0;background:var(--card-bg);border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,.08);overflow:hidden}
-.lleft{flex:1;padding:40px 32px;min-width:300px}
-.lright{width:300px;background:#f8f9fa;padding:40px 24px;text-align:center;border-left:1px solid #eee;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.lright .qrtitle{font-size:.9rem;font-weight:600;margin-bottom:16px;color:#333}
-.lright .qrbox{border:1px solid #e0e0e0;border-radius:12px;padding:10px;background:#fff;display:inline-block}
-.lright .qrbox img{width:180px;height:180px}
-.lright .qrtip{font-size:.75rem;color:#999;margin-top:12px}
-.lright .qrwarn{font-size:.7rem;color:#e74c3c;margin-top:8px;display:none}
-.lright .qrrefresh{font-size:.72rem;color:var(--pri);cursor:pointer;margin-top:8px;text-decoration:underline}
-.logo{font-size:2.5rem;text-align:center;margin-bottom:4px}
-.login-container h1{font-size:1.4rem;color:var(--text-primary);text-align:center;margin-bottom:2px}
-.login-container .subtitle{color:var(--text-secondary);font-size:.85rem;text-align:center;margin-bottom:24px}
-.form-group{margin-bottom:14px;text-align:left}
-.form-group label{display:block;font-size:.82rem;color:var(--text-secondary);margin-bottom:5px}
+.login-container{max-width:400px;margin:80px auto 0;padding:40px 32px;background:var(--card-bg);border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,.08);text-align:center}
+.login-container .logo{font-size:3rem;margin-bottom:8px}
+.login-container h1{font-size:1.5rem;color:var(--text-primary);margin-bottom:4px}
+.login-container .subtitle{color:var(--text-secondary);font-size:.9rem;margin-bottom:28px}
+.form-group{margin-bottom:16px;text-align:left}
+.form-group label{display:block;font-size:.85rem;color:var(--text-secondary);margin-bottom:6px}
 .phone-row{display:flex;gap:8px}.phone-row input{flex:1;margin-bottom:0}
-.btn-code{white-space:nowrap;padding:10px 14px;border:2px solid var(--pri);background:transparent;color:var(--pri);border-radius:10px;font-size:.82rem;cursor:pointer;font-weight:600;transition:all .2s;min-width:96px}
+.btn-code{white-space:nowrap;padding:12px 16px;border:2px solid var(--primary);background:transparent;color:var(--primary);border-radius:10px;font-size:.85rem;cursor:pointer;font-weight:600;transition:all .2s;min-width:100px}
 .btn-code:hover{background:var(--primary-light)}.btn-code:disabled{border-color:#ccc;color:#ccc;cursor:not-allowed}
-.msg-box{padding:10px;border-radius:8px;font-size:.82rem;margin-top:8px;display:none;text-align:center}
+.msg-box{padding:10px;border-radius:8px;font-size:.85rem;margin-top:10px;display:none}
 .msg-box.show{display:block}.msg-ok{background:#e6f7e6;color:#27ae60}.msg-err{background:#fff0f0;color:#e74c3c}
-.or-divider{display:none}
-@media(max-width:650px){.lwrap{flex-direction:column;max-width:400px}.lright{width:100%;border-left:none;border-top:1px solid #eee}.or-divider{display:flex;align-items:center;gap:10px;margin:14px 0}.or-divider div{flex:1;height:1px;background:#e0e0e0}.or-divider span{font-size:.75rem;color:#bbb}}
+.login-actions{display:flex;gap:10px;margin-top:8px}
+.login-actions .btn{flex:1}
+.btn-wx{width:44px;height:44px;padding:0;border:none;cursor:pointer;background:none;display:flex;align-items:center;justify-content:center}
+.btn-wx img{width:44px;height:44px;object-fit:contain}
+.btn-wx:hover{opacity:.8}
+.legal{margin-top:16px}
+/* Phone bind page */
+.bind-container{display:none;max-width:400px;margin:80px auto 0;padding:40px 32px;background:var(--card-bg);border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,.08);text-align:center}
+.bind-container .logo{font-size:3rem;margin-bottom:8px}
+.bind-container h2{font-size:1.2rem;margin-bottom:20px}
 </style></head><body>
-<div class="lwrap">
-<div class="lleft login-container">
+
+<!-- 手机号登录 -->
+<div class="login-container" id="loginPage">
 <div class="logo">🧠</div><h1>智商藏不住</h1><p class="subtitle">AI 记忆与学习系统</p>
 <div class="form-group"><label>📱 手机号</label><div class="phone-row"><input type="tel" id="phoneInput" class="input" placeholder="输入手机号" maxlength="11" autofocus><button class="btn-code" id="codeBtn" onclick="sendCode()">获取验证码</button></div></div>
 <div class="form-group"><label>🔑 验证码</label><input type="text" id="codeInput" class="input" placeholder="6位验证码" maxlength="6"></div>
-<button class="btn btn-primary btn-full" onclick="doLogin()" style="margin-top:8px">登录 / 注册</button>
-<p style="font-size:.72rem;color:var(--text-secondary);margin-top:6px;text-align:center">新用户自动注册，无需设置密码</p>
-<p style="font-size:.68rem;color:#999;text-align:center;margin-top:12px;line-height:1.6">
+<div class="login-actions">
+  <button class="btn btn-primary" onclick="doLogin()" style="flex:1">登录 / 注册</button>
+  <button class="btn-wx" onclick="wechatLogin()" title="微信登录"><img src="images/wx-icon.png" alt="微信登录"></button>
+</div>
+<p class="legal" style="font-size:.68rem;color:#999;line-height:1.6">
+  新用户注册享7天免费试用<br>
   注册登录即代表已阅读并同意<br>
-  <a href="#" onclick="window.electronAPI.system.openExternal('https://hm.qianshi.cool/terms')" style="color:var(--pri);text-decoration:none">《用户协议》</a>
+  <a href="#" onclick="window.electronAPI.system.openExternal('https://hm.qianshi.cool/terms')" style="color:var(--primary);text-decoration:none">《用户协议》</a>
   与
-  <a href="#" onclick="window.electronAPI.system.openExternal('https://hm.qianshi.cool/privacy')" style="color:var(--pri);text-decoration:none">《隐私政策》</a>
+  <a href="#" onclick="window.electronAPI.system.openExternal('https://hm.qianshi.cool/privacy')" style="color:var(--primary);text-decoration:none">《隐私政策》</a>
 </p>
-<div class="or-divider"><div></div><span>或</span><div></div></div>
-<button class="btn btn-full" style="background:#07C160;color:#fff;border:none;padding:12px 28px;border-radius:25px;font-size:.92rem;font-weight:600;cursor:pointer;display:none" onclick="wechatLogin()" id="wxBtnFallback">💚 微信扫码登录</button>
 <div class="msg-box" id="msgBox"></div>
 </div>
-<div class="lright">
-<div class="qrtitle">📱 微信扫码登录</div>
-<div class="qrbox"><img id="qrImg" src="" alt="微信扫码"></div>
-<p class="qrtip">请使用微信扫一扫</p>
-<p class="qrwarn" id="qrWarn">扫码登录已过期</p>
-<span class="qrrefresh" id="qrRefresh" onclick="refreshQR()">🔄 刷新二维码</span>
-<div class="phone-bind" id="phoneBind" style="display:none">
-  <div style="font-size:.82rem;font-weight:600;margin-bottom:10px;color:#333">📱 首次登录需绑定手机号</div>
-  <input type="tel" id="bindPhone" class="input" placeholder="输入手机号" maxlength="11" style="margin-bottom:8px;font-size:.82rem">
-  <div style="display:flex;gap:6px"><input type="text" id="bindCode" class="input" placeholder="验证码" maxlength="6" style="flex:1;font-size:.82rem"><button class="btn-code" id="bindCodeBtn" onclick="sendBindCode()" style="font-size:.75rem;padding:8px 10px;min-width:80px">获取验证码</button></div>
-  <button class="btn btn-primary btn-full" style="margin-top:10px;padding:10px;font-size:.82rem" onclick="submitBindPhone()">绑定并登录</button>
-  <p class="msg-box" id="bindMsg" style="font-size:.72rem"></p>
+
+<!-- 微信登录 - 绑定手机号 -->
+<div class="bind-container" id="bindPage">
+<div class="logo">📱</div><h2>首次微信登录 · 绑定手机号</h2>
+<p style="font-size:.85rem;color:var(--text-secondary);margin-bottom:20px">微信授权成功，请绑定手机号完成注册</p>
+<div class="form-group"><label>📱 手机号</label><div class="phone-row"><input type="tel" id="bindPhone" class="input" placeholder="输入手机号" maxlength="11"><button class="btn-code" id="bindCodeBtn" onclick="sendBindCode()">获取验证码</button></div></div>
+<div class="form-group"><label>🔑 验证码</label><input type="text" id="bindCode" class="input" placeholder="6位验证码" maxlength="6"></div>
+<button class="btn btn-primary btn-full" onclick="submitBindPhone()">绑定并登录</button>
+<p class="msg-box" id="bindMsg" style="font-size:.82rem"></p>
 </div>
-</div>
-</div>
+
 <script>
 var cd=0,_wxState='',_wxTimer=null,_bindCd=0;
 function showMsg(t,ok){var b=document.getElementById('msgBox');b.textContent=t;b.className='msg-box show '+(ok?'msg-ok':'msg-err');if(ok)setTimeout(function(){b.className='msg-box'},5000)}
@@ -61,18 +59,16 @@ function showBindMsg(t,ok){var b=document.getElementById('bindMsg');b.textConten
 async function sendCode(){if(cd>0)return;var p=document.getElementById('phoneInput').value.trim();if(!p||p.length<11){showMsg('请输入正确的11位手机号',false);return}
 try{var r=await window.electronAPI.api.post('/api/v1/user/send-code',{phone:p});if(r.data&&r.data.success){var devCode=r.data.dev_code;var msg=devCode?'验证码: '+devCode+' (开发模式)':'验证码已发送，请查收短信';showMsg(msg,true);if(devCode)document.getElementById('codeInput').value=devCode;cd=60;var btn=document.getElementById('codeBtn');btn.disabled=true;var t=setInterval(function(){cd--;btn.textContent=cd+'s';if(cd<=0){clearInterval(t);btn.textContent='获取验证码';btn.disabled=false}},1000)}else showMsg(r.data&&r.data.message?r.data.message:'发送失败',false)}catch(e){showMsg('网络错误',false)}}
 async function doLogin(){var p=document.getElementById('phoneInput').value.trim();var c=document.getElementById('codeInput').value.trim();if(!p||p.length<11){showMsg('请输入手机号',false);return}if(!c){showMsg('请输入验证码',false);return}
-try{var r=await window.electronAPI.api.post('/api/v2/client/auth/login',{phone:p,code:c});if(r.ok&&r.data&&r.data.success){await window.electronAPI.store.set('auth',{token:r.data.token,userId:r.data.user.id,phone:r.data.user.phone,displayName:r.data.user.display_name,expiresAt:Math.floor(Date.now()/1000)+(r.data.expires_in||2592000),issuedAt:Math.floor(Date.now()/1000)});if(r.data.license){await window.electronAPI.license.update({key:r.data.license.key,plan:r.data.license.plan,status:r.data.license.status,expiryDate:r.data.license.expiry_date,remainingDays:r.data.license.remaining_days,lastVerified:new Date().toISOString(),signature:'',hasLicense:true,features:r.data.license.features||[],maxDevices:r.data.license.max_devices||1,currentDevices:r.data.license.current_devices||0})}window.navigateTo('app')}else showMsg(r.data&&r.data.detail?r.data.detail:(r.data&&r.data.message?r.data.message:'登录失败'),false)}catch(e){showMsg('网络错误',false)}}
+try{var r=await window.electronAPI.api.post('/api/v2/client/auth/login',{phone:p,code:c});if(r.ok&&r.data&&r.data.success){await window.electronAPI.store.set('auth',{token:r.data.token,userId:r.data.user.id,phone:r.data.user.phone,displayName:r.data.user.display_name,avatarUrl:r.data.user.avatar_url||'',wechatBound:r.data.user.wechat_bound||false,expiresAt:Math.floor(Date.now()/1000)+(r.data.expires_in||2592000),issuedAt:Math.floor(Date.now()/1000)});if(r.data.license){await window.electronAPI.license.update({key:r.data.license.key,plan:r.data.license.plan,status:r.data.license.status,expiryDate:r.data.license.expiry_date,remainingDays:r.data.license.remaining_days,lastVerified:new Date().toISOString(),signature:'',hasLicense:true,features:r.data.license.features||[],maxDevices:r.data.license.max_devices||1,currentDevices:r.data.license.current_devices||0})}window.navigateTo('app')}else showMsg(r.data&&r.data.detail?r.data.detail:(r.data&&r.data.message?r.data.message:'登录失败'),false)}catch(e){showMsg('网络错误',false)}}
+async function wechatLogin(){try{var r=await window.electronAPI.api.get('/api/v1/auth/wechat/url');if(!r.ok||!r.data||!r.data.url){showMsg('获取微信登录链接失败',false);return}_wxState=r.data.state;window.electronAPI.system.openExternal(r.data.url);showMsg('已打开微信登录页面，请扫码授权',true);startWxPoll()}catch(e){showMsg('网络错误',false)}}
 function startWxPoll(){if(_wxTimer)clearInterval(_wxTimer);var n=0;_wxTimer=setInterval(async function(){n++;if(n>120){clearInterval(_wxTimer);showMsg('微信登录超时，请重试',false);return}try{var s=await window.electronAPI.api.get('/api/v1/auth/wechat/status?state='+encodeURIComponent(_wxState));if(!s.data)return;
-if(s.data.status==='done'){clearInterval(_wxTimer);await window.electronAPI.store.set('auth',{token:s.data.token,userId:s.data.user.id,phone:s.data.user.phone||'',displayName:s.data.user.display_name,expiresAt:Math.floor(Date.now()/1000)+(s.data.expires_in||2592000),issuedAt:Math.floor(Date.now()/1000)});if(s.data.license){await window.electronAPI.license.update({key:s.data.license.key,plan:s.data.license.plan,status:s.data.license.status,expiryDate:s.data.license.expiry_date,remainingDays:s.data.license.remaining_days,lastVerified:new Date().toISOString(),signature:'',hasLicense:true,features:s.data.license.features||[],maxDevices:s.data.license.max_devices||1,currentDevices:s.data.license.current_devices||0})}window.navigateTo('app')}
-else if(s.data.status==='need_phone'){clearInterval(_wxTimer);showPhoneBind();}
-else if(s.data.status==='expired'){clearInterval(_wxTimer);document.getElementById('qrWarn').style.display='block'}}catch(e){}},3000)}
-function showPhoneBind(){document.querySelector('.qrtitle').style.display='none';document.querySelector('.qrbox').style.display='none';document.getElementById('qrWarn').style.display='none';document.getElementById('qrRefresh').style.display='none';document.getElementById('phoneBind').style.display='block'}
+if(s.data.status==='done'){clearInterval(_wxTimer);await window.electronAPI.store.set('auth',{token:s.data.token,userId:s.data.user.id,phone:s.data.user.phone||'',displayName:s.data.user.display_name,avatarUrl:s.data.user.avatar_url||'',wechatBound:s.data.user.wechat_bound||false,expiresAt:Math.floor(Date.now()/1000)+(s.data.expires_in||2592000),issuedAt:Math.floor(Date.now()/1000)});if(s.data.license){await window.electronAPI.license.update({key:s.data.license.key,plan:s.data.license.plan,status:s.data.license.status,expiryDate:s.data.license.expiry_date,remainingDays:s.data.license.remaining_days,lastVerified:new Date().toISOString(),signature:'',hasLicense:true,features:s.data.license.features||[],maxDevices:s.data.license.max_devices||1,currentDevices:s.data.license.current_devices||0})}window.navigateTo('app')}
+else if(s.data.status==='need_phone'){clearInterval(_wxTimer);showBindPage();}
+else if(s.data.status==='expired'){clearInterval(_wxTimer);showMsg('登录会话已过期，请重试',false)}}catch(e){}},3000)}
+function showBindPage(){document.getElementById('loginPage').style.display='none';document.getElementById('bindPage').style.display='block'}
 async function sendBindCode(){if(_bindCd>0)return;var p=document.getElementById('bindPhone').value.trim();if(!p||p.length<11){showBindMsg('请输入正确的11位手机号',false);return}
 try{var r=await window.electronAPI.api.post('/api/v1/user/send-code',{phone:p});if(r.data&&r.data.success){showBindMsg('验证码已发送',true);if(r.data.dev_code)document.getElementById('bindCode').value=r.data.dev_code;_bindCd=60;var btn=document.getElementById('bindCodeBtn');btn.disabled=true;var t=setInterval(function(){_bindCd--;btn.textContent=_bindCd+'s';if(_bindCd<=0){clearInterval(t);btn.textContent='获取验证码';btn.disabled=false}},1000)}else showBindMsg(r.data&&r.data.message?r.data.message:'发送失败',false)}catch(e){showBindMsg('网络错误',false)}}
 async function submitBindPhone(){var p=document.getElementById('bindPhone').value.trim();var c=document.getElementById('bindCode').value.trim();if(!p||p.length<11){showBindMsg('请输入手机号',false);return}if(!c){showBindMsg('请输入验证码',false);return}
-try{var r=await window.electronAPI.api.post('/api/v1/auth/wechat/bind-phone',{state:_wxState,phone:p,code:c});if(r.data&&r.data.success){showBindMsg('绑定成功，正在登录...',true);
-setTimeout(function(){refreshQR();startWxPoll();},1500)}else showBindMsg(r.data&&r.data.message?r.data.message:'绑定失败',false)}catch(e){showBindMsg('网络错误',false)}}
-async function refreshQR(){try{var r=await window.electronAPI.api.get('/api/v1/auth/wechat/url');if(r.ok&&r.data){_wxState=r.data.state;var qrImg='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(r.data.url);document.getElementById('qrImg').src=qrImg;document.getElementById('qrWarn').style.display='none';document.getElementById('phoneBind').style.display='none';document.querySelector('.qrtitle').style.display='';document.querySelector('.qrbox').style.display='';document.getElementById('qrRefresh').style.display='';startWxPoll()}}catch(e){}}
-document.addEventListener('page:loaded',function(){refreshQR()});
+try{var r=await window.electronAPI.api.post('/api/v1/auth/wechat/bind-phone',{state:_wxState,phone:p,code:c});if(r.data&&r.data.success){showBindMsg('绑定成功，正在登录...',true);setTimeout(function(){startWxPoll();},1500)}else showBindMsg(r.data&&r.data.message?r.data.message:'绑定失败',false)}catch(e){showBindMsg('网络错误',false)}}
 document.addEventListener('keydown',function(e){if(e.key==='Enter')doLogin()});
 </script></body></html>

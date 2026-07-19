@@ -9,14 +9,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .sidebar{width:180px;min-width:180px;background:#1e1e2e;display:flex;flex-direction:column;user-select:none}
 .sidebar .logo{padding:20px 16px;color:#fff;font-size:.95rem;font-weight:700;border-bottom:1px solid rgba(255,255,255,.08)}
 .sidebar nav{flex:1;padding:8px 0}
-.sidebar nav .nv{display:flex;align-items:center;gap:10px;padding:12px 16px;color:rgba(255,255,255,.55);cursor:pointer;font-size:.85rem;transition:all .15s;border-left:3px solid transparent}
+.sidebar nav .nv{display:flex;align-items:center;gap:10px;padding:12px 16px;color:rgba(255,255,255,.55);cursor:pointer;font-size:.85rem;font-weight:600;transition:all .15s;border-left:3px solid transparent}
 .sidebar nav .nv:hover{color:#fff;background:rgba(255,255,255,.05)}
 .sidebar nav .nv.act{color:#fff;background:rgba(102,126,234,.2);border-left-color:var(--pri)}
 .sidebar nav .nv .nvi{font-size:1.1rem;width:22px;text-align:center}
 .sidebar .bot{border-top:1px solid rgba(255,255,255,.08);padding:8px 0}
-.sidebar .bot .nv{font-size:.82rem;color:rgba(255,255,255,.75);justify-content:center}
+.sidebar .bot .nv{font-size:.82rem;color:rgba(255,255,255,.75);justify-content:center;font-weight:600;text-align:center}
 .sidebar .bot .nv:hover{color:#fff}
-.sidebar .bot .nv.act{color:#fff;justify-content:center}
+.sidebar .bot .nv.act{color:#fff;justify-content:center;font-weight:600;text-align:center}
 /* 主区域 */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 /* Banner */
@@ -92,8 +92,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .pc-item .pc-btn.cur-btn{background:var(--bg);color:var(--t3);cursor:default}
 .ptb{flex:1;padding:10px;border:2px solid #e0e0e0;border-radius:10px;text-align:center;cursor:pointer;font-weight:600;font-size:.82rem;background:transparent;transition:all .2s}
 .ptb:hover{border-color:var(--pri)}.ptb.act{border-color:var(--pri);background:rgba(102,126,234,.08)}
+.prd-btn{flex:1;padding:8px;border:none;border-radius:6px;cursor:pointer;font-size:.8rem;font-weight:600;background:transparent;color:var(--t3)}
+.prd-btn.act{background:#fff;color:var(--pri);box-shadow:0 1px 3px rgba(0,0,0,.1)}
 /* Avatar */
-.avatar-btn{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;cursor:pointer;position:relative}
+.avatar-btn{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;cursor:pointer;position:relative;overflow:hidden}
+.avatar-btn img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .avatar-btn:hover{box-shadow:0 2px 8px rgba(102,126,234,.4)}
 .user-drop{position:absolute;top:40px;right:0;background:#fff;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.15);padding:16px;min-width:180px;z-index:100;display:none}
 .user-drop.show{display:block}
@@ -127,7 +130,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <div class="main">
   <div class="banner">
     <div class="bl">
-      <span class="pn" id="planBadge">FREE</span>
+      <span class="pn" id="planBadge">标准版</span>
       <span class="lic-txt" id="licLabel"></span>
     </div>
     <div style="display:flex;gap:8px;align-items:center">
@@ -165,6 +168,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
       <button class="ptb act" data-m="wechat" onclick="selPayMethod('wechat')">💚 微信支付</button>
       <button class="ptb" data-m="alipay" onclick="selPayMethod('alipay')">💙 支付宝</button>
     </div>
+    <div style="display:flex;justify-content:center;margin-bottom:16px;background:#f0f2f5;border-radius:8px;padding:4px">
+      <button class="prd-btn act" id="payPrdMonth" onclick="_payPeriod='month';updatePayPrice()">月付</button>
+      <button class="prd-btn" id="payPrdYear" onclick="_payPeriod='year';updatePayPrice()">年付 · 省17%</button>
+    </div>
     <div id="payArea" style="text-align:center;min-height:200px"></div>
     <div id="payHint" style="display:none;text-align:center;margin-top:10px;padding:10px;background:#f0f7ff;border-radius:8px;font-size:.78rem;color:var(--pri)">支付成功后 License 将自动激活</div>
     <button class="pc-btn" style="margin-top:12px;background:#f0f0f0;color:var(--t3);width:100%;padding:10px;border-radius:8px;border:none;cursor:pointer;font-size:.8rem" onclick="closePay()">取消</button>
@@ -177,6 +184,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <button class="mclose" onclick="closePricing()">✕</button>
     <h3>📋 版本对比</h3>
     <p class="msub" id="pricingSub">选择适合你的方案</p>
+    <div style="display:flex;justify-content:center;margin-bottom:16px;background:#f0f2f5;border-radius:8px;padding:4px">
+      <button class="prd-btn act" id="prdMonth" onclick="switchPeriod('month')">月付</button>
+      <button class="prd-btn" id="prdYear" onclick="switchPeriod('year')">年付 · 省17%</button>
+    </div>
     <div class="pc-grid" id="pricingGrid"></div>
   </div>
 </div>
@@ -207,9 +218,10 @@ document.addEventListener('page:loaded',async()=>{
 function updateBanner(){
   const lic=(_lic&&_lic.license)?_lic.license:{plan:'free',status:'active',remaining_days:0};
   const plan=lic.plan||'free',days=lic.remaining_days||0;
-  const b=document.getElementById('planBadge');b.textContent=plan==='enterprise'?'ENTERPRISE':plan==='pro'?'PRO':'FREE';
+  const b=document.getElementById('planBadge');b.textContent=plan==='enterprise'?'旗舰版':plan==='pro'?'专业版':'标准版';
   b.className='pn pn-'+(plan==='enterprise'?'ent':plan==='pro'?'pro':'free');
-  document.getElementById('licLabel').textContent=plan==='free'?'🎁 社区版':('🔐 商业版 · 剩余 '+days+' 天');
+  var trialDays=(_lic&&_lic.trial_days_left)?_lic.trial_days_left:0;
+  document.getElementById('licLabel').textContent=plan==='free'?('试用'+(trialDays>0?'剩余'+trialDays+'天':'已到期')):('剩余 '+days+' 天');
   const ub=document.getElementById('upBtn');
   if(plan==='enterprise')ub.style.display='none';else ub.textContent='⚡ 升级';
 }
@@ -237,7 +249,7 @@ function renderAll(){
   const avail=fid=>feats.includes(fid)||feats.includes('*');
 
   document.getElementById('panel-overview').innerHTML=renderOverview(cog,m,qlnz,d.rules.length,qlpct,d.ach)+renderAgents(d.ags,l);
-  document.getElementById('panel-memory').innerHTML=renderMemory(m,d.eps,d.rules,entities,avail);
+  document.getElementById('panel-memory').innerHTML=renderMemory(m,d.eps,d.rules,entities,d.dream,avail);
   document.getElementById('panel-learning').innerHTML=renderLearning(l,m,qlpct,qlnz,d.hm,d.cal,d.dream,d.skills,avail);
   document.getElementById('panel-settings').innerHTML=renderSettingsPanel();
   initSettings();
@@ -269,7 +281,7 @@ function renderOverview(cog,m,qlnz,rulesLen,qlpct,ach){
   return h;
 }
 
-function renderMemory(m,eps,rules,entities,avail){
+function renderMemory(m,eps,rules,entities,dream,avail){
   const pos=[{l:'45%',t:'35%'},{l:'70%',t:'15%'},{l:'20%',t:'55%'},{l:'65%',t:'60%'},{l:'35%',t:'10%'},{l:'15%',t:'25%'}];
   const icons=['📦','💡','🎬','⚙️','🔧','📄'];const ents=(entities||[]).slice(0,6);
   var h='<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:14px\">';
@@ -292,6 +304,10 @@ function renderMemory(m,eps,rules,entities,avail){
   h+='<div id=\"searchResult\" style=\"margin-top:8px;font-size:.75rem\"></div></div>';
   h+='<div class=\"card\"><div class=\"card-hd\"><span style=\"display:flex;align-items:center;gap:8px\"><span style=\"font-size:1.1rem\">📝</span><span class=\"t\">便签板</span></span><span class=\"badge\" style=\"background:'+(m?.p1_working_memory?.task?'#40c057':'#adb5bd')+'\">'+(m?.p1_working_memory?.task?'活跃':'空闲')+'</span></div>';
   h+='<div style=\"font-size:.8rem;line-height:2\"><div>📌 <b>'+(m?.p1_working_memory?.task||'空闲')+'</b></div><div>🎯 '+(m?.p1_working_memory?.goal||'无目标')+'</div><div>📚 栈深: '+(m?.p1_working_memory?.stack_depth??0)+' | 🔑 '+(m?.p1_working_memory?.context_keys||[]).slice(0,5).join(' · ')+'</div></div></div>';
+  h+='<div class=\"card\"><div class=\"card-hd\"><span style=\"display:flex;align-items:center;gap:8px\"><span style=\"font-size:1.1rem\">🌙</span><span class=\"t\">记忆巩固</span></span><span class=\"badge\" style=\"background:'+(dream?.phases?'#40c057':'#adb5bd')+'\">'+(dream?.phases?'已运行':'待运行')+'</span></div>';
+  h+='<div style=\"font-size:.78rem;line-height:2\"><div>🕐 上次: <b>'+(dream?.last?.slice(0,19)||'无')+'</b></div><div>⏱️ 累计: <b>'+(dream?.total||0)+' 次</b></div></div>';
+  if(dream?.phases){h+='<div style=\"background:#f8f9fa;padding:8px;border-radius:8px;margin:6px 0;max-height:120px;overflow-y:auto;font-size:.72rem\">';Object.entries(dream.phases).filter(function(e){return e[1]>0;}).forEach(function(e){h+='<div>✅ '+e[0]+': '+e[1]+'</div>';});h+='</div>';}
+  h+='<button class=\"btn-sm btn-up\" style=\"width:100%;margin-top:8px;border-radius:8px;padding:10px\" onclick=\"F(\"/dream/run\").then(function(){alert(\"已完成\")}).catch(function(){})\">🌙 运行巩固</button></div>';
   h+='</div>';
   return h;
 }
@@ -309,10 +325,6 @@ function renderLearning(l,m,qlpct,qlnz,hm,cal,dream,skills,avail){
   h+='</div>';
   if(!avail('metacognition'))h+=lockHTML('pro');
   h+='</div>';
-  h+='<div class=\"card\"><div class=\"card-hd\"><span style=\"display:flex;align-items:center;gap:8px\"><span style=\"font-size:1.1rem\">🌙</span><span class=\"t\">记忆巩固</span></span><span class=\"badge\" style=\"background:'+(dream?.phases?'#40c057':'#adb5bd')+'\">'+(dream?.phases?'已运行':'待运行')+'</span></div>';
-  h+='<div style=\"font-size:.78rem;line-height:2\"><div>🕐 上次: <b>'+(dream?.last?.slice(0,19)||'无')+'</b></div><div>⏱️ 累计: <b>'+(dream?.total||0)+' 次</b></div></div>';
-  if(dream?.phases){h+='<div style=\"background:#f8f9fa;padding:8px;border-radius:8px;margin:6px 0;max-height:120px;overflow-y:auto;font-size:.72rem\">';Object.entries(dream.phases).filter(function(e){return e[1]>0;}).forEach(function(e){h+='<div>✅ '+e[0]+': '+e[1]+'</div>';});h+='</div>';}
-  h+='<button class=\"btn-sm btn-up\" style=\"width:100%;margin-top:8px;border-radius:8px;padding:10px\" onclick=\"F(\"/dream/run\").then(function(){alert(\"已完成\")}).catch(function(){})\">🌙 运行巩固</button></div>';
   h+='<div class=\"card'+(avail('rl_decision')?'':' locked')+'\"><div class=\"card-hd\"><span style=\"display:flex;align-items:center;gap:8px\"><span style=\"font-size:1.1rem\">⚡</span><span class=\"t\">自动技能</span></span><span class=\"badge\" style=\"background:#f472b6\">'+skills.length+' 个</span></div>';
   if(skills.length){skills.slice(0,5).forEach(function(s){h+='<div style=\"padding:6px 0;border-bottom:1px solid #f0f0f0\"><div style=\"display:flex;justify-content:space-between\"><span style=\"font-size:.78rem;font-weight:600\">'+s.action+'</span><span style=\"font-size:.68rem;color:var(--t3)\">'+s.success_count+' 次</span></div><div style=\"font-size:.68rem;color:var(--t4)\">'+(s.context_patterns||[]).slice(0,4).join(', ')+'</div></div>';});}else{h+='<div style=\"color:var(--t4);padding:12px;text-align:center\">暂无</div>';}
   if(!avail('rl_decision'))h+=lockHTML('pro');
@@ -343,8 +355,11 @@ function renderSettingsPanel(){
     <div>📱 手机号: <b id="setPhone">-</b></div><div>🆔 用户 ID: <b id="setUid">-</b></div><div>📦 版本: <b id="setVer">-</b></div>
     <div style="margin-top:8px"><label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="setAutoLaunch" onchange="window.electronAPI.system.setAutoLaunch(this.checked)"> 开机自启</label></div>
     <div style="margin-top:4px"><label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="setMinTray" onchange="window.electronAPI.store.set('settings.minimizeToTray',this.checked)"> 最小化到托盘</label></div>
-    <div style="margin-top:12px"><div>💚 微信: <b id="wechatStatus">-</b></div><div id="wechatActions" style="margin-top:4px"></div></div>
-    <button class="btn-sm" style="margin-top:12px;background:transparent;border:2px solid #e74c3c;color:#e74c3c;padding:8px 20px;border-radius:8px;font-weight:600;cursor:pointer" onclick="if(confirm('确定退出？')){window.electronAPI.auth.clear();location.reload();}">退出登录</button></div></div>`;
+    <div style="margin-top:12px"><div>💚 微信: <b id="wechatStatus">-</b> <span id="wechatActions" style="display:inline"></span></div></div>
+    <div style="margin-top:16px"><div style="font-weight:600;margin-bottom:6px">📋 连接 AI Agent</div><div style="font-size:.82rem;color:var(--t3);margin-bottom:8px">下载使用文档，发送给 AI Agent 即可自动完成集成</div>
+    <button class=\"btn-sm btn-up\" style=\"padding:6px 16px;font-size:.78rem\" onclick=\"window.electronAPI.system.openExternal('https://hm.qianshi.cool/HYPERMARROW_GUIDE.md')\">📄 下载使用文档</button>
+    <button class=\"btn-sm btn-ghost\" style=\"padding:6px 16px;font-size:.78rem;margin-left:8px\" onclick=\"copyGuide()\">📋 复制文档内容</button></div>
+    </div></div>`;
 }
 
 function initSettings(){
@@ -352,27 +367,42 @@ function initSettings(){
   window.electronAPI.system.getDeviceInfo().then(i=>{document.getElementById('setVer').textContent=i.version||'-';});
   window.electronAPI.system.getAutoLaunch().then(v=>{document.getElementById('setAutoLaunch').checked=v;});
   window.electronAPI.store.get('settings.minimizeToTray',true).then(v=>{document.getElementById('setMinTray').checked=v;});
-  // WeChat bind status
+  // WeChat bind status — check API first, fallback to cached auth
   window.electronAPI.api.get('/api/v2/client/license/status').then(function(r){
     var bound = false;
-    if(r.ok && r.data && r.data.user) bound = r.data.user.wechat_bound;
-    if(!bound && r.data && r.data.license && r.data.license.user) bound = r.data.license.user.wechat_bound;
-    document.getElementById('wechatStatus').textContent = bound ? '已绑定' : '未绑定';
-    var act = document.getElementById('wechatActions');
-    if(bound){
-      act.innerHTML = '<button class=\"btn-sm btn-ghost\" style=\"font-size:.72rem;padding:4px 12px\" onclick=\"unbindWechat()\">解绑微信</button>';
+    if(r.ok && r.data && r.data.user && r.data.user.wechat_bound) bound = true;
+    if(!bound){
+      // Fallback to cached auth.wechatBound
+      window.electronAPI.store.get('auth').then(function(a){
+        if(a && a.wechatBound) bound = true;
+        updateWechatUI(bound);
+      });
     } else {
-      act.innerHTML = '<button class=\"btn-sm btn-up\" style=\"font-size:.72rem;padding:4px 12px\" onclick=\"showWechatBind()\">绑定微信</button><div id=\"wxBindArea\" style=\"margin-top:6px\"></div>';
+      updateWechatUI(bound);
     }
-  }).catch(function(){});
+  }).catch(function(){
+    window.electronAPI.store.get('auth').then(function(a){
+      updateWechatUI(a && a.wechatBound);
+    });
+  });
 }
 var _wxBindState='',_wxBindTimer=null;
+function updateWechatUI(bound){
+  document.getElementById('wechatStatus').textContent = bound ? '已绑定' : '未绑定';
+  var act = document.getElementById('wechatActions');
+  if(bound){
+    act.innerHTML = '<button class=\"btn-sm btn-ghost\" style=\"font-size:.72rem;padding:4px 12px;margin-left:8px\" onclick=\"unbindWechat()\">解绑</button>';
+  } else {
+    act.innerHTML = '<button class=\"btn-sm btn-up\" style=\"font-size:.72rem;padding:4px 12px;margin-left:8px\" onclick=\"showWechatBind()\">绑定</button><span id=\"wxBindArea\" style=\"margin-top:6px;display:block\"></span>';
+  }
+}
 function showWechatBind(){
   window.electronAPI.api.get('/api/v1/auth/wechat/url?mode=bind').then(function(r){
     if(!r.ok||!r.data) return;
     _wxBindState = r.data.state;
     var a = document.getElementById('wxBindArea');
-    a.innerHTML = '<div style=\"text-align:center;margin-top:4px\"><img id=\"wxBindQR\" src=\"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='+encodeURIComponent(r.data.url)+'\" style=\"width:150px;height:150px;border:1px solid #eee;border-radius:8px;padding:6px;background:#fff\"><p style=\"font-size:.7rem;color:#999;margin-top:4px\">请使用微信扫一扫</p></div>';
+    a.innerHTML = '<p style=\"font-size:.75rem;color:#27ae60;margin-top:4px\">已打开微信授权页面，请确认绑定</p>';
+    window.electronAPI.system.openExternal(r.data.url);
     pollWechatBind();
   });
 }
@@ -387,8 +417,9 @@ function pollWechatBind(){
         clearInterval(_wxBindTimer);
         window.electronAPI.api.post('/api/v1/user/bind-wechat', {state:_wxBindState, openid:s.data.openid}).then(function(r){
           if(r.data && r.data.success){
-            document.getElementById('wechatStatus').textContent = '已绑定';
-            document.getElementById('wechatActions').innerHTML = '<button class=\"btn-sm btn-ghost\" style=\"font-size:.72rem;padding:4px 12px\" onclick=\"unbindWechat()\">解绑微信</button>';
+            updateWechatUI(true);
+          } else {
+            document.getElementById('wxBindArea').innerHTML = '<span style=\"color:#e74c3c;font-size:.7rem\">'+(r.data&&r.data.message?r.data.message:(r.data&&r.data.detail?r.data.detail:'绑定失败'))+'</span>';
           }
         });
       } else if(s.data.status === 'expired'){
@@ -398,12 +429,12 @@ function pollWechatBind(){
     }).catch(function(){});
   }, 3000);
 }
+function copyGuide(){fetch('https://hm.qianshi.cool/HYPERMARROW_GUIDE.md').then(function(r){return r.text()}).then(function(t){navigator.clipboard.writeText(t).then(function(){alert('使用文档已复制到剪贴板，直接粘贴给 AI Agent 即可')}).catch(function(){alert('复制失败，请点击下载按钮获取文档')})}).catch(function(){alert('获取文档失败，请检查网络连接')})}
 function unbindWechat(){
   if(!confirm('确定要解绑微信吗？')) return;
   window.electronAPI.api.post('/api/v1/user/unbind-wechat', {}).then(function(r){
     if(r.data && r.data.success){
-      document.getElementById('wechatStatus').textContent = '未绑定';
-      document.getElementById('wechatActions').innerHTML = '<button class=\"btn-sm btn-up\" style=\"font-size:.72rem;padding:4px 12px\" onclick=\"showWechatBind()\">绑定微信</button><div id=\"wxBindArea\" style=\"margin-top:6px\"></div>';
+      updateWechatUI(false);
     }
   });
 }
@@ -437,32 +468,63 @@ function distBars(m,rulesLen,qlpct){
   const total=Math.max(1,(m?.p3_episodic_memory?.total||0)+rulesLen+(m?.knowledge_graph?.entities||1));
   return [{l:'📒 情景',v:Math.round((m?.p3_episodic_memory?.total||0)/total*100),c:'linear-gradient(90deg,#667eea,#4c6ef5)'},{l:'📝 程序',v:Math.round(rulesLen/total*100),c:'linear-gradient(90deg,#40c057,#2f9e44)'},{l:'🕸️ 图谱',v:Math.round((m?.knowledge_graph?.entities||0)/total*100),c:'linear-gradient(90deg,#fd7e14,#e8590c)'},{l:'🧠 工作',v:10,c:'linear-gradient(90deg,#cc5de8,#9c36b5)'},{l:'🎯 Q学习',v:qlpct,c:'linear-gradient(90deg,#fcc419,#f59f00)'}].map(k=>'<div class="pbar"><div class="row"><span>'+k.l+'</span><span>'+k.v+'%</span></div><div class="track"><div class="fill" style="width:'+k.v+'%;background:'+k.c+'"></div></div></div>').join('');
 }
-function lockHTML(plan){return '<div class="lock-ov"><div style="font-size:1.5rem">🔒</div><div style="font-size:.78rem;margin-top:2px">升级至 '+pName(plan)+' 解锁</div><button class="lo-btn" onclick="upgradeTo(\''+plan+'\')">⚡ 升级</button></div>';}
-function pName(p){return p==='enterprise'?'Enterprise':p==='pro'?'Pro':'Free';}
-function pPrice(p){return p==='enterprise'?299:p==='pro'?99:0;}
+function lockHTML(plan){return '<div class="lock-ov"><div style="font-size:1.5rem">🔒</div><div style="font-size:.78rem;margin-top:2px">升级'+pName(plan)+'解锁</div><button class="lo-btn" onclick="upgradeTo(\''+plan+'\')">⚡ 升级</button></div>';}
+function pName(p){return p==='enterprise'?'旗舰版':p==='pro'?'专业版':'标准版';}
+var _pricingPeriod='month';
+function pPrice(p){var f=plans.find(function(x){return x.plan===p});return f?(_pricingPeriod==='year'?f.priceY:f.priceM):'0';}
+function switchPeriod(per){_pricingPeriod=per;document.getElementById('prdMonth').classList.toggle('act',per==='month');document.getElementById('prdYear').classList.toggle('act',per==='year');showPricing();}
 function upgradeTo(plan){showPricing();}
 function doUpgrade(){showPricing();}
 function showPricing(){
   var lic=(_lic&&_lic.license)?_lic.license:{plan:'free'};
   var curPlan=lic.plan||'free';
-  document.getElementById('pricingSub').textContent='当前: '+(curPlan==='enterprise'?'Enterprise':curPlan==='pro'?'Pro':'Free')+' — 选择适合你的方案';
+  document.getElementById('pricingSub').textContent='当前: '+(curPlan==='enterprise'?'旗舰版':curPlan==='pro'?'专业版':'标准版')+' — 选择适合你的方案';
   var plans=[
-    {plan:'free',name:'Free',price:'0',period:'永久',feats:['basic_memory','knowledge_graph']},
-    {plan:'pro',name:'Pro',price:'99',period:'/月',feats:['basic_memory','knowledge_graph','semantic_search','rl_decision','metacognition']},
-    {plan:'enterprise',name:'Enterprise',price:'299',period:'/月',feats:['basic_memory','knowledge_graph','semantic_search','rl_decision','metacognition','vector_memory','cross_agent']}
+    {plan:'free',name:'标准版',priceM:'9.9',priceY:'99',feats:['f1','f2','f3','f4','f5','f6']},
+    {plan:'pro',name:'专业版',priceM:'39',priceY:'399',feats:['f1','f2','f3','f4','f5','f6','f9','f10','f11','f12','f13','f14','d2']},
+    {plan:'enterprise',name:'旗舰版',priceM:'99',priceY:'999',feats:['f1','f2','f3','f4','f5','f6','f9','f10','f11','f12','f13','f14','d3','f17','f18','f19','f20']}
   ];
-  var allFeats=window.FEATURES||[{id:'basic_memory',name:'基础记忆'},{id:'knowledge_graph',name:'知识图谱'},{id:'semantic_search',name:'语义搜索'},{id:'rl_decision',name:'RL决策辅助'},{id:'metacognition',name:'元认知校准'},{id:'vector_memory',name:'向量记忆'},{id:'cross_agent',name:'跨Agent迁移'}];
+  var allFeats=[
+    {id:'f1',name:'情景记忆',group:'核心记忆'},
+    {id:'f2',name:'知识网络',group:'核心记忆'},
+    {id:'f3',name:'记忆搜索',group:'核心记忆'},
+    {id:'f4',name:'工作记忆',group:'核心记忆'},
+    {id:'f5',name:'程序记忆',group:'核心记忆'},
+    {id:'f6',name:'记忆巩固',group:'核心记忆'},
+    {id:'f9',name:'智能语义搜索',group:'核心记忆'},
+    {id:'f10',name:'AI自主学习',group:'学习引擎'},
+    {id:'f11',name:'自我诊断',group:'学习引擎'},
+    {id:'f12',name:'认知年龄',group:'学习引擎'},
+    {id:'f13',name:'自动技能发现',group:'学习引擎'},
+    {id:'f14',name:'成就徽章',group:'学习引擎'},
+    {id:'d2',name:'2台设备同时在线',group:'服务'},
+    {id:'d3',name:'3台设备同时在线',group:'服务'},
+    {id:'f17',name:'无限记忆库',group:'旗舰版专属'},
+    {id:'f18',name:'知识共享',group:'旗舰版专属'},
+    {id:'f19',name:'高级认知引擎',group:'旗舰版专属'},
+    {id:'f20',name:'多AI协作',group:'旗舰版专属'}
+  ];
+  var groups={};allFeats.forEach(function(f){var g=f.group||'其他';if(!groups[g])groups[g]=[];groups[g].push(f)});
   var h='';
+  var isTrial=(curPlan==='free');
   plans.forEach(function(p){
     var isCur=p.plan===curPlan;
-    h+='<div class="pc-item'+(isCur?' cur':'')+'"><h4>'+p.name+'</h4><div class="pr">¥'+p.price+'<span>'+p.period+'</span></div><ul>';
-    allFeats.forEach(function(f){
-      var inPlan=p.feats.indexOf(f.id)>=0;
-      h+='<li class="'+(inPlan?'y':'n')+'">'+(inPlan?'✓ ':'— ')+f.name+'</li>';
+    var pr=_pricingPeriod==='year'?p.priceY:p.priceM;
+    var perText=_pricingPeriod==='year'?'/年':'/月';
+    h+='<div class="pc-item'+(isCur?' cur':'')+'"><h4>'+p.name+'</h4><div class="pr">¥'+pr+'<span>'+perText+'</span></div>';
+    if(isTrial){h+='<button class=\"pc-btn up\" style=\"margin:10px 0\" onclick=\"buyPlan(\''+p.plan+'\')\">立即订阅</button>';}
+    else if(!isCur){h+='<button class=\"pc-btn up\" style=\"margin:10px 0\" onclick=\"buyPlan(\''+p.plan+'\')\">立即订阅</button>';}
+    Object.keys(groups).forEach(function(g){
+      var hasAny=p.feats.some(function(fid){return groups[g].some(function(f){return f.id===fid})});
+      if(!hasAny)return;
+      h+='<div style=\"font-size:.7rem;color:var(--pri);font-weight:700;text-align:left;margin:10px 0 2px\">'+g+'</div><ul>';
+      groups[g].forEach(function(f){
+        var inPlan=p.feats.indexOf(f.id)>=0;
+        if(!inPlan) return; // only show features the plan actually has
+        h+='<li class=\"y\">✓ '+f.name+'</li>';
+      });
+      h+='</ul>';
     });
-    h+='</ul>';
-    if(isCur){h+='<button class="pc-btn cur-btn">当前套餐</button>';}
-    else{h+='<button class="pc-btn up" onclick="buyPlan(\''+p.plan+'\')">立即升级</button>';}
     h+='</div>';
   });
   document.getElementById('pricingGrid').innerHTML=h;
@@ -470,8 +532,9 @@ function showPricing(){
 }
 function closePricing(){document.getElementById('pricingModal').classList.remove('show');}
 function buyPlan(plan){closePricing();_payPlan=plan;_payMode='new';showPayModal();}
-var _payPlan='pro',_payMode='new',_payTimer=null,_payOtn='',_payMethod='wechat';
-function showPayModal(){document.getElementById('payPlanName').textContent=_payPlan==='pro'?'Pro':'Enterprise';document.getElementById('payPlanPrice').textContent=_payPlan==='pro'?'¥99.00':'¥299.00';document.getElementById('payArea').innerHTML='<div style=\"text-align:center;padding:20px\"><div class=\"sk\" style=\"margin:0 auto 10px\"></div><p style=\"font-size:.82rem;color:var(--t3)\">正在生成支付订单...</p></div>';document.getElementById('payHint').style.display='none';document.getElementById('payModal').classList.add('show');createPayOrder();}
+var _payPlan='pro',_payMode='new',_payTimer=null,_payOtn='',_payMethod='wechat',_payPeriod='month';
+function updatePayPrice(){var pp=_payPlan==='pro'?'专业版':'旗舰版';var pr=_payPeriod==='year'?(_payPlan==='pro'?'¥399':'¥999'):(_payPlan==='pro'?'¥39':'¥99');document.getElementById('payPlanName').textContent=pp;document.getElementById('payPlanPrice').textContent=pr;document.getElementById('payPrdMonth').classList.toggle('act',_payPeriod==='month');document.getElementById('payPrdYear').classList.toggle('act',_payPeriod==='year');}
+function showPayModal(){updatePayPrice();document.getElementById('payArea').innerHTML='<div style=\"text-align:center;padding:20px\"><div class=\"sk\" style=\"margin:0 auto 10px\"></div><p style=\"font-size:.82rem;color:var(--t3)\">正在生成支付订单...</p></div>';document.getElementById('payHint').style.display='none';document.getElementById('payModal').classList.add('show');createPayOrder();}
 function closePay(){if(_payTimer)clearInterval(_payTimer);document.getElementById('payModal').classList.remove('show');}
 function selPayMethod(m){_payMethod=m;document.querySelectorAll('.ptb[data-m]').forEach(function(t){t.classList.toggle('act',t.dataset.m===m)});createPayOrder();}
 function createPayOrder(){if(_payTimer)clearInterval(_payTimer);var ep=_payMode==='renew'?'/api/v2/client/license/renew':'/api/v2/client/pay/create';window.electronAPI.api.post(ep,{plan:_payPlan,method:_payMethod}).then(function(r){var a=document.getElementById('payArea');if(!r.ok||!r.data||!r.data.success){a.innerHTML='<div class=\"error-box\">订单创建失败：'+(r.data&&r.data.message?r.data.message:r.data&&r.data.detail?r.data.detail:'未知错误 [ok='+r.ok+' status='+r.status+']')+'</div>';return;}_payOtn=r.data.out_trade_no;if(_payMethod==='wechat'){a.innerHTML='<div style=\"font-size:1.5rem;font-weight:700;color:#e44d26\">¥'+r.data.amount+'</div><div id=\"qrBox\" style=\"margin:10px auto\"></div><p style=\"font-size:.78rem;color:var(--t3)\">微信扫一扫支付</p>';var q=document.getElementById('qrBox');var img=document.createElement('img');img.src='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(r.data.code_url);img.width=200;img.height=200;img.style.cssText='border:1px solid #eee;border-radius:10px;padding:10px;background:#fff';q.appendChild(img);startPayPoll();}else{var html=r.data.redirect_url||r.data.form_html||'';if(html&&html.indexOf('<form')>=0){window.electronAPI.system.openHtml(html);a.innerHTML='<div style=\"font-size:1.5rem;font-weight:700;color:#e44d26\">¥'+r.data.amount+'</div><p style=\"font-size:.82rem;color:var(--t3);margin:10px 0\">已打开支付宝收银台</p><p style=\"font-size:.75rem;color:var(--t4)\">在浏览器中完成支付后，返回此页面</p><button class=\"btn-sm btn-up\" style=\"border-radius:8px\" onclick=\"startPayPoll()\">我已完成支付</button>';}else{a.innerHTML='<div class=\"error-box\">支付宝暂不可用，请选择微信支付</div>';}}}).catch(function(e){document.getElementById('payArea').innerHTML='<div class=\"error-box\">网络错误</div>';});}
@@ -479,7 +542,34 @@ function startPayPoll(){var a=document.getElementById('payArea');document.getEle
 function ageImgFor(age){var f='0%E5%B2%81.png';if(age<=2)f='0%E5%B2%81.png';else if(age<=6)f='3%E5%B2%81.png';else if(age<=12)f='10%E5%B2%81.png';else if(age<=17)f='15%E5%B2%81.png';else if(age<=25)f='20%E5%B2%81.png';else if(age<=35)f='30%E5%B2%81.png';else if(age<=45)f='40%E5%B2%81.png';else if(age<=60)f='50%E5%B2%81.png';else if(age<=80)f='70%E5%B2%81.png';else f='90%E5%B2%81.png';return 'ages/'+f;}
 function toggleUserMenu(){var d=document.getElementById('userDrop');d.classList.toggle('show');}
 function closeUserMenu(){var d=document.getElementById('userDrop');if(d)d.classList.remove('show');}
-function initUserMenu(){var a=null;try{window.electronAPI.store.get('auth').then(function(x){a=x;if(a){document.getElementById('avatarBtn').textContent=(a.displayName||a.phone||'?')[0].toUpperCase();document.getElementById('userName').textContent=a.displayName||a.phone||'-';document.getElementById('userPhone').textContent=a.phone||'-';}}).catch(function(){});}catch(e){}}
+function updateAvatarUI(displayName, phone, avatarUrl){
+  var av=document.getElementById('avatarBtn');
+  if(avatarUrl){av.innerHTML='<img src=\"'+avatarUrl+'\" alt=\"\" onerror=\"this.style.display=\"none\";this.parentElement.textContent=(arguments[1]||arguments[2]||\"?\")[0].toUpperCase()\">'}
+  else{av.textContent=(displayName||phone||'?')[0].toUpperCase()}
+  document.getElementById('userName').textContent=displayName||phone||'-';
+  document.getElementById('userPhone').textContent=phone||'-';
+}
+function initUserMenu(){
+  // First show cached data
+  window.electronAPI.store.get('auth').then(function(a){
+    if(a){updateAvatarUI(a.displayName, a.phone, a.avatarUrl)}
+  }).catch(function(){});
+  // Then refresh from server
+  window.electronAPI.api.get('/api/v2/client/license/status').then(function(r){
+    if(r.ok && r.data && r.data.user){
+      var u = r.data.user;
+      window.electronAPI.store.get('auth').then(function(a){
+        if(a){
+          a.displayName = u.display_name || a.displayName;
+          a.avatarUrl = u.avatar_url || a.avatarUrl;
+          a.wechatBound = u.wechat_bound;
+          window.electronAPI.store.set('auth', a);
+          updateAvatarUI(a.displayName, a.phone, a.avatarUrl);
+        }
+      });
+    }
+  }).catch(function(){});
+}
 document.addEventListener('page:loaded',initUserMenu);
 document.addEventListener('click',function(e){if(!e.target.closest('#avatarBtn')&&!e.target.closest('#userDrop')){var d=document.getElementById('userDrop');if(d)d.classList.remove('show');}});
 </script></body></html>

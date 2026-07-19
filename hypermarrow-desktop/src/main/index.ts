@@ -1,5 +1,5 @@
 /**
- * HyperMarrow 智商藏不住 桌面客户端 — 主进程入口
+ * 智商藏不住 桌面客户端 — 主进程入口
  */
 import { app, BrowserWindow, Menu, shell } from 'electron';
 import * as path from 'path';
@@ -23,13 +23,13 @@ let mainWindow: BrowserWindow | null = null;
 const gotLock = app.requestSingleInstanceLock();
 if (!gotLock) { app.quit(); } else {
   app.on('second-instance', () => {
-    if (mainWindow) { if (mainWindow.isMinimized()) mainWindow.restore(); mainWindow.focus(); mainWindow.show(); }
+    showMainWindow();
   });
 }
 
 function createMainWindow(): BrowserWindow {
   const win = new BrowserWindow({
-    width: 960, height: 680, minWidth: 800, minHeight: 600,
+    width: 1200, height: 800, minWidth: 900, minHeight: 640,
     title: '智商藏不住', show: false,
     webPreferences: {
       preload: path.join(__dirname, '..', 'preload', 'index.js'),
@@ -39,7 +39,13 @@ function createMainWindow(): BrowserWindow {
   win.loadFile(path.join(RENDERER_DIR, 'index.html'));
   win.once('ready-to-show', () => win.show());
   win.on('close', (event) => {
-    if (store.get('settings.minimizeToTray', true)) { event.preventDefault(); win.hide(); }
+    if (store.get('settings.minimizeToTray', true)) {
+      event.preventDefault();
+      win.hide();
+    }
+  });
+  win.on('closed', () => {
+    mainWindow = null;
   });
   win.webContents.setWindowOpenHandler(({ url }) => { shell.openExternal(url); return { action: 'deny' }; });
   return win;
@@ -53,11 +59,20 @@ app.whenReady().then(async () => {
   await initAutoLaunch(); initUpdater(mainWindow);
   setTimeout(() => checkForUpdates(false), 5000);
   setInterval(() => checkForUpdates(false), 6 * 60 * 60 * 1000);
-  app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) mainWindow = createMainWindow(); else mainWindow?.show(); });
+  app.on('activate', () => { showMainWindow(); });
 });
-app.on('window-all-closed', () => {});
+
+app.on('window-all-closed', () => {
+  app.quit();
+});
 
 export function getMainWindow(): BrowserWindow | null { return mainWindow; }
 export function showMainWindow(): void {
-  if (mainWindow) { if (mainWindow.isMinimized()) mainWindow.restore(); mainWindow.focus(); mainWindow.show(); }
+  if (mainWindow && !mainWindow.isDestroyed()) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+    mainWindow.show();
+  } else {
+    mainWindow = createMainWindow();
+  }
 }
