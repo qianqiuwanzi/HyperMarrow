@@ -48,3 +48,16 @@ calibration_history_*.json
 # rl_decision_history.json — 决策历史
 # episodes_*.json — 情景记忆
 # working_memory_*.json — 工作记忆快照
+
+# Build intermediates
+*.pyd
+*.pyc
+*.c
+*.cpp
+*.html
+*.exp
+*.lib
+*.obj
+build_tmp/
+dist/pyd/
+__pycache__/
