@@ -8,6 +8,17 @@ files:
   - dist/**/*
   - src/renderer/**/*
   - package.json
+extraResources:
+  - from: ../start.py
+    to: start.py
+  - from: ../stop.py
+    to: stop.py
+  - from: ../openclaw-memory-system
+    to: openclaw-memory-system
+  - from: ../openclaw-learning-system
+    to: openclaw-learning-system
+  - from: ../config.yaml
+    to: config.yaml
 win:
   target: [{ target: nsis, arch: [x64] }]
   icon: build/icon.ico

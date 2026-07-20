@@ -226,12 +226,15 @@ function updateBanner(){
   if(plan==='enterprise')ub.style.display='none';else ub.textContent='⚡ 升级';
 }
 
-async function loadData(){
+async function loadData(retry){
+  retry=retry||0;
   const[m,l,g,rules,eps,ags,hm,cal,dream,sk,ach]=await Promise.all([
     F('/memory/overview'),F('/learning/overview'),F('/kg/graph'),F('/pm/rules'),F('/em/timeline?limit=60'),
     F('/agents'),F('/ql/heatmap'),F('/meta/calibration'),F('/dream/status'),F('/skills/list'),F('/achievements')
   ]);
-  if(!m&&!l){document.getElementById('loadingView').innerHTML='<div style="text-align:center;color:var(--t3);padding:40px">⚠ 无法连接记忆系统<br><small>请确保 python start.py 已启动</small></div>';return;}
+  if(!m&&!l){
+    if(retry<15){setTimeout(function(){loadData(retry+1)},3000);document.getElementById('loadingView').innerHTML='<div class=\"loading\"><div class=\"sk\"></div><div style=\"font-size:.9rem;font-weight:600\">藏慧晶核正在唤醒…</div><div style=\"font-size:.75rem;margin-top:4px;opacity:.6\">等待记忆系统就绪 ('+(retry+1)+'/15)</div></div>';return;}
+    document.getElementById('loadingView').innerHTML='<div style=\"text-align:center;color:var(--t3);padding:40px\">⚠ 无法连接记忆系统<br><small>请确保 python start.py 已启动</small></div>';return;}
   _data={m:m||{},l:l||{},g,rules:rules||[],eps:eps||[],ags:ags||[],hm,cal,dream,skills:Object.values(sk||{}),ach:ach?.achievements||[]};
   document.getElementById('loadingView').style.display='none';
   renderAll();

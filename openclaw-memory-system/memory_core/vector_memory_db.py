@@ -350,13 +350,8 @@ class VectorMemoryDB:
         except Exception:
             total = 0
         
-        # Get embedding dimension from model
-        try:
-            self._ensure_model()
-            sample_embedding = self._model.encode("test")
-            embedding_dim = int(sample_embedding.shape[0])
-        except Exception:
-            embedding_dim = 384  # default for paraphrase-multilingual-MiniLM-L12-v2
+        # Get embedding dimension — use default, don't load model just for stats
+        embedding_dim = 384  # paraphrase-multilingual-MiniLM-L12-v2 default
         
         return {
             "total_vectors": total,

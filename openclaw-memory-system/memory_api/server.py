@@ -45,6 +45,19 @@ app.add_middleware(TokenAuthMiddleware)
 
 _DC = None; _REG = None; _WS = set()
 
+def _get_or_create_claude_dc():
+    global _CLAUDE_DC
+    if _CLAUDE_DC is None:
+        from memory_integration.decision_check import create_for_agent
+        _CLAUDE_DC = create_for_agent("claude",
+            enable_vector_db=_FEATURES.get("vector_memory", True),
+            enable_rl=_FEATURES.get("q_learning", True),
+            enable_metacognition=_FEATURES.get("metacognition", True),
+            enable_world_model=_FEATURES.get("world_model", True),
+            enable_prospective=_FEATURES.get("prospective_memory", True),
+        )
+    return _CLAUDE_DC
+
 def _init():
     global _DC, _REG, _CLAUDE_DC
     if _DC is None:
@@ -79,48 +92,22 @@ def _init():
                 print(f"[API] License check failed ({e}) — running community edition", file=sys.stderr)
 
         from memory_integration.decision_check import create_for_agent, get_agent_registry
+        # Create openclaw DC only — claude created lazily on first access
         _DC = create_for_agent("openclaw",
             enable_vector_db=_FEATURES.get("vector_memory", True),
             enable_rl=_FEATURES.get("q_learning", True),
             enable_metacognition=_FEATURES.get("metacognition", True),
-            enable_world_model=_FEATURES.get("world_model", True),
+            enable_world_model=False,  # Defer PyTorch model loading
             enable_prospective=_FEATURES.get("prospective_memory", True),
         )
         _REG = get_agent_registry()
-        _CLAUDE_DC = create_for_agent("claude",
-            enable_vector_db=_FEATURES.get("vector_memory", True),
-            enable_rl=_FEATURES.get("q_learning", True),
-            enable_metacognition=_FEATURES.get("metacognition", True),
-            enable_world_model=_FEATURES.get("world_model", True),
-            enable_prospective=_FEATURES.get("prospective_memory", True),
-        )
+        _CLAUDE_DC = None  # Lazy: created on first access
         # Wire DC back to bundle so agents endpoint shows correct status
-        for aid, dc in [("openclaw",_DC),("claude",_CLAUDE_DC)]:
+        for aid, dc in [("openclaw",_DC)]:
             b = _REG.get(aid)
             if b and dc: b.decision_checkpoint = dc
-        for aid in _REG.list_agents():
-            bundle = _REG.get(aid)
-            if not bundle: continue
-            qpath = Path(str(bundle.ql_agent.q_table_path)).with_suffix('.pt')
-            if qpath.exists():
-                try:
-                    from learning_core.q_learning_agent import QLearningAgent
-                    new_ql = QLearningAgent(state_space_size=100, action_space_size=7, neural_mode='hybrid')
-                    new_ql._neural_agent.load(str(qpath))
-                    new_ql.enable_world_model()
-                    new_ql.q_table = bundle.ql_agent.q_table.copy()
-                    new_ql._state_map = bundle.ql_agent._state_map.copy()
-                    new_ql._state_counter = bundle.ql_agent._state_counter
-                    new_ql.experience_buffer = bundle.ql_agent.experience_buffer[:]
-                    bundle.ql_agent = new_ql
-                    if bundle.decision_checkpoint: bundle.decision_checkpoint.ql_agent = new_ql
-                    # Only update _DC for openclaw (not claude!)
-                    if aid == 'openclaw':
-                        _DC = bundle.decision_checkpoint or _DC
-                        if _DC: _DC.ql_agent = new_ql
-                    print(f"[API] {aid}: neural auto-loaded from saved weights", file=sys.stderr, flush=True)
-                except Exception as e:
-                    print(f"[API] {aid}: neural load skipped ({e})", file=sys.stderr, flush=True)
+        # Neural model loading deferred — loaded lazily on first use
+        # Saves ~3s startup time and avoids PyTorch import on cold start
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # 记忆系统 API (7 模块)
