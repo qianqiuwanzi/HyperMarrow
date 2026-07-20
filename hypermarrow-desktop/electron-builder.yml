@@ -9,15 +9,15 @@ files:
   - src/renderer/**/*
   - package.json
 extraResources:
-  - from: ../start.py
+  - from: ../dist/pyd/start.py
     to: start.py
-  - from: ../stop.py
+  - from: ../dist/pyd/stop.py
     to: stop.py
-  - from: ../openclaw-memory-system
+  - from: ../dist/pyd/openclaw-memory-system
     to: openclaw-memory-system
-  - from: ../openclaw-learning-system
+  - from: ../dist/pyd/openclaw-learning-system
     to: openclaw-learning-system
-  - from: ../config.yaml
+  - from: ../dist/pyd/config.yaml
     to: config.yaml
 win:
   target: [{ target: nsis, arch: [x64] }]
@@ -30,6 +30,7 @@ nsis:
   createDesktopShortcut: true
   createStartMenuShortcut: true
   shortcutName: 智商藏不住
+  installerSidebar: null
 mac:
   target: [{ target: dmg, arch: [x64, arm64] }]
   icon: build/icon.icns
