@@ -6,5 +6,13 @@ contextBridge.exposeInMainWorld('electronAPI', {
   window: { show: () => ipcRenderer.invoke('window:show'), hide: () => ipcRenderer.invoke('window:hide') },
   system: { openExternal: (u: string) => ipcRenderer.invoke('system:open-external', u), openHtml: (h: string) => ipcRenderer.invoke('system:open-html', h), getAutoLaunch: () => ipcRenderer.invoke('system:get-auto-launch'), setAutoLaunch: (v: boolean) => ipcRenderer.invoke('system:set-auto-launch', v), checkUpdates: () => ipcRenderer.invoke('system:check-updates'), getPlatform: () => ipcRenderer.invoke('system:get-platform'), getDeviceInfo: () => ipcRenderer.invoke('system:get-device-info') },
   store: { get: (k: string, d?: unknown) => ipcRenderer.invoke('store:get', k, d), set: (k: string, v: unknown) => ipcRenderer.invoke('store:set', k, v) },
-  on: (ch: string, cb: (...args: any[]) => void) => { if (['update:download-progress','payment:callback','license:activated'].includes(ch)) ipcRenderer.on(ch, (_e, ...args) => cb(...args)); },
+  engine: {
+    isInstalled: (name: string) => ipcRenderer.invoke('engine:is-installed', name),
+    getInstalled: () => ipcRenderer.invoke('engine:get-installed'),
+    getAvailable: () => ipcRenderer.invoke('engine:get-available'),
+    getModuleInfo: (name: string) => ipcRenderer.invoke('engine:get-module-info', name),
+    install: (name: string) => ipcRenderer.invoke('engine:install', name),
+    restartApi: () => ipcRenderer.invoke('engine:restart-api'),
+  },
+  on: (ch: string, cb: (...args: any[]) => void) => { if (['update:download-progress','payment:callback','license:activated','engine:install-progress'].includes(ch)) ipcRenderer.on(ch, (_e, ...args) => cb(...args)); },
 });

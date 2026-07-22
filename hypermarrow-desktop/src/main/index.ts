@@ -26,19 +26,22 @@ let apiProcess: ChildProcess | null = null;
 const API_PORT = 8741;
 
 function findPython(): string {
-  // Try python3 first, then python
+  // Use embedded Python if available (bundled with installer)
+  const embeddedPython = path.join(process.resourcesPath, 'py310', 'python.exe');
+  if (fs.existsSync(embeddedPython)) {
+    console.log('[API] Using embedded Python:', embeddedPython);
+    return embeddedPython;
+  }
+  // Fallback: try system Python
   for (const cmd of ['python3', 'python']) {
     try {
       const result = require('child_process').spawnSync(cmd, ['--version'], { timeout: 3000 });
       if (result.status === 0) return cmd;
     } catch (e) { /* continue */ }
   }
-  // On Windows, try common paths
   if (process.platform === 'win32') {
     for (const p of [
       'C:\\Program Files\\Python310\\python.exe',
-      'C:\\Program Files\\Python311\\python.exe',
-      'C:\\Python310\\python.exe',
       process.env.LOCALAPPDATA + '\\Programs\\Python\\Python310\\python.exe',
     ]) {
       if (fs.existsSync(p)) return p;
@@ -77,7 +80,7 @@ function startMemoryAPI(): void {
     apiProcess = spawn(python, [startScript, '--no-build', '--port', String(API_PORT)], {
       cwd: workspaceDir,
       stdio: ['ignore', 'pipe', 'pipe'],
-      env: { ...process.env, PYTHONIOENCODING: 'utf-8' },
+      env: { ...process.env, PYTHONIOENCODING: 'utf-8', PYTHONNOUSERSITE: '1', APPDIR: process.resourcesPath },
     });
 
     apiProcess.stdout?.on('data', (data: Buffer) => {
@@ -92,6 +95,9 @@ function startMemoryAPI(): void {
     apiProcess.on('exit', (code: number | null) => {
       console.log(`[API] Process exited with code ${code}`);
       apiProcess = null;
+    });
+    apiProcess.stderr?.on('data', (data: Buffer) => {
+      console.error(`[API] ${data.toString().trim()}`);
     });
   } catch (e: any) {
     console.error(`[API] Failed to spawn: ${e.message}`);
@@ -178,3 +184,4 @@ export function showMainWindow(): void {
     mainWindow = createMainWindow();
   }
 }
+export { stopMemoryAPI, startMemoryAPI };

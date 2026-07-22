@@ -92,22 +92,26 @@ def _init():
                 print(f"[API] License check failed ({e}) — running community edition", file=sys.stderr)
 
         from memory_integration.decision_check import create_for_agent, get_agent_registry
-        # Create openclaw DC only — claude created lazily on first access
+        # Create system agent for shared subsystems (hidden from agent list until connected)
         _DC = create_for_agent("openclaw",
             enable_vector_db=_FEATURES.get("vector_memory", True),
             enable_rl=_FEATURES.get("q_learning", True),
             enable_metacognition=_FEATURES.get("metacognition", True),
-            enable_world_model=False,  # Defer PyTorch model loading
+            enable_world_model=False,
             enable_prospective=_FEATURES.get("prospective_memory", True),
         )
         _REG = get_agent_registry()
-        _CLAUDE_DC = None  # Lazy: created on first access
-        # Wire DC back to bundle so agents endpoint shows correct status
+        _CLAUDE_DC = None
+        # Mark system agents as not-yet-connected
+        for aid in ["openclaw", "claude"]:
+            b = _REG.get(aid)
+            if b: b._connected = False
+        # Wire DC back to bundle
         for aid, dc in [("openclaw",_DC)]:
             b = _REG.get(aid)
-            if b and dc: b.decision_checkpoint = dc
-        # Neural model loading deferred — loaded lazily on first use
-        # Saves ~3s startup time and avoids PyTorch import on cold start
+            if b and dc:
+                b.decision_checkpoint = dc
+                b._connected = False
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # 记忆系统 API (7 模块)
@@ -168,6 +172,52 @@ def vm_stats():
     if _DC.vector_db:
         return _DC.vector_db.get_temporal_stats()
     return {}
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Engine module status (for on-demand download UX)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+@app.get("/api/v1/engine/features")
+def engine_features():
+    """Report which engine modules are installed and available."""
+    _init()
+    features = {
+        "vector_memory": False,
+        "neural": False,
+        "modules": {},
+    }
+
+    # Check vector memory engine (chromadb + sentence-transformers)
+    if _DC.vector_db is not None:
+        try:
+            from memory_core.vector_memory_db import VectorMemoryDB
+            features["vector_memory"] = VectorMemoryDB.is_available()
+        except ImportError:
+            features["vector_memory"] = False
+
+    # Check neural engine (torch)
+    try:
+        import torch
+        features["neural"] = True
+    except ImportError:
+        features["neural"] = False
+
+    # Module metadata for download
+    features["modules"] = {
+        "vector": {
+            "name": "向量记忆引擎",
+            "description": "语义搜索和智能记忆",
+            "installed": features["vector_memory"],
+            "size_mb": 80,
+        },
+        "neural": {
+            "name": "神经引擎",
+            "description": "世界模型和深度学习",
+            "installed": features["neural"],
+            "size_mb": 120,
+        },
+    }
+    return features
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # 学习系统 API (7 模块)
@@ -253,8 +303,10 @@ def agents_list():
     now = datetime.now()
     for aid in _REG.list_agents():
         b=_REG.get(aid)
+        # Only show agents that have been explicitly connected
+        if b and not getattr(b, '_connected', False):
+            continue
         if not b:
-            r.append({"id":aid,"status":"offline","status_text":"离线（数据文件存在但未初始化）","actions":0})
             continue
         dc = b.decision_checkpoint
         ql=b.ql_agent.get_stats(); em=b.episodic_memory.get_stats()
@@ -347,6 +399,9 @@ def _resolve_agent_dc(agent_id: str):
 def agent_connect(agent_id: str):
     """Agent 注册连接 — 任意 Agent 均可调用，自动注册"""
     dc, bundle = _resolve_agent_dc(agent_id)
+    if bundle:
+        bundle._connected = True
+        _ensure_heartbeat(agent_id)
     if dc:
         dc._api_session_active = True
         dc._last_heartbeat = datetime.now().isoformat()
@@ -652,15 +707,19 @@ async def startup():
                     pass
             time.sleep(30)
 
-    # ── Heartbeat threads ────────────────────────────────────────────────
-    threading.Thread(
-        target=_agent_heartbeat, args=("claude", lambda: _is_agent_host_running("claude")),
-        daemon=True, name="hm_claude_heartbeat"
-    ).start()
-    threading.Thread(
-        target=_agent_heartbeat, args=("openclaw", lambda: _is_agent_host_running("openclaw")),
-        daemon=True, name="hm_openclaw_heartbeat"
-    ).start()
+    # ── Heartbeat threads: started on-demand per agent, not hardcoded ──
+    _heartbeat_threads = {}
+    def _ensure_heartbeat(agent_id: str):
+        """Start heartbeat thread for an agent if not already running."""
+        if agent_id in _heartbeat_threads:
+            return
+        t = threading.Thread(
+            target=_agent_heartbeat,
+            args=(agent_id, lambda: _is_agent_host_running(agent_id)),
+            daemon=True, name=f"hm_{agent_id}_heartbeat"
+        )
+        t.start()
+        _heartbeat_threads[agent_id] = t
 
     # ── Dream Cycle scheduler ────────────────────────────────────────────
     def _dream_scheduler():

@@ -206,14 +206,47 @@ document.querySelectorAll('.nv[data-panel]').forEach(el=>{
   });
 });
 
-// ═══════════ 初始化 ═══════════
+// ═══════════ 更新下载进度条 ═══════════
+window.electronAPI.on('update:download-progress',function(data){
+  var banner=document.getElementById('updateBanner');
+  if(!banner){
+    banner=document.createElement('div');
+    banner.id='updateBanner';
+    banner.style.cssText='position:fixed;top:0;left:0;right:0;z-index:300;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:12px 24px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 12px rgba(0,0,0,.2)';
+    document.body.appendChild(banner);
+  }
+  var pct=data.percent||0;
+  banner.innerHTML='<span style=\"font-size:.9rem;font-weight:600\">⬇ 正在下载新版本</span>'+
+    '<div style=\"flex:1;max-width:300px;background:rgba(255,255,255,.2);height:8px;border-radius:4px;overflow:hidden\">'+
+    '<div style=\"width:'+pct+'%;height:100%;background:#fff;border-radius:4px;transition:width .3s\"></div></div>'+
+    '<span style=\"font-size:.8rem;font-weight:600\">'+pct+'%</span>';
+  if(pct>=100){setTimeout(function(){if(banner)banner.remove();},2000);}
+});
+
+// ═══════════ 初始化 — 先显示骨架，后台加载数据 ═══════════
 document.addEventListener('page:loaded',async()=>{
-  try{const r=await window.electronAPI.api.get('/api/v2/client/license/status');
-    if(r.ok&&r.data)_lic=r.data;else{const c=await window.electronAPI.license.getCached();if(c)_lic={has_license:c.hasLicense,license:c};}
-  }catch(e){const c=await window.electronAPI.license.getCached();if(c)_lic={has_license:c.hasLicense,license:c};}
+  // Step 1: Show UI immediately with cached data
+  const c=await window.electronAPI.license.getCached().catch(()=>null);
+  if(c)_lic={has_license:c.hasLicense,license:c};else _lic={has_license:false};
   updateBanner();
+  showSkeleton();
+  // Step 2: Refresh license from server in background
+  try{const r=await window.electronAPI.api.get('/api/v2/client/license/status');
+    if(r.ok&&r.data)_lic=r.data;else{const c2=await window.electronAPI.license.getCached();if(c2)_lic={has_license:c2.hasLicense,license:c2};}
+    updateBanner();
+  }catch(e){}
+  // Step 3: Load memory data in background
   loadData();
 });
+
+function showSkeleton(){
+  var panels=['overview','memory','learning','agents','settings'];
+  panels.forEach(function(id){
+    var el=document.getElementById('panel-'+id);
+    if(!el||el.innerHTML) return;
+    el.innerHTML='<div style=\"text-align:center;padding:40px;color:var(--t3)\"><div class=\"sk\" style=\"margin:0 auto 12px\"></div><p style=\"font-size:.82rem\">记忆系统唤醒中…</p></div>';
+  });
+}
 
 function updateBanner(){
   const lic=(_lic&&_lic.license)?_lic.license:{plan:'free',status:'active',remaining_days:0};
@@ -226,19 +259,104 @@ function updateBanner(){
   if(plan==='enterprise')ub.style.display='none';else ub.textContent='⚡ 升级';
 }
 
+var _engineDownloading=null;
+
 async function loadData(retry){
   retry=retry||0;
-  const[m,l,g,rules,eps,ags,hm,cal,dream,sk,ach]=await Promise.all([
-    F('/memory/overview'),F('/learning/overview'),F('/kg/graph'),F('/pm/rules'),F('/em/timeline?limit=60'),
-    F('/agents'),F('/ql/heatmap'),F('/meta/calibration'),F('/dream/status'),F('/skills/list'),F('/achievements')
-  ]);
-  if(!m&&!l){
-    if(retry<15){setTimeout(function(){loadData(retry+1)},3000);document.getElementById('loadingView').innerHTML='<div class=\"loading\"><div class=\"sk\"></div><div style=\"font-size:.9rem;font-weight:600\">藏慧晶核正在唤醒…</div><div style=\"font-size:.75rem;margin-top:4px;opacity:.6\">等待记忆系统就绪 ('+(retry+1)+'/15)</div></div>';return;}
-    document.getElementById('loadingView').innerHTML='<div style=\"text-align:center;color:var(--t3);padding:40px\">⚠ 无法连接记忆系统<br><small>请确保 python start.py 已启动</small></div>';return;}
-  _data={m:m||{},l:l||{},g,rules:rules||[],eps:eps||[],ags:ags||[],hm,cal,dream,skills:Object.values(sk||{}),ach:ach?.achievements||[]};
-  document.getElementById('loadingView').style.display='none';
-  renderAll();
-  try{new WebSocket('ws://127.0.0.1:8741/ws').onmessage=e=>{const d=JSON.parse(e.data);if(_data){_data.l={..._data.l,q_learning:{..._data.l.q_learning,nonzero:d.ql_nonzero,buffer:d.ql_buffer},metacognition:{..._data.l.metacognition,health:d.health,accuracy:d.accuracy,score:d.score}};}};}catch(e){}
+  var MAX_RETRY=60, INTERVAL=1500;
+  try {
+    const[m,l,g,rules,eps,ags,hm,cal,dream,sk,ach]=await Promise.all([
+      F('/memory/overview'),F('/learning/overview'),F('/kg/graph'),F('/pm/rules'),F('/em/timeline?limit=60'),
+      F('/agents'),F('/ql/heatmap'),F('/meta/calibration'),F('/dream/status'),F('/skills/list'),F('/achievements')
+    ]);
+    if(!m&&!l){
+      if(retry<MAX_RETRY){
+        var pct=Math.round((retry+1)/MAX_RETRY*100);
+        setTimeout(function(){loadData(retry+1)},INTERVAL);
+        document.getElementById('loadingView').innerHTML='<div class=\"loading\"><div class=\"sk\"></div><div style=\"font-size:.9rem;font-weight:600\">智商藏不住晶核正在唤醒…</div><div style=\"font-size:.75rem;margin-top:4px;opacity:.6\">连接记忆与学习系统 ('+(retry+1)+'/'+MAX_RETRY+')</div><div class=\"pbar\" style=\"width:200px;margin:12px auto\"><div class=\"track\"><div class=\"fill\" style=\"width:'+pct+'%;background:linear-gradient(90deg,#667eea,#764ba2)\"></div></div></div></div>';
+        return;
+      }
+      document.getElementById('loadingView').innerHTML='<div style=\"text-align:center;color:var(--t3);padding:40px\">⚠ 无法连接记忆系统<br><small>请确保 python start.py 已启动</small><br><button class=\"btn-sm btn-up\" style=\"margin-top:16px;border-radius:8px;padding:8px 20px\" onclick=\"loadData(0)\">↻ 重新连接</button></div>';
+      return;
+    }
+    _data={m:m||{},l:l||{},g,rules:rules||[],eps:eps||[],ags:ags||[],hm,cal,dream,skills:Object.values(sk||{}),ach:ach?.achievements||[]};
+    document.getElementById('loadingView').style.display='none';
+    renderAll();
+    // Show onboarding if no agents connected AND not shown before
+    if((!_data.ags||_data.ags.length===0)&&!localStorage.getItem('hm_onboarded')){showOnboarding();}
+    try{new WebSocket('ws://127.0.0.1:8741/ws').onmessage=e=>{var d=JSON.parse(e.data);if(_data){_data.l={..._data.l,q_learning:{..._data.l.q_learning,nonzero:d.ql_nonzero,buffer:d.ql_buffer},metacognition:{..._data.l.metacognition,health:d.health,accuracy:d.accuracy,score:d.score}};}};}catch(e){}
+    F('/engine/features').then(function(eng){
+      if(eng&&eng.vector_memory===false&&!_engineDownloading) showEngineNeeded('vector',eng.modules?.vector);
+    }).catch(function(){});
+
+  } catch(e) {
+    document.getElementById('loadingView').innerHTML='<div style=\"text-align:center;color:#e74c3c;padding:40px\">渲染错误: '+e.message+'</div>';
+  }
+}
+
+// ── Engine download UI ──
+function showEngineNeeded(moduleName, info){
+  info=info||{};
+  var sizeText=info.size_mb?(' ('+info.size_mb+'MB)'):'';
+  var desc=info.description||'AI引擎';
+  var html='<div style=\"text-align:center;padding:30px 20px\">'+
+    '<div style=\"font-size:3rem;margin-bottom:12px\">🧩</div>'+
+    '<div style=\"font-size:1rem;font-weight:700;margin-bottom:8px\">'+desc+' 尚未安装'+sizeText+'</div>'+
+    '<div style=\"font-size:.8rem;color:var(--t3);margin-bottom:16px;line-height:1.6\">'+
+      '向量记忆引擎提供语义搜索和智能记忆功能。<br>'+
+      '安装后可获得更精准的记忆检索体验。'+
+    '</div>'+
+    '<div id=\"engineDlProgress\" style=\"margin-bottom:12px\"></div>'+
+    '<div id=\"engineDlActions\"><button class=\"btn-sm btn-up\" style=\"padding:8px 24px;font-size:.82rem;border-radius:8px\" id=\"btnEngineDl\">⬇ 下载并安装</button>'+
+    ' <button class=\"btn-sm btn-ghost\" style=\"padding:8px 24px;font-size:.78rem;border-radius:8px\" id=\"btnEngineSkip\">跳过，稍后再说</button></div>'+
+  '</div>';
+  document.getElementById('loadingView').innerHTML=html;
+  document.getElementById('loadingView').style.display='flex';
+  // Bind events AFTER DOM insertion to avoid escaping issues
+  var dlBtn=document.getElementById('btnEngineDl');
+  var skipBtn=document.getElementById('btnEngineSkip');
+  if(dlBtn) dlBtn.onclick=function(){ startEngineDownload(moduleName); };
+  if(skipBtn) skipBtn.onclick=function(){ loadData(0); document.getElementById('loadingView').style.display='flex'; };
+}
+
+function startEngineDownload(moduleName){
+  _engineDownloading={name:moduleName,pct:0};
+  var prog=document.getElementById('engineDlProgress');
+  prog.innerHTML='<div style=\"background:#f0f2f5;border-radius:8px;padding:12px\">'+
+    '<div style=\"font-size:.78rem;font-weight:600;margin-bottom:6px\">正在下载 '+moduleName+' 引擎...</div>'+
+    '<div class=\"pbar\"><div class=\"track\"><div class=\"fill\" id=\"engineDlFill\" '+
+    'style=\"width:0%;background:linear-gradient(90deg,#667eea,#764ba2)\"></div></div></div>'+
+    '<div style=\"font-size:.68rem;color:var(--t4);margin-top:4px\" id=\"engineDlPct\">0%</div></div>';
+
+  // Listen for real download progress from main process
+  window.electronAPI.on('engine:install-progress', function(data){
+    if(!_engineDownloading||data.name!==_engineDownloading.name)return;
+    var pct=data.percent||0;
+    _engineDownloading.pct=pct;
+    var fill=document.getElementById('engineDlFill');
+    var text=document.getElementById('engineDlPct');
+    if(fill)fill.style.width=pct+'%';
+    if(text)text.textContent=Math.round(pct)+'%';
+  });
+
+  // Start actual download via IPC
+  window.electronAPI.engine.install(moduleName).then(function(success){
+    if(success){
+      document.getElementById('loadingView').innerHTML='<div style=\"text-align:center;padding:30px\">'+
+        '<div style=\"font-size:2rem\">✅</div>'+
+        '<div style=\"font-weight:700;margin:8px 0\">引擎安装完成！</div>'+
+        '<div style=\"font-size:.78rem;color:var(--t3)\">正在重启记忆系统...</div></div>';
+      window.electronAPI.engine.restartApi().then(function(){
+        setTimeout(function(){_engineDownloading=null;loadData(0);},2000);
+      });
+    }else{
+      prog.innerHTML+='<div style=\"color:#e03131;font-size:.75rem;margin-top:8px\">❌ 下载失败，请检查网络后重试</div>';
+      _engineDownloading=null;
+    }
+  }).catch(function(err){
+    prog.innerHTML+='<div style=\"color:#e03131;font-size:.75rem;margin-top:8px\">❌ 下载失败: '+(err.message||'网络错误')+'</div>';
+    _engineDownloading=null;
+  });
 }
 
 // ═══════════ 全量渲染 ═══════════
@@ -485,7 +603,7 @@ function showPricing(){
   var plans=[
     {plan:'free',name:'标准版',priceM:'9.9',priceY:'99',feats:['f1','f2','f3','f4','f5','f6']},
     {plan:'pro',name:'专业版',priceM:'39',priceY:'399',feats:['f1','f2','f3','f4','f5','f6','f9','f10','f11','f12','f13','f14','d2']},
-    {plan:'enterprise',name:'旗舰版',priceM:'99',priceY:'999',feats:['f1','f2','f3','f4','f5','f6','f9','f10','f11','f12','f13','f14','d3','f17','f18','f19','f20']}
+    {plan:'enterprise',name:'旗舰版',priceM:'79',priceY:'799',feats:['f1','f2','f3','f4','f5','f6','f9','f10','f11','f12','f13','f14','d3','f17','f18','f19','f20']}
   ];
   var allFeats=[
     {id:'f1',name:'情景记忆',group:'核心记忆'},
@@ -536,7 +654,7 @@ function showPricing(){
 function closePricing(){document.getElementById('pricingModal').classList.remove('show');}
 function buyPlan(plan){closePricing();_payPlan=plan;_payMode='new';showPayModal();}
 var _payPlan='pro',_payMode='new',_payTimer=null,_payOtn='',_payMethod='wechat',_payPeriod='month';
-function updatePayPrice(){var pp=_payPlan==='pro'?'专业版':'旗舰版';var pr=_payPeriod==='year'?(_payPlan==='pro'?'¥399':'¥999'):(_payPlan==='pro'?'¥39':'¥99');document.getElementById('payPlanName').textContent=pp;document.getElementById('payPlanPrice').textContent=pr;document.getElementById('payPrdMonth').classList.toggle('act',_payPeriod==='month');document.getElementById('payPrdYear').classList.toggle('act',_payPeriod==='year');}
+function updatePayPrice(){var pp=_payPlan==='pro'?'专业版':'旗舰版';var pr=_payPeriod==='year'?(_payPlan==='pro'?'¥399':'¥799'):(_payPlan==='pro'?'¥39':'¥79');document.getElementById('payPlanName').textContent=pp;document.getElementById('payPlanPrice').textContent=pr;document.getElementById('payPrdMonth').classList.toggle('act',_payPeriod==='month');document.getElementById('payPrdYear').classList.toggle('act',_payPeriod==='year');}
 function showPayModal(){updatePayPrice();document.getElementById('payArea').innerHTML='<div style=\"text-align:center;padding:20px\"><div class=\"sk\" style=\"margin:0 auto 10px\"></div><p style=\"font-size:.82rem;color:var(--t3)\">正在生成支付订单...</p></div>';document.getElementById('payHint').style.display='none';document.getElementById('payModal').classList.add('show');createPayOrder();}
 function closePay(){if(_payTimer)clearInterval(_payTimer);document.getElementById('payModal').classList.remove('show');}
 function selPayMethod(m){_payMethod=m;document.querySelectorAll('.ptb[data-m]').forEach(function(t){t.classList.toggle('act',t.dataset.m===m)});createPayOrder();}
@@ -575,4 +693,33 @@ function initUserMenu(){
 }
 document.addEventListener('page:loaded',initUserMenu);
 document.addEventListener('click',function(e){if(!e.target.closest('#avatarBtn')&&!e.target.closest('#userDrop')){var d=document.getElementById('userDrop');if(d)d.classList.remove('show');}});
+
+// ── Onboarding: shown on fresh install when no agents exist ──
+function showOnboarding(){
+  var overlay=document.createElement('div');
+  overlay.className='modal-overlay show';
+  overlay.id='onboardingModal';
+  overlay.innerHTML='<div class=\"modal-box\" style=\"max-width:520px;text-align:center\">'+
+    '<button class=\"mclose\" id=\"btnOnboardClose\">✕</button>'+
+    '<div style=\"font-size:3rem;margin-bottom:12px\">🚀</div>'+
+    '<h3>欢迎使用智商藏不住</h3>'+
+    '<p class=\"msub\" style=\"font-size:.85rem;line-height:1.8\">'+
+      '下载使用文档后，<b>将文档内容直接发送给你的 AI 智能体</b>，<br>'+
+      'AI 将自动完成集成，无需任何手动配置。<br>'+
+      '支持 OpenClaw、Claude Code 等主流 AI Agent。'+
+    '</p>'+
+    '<div style=\"display:flex;gap:10px;justify-content:center;margin-top:20px\">'+
+      '<button class=\"btn-sm btn-up\" style=\"padding:10px 28px;font-size:.85rem;border-radius:8px\" id=\"btnOnboardGuide\">📄 下载使用文档</button>'+
+      '<button class=\"btn-sm btn-ghost\" style=\"padding:10px 28px;font-size:.82rem;border-radius:8px\" id=\"btnOnboardSkip\">稍后再说</button>'+
+    '</div>'+
+  '</div>';
+  document.body.appendChild(overlay);
+  document.getElementById('btnOnboardClose').onclick=function(){localStorage.setItem('hm_onboarded','1');document.getElementById('onboardingModal').remove();};
+  document.getElementById('btnOnboardSkip').onclick=function(){localStorage.setItem('hm_onboarded','1');document.getElementById('onboardingModal').remove();};
+  document.getElementById('btnOnboardGuide').onclick=function(){
+    localStorage.setItem('hm_onboarded','1');
+    window.electronAPI.system.openExternal('https://hm.qianshi.cool/HYPERMARROW_GUIDE.md');
+    document.getElementById('onboardingModal').remove();
+  };
+}
 </script></body></html>

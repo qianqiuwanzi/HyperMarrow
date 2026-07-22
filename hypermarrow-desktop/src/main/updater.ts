@@ -10,7 +10,13 @@ export function initUpdater(mw: BrowserWindow): void {
     dialog.showMessageBox(mw, { type: force ? 'warning' : 'info', title: force ? '需要更新' : '发现新版本', message: `HyperMarrow v${info.version} 已发布`, buttons: ['立即更新', '稍后提醒'], defaultId: 0, cancelId: 1 }).then(({ response }) => { if (response === 0) autoUpdater.downloadUpdate(); });
   });
   autoUpdater.on('download-progress', (p) => mw.webContents.send('update:download-progress', { percent: Math.round(p.percent) }));
-  autoUpdater.on('update-downloaded', () => dialog.showMessageBox(mw, { type: 'info', title: '更新已下载', message: '是否立即重启安装？', buttons: ['立即重启', '稍后'], defaultId: 0 }).then(({ response }) => { if (response === 0) autoUpdater.quitAndInstall(false, true); }));
+  autoUpdater.on('update-downloaded', () => dialog.showMessageBox(mw, { type: 'info', title: '更新已下载', message: '是否立即重启安装？', buttons: ['立即重启', '稍后'], defaultId: 0 }).then(({ response }) => {
+    if (response === 0) {
+      // Force-kill Python subprocess before installer runs, otherwise NSIS blocks
+      try { require('./index').stopMemoryAPI(); } catch(e) {}
+      setTimeout(() => autoUpdater.quitAndInstall(false, true), 500);
+    }
+  }));
   autoUpdater.on('error', (err) => console.error('[Updater]', err.message));
 }
 export async function checkForUpdates(userInitiated: boolean): Promise<void> {

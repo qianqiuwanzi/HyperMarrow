@@ -13,6 +13,8 @@
 <script src="js/features.js"></script>
 <script src="js/shared.js"></script>
 <script>
+window._errors=[];
+window.onerror=function(m,s,l,c,err){window._errors.push({msg:m,src:s,line:l,col:c,stack:err?.stack});return false;};
 (function(){
   const container=document.getElementById('pageContainer');
   const routes={login:'pages/login.html',app:'pages/app.html',dashboard:'pages/dashboard.html',pricing:'pages/pricing.html',payment:'pages/payment.html',settings:'pages/settings.html'};
@@ -24,7 +26,11 @@
       container.innerHTML=html;
       // innerHTML doesn't execute <script> tags — manually recreate and execute them
       const scripts=container.querySelectorAll('script');
-      scripts.forEach(old=>{const s=document.createElement('script');s.textContent=old.textContent;old.replaceWith(s)});
+      for (const old of scripts) {
+        const s=document.createElement('script');
+        s.textContent=old.textContent;
+        old.parentNode.replaceChild(s,old);
+      }
       document.dispatchEvent(new CustomEvent('page:loaded',{detail:{page,params}}));
     }catch(err){container.innerHTML=`<div class="error-fullscreen"><h2>加载失败</h2><p>${err.message}</p><button class="btn btn-primary" onclick="location.reload()">重试</button></div>`;}
   }

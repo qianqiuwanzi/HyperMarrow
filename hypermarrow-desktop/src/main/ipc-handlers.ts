@@ -1,10 +1,11 @@
 import { ipcMain, shell } from 'electron';
 import { store, getAuthToken, isLoggedIn, clearAuth, getServerUrl } from './store';
 import { updateTrayStatus } from './tray';
-import { showMainWindow, getMainWindow } from './index';
+import { showMainWindow, getMainWindow, stopMemoryAPI, startMemoryAPI } from './index';
 import { checkForUpdates } from './updater';
 import { setAutoLaunch, isAutoLaunchEnabled } from './auto-launch';
 import { checkOfflineStatus } from './offline';
+import { isEngineInstalled, getInstalledModules, getAvailableModules, getModuleInfo, installEngineModule } from './engine-downloader';
 
 async function apiRequest(method: string, path: string, body?: unknown, useAuth = true) {
   const url = `${getServerUrl()}${path}`;
@@ -57,4 +58,29 @@ export function registerIpcHandlers(): void {
   ipcMain.handle('system:get-platform', () => process.platform);
   ipcMain.handle('system:get-device-info', () => ({ platform: process.platform, arch: process.arch, version: require('electron').app.getVersion() }));
   ipcMain.handle('license:offline-status', () => checkOfflineStatus());
+
+  // ── Engine module download & management ──────────────────────────────────
+  ipcMain.handle('engine:is-installed', (_e, name: string) => isEngineInstalled(name));
+  ipcMain.handle('engine:get-installed', () => getInstalledModules());
+  ipcMain.handle('engine:get-available', () => getAvailableModules());
+  ipcMain.handle('engine:get-module-info', (_e, name: string) => getModuleInfo(name));
+
+  ipcMain.handle('engine:install', async (_e, moduleName: string) => {
+    const win = getMainWindow();
+    const success = await installEngineModule(moduleName, (pct: number) => {
+      if (win && !win.isDestroyed()) {
+        win.webContents.send('engine:install-progress', { name: moduleName, percent: pct });
+      }
+    });
+    return success;
+  });
+
+  ipcMain.handle('engine:restart-api', async () => {
+    console.log('[Engine] Restarting Python API...');
+    stopMemoryAPI();
+    // Wait a moment for port to be released
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    startMemoryAPI();
+    return true;
+  });
 }

@@ -15,7 +15,7 @@ from pathlib import Path
 import os
 import sys
 
-__version__ = "2.0.0"
+__version__ = "2.1.1"
 
 # ── Internal cache ────────────────────────────────────────────────────────
 _config = None
@@ -165,7 +165,13 @@ def get_memory_dir() -> Path:
 
 
 def get_cache_dir() -> Path:
-    """Get cache directory path (workspace/.cache)."""
+    """Get cache directory path. Prefer APPDATA (user-writable), fallback to workspace."""
+    import platform
+    appdata = os.environ.get('APPDATA', '')
+    if appdata:
+        p = Path(appdata) / 'hypermarrow' / 'cache'
+        p.mkdir(parents=True, exist_ok=True)
+        return p
     return get_workspace() / ".cache"
 
 
@@ -215,6 +221,15 @@ def setup_hf_mirror():
     os.environ['HUGGINGFACE_HUB_CACHE'] = str(hf_cache / 'hub')
     os.environ['HF_HOME'] = str(hf_cache)
     hf_cache.mkdir(parents=True, exist_ok=True)
+
+    # Offline mode: skip HF network validation if model cache exists (faster startup)
+    from sys import stderr as _stderr
+    if (hf_cache / 'hub').exists():
+        os.environ['TRANSFORMERS_OFFLINE'] = '1'
+        os.environ['HF_HUB_OFFLINE'] = '1'
+        print('[Config] HF offline mode enabled (model cache found)', file=_stderr)
+    else:
+        print('[Config] HF online mode (first run, model will be downloaded)', file=_stderr)
 
     enabled = "enabled" if hf_cfg.get("mirror_enabled", True) else "disabled"
     from sys import stderr

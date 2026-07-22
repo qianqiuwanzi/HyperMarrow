@@ -152,6 +152,62 @@ def start_server(port: int, host: str = "0.0.0.0") -> int | None:
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
+# Engine module detection
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def check_engine_deps():
+    """Check which engine modules are installed. Print status and JSON output."""
+    report = {"vector_memory": False, "neural": False, "modules": {}}
+
+    # Check chromadb
+    try:
+        import chromadb
+        report["modules"]["chromadb"] = {"installed": True, "version": getattr(chromadb, "__version__", "unknown")}
+    except ImportError:
+        report["modules"]["chromadb"] = {"installed": False, "reason": "not installed"}
+
+    # Check sentence-transformers
+    try:
+        import sentence_transformers
+        report["modules"]["sentence_transformers"] = {"installed": True,
+            "version": getattr(sentence_transformers, "__version__", "unknown")}
+    except ImportError:
+        report["modules"]["sentence_transformers"] = {"installed": False, "reason": "not installed"}
+
+    # Check torch
+    try:
+        import torch
+        report["neural"] = True
+        report["modules"]["torch"] = {"installed": True, "version": torch.__version__}
+    except ImportError:
+        report["modules"]["torch"] = {"installed": False, "reason": "not installed"}
+
+    # Vector memory requires both chromadb + sentence-transformers
+    report["vector_memory"] = (
+        report["modules"]["chromadb"]["installed"] and
+        report["modules"]["sentence_transformers"]["installed"]
+    )
+
+    # Print human-readable
+    print("=" * 50)
+    print("  HyperMarrow Engine Module Check")
+    print("=" * 50)
+    for name, info in report["modules"].items():
+        status = "[OK] INSTALLED" if info["installed"] else "[X]  MISSING"
+        extra = f" (v{info.get('version', '')})" if info.get("installed") else f" — {info.get('reason', '')}"
+        print(f"  {name:30s} {status}{extra}")
+    print("-" * 50)
+    print(f"  Vector Memory Engine: {'[OK] READY' if report['vector_memory'] else '[X]  NOT READY'}")
+    print(f"  Neural Engine:        {'[OK] READY' if report['neural'] else '[X]  NOT READY'}")
+    print("=" * 50)
+
+    # Print JSON for programmatic use
+    print("\n[JSON]")
+    print(json.dumps(report, indent=2))
+    return report
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
 # Main
 # ═══════════════════════════════════════════════════════════════════════════════
 
@@ -165,6 +221,7 @@ def main():
   python start.py --dev            # 开发模式，仅 API，UI 用 npm run dev
   python start.py --port 9000      # 自定义端口
   python start.py --no-build       # 跳过构建（dist/ 已就绪）
+  python start.py --check-deps     # 仅检查引擎模块，不启动服务
   python stop.py                   # 停止服务
         """,
     )
@@ -178,12 +235,19 @@ def main():
                         help="跳过 UI 构建")
     parser.add_argument("--stop", action="store_true",
                         help="停止正在运行的服务")
+    parser.add_argument("--check-deps", action="store_true",
+                        help="仅检查引擎模块依赖，不启动服务")
 
     args = parser.parse_args()
 
     # ── Stop mode ──────────────────────────────────────────────────────────────
     if args.stop:
         stop_service(args.port)
+        return
+
+    # ── Check-deps mode ────────────────────────────────────────────────────────
+    if args.check_deps:
+        check_engine_deps()
         return
 
     # ── Check if already running ───────────────────────────────────────────────

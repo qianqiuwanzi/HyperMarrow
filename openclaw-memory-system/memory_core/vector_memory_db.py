@@ -9,11 +9,26 @@ setup_hf_mirror()
 
 import json
 from datetime import datetime, timedelta
-import chromadb
-from chromadb.config import Settings
-from sentence_transformers import SentenceTransformer
 from pathlib import Path
 import numpy as np
+
+# ── Lazy imports: chromadb + sentence-transformers are optional engine modules ──
+_HAS_CHROMADB = False
+_HAS_SENTENCE_TRANSFORMERS = False
+_chromadb_import_error = None
+_st_import_error = None
+
+try:
+    import chromadb
+    _HAS_CHROMADB = True
+except ImportError as e:
+    _chromadb_import_error = str(e)
+
+try:
+    from sentence_transformers import SentenceTransformer  # noqa: F811 (used later)
+    _HAS_SENTENCE_TRANSFORMERS = True
+except ImportError as e:
+    _st_import_error = str(e)
 
 # HF env already set above
 
@@ -25,34 +40,53 @@ class VectorMemoryDB:
         Args:
             db_path: Path to ChromaDB storage (default: <workspace>/memory/chromadb)
         """
+        if not _HAS_CHROMADB:
+            self.client = None
+            self.collection = None
+            self._model = None
+            self._model_name = 'paraphrase-multilingual-MiniLM-L12-v2'
+            self.db_path = Path(db_path) if db_path else get_memory_dir() / "chromadb"
+            print(f"[VectorDB] UNAVAILABLE — chromadb not installed ({_chromadb_import_error})", file=_sys.stderr)
+            return
+
         if db_path is None:
             db_path = get_memory_dir() / "chromadb"
         self.db_path = Path(db_path)
         self.db_path.mkdir(parents=True, exist_ok=True)
-        
+
         # Initialize ChromaDB (lightweight, no model)
         self.client = chromadb.PersistentClient(path=str(self.db_path))
-        
+
         # Model: lazy loaded on first use
         self._model = None
         self._model_name = 'paraphrase-multilingual-MiniLM-L12-v2'
-        
+
         # Create or get collection
         self.collection = self.client.get_or_create_collection(
             name="memory_vectors",
             metadata={"description": "OpenClaw memory vectors"}
         )
-        
+
         print(f"[VectorDB] Initialized (lazy). Collection has {self.collection.count()} vectors", file=_sys.stderr)
     
     def _ensure_model(self):
         """Lazy-load sentence transformer model (called before first encode)."""
         if self._model is not None:
             return
+        if not _HAS_SENTENCE_TRANSFORMERS:
+            raise ImportError(
+                f"sentence-transformers not installed ({_st_import_error}). "
+                "Install the vector engine module to enable semantic search."
+            )
         print("[VectorDB] Loading sentence transformer model...", file=_sys.stderr)
         print("[VectorDB] Using HF mirror: https://hf-mirror.com", file=_sys.stderr)
         self._model = SentenceTransformer(self._model_name)
         print("[VectorDB] Model loaded successfully", file=_sys.stderr)
+
+    @staticmethod
+    def is_available() -> bool:
+        """Check if vector memory engine is installed."""
+        return _HAS_CHROMADB and _HAS_SENTENCE_TRANSFORMERS
     
     def add_memory(self, memory_id, content, metadata=None):
         """
@@ -206,6 +240,9 @@ class VectorMemoryDB:
         Returns:
             dict with: total, date_range, per_day, oldest, newest
         """
+        if not _HAS_CHROMADB or self.collection is None:
+            return {"total": 0, "available": False, "reason": "Vector engine not installed"}
+
         all_data = self.collection.get(include=["metadatas"])
         metadatas = all_data.get("metadatas", []) or []
 
@@ -336,15 +373,23 @@ class VectorMemoryDB:
     def get_stats(self) -> dict:
         """
         Get database statistics.
-        
+
         Returns:
             dict with keys:
                 - total_vectors: total number of stored vectors
+                - available: whether vector engine is installed
                 - collection_name: name of the ChromaDB collection
                 - model_name: name of the embedding model
                 - embedding_dim: dimension of each embedding vector
                 - db_path: path to the ChromaDB storage
         """
+        if not _HAS_CHROMADB or self.collection is None:
+            return {
+                "total_vectors": 0,
+                "available": False,
+                "reason": "Vector engine not installed. Download from Settings > Engine Modules."
+            }
+
         try:
             total = self.collection.count()
         except Exception:

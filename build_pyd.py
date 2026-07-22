@@ -6,13 +6,19 @@ from pathlib import Path
 
 _HERE = Path(__file__).parent
 _TARGETS = ['openclaw-memory-system', 'openclaw-learning-system']
-_SKIP_DIRS = {'examples', '__pycache__', 'openclaw_memory_system', 'data', 'memory_api', 'memory_cli'}
+_SKIP_DIRS = {'examples', '__pycache__', 'openclaw_memory_system', 'data', 'memory_cli', 'memory_api'}
 _SKIP_FILES = {'setup.py', 'build_package.py', 'build_pyd.py'}
 
 OUTPUT = _HERE / 'dist' / 'pyd'
-# Clean output dir
+# Clean output dir (preserve py310/ embedded Python)
 if OUTPUT.exists():
-    shutil.rmtree(OUTPUT)
+    for item in os.listdir(str(OUTPUT)):
+        item_path = OUTPUT / item
+        if item == 'py310': continue
+        if item_path.is_dir():
+            shutil.rmtree(item_path, ignore_errors=True)
+        else:
+            item_path.unlink(missing_ok=True)
 os.makedirs(OUTPUT, exist_ok=True)
 
 # Copy start.py, stop.py, config.yaml as-is
@@ -44,9 +50,15 @@ for i, py_file in enumerate(py_files):
     build_dir = out_dir / 'build_tmp'
     build_dir.mkdir(exist_ok=True)
     result = subprocess.run(
-        [sys.executable, '-m', 'cython', '-3', str(py_file.name)],
+        [sys.executable, '-m', 'cython', '-3', '--directive', 'binding=True', str(py_file.name)],
         capture_output=True, text=True, cwd=str(py_file.parent), timeout=60
     )
+    if result.returncode != 0:
+        # Retry without binding
+        result = subprocess.run(
+            [sys.executable, '-m', 'cython', '-3', str(py_file.name)],
+            capture_output=True, text=True, cwd=str(py_file.parent), timeout=60
+        )
     if result.returncode != 0:
         print(f'  CYTHON FAILED → .pyc fallback')
         py_compile.compile(str(py_file), cfile=str(out_dir / f'{mod_name}.pyc'), doraise=False, optimize=2)
@@ -93,8 +105,8 @@ setup(
     c_file.unlink()
     shutil.rmtree(build_dir, ignore_errors=True)
 
-# ── Compile skipped files (memory_api, memory_cli) to .pyc ──
-print('\nCompiling API layer → .pyc...')
+# ── Compile any remaining skipped files to .pyc ──
+print('\nCompiling skipped files → .pyc...')
 for target in _TARGETS:
     for py_file in (_HERE / target).rglob('*.py'):
         if not any(s in py_file.parts for s in _SKIP_DIRS): continue
