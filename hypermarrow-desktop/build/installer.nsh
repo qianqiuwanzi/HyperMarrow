@@ -1,11 +1,11 @@
 ; Kill app + Python before install/uninstall
 !macro customCheckAppRunning
-  nsExec::ExecToLog 'cmd /c taskkill /f /im 智商藏不住.exe 2>nul'
-  nsExec::ExecToLog 'cmd /c taskkill /f /im python.exe 2>nul'
-  Sleep 2500
+  nsExec::Exec 'taskkill /F /IM 智商藏不住.exe'
+  nsExec::Exec 'taskkill /F /IM python.exe'
+  Sleep 3000
 !macroend
 !macro customInit
-  nsExec::ExecToLog 'cmd /c taskkill /f /im 智商藏不住.exe 2>nul'
-  nsExec::ExecToLog 'cmd /c taskkill /f /im python.exe 2>nul'
-  Sleep 1500
+  nsExec::Exec 'taskkill /F /IM 智商藏不住.exe'
+  nsExec::Exec 'taskkill /F /IM python.exe'
+  Sleep 2000
 !macroend

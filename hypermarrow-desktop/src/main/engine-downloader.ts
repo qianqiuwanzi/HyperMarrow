@@ -28,13 +28,13 @@ const CDN_BASE = 'https://cdn.qianshi.cool/download';
 const ENGINE_MODULES: Record<string, EngineModule> = {
   vector: {
     name: 'vector',
-    version: '2.1.1',
+    version: '2.1.9',
     description: '向量记忆引擎 — 语义搜索和智能记忆',
     sizeMB: 80,
   },
   neural: {
     name: 'neural',
-    version: '2.1.1',
+    version: '2.1.9',
     description: '神经引擎 — 世界模型和深度学习',
     sizeMB: 120,
   },
@@ -68,7 +68,7 @@ export function getInstalledModules(): Record<string, { version: string; install
       try {
         result[name] = JSON.parse(fs.readFileSync(sp, 'utf-8'));
       } catch {
-        result[name] = { version: '2.1.1', installedAt: '' };
+        result[name] = { version: '2.1.9', installedAt: '' };
       }
     }
   }

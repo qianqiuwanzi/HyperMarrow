@@ -1,6 +1,7 @@
 import { autoUpdater } from 'electron-updater';
 import { BrowserWindow, dialog } from 'electron';
 import { store } from './store';
+import { execSync } from 'child_process';
 let checking = false;
 export function initUpdater(mw: BrowserWindow): void {
   autoUpdater.setFeedURL({ provider: 'generic', url: `${store.get('settings.serverUrl')}/api/v2/client/updates` });
@@ -12,9 +13,12 @@ export function initUpdater(mw: BrowserWindow): void {
   autoUpdater.on('download-progress', (p) => mw.webContents.send('update:download-progress', { percent: Math.round(p.percent) }));
   autoUpdater.on('update-downloaded', () => dialog.showMessageBox(mw, { type: 'info', title: '更新已下载', message: '是否立即重启安装？', buttons: ['立即重启', '稍后'], defaultId: 0 }).then(({ response }) => {
     if (response === 0) {
-      // Force-kill Python subprocess before installer runs, otherwise NSIS blocks
-      try { require('./index').stopMemoryAPI(); } catch(e) {}
-      setTimeout(() => autoUpdater.quitAndInstall(false, true), 500);
+      // Disable minimize-to-tray so close actually quits the app
+      store.set('settings.minimizeToTray', false);
+      // Force-close all windows so app can exit
+      BrowserWindow.getAllWindows().forEach(w => { try { w.destroy(); } catch(e) {} });
+      // Now quitAndInstall can proceed — no more "无法关闭" from NSIS
+      setImmediate(() => autoUpdater.quitAndInstall(false, true));
     }
   }));
   autoUpdater.on('error', (err) => console.error('[Updater]', err.message));

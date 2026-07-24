@@ -15,7 +15,7 @@ from pathlib import Path
 import os
 import sys
 
-__version__ = "2.1.1"
+__version__ = "2.1.9"
 
 # ── Internal cache ────────────────────────────────────────────────────────
 _config = None

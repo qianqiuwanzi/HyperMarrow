@@ -1,6 +1,6 @@
 {
   "name": "hypermarrow-desktop",
-  "version": "2.1.1",
+  "version": "2.1.9",
   "description": "智商藏不住 — AI 记忆与学习系统 桌面客户端",
   "main": "dist/main/index.js",
   "author": "OpenClaw Team",
@@ -14,7 +14,7 @@
     "start": "electron .",
     "prepack:win": "npm run build:main",
     "pack:win": "set ELECTRON_BUILDER_BINARIES_MIRROR=https://npmmirror.com/mirrors/electron-builder-binaries/&& set ELECTRON_BUILDER_CACHE=%APPDATA%\\hypermarrow\\electron-builder-cache&& electron-builder --win --x64",
-    "release": "node scripts/bump-version.js && npm run pack:win && node scripts/sync-product-page.js",
+    "release": "node scripts/bump-version.js && npm run pack:win && node scripts/sync-product-page.js && node scripts/release.js",
     "prepack:mac": "npm run build:main",
     "pack:mac": "set ELECTRON_BUILDER_BINARIES_MIRROR=https://npmmirror.com/mirrors/electron-builder-binaries/&& set ELECTRON_BUILDER_CACHE=%APPDATA%\\hypermarrow\\electron-builder-cache&& electron-builder --mac --x64 --arm64",
     "prepack:all": "npm run build:main",

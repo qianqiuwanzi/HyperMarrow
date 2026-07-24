@@ -42,6 +42,12 @@ let eng = fs.readFileSync(engPath, 'utf-8');
 eng = eng.replace(/version:\s*'[^']+'/g, `version: '${newVersion}'`);
 fs.writeFileSync(engPath, eng);
 
-// 7. Export for use by postbuild
+// 7. Sync to sdk/setup.py
+const sdkPath = path.join(ROOT, 'hypermarrow-desktop', 'sdk', 'setup.py');
+let sdk = fs.readFileSync(sdkPath, 'utf-8');
+sdk = sdk.replace(/version = '[^']+'/, `version = '${newVersion}'`);
+fs.writeFileSync(sdkPath, sdk);
+
+// 8. Export for use by postbuild
 process.env.HM_VERSION = newVersion;
 console.log(`[bump-version] All files synced to ${newVersion}`);

@@ -395,6 +395,29 @@ def _resolve_agent_dc(agent_id: str):
     return dc, bundle
 
 
+# ── Heartbeat on-demand ───────────────────────────────────────────────────
+_heartbeat_threads = {}
+
+def _ensure_heartbeat(agent_id: str):
+    """Start heartbeat thread for a connected agent."""
+    import urllib.request, threading, time as _time
+    if agent_id in _heartbeat_threads:
+        return
+    def _beat():
+        url_beat = f'http://localhost:8741/api/v1/agents/{agent_id}/heartbeat'
+        # Initial connect
+        try: urllib.request.urlopen(urllib.request.Request(
+            f'http://localhost:8741/api/v1/agents/{agent_id}/connect', method='POST'), timeout=3)
+        except: pass
+        while True:
+            try: urllib.request.urlopen(urllib.request.Request(url_beat, method='POST'), timeout=3)
+            except: pass
+            _time.sleep(30)
+    t = threading.Thread(target=_beat, daemon=True, name=f"hm_{agent_id}_heartbeat")
+    t.start()
+    _heartbeat_threads[agent_id] = t
+
+
 @app.post("/api/v1/agents/{agent_id}/connect")
 def agent_connect(agent_id: str):
     """Agent 注册连接 — 任意 Agent 均可调用，自动注册"""
@@ -596,12 +619,12 @@ def user_info(token: str = Query("")):
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# v2 License API 代理 → https://license.qianshi.cool
+# v2 License API 代理 → https://hm.qianshi.cool
 # ═══════════════════════════════════════════════════════════════════════════════
 
 import urllib.request as _urllib
 
-_LICENSE_SERVER = "https://license.qianshi.cool"
+_LICENSE_SERVER = "https://hm.qianshi.cool"
 
 
 def _proxy_to_license(path: str, body: dict | None = None):
@@ -706,20 +729,6 @@ async def startup():
                 except Exception:
                     pass
             time.sleep(30)
-
-    # ── Heartbeat threads: started on-demand per agent, not hardcoded ──
-    _heartbeat_threads = {}
-    def _ensure_heartbeat(agent_id: str):
-        """Start heartbeat thread for an agent if not already running."""
-        if agent_id in _heartbeat_threads:
-            return
-        t = threading.Thread(
-            target=_agent_heartbeat,
-            args=(agent_id, lambda: _is_agent_host_running(agent_id)),
-            daemon=True, name=f"hm_{agent_id}_heartbeat"
-        )
-        t.start()
-        _heartbeat_threads[agent_id] = t
 
     # ── Dream Cycle scheduler ────────────────────────────────────────────
     def _dream_scheduler():

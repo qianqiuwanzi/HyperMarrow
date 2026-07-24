@@ -473,7 +473,7 @@ function renderSettingsPanel(){
   const lic=(_lic&&_lic.license)?_lic.license:{plan:'free'};
   return `<div class="card"><div class="card-hd"><span class="t">⚙ 设置</span></div>
     <div style="line-height:2.5;font-size:.85rem">
-    <div>📱 手机号: <b id="setPhone">-</b></div><div>🆔 用户 ID: <b id="setUid">-</b></div><div>📦 版本: <b id="setVer">-</b></div>
+    <div>📱 手机号: <b id="setPhone">-</b></div><div>🆔 用户 ID: <b id="setUid">-</b></div><div>📦 版本: <b id="setVer">-</b> <button class=\"btn-sm btn-ghost\" style=\"padding:2px 10px;font-size:.7rem;border-radius:10px\" onclick=\"checkUpdate()\">检查更新</button></div>
     <div style="margin-top:8px"><label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="setAutoLaunch" onchange="window.electronAPI.system.setAutoLaunch(this.checked)"> 开机自启</label></div>
     <div style="margin-top:4px"><label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="setMinTray" onchange="window.electronAPI.store.set('settings.minimizeToTray',this.checked)"> 最小化到托盘</label></div>
     <div style="margin-top:12px"><div>💚 微信: <b id="wechatStatus">-</b> <span id="wechatActions" style="display:inline"></span></div></div>
@@ -483,6 +483,11 @@ function renderSettingsPanel(){
     </div></div>`;
 }
 
+function checkUpdate(){
+  var btn=event.target; btn.textContent='检查中...'; btn.disabled=true;
+  window.electronAPI.system.checkUpdates();
+  setTimeout(function(){btn.textContent='检查更新'; btn.disabled=false;},3000);
+}
 function initSettings(){
   window.electronAPI.store.get('auth').then(a=>{if(a){document.getElementById('setPhone').textContent=a.phone||'-';document.getElementById('setUid').textContent=a.userId||'-';}});
   window.electronAPI.system.getDeviceInfo().then(i=>{document.getElementById('setVer').textContent=i.version||'-';});
@@ -620,8 +625,7 @@ function showPricing(){
     {id:'f14',name:'成就徽章',group:'学习引擎'},
     {id:'d2',name:'2台设备同时在线',group:'服务'},
     {id:'d3',name:'3台设备同时在线',group:'服务'},
-    {id:'f17',name:'无限记忆库',group:'旗舰版专属'},
-    {id:'f18',name:'知识共享',group:'旗舰版专属'},
+        {id:'f18',name:'知识共享',group:'旗舰版专属'},
     {id:'f19',name:'高级认知引擎',group:'旗舰版专属'},
     {id:'f20',name:'多AI协作',group:'旗舰版专属'}
   ];

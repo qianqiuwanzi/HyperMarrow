@@ -30,9 +30,8 @@ if (!fs.existsSync(htmlPath)) {
   process.exit(0);
 }
 
+// Version and size are now fetched dynamically from latest.yml on page load.
+// The static fallback HTML is just a placeholder — no sync needed.
+// File size is still written for reference.
 let html = fs.readFileSync(htmlPath, 'utf-8');
-html = html.replace(/版本 [\d.]+/, `版本 ${version}`);
-html = html.replace(/· \d+ MB ·/, `· ${sizeMB} MB ·`);
-fs.writeFileSync(htmlPath, html);
-
-console.log(`[sync-product-page] Product page: v${version} / ${sizeMB}MB`);
+console.log(`[sync-product-page] Installer v${version} / ${sizeMB}MB ready (product page fetches version dynamically)`);
