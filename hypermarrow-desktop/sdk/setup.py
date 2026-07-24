@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os, re
 
-version = '2.1.9'
+version = '2.2.4'
 
 setup(
     name='hypermarrow-client',

@@ -1,6 +1,6 @@
 {
   "name": "hypermarrow-desktop",
-  "version": "2.1.9",
+  "version": "2.2.4",
   "description": "智商藏不住 — AI 记忆与学习系统 桌面客户端",
   "main": "dist/main/index.js",
   "author": "OpenClaw Team",

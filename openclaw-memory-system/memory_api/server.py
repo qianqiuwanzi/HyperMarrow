@@ -15,6 +15,23 @@ sys.path.insert(0, str(_HERE.parent / "openclaw-learning-system"))
 from fastapi import FastAPI, WebSocket, Query
 from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
+import logging as _logging
+import os as _os
+
+# ── Debug log file ────────────────────────────────────────────────────────
+_LOG_DIR = _os.environ.get("HM_LOG_DIR",
+    _os.path.join(_os.environ.get("APPDATA", _os.path.expanduser("~")), "hypermarrow"))
+_os.makedirs(_LOG_DIR, exist_ok=True)
+_logging.basicConfig(
+    level=_logging.DEBUG,
+    format='%(asctime)s [%(name)s] %(message)s',
+    handlers=[
+        _logging.FileHandler(_os.path.join(_LOG_DIR, "server.log"), encoding='utf-8'),
+        _logging.StreamHandler(sys.stderr),
+    ]
+)
+_log = _logging.getLogger("HyperMarrow")
+_log.info(f"Logging to {_LOG_DIR}/server.log")
 
 app = FastAPI(title="智商藏不住 Crystal Core", version="2.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -301,13 +318,17 @@ def agents_list():
     _init()
     r=[]
     now = datetime.now()
-    for aid in _REG.list_agents():
+    all_aids = _REG.list_agents()
+    for aid in all_aids:
         b=_REG.get(aid)
         # Only show agents that have been explicitly connected
         if b and not getattr(b, '_connected', False):
+            _log.info(f"[Agents] SKIP '{aid}': registered but never connected")
             continue
         if not b:
+            _log.info(f"[Agents] SKIP '{aid}': null bundle")
             continue
+        _log.info(f"[Agents] SHOW '{aid}': connected=True")
         dc = b.decision_checkpoint
         ql=b.ql_agent.get_stats(); em=b.episodic_memory.get_stats()
         meta=b.metacognition.get_performance_dashboard()
@@ -334,6 +355,12 @@ def agents_list():
             "accuracy":meta.get("recent_accuracy",0),
             "neural_active":neural_active,"wm_active":wm_active,
             "has_em":em["total_episodes"] > 0,"has_wm_task":bool(wm_ctx.get("current_task"))})
+    # Debug: log filter summary
+    total = len(all_aids)
+    shown = len(r)
+    hidden = total - shown
+    if hidden > 0:
+        _log.info(f"[Agents] Summary: {shown}/{total} agents visible ({hidden} hidden — not connected yet)")
     return r
 
 @app.get("/api/v1/search")
@@ -424,6 +451,7 @@ def agent_connect(agent_id: str):
     dc, bundle = _resolve_agent_dc(agent_id)
     if bundle:
         bundle._connected = True
+        _log.info(f"[AgentConnect] '{agent_id}': connected=True, heartbeat started")
         _ensure_heartbeat(agent_id)
     if dc:
         dc._api_session_active = True

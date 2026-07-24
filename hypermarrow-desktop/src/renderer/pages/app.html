@@ -261,6 +261,18 @@ function updateBanner(){
 
 var _engineDownloading=null;
 
+// Lightweight data refresh (no loading spinner, no UI disruption)
+async function refreshData(){
+  if(!_data)return;
+  var[m,l,g,rules,eps,ags,hm,cal,dream,sk,ach]=await Promise.all([
+    F('/memory/overview'),F('/learning/overview'),F('/kg/graph'),F('/pm/rules'),F('/em/timeline?limit=60'),
+    F('/agents'),F('/ql/heatmap'),F('/meta/calibration'),F('/dream/status'),F('/skills/list'),F('/achievements')
+  ]);
+  if(!m&&!l)return;
+  _data={m:m||{},l:l||{},g,rules:rules||[],eps:eps||[],ags:ags||[],hm,cal,dream,skills:Object.values(sk||{}),ach:ach?.achievements||[]};
+  renderAll();
+}
+
 async function loadData(retry){
   retry=retry||0;
   var MAX_RETRY=60, INTERVAL=1500;
@@ -284,6 +296,8 @@ async function loadData(retry){
     renderAll();
     // Show onboarding if no agents connected AND not shown before
     if((!_data.ags||_data.ags.length===0)&&!localStorage.getItem('hm_onboarded')){showOnboarding();}
+    // Auto-refresh dashboard every 15s (lightweight: only updates data, no loading spinner)
+    setInterval(function(){refreshData();},180000);
     try{new WebSocket('ws://127.0.0.1:8741/ws').onmessage=e=>{var d=JSON.parse(e.data);if(_data){_data.l={..._data.l,q_learning:{..._data.l.q_learning,nonzero:d.ql_nonzero,buffer:d.ql_buffer},metacognition:{..._data.l.metacognition,health:d.health,accuracy:d.accuracy,score:d.score}};}};}catch(e){}
     F('/engine/features').then(function(eng){
       if(eng&&eng.vector_memory===false&&!_engineDownloading) showEngineNeeded('vector',eng.modules?.vector);

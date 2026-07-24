@@ -15,7 +15,7 @@ from pathlib import Path
 import os
 import sys
 
-__version__ = "2.1.9"
+__version__ = "2.2.4"
 
 # ── Internal cache ────────────────────────────────────────────────────────
 _config = None
@@ -159,20 +159,43 @@ def get_workspace() -> Path:
     return _detect_workspace()
 
 
+def _get_appdata_dir() -> Path:
+    """Get the appdata root for HyperMarrow: %APPDATA%/hypermarrow/"""
+    appdata = os.environ.get('APPDATA', '')
+    if appdata:
+        p = Path(appdata) / 'hypermarrow'
+        p.mkdir(parents=True, exist_ok=True)
+        return p
+    return get_workspace()  # fallback on non-Windows
+
+
 def get_memory_dir() -> Path:
-    """Get memory directory path (workspace/memory)."""
-    return get_workspace() / "memory"
+    """
+    Memory data directory. Stores in %APPDATA%/hypermarrow/memory/
+    so uninstalling the app never touches user data.
+    Migrates old workspace/memory data on first access.
+    """
+    new_dir = _get_appdata_dir() / 'memory'
+    old_dir = get_workspace() / 'memory'
+    # Migration: if old workspace data exists but new location doesn't, copy over
+    if old_dir.exists() and not new_dir.exists():
+        import shutil as _shutil
+        print(f"[Config] Migrating memory from {old_dir} → {new_dir}", file=sys.stderr)
+        try:
+            _shutil.copytree(str(old_dir), str(new_dir))
+            print(f"[Config] Migration complete", file=sys.stderr)
+        except Exception as e:
+            print(f"[Config] Migration failed: {e}, using old location", file=sys.stderr)
+            return old_dir
+    new_dir.mkdir(parents=True, exist_ok=True)
+    return new_dir
 
 
 def get_cache_dir() -> Path:
-    """Get cache directory path. Prefer APPDATA (user-writable), fallback to workspace."""
-    import platform
-    appdata = os.environ.get('APPDATA', '')
-    if appdata:
-        p = Path(appdata) / 'hypermarrow' / 'cache'
-        p.mkdir(parents=True, exist_ok=True)
-        return p
-    return get_workspace() / ".cache"
+    """Get cache directory path in %APPDATA%/hypermarrow/cache (user-writable)."""
+    p = _get_appdata_dir() / 'cache'
+    p.mkdir(parents=True, exist_ok=True)
+    return p
 
 
 def get_hf_cache_dir() -> Path:
@@ -186,7 +209,7 @@ def get_hf_cache_dir() -> Path:
 
 def get_data_dir() -> Path:
     """
-    Get the canonical data directory.
+    Get the canonical data directory in %APPDATA%/hypermarrow/data/.
     Priority: HYPERMARROW_DATA_DIR env → config.yaml paths.data → default
     """
     cfg = get_config()
@@ -194,7 +217,7 @@ def get_data_dir() -> Path:
     if data:
         data_dir = Path(data)
     else:
-        data_dir = get_workspace() / "HyperMarrow" / "openclaw-memory-system" / "data"
+        data_dir = _get_appdata_dir() / 'data'
     data_dir.mkdir(parents=True, exist_ok=True)
     return data_dir
 

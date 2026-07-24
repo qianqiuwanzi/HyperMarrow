@@ -13,11 +13,11 @@ export function initUpdater(mw: BrowserWindow): void {
   autoUpdater.on('download-progress', (p) => mw.webContents.send('update:download-progress', { percent: Math.round(p.percent) }));
   autoUpdater.on('update-downloaded', () => dialog.showMessageBox(mw, { type: 'info', title: '更新已下载', message: '是否立即重启安装？', buttons: ['立即重启', '稍后'], defaultId: 0 }).then(({ response }) => {
     if (response === 0) {
-      // Disable minimize-to-tray so close actually quits the app
+      // Disable minimize-to-tray so app quits instead of hiding
       store.set('settings.minimizeToTray', false);
-      // Force-close all windows so app can exit
-      BrowserWindow.getAllWindows().forEach(w => { try { w.destroy(); } catch(e) {} });
-      // Now quitAndInstall can proceed — no more "无法关闭" from NSIS
+      // quitAndInstall: isSilent=false, isForceRunAfter=true → NSIS shows UI then auto-launches
+      // isSilent=false: shows UAC prompt for perMachine elevation
+      // isForceRunAfter=true: auto-launch after install completes
       setImmediate(() => autoUpdater.quitAndInstall(false, true));
     }
   }));
@@ -25,6 +25,6 @@ export function initUpdater(mw: BrowserWindow): void {
 }
 export async function checkForUpdates(userInitiated: boolean): Promise<void> {
   if (checking) return; checking = true;
-  try { if (userInitiated) autoUpdater.autoDownload = true; await autoUpdater.checkForUpdates(); }
+  try { await autoUpdater.checkForUpdates(); }
   catch (err) { console.error('[Updater] check failed:', err); } finally { checking = false; }
 }
